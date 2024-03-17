@@ -4,8 +4,9 @@ using UnityEngine;
 
 /// <summary>
 /// 事件的基本属性
+/// UPDATE:废案，可能会废弃
 /// </summary>
-[System.Serializable]
+[System.Obsolete]
 public class MeetEventInfo
 {
     /// <summary>

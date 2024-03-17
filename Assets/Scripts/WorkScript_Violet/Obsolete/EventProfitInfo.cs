@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+/// <summary>
+/// UPDATE:废案，可能会废弃
+/// </summary>
+[System.Obsolete]
 public class EventProfitInfo : MeetEventInfo
 {
     /// <summary>

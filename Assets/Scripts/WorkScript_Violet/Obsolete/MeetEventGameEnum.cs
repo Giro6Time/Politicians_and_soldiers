@@ -1,6 +1,8 @@
 /// <summary>
 /// 会议事件内容类别/名字:注：当前不会用这套方案
+/// UPDATE:可能会考虑废弃
 /// </summary>
+[System.Obsolete]
 public enum MeetEventName
 {
     test1,
@@ -9,7 +11,9 @@ public enum MeetEventName
 
 /// <summary>
 /// 资源类型
+/// UPDATE:可能会考虑废弃
 /// </summary>
+[System.Obsolete]
 public enum ResourceType
 {
     /// <summary>
