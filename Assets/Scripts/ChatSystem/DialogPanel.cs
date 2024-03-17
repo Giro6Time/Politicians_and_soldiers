@@ -119,6 +119,7 @@ public class DialogPanel : MonoBehaviour
             if (t >= 1.0f)
             {
                 closing = false;
+                onClosed?.Invoke();
             }
         }
     }
