@@ -83,7 +83,7 @@ public class MeetEventGameCtrl : MonoBehaviour
         eventMgr = null;
     }
 
-    private void Init(int decisionPointNums)
+    public void Init(int decisionPointNums)
     {
         //currEventProfit.fund = fundRate_Init * decisionPointNums;
         //currEventProfit.people = peopleRate_Init * decisionPointNums;
