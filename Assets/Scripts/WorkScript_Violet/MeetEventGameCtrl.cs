@@ -58,7 +58,6 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// 步骤：
     /// Ctrl+F->查找：输入待替换字符串   替换：输入目标字符串 选择：当前项目/整个解决方案 全部替换:即可
     /// </summary>
-    [HideInInspector]
     public Player currEventProfit;
     #endregion
 
@@ -83,7 +82,7 @@ public class MeetEventGameCtrl : MonoBehaviour
         eventMgr = null;
     }
 
-    private void Init(int decisionPointNums)
+    public void Init(int decisionPointNums)
     {
         //currEventProfit.fund = fundRate_Init * decisionPointNums;
         //currEventProfit.people = peopleRate_Init * decisionPointNums;
@@ -99,13 +98,15 @@ public class MeetEventGameCtrl : MonoBehaviour
         //然后根据两者状态进行初始化
         if (prizeWheelCanvas.gameObject.activeSelf)
         {
+            Debug.Log("游戏开始");
             //对于抽奖轮盘：需要初始化的是有什么奖品(要不要总是更新还需要考虑)
             eventMgr.UpdatePrizePool();
         }
         else
         {
-            //对于会议事件：需要初始化的是开启第一个事件
+            //对于会议事件：需要初始化的是开启第一个事件,并初始化UI
             eventMgr.ExtractCurrentEvent();
+            UIEventListener._Instance.UIMeetingEventUpdate();
         }
     }
 
@@ -127,8 +128,9 @@ public class MeetEventGameCtrl : MonoBehaviour
         }
         else
         {
-            //对于会议事件：需要初始化的是开启第一个事件
+            //对于会议事件：需要初始化的是开启第一个事件,并更新UI
             eventMgr.ExtractCurrentEvent();
+            UIEventListener._Instance.UIMeetingEventUpdate();
         }
     }
 
@@ -137,7 +139,7 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// </summary>
     public void InvokeChangeGameType()
     {
-        Invoke("ChangeGameType",1.5f);
+        Invoke("ChangeGameType",0.5f);
     }
 
     /// <summary>
@@ -183,6 +185,11 @@ public class MeetEventGameCtrl : MonoBehaviour
         }
         //解除冻结
         eventMgr.isFreeze = false;
+        //若抽奖次数用完则进入会议模式
+        if (currRounds >= maxRounds)
+        {
+            InvokeChangeGameType();
+        }
         yield return null;
     }
 

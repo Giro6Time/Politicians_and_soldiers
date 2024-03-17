@@ -45,7 +45,7 @@ public class UIEventListener : MonoBehaviour
     /// 兵力补充条
     /// </summary>
     [SerializeField]
-    private Scrollbar bar_ArmForce;
+    private Slider slider_ArmForce;
 
     /// <summary>
     /// san值文本
@@ -84,18 +84,6 @@ public class UIEventListener : MonoBehaviour
         { _Instance = this; }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            MeetEventGameCtrl._Instance.eventMgr.UpdatePrizePool();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            OnBtnClick_StartPrizeWheel();
-        }
-    }
-
     /// <summary>
     /// 议会事件按钮
     /// </summary>
@@ -123,7 +111,7 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public void UIMeetingEventUpdate()
     {
-        bar_ArmForce.value = (float)MeetEventGameCtrl._Instance.currEventProfit.troopIncrease / MeetEventGameCtrl._Instance.maxArmPlugNum;
+        slider_ArmForce.value = (float)MeetEventGameCtrl._Instance.currEventProfit.troopIncrease / MeetEventGameCtrl._Instance.maxArmPlugNum;
         //更新其余几个UI
         sanityText.text = string.Format("san值：{0}",MeetEventGameCtrl._Instance.currEventProfit.sanity);
         armamentText.text = string.Format("武备：{0}", MeetEventGameCtrl._Instance.currEventProfit.armament);
@@ -134,18 +122,23 @@ public class UIEventListener : MonoBehaviour
 
     /// <summary>
     /// 绘制抽奖转盘
+    /// TODO
     /// </summary>
     public void DrawPrizeWheel()
     {
         if (prizeWheelDivider == null)
         { Debug.LogError("你还没给分割线呢"); }
+        GameObject obj = null;
         //绘制分割线
         //绘制逻辑：开始在0度有一条
-        GameObject.Instantiate(prizeWheelDivider,prizeWheelPointer.transform.position,Quaternion.Euler(Vector3.zero),prizeWheelPointer);
+        obj = GameObject.Instantiate(prizeWheelDivider,MeetEventGameCtrl._Instance.prizeWheelCanvas.transform);
+        obj.transform.rotation = Quaternion.Euler(Vector3.zero);
+
         foreach (KeyValuePair<int, MeetEventAbstract> pair in MeetEventGameCtrl._Instance.eventMgr.currPrizeDic)
         {
             //其余在目标角度上
-            GameObject.Instantiate(prizeWheelDivider, prizeWheelPointer.transform.position, Quaternion.Euler(Vector3.forward*pair.Key), prizeWheelPointer);
+            obj = GameObject.Instantiate(prizeWheelDivider, MeetEventGameCtrl._Instance.prizeWheelCanvas.transform);
+            obj.transform.rotation = Quaternion.Euler(Vector3.forward*pair.Key);
         }
         //TODO：绘制图层
 
@@ -153,7 +146,7 @@ public class UIEventListener : MonoBehaviour
 
     private void OnDestroy()
     {
-        bar_ArmForce = null;
+        slider_ArmForce = null;
         prizeWheelPointer = null;
         sanityText = null;
         armamentText = null;
