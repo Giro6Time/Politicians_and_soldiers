@@ -25,7 +25,7 @@ public class CardBase : MonoBehaviour
     //private float progressInfluence;
 
     [SerializeField] private Enums.Season matchedSeason;
-    [SerializeField] private Enums.Weather matchedWeather;
+    //[SerializeField] private Enums.Weather matchedWeather;
 
     //based on concrete card ability
     //private float amountFix;

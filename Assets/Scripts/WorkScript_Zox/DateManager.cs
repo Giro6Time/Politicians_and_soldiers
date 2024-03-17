@@ -69,4 +69,8 @@ public class DateManager : MonoBehaviour
     {
         return month;
     }
+    public Enums.Season GetSeason()
+    {
+        return season;
+    }
 }

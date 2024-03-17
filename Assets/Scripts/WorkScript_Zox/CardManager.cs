@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Assertions.Must;
 
 public class CardManager : MonoBehaviour {
 
@@ -23,7 +24,7 @@ public class CardManager : MonoBehaviour {
     [SerializeField] float offsetX_SelectableArea;
 
     private List<CardBaseSO> playerSelectableCardList;
-    public int playerSelectableCardListAmount;
+    [HideInInspector] public int playerSelectableCardListAmount;
     [SerializeField] private int playerSelectableCardListAmountMax;
 
     public List<CardBase> landCardList;
@@ -75,6 +76,7 @@ public class CardManager : MonoBehaviour {
             Destroy(object2bDeleted.gameObject);
         }
 
+        Debug.Log(playerSelectableCardList.Count);
         for (int i = 0; i < playerSelectableCardList.Count; i++)
         {
             Transform card = Instantiate(playerSelectableCardList[i].cardPrefab, cardsCenterPoint);
@@ -192,12 +194,17 @@ public class CardManager : MonoBehaviour {
     private void DateManager_OnMonthChanged(object sender, EventArgs e)
     {
         //clearAllBattleFieldCardList(); //Debug
+        UpdateCardPoolPointer((sender as DateManager).GetSeason());
         UpdatePlayerSelectableCardList();
     }
 
     private void UpdatePlayerSelectableCardList()
     {
         AddCardSelectable(2);
+    }
+    private void UpdateCardPoolPointer(Enums.Season season)
+    {
+        cardPool.UpdateCurrentPoolPointer(season);
     }
 
     private void AddCardSelectable(int num)
