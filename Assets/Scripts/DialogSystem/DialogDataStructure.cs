@@ -24,7 +24,7 @@ public class DemoEffect1 : DialogEffect
     public void Trigger(Player p)
     {
         Debug.Log("玩家的san值降低了");
-        p.san--;
+        p.sanity--;
     }
 }
 
@@ -34,6 +34,6 @@ public class DemoEffect2 : DialogEffect
     public void Trigger(Player p)
     {
         Debug.Log("玩家的行动点增加了");
-        p.san--;
+        p.sanity--;
     }
 }

@@ -1,16 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+[System.Serializable]
+public class Player
 {
-    public static Player Instance;
-
-    public int san = 5;
-
-    private void Awake()
-    {
-        Instance = this;
+    //TODO：创建单例模式的基类
+    public static Player Instance
+    { 
+        get
+        {
+            if(instance == null)
+                instance = new Player();
+            return instance;
+        }
+        private set
+        {
+            instance = value;
+        }
     }
+    private static Player instance;
+
+    public int decisionValue;
+    public float sanity;
+    public float armament;
+    public float fund;
+    public float popularSupport;
+    public float troopIncrease;
+
 }
