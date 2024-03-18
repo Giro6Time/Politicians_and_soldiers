@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Army1 3
   m_EditorClassIdentifier: 
   matchedSeason: 0
-  cardPrefab: {fileID: 8331017955193306250, guid: 084aba629410e594d8899259d216feaa, type: 3}
+  cardPrefab: {fileID: 8331017955193306250, guid: 38911ea764465f94daca749622c7fa22, type: 3}

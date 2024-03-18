@@ -308,6 +308,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 145141721555288451, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: springCardSOList.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 145141721555288451, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: springCardSOList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: d6262ed333b86a04f92e035b23970b5d, type: 2}
+    - target: {fileID: 145141721555288451, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: springCardSOList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 96de8fd8b4b46d74f86629d929f3a7f6, type: 2}
+    - target: {fileID: 145141721555288451, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: springCardSOList.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
+    - target: {fileID: 145141721555288451, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: springCardSOList.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
+    - target: {fileID: 145141721555288451, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: springCardSOList.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
+    - target: {fileID: 145141721555288451, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: springCardSOList.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: d881735d9458cba4d8a33cb626f0e61e, type: 2}
     - target: {fileID: 554664835406573018, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_IsActive
       value: 1

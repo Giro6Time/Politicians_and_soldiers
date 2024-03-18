@@ -11,6 +11,7 @@ public class CardManager : MonoBehaviour {
     public CardPlayingArea cardPlayingArea;
     public CardPlayingArea enemyPlayingArea;
 
+    public event EventHandler OnCardPut;
 
     [SerializeField] Transform cardsCenterPoint;
     [SerializeField] Transform cardAnchor_Sky_Player;
@@ -46,14 +47,14 @@ public class CardManager : MonoBehaviour {
 
         PlayerControl.Instance.OnKeyCodeEPressed += PlayerControl_OnKeyCodeEPressed;
         PlayerControl.Instance.OnMouseLeftClickedOnCard += PlayerControl_OnMouseLeftClickedOnCard;
+
+        OnCardPut += CardManager_OnCardPut;
     }
+
 
     private void PlayerControl_OnMouseLeftClickedOnCard(object sender, PlayerControl.MouseSelectedEventArgs e)
     {
-
-        UpdateBattleFieldPlayerCardList(e);
-
-        UpdateCardPos(e.selectedCard, cardAnchor_Land_Player, cardAnchor_Sea_Player, cardAnchor_Sky_Player, cardsCenterPoint, offsetX_BattleField);
+        UpdateCardPos(e.selectedCard);
 
         RearrangeCard(cardsCenterPoint, offsetX_SelectableArea);
         RearrangeCard(cardAnchor_Sky_Player, offsetX_BattleField);
@@ -96,23 +97,26 @@ public class CardManager : MonoBehaviour {
         }
     }
 
-    private void UpdateBattleFieldPlayerCardList(PlayerControl.MouseSelectedEventArgs e)
+    private void UpdateCardPos(CardBase card)
     {
-        if (e.selectedCard.GetCardPos() == Enums.CardPos.SelectionArea)
+        if (card.GetCardPos() == Enums.CardPos.SelectionArea)
         {
             playerSelectableCardListAmount--;
-            playerSelectableCardList.Remove(e.selectedCard.GetCardSO());
+            playerSelectableCardList.Remove(card.GetCardSO());
 
-            switch (e.selectedCard.GetCardType())
+            switch (card.GetCardType())
             {
                 case Enums.CardType.Army:
-                    cardPlayingArea.ground.Add(e.selectedCard);
+                    cardPlayingArea.ground.Add(card);
+                    UpdateCardPosVisual(card, cardAnchor_Land_Player, Enums.CardPos.LandPutArea);
                     break;
                 case Enums.CardType.Navy:
-                    cardPlayingArea.sea.Add(e.selectedCard);
+                    cardPlayingArea.sea.Add(card);
+                    UpdateCardPosVisual(card, cardAnchor_Sea_Player, Enums.CardPos.SeaPutArea);
                     break;
                 case Enums.CardType.AirForce:
-                    cardPlayingArea.sky.Add(e.selectedCard);
+                    cardPlayingArea.sky.Add(card);
+                    UpdateCardPosVisual(card, cardAnchor_Sky_Player, Enums.CardPos.SkyPutArea);
                     break;
                 case Enums.CardType.Effect:
                     break;
@@ -122,24 +126,32 @@ public class CardManager : MonoBehaviour {
         {
 
             playerSelectableCardListAmount++;
-            playerSelectableCardList.Add(e.selectedCard.GetCardSO());
+            playerSelectableCardList.Add(card.GetCardSO());
 
-            switch (e.selectedCard.GetCardPos())
+            UpdateCardPosVisual(card, cardsCenterPoint, Enums.CardPos.SelectionArea);
+
+            switch (card.GetCardPos())
             {
                 case Enums.CardPos.LandPutArea:
-                    cardPlayingArea.ground.Remove(e.selectedCard);
+                    cardPlayingArea.ground.Remove(card);
                     break;
                 case Enums.CardPos.SeaPutArea:
-                    cardPlayingArea.sea.Remove(e.selectedCard);
+                    cardPlayingArea.sea.Remove(card);
                     break;
                 case Enums.CardPos.SkyPutArea:
-                    cardPlayingArea.sky.Remove(e.selectedCard);
+                    cardPlayingArea.sky.Remove(card);
                     break;
             }
         }
     }
 
-    private void UpdateCardPos(CardBase card, Transform cardAnchor_Land, Transform cardAnchor_Sea, Transform cardAnchor_Sky, Transform cardsCenterPoint, float offsetX_BattleField)
+
+    private void CardManager_OnCardPut(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    /*private void UpdateCardPosVisual(CardBase card, Transform cardAnchor_Land, Transform cardAnchor_Sea, Transform cardAnchor_Sky, Transform cardsCenterPoint, float offsetX_BattleField)
     {
         if (card.GetCardPos() == Enums.CardPos.SelectionArea)
         {
@@ -185,11 +197,14 @@ public class CardManager : MonoBehaviour {
                     break;
             }
         }
+    }*/
+
+    private void UpdateCardPosVisual(CardBase card, Transform anchor, Enums.CardPos pos)
+    {
+        card.transform.SetParent(anchor, false);
+        //card.transform.localPosition = new Vector3((anchor.transform.childCount - 1) * offsetX, 0, 0);
+        card.SetCardPos(pos);
     }
-
-
-
-
 
     private void DateManager_OnMonthChanged(object sender, EventArgs e)
     {

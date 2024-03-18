@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8376360451762786390}
   - component: {fileID: 2059564369702515075}
   m_Layer: 0
-  m_Name: Army1
+  m_Name: Army1 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bae23361f7816ad4d8f34e90323092e4, type: 2}
+  - {fileID: 2100000, guid: 21e3f26fe4eb0da4680ca3572cd22a94, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   discription: 
   cardFace: {fileID: 0}
   cardBack: {fileID: 0}
-  cardSO: {fileID: 11400000, guid: c05123a5a92070048993983e461efc92, type: 2}
+  cardSO: {fileID: 11400000, guid: d881735d9458cba4d8a33cb626f0e61e, type: 2}
   cardType: 0
   cardAttackType: 0
   decisionPointCost: 0
