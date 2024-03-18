@@ -10,7 +10,7 @@ public class DialogManager : MonoBehaviour
     public static DialogManager Instance;
     public DialogUnit[] currDialogUnits = null;
     int currUnitInd = 0;
-
+    public string dialogUnitResourcePath;
 
     private void Start()
     {
@@ -21,10 +21,7 @@ public class DialogManager : MonoBehaviour
     }
     public DialogUnit[] LoadDialog()
     {
-        List<DialogUnit> dialogUnits = new();
-        dialogUnits.Add(DialogFactory.CreateDialogUnitByDEMO(0));
-        dialogUnits.Add(DialogFactory.CreateDialogUnitByDEMO(1));
-        return dialogUnits.ToArray();
+        return DialogFactory.CreateDialogBySOList(Resources.LoadAll<DialogUnitSO>(dialogUnitResourcePath)).ToArray();
     }
 
 

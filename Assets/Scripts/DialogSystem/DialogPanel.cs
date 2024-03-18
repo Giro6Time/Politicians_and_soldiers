@@ -49,11 +49,11 @@ public class DialogPanel : MonoBehaviour
         m_content.gameObject.SetActive(true);
         m_content.text = dialogUnit.m_content;
         m_dialogUnit = dialogUnit;
-        for (int i = 0; i < dialogUnit.m_options.Length; i++)
+        for (int i = 0; i < dialogUnit.m_options.Count; i++)
         {
             int optionIndex = i;
             m_buttons[i].gameObject.SetActive(true);
-             m_buttons[i].onClick.AddListener(() => OnOptionSelected(m_dialogUnit.m_options[optionIndex].m_effect));
+             m_buttons[i].onClick.AddListener(() => OnOptionSelected(m_dialogUnit.m_options[optionIndex].m_effect[0]));
         }
     }
 
