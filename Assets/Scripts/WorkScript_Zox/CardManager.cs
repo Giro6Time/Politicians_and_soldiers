@@ -25,12 +25,9 @@ public class CardManager : MonoBehaviour {
     [SerializeField] float offsetX_SelectableArea;
 
     private List<CardBaseSO> playerSelectableCardList;
-    [HideInInspector] public int playerSelectableCardListAmount;
     [SerializeField] private int playerSelectableCardListAmountMax;
 
-    public List<CardBase> landCardList;
-    public List<CardBase> skyCardList;
-    public List<CardBase> seaCardList;
+    [SerializeField] private Enemy enemy;
 
 
     private void Awake()
@@ -56,10 +53,18 @@ public class CardManager : MonoBehaviour {
     {
         UpdateCardPos(e.selectedCard);
 
+        RearrangeAll();
+    }
+
+    private void RearrangeAll()
+    {
         RearrangeCard(cardsCenterPoint, offsetX_SelectableArea);
         RearrangeCard(cardAnchor_Sky_Player, offsetX_BattleField);
         RearrangeCard(cardAnchor_Land_Player, offsetX_BattleField);
         RearrangeCard(cardAnchor_Sea_Player, offsetX_BattleField);
+        RearrangeCard(cardAnchor_Sky_Enemy, offsetX_BattleField);
+        RearrangeCard(cardAnchor_Land_Enemy, offsetX_BattleField);
+        RearrangeCard(cardAnchor_Sea_Enemy, offsetX_BattleField);
     }
 
     private void PlayerControl_OnKeyCodeEPressed(object sender, EventArgs e)
@@ -77,7 +82,6 @@ public class CardManager : MonoBehaviour {
             Destroy(object2bDeleted.gameObject);
         }
 
-        Debug.Log(playerSelectableCardList.Count);
         for (int i = 0; i < playerSelectableCardList.Count; i++)
         {
             Transform card = Instantiate(playerSelectableCardList[i].cardPrefab, cardsCenterPoint);
@@ -101,7 +105,6 @@ public class CardManager : MonoBehaviour {
     {
         if (card.GetCardPos() == Enums.CardPos.SelectionArea)
         {
-            playerSelectableCardListAmount--;
             playerSelectableCardList.Remove(card.GetCardSO());
 
             switch (card.GetCardType())
@@ -125,7 +128,6 @@ public class CardManager : MonoBehaviour {
         else
         {
 
-            playerSelectableCardListAmount++;
             playerSelectableCardList.Add(card.GetCardSO());
 
             UpdateCardPosVisual(card, cardsCenterPoint, Enums.CardPos.SelectionArea);
@@ -151,54 +153,6 @@ public class CardManager : MonoBehaviour {
         throw new NotImplementedException();
     }
 
-    /*private void UpdateCardPosVisual(CardBase card, Transform cardAnchor_Land, Transform cardAnchor_Sea, Transform cardAnchor_Sky, Transform cardsCenterPoint, float offsetX_BattleField)
-    {
-        if (card.GetCardPos() == Enums.CardPos.SelectionArea)
-        {
-            switch (card.GetCardType())
-            {
-                case Enums.CardType.Army:
-                    card.transform.SetParent(cardAnchor_Land, false);
-                    card.transform.localPosition = new Vector3((cardAnchor_Land.transform.childCount - 1) * offsetX_BattleField, 0, 0);
-                    card.SetCardPos(Enums.CardPos.LandPutArea);
-                    break;
-                case Enums.CardType.Navy:
-                    card.transform.SetParent(cardAnchor_Sea, false);
-                    card.transform.localPosition = new Vector3((cardAnchor_Sea.transform.childCount - 1) * offsetX_BattleField, 0, 0);
-                    card.SetCardPos(Enums.CardPos.SeaPutArea);
-                    break;
-                case Enums.CardType.AirForce:
-                    card.transform.SetParent(cardAnchor_Sky, false);
-                    card.transform.localPosition = new Vector3((cardAnchor_Sky.transform.childCount - 1) * offsetX_BattleField, 0, 0);
-                    card.SetCardPos(Enums.CardPos.SkyPutArea);
-                    break;
-                case Enums.CardType.Effect:
-                    break;
-            }
-        }
-        else
-        {
-            switch (card.GetCardPos())
-            {
-                case Enums.CardPos.LandPutArea:
-                    card.SetCardPos(Enums.CardPos.SelectionArea);
-                    card.transform.SetParent(cardsCenterPoint, false);
-                    card.transform.localPosition = Vector3.zero;
-                    break;
-                case Enums.CardPos.SeaPutArea:
-                    card.SetCardPos(Enums.CardPos.SelectionArea);
-                    card.transform.SetParent(cardsCenterPoint, false);
-                    card.transform.localPosition = Vector3.zero;
-                    break;
-                case Enums.CardPos.SkyPutArea:
-                    card.SetCardPos(Enums.CardPos.SelectionArea);
-                    card.transform.SetParent(cardsCenterPoint, false);
-                    card.transform.localPosition = Vector3.zero;
-                    break;
-            }
-        }
-    }*/
-
     private void UpdateCardPosVisual(CardBase card, Transform anchor, Enums.CardPos pos)
     {
         card.transform.SetParent(anchor, false);
@@ -211,6 +165,12 @@ public class CardManager : MonoBehaviour {
         //clearAllBattleFieldCardList(); //Debug
         UpdateCardPoolPointer((sender as DateManager).GetSeason());
         UpdatePlayerSelectableCardList();
+
+        //Enemy put card
+        foreach(CardBaseSO enemyCardSO in enemy.cardList[(sender as DateManager).GetMonth() - 1])
+        {
+            Instantiate(enemyCardSO);
+        }
     }
 
     private void UpdatePlayerSelectableCardList()
@@ -224,15 +184,40 @@ public class CardManager : MonoBehaviour {
 
     private void AddCardSelectable(int num)
     {
-        if (playerSelectableCardListAmount + num > playerSelectableCardListAmountMax)
+        if(playerSelectableCardList.Count > playerSelectableCardListAmountMax)
         {
-            num = playerSelectableCardListAmountMax - playerSelectableCardListAmount;
+            return;
         }
+        if (playerSelectableCardList.Count + num > playerSelectableCardListAmountMax)
+        {
+            num = playerSelectableCardListAmountMax - playerSelectableCardList.Count;
+        }
+        Debug.Log(num);
         for (int i = 0; i < num; i++)
         {
             playerSelectableCardList.Add(cardPool.currentCardSOListPointer[(int)UnityEngine.Random.Range(0, cardPool.currentCardSOListPointer.Count - 1)]);
         }
-        playerSelectableCardListAmount += num;
     }
 
+    private void InstantiateEnemy(CardBaseSO enemyCardSO)
+    {
+        Transform enemy_card = enemyCardSO.cardPrefab;
+
+        CardBase enemyCard = enemy_card.GetComponent<CardBase>();
+        switch (enemyCard.GetCardType()) {
+            case Enums.CardType.Army:
+                Transform newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy);
+                newCard.localPosition = Vector3.zero;
+                break;
+            case Enums.CardType.Navy:
+                Transform newCard1 = Instantiate(enemy_card, cardAnchor_Sea_Enemy);
+                newCard1.localPosition = Vector3.zero;
+                break;
+            case Enums.CardType.AirForce:
+                Transform newCard2 = Instantiate(enemy_card, cardAnchor_Sky_Enemy);
+                newCard2.localPosition = Vector3.zero;
+                break;
+        }
+        
+    }
 }
