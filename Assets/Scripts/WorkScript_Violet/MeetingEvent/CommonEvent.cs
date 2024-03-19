@@ -12,4 +12,5 @@ public class CommonEvent : MeetEventAbstract
         base.OnAwake();
         eventInfo = new Player();
     }
+
 }

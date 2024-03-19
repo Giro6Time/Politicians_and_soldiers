@@ -1,3 +1,7 @@
+合并须知：
+1.运行->输入P->开始运行，看图点按钮即可
+2.如果原来有存储player属性的对象，到这里去MeetEventGameCtrl，搜索currEventProfit，那里有说明怎么改
+
 使用须知：
 1.添加新事件需要干嘛？
 （1）给新事件添加图文，和把CommonEvent拉到新事件上

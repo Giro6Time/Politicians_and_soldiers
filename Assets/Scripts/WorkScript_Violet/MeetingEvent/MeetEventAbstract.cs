@@ -53,4 +53,9 @@ public abstract class MeetEventAbstract:MonoBehaviour
         MeetEventGameCtrl._Instance.currEventProfit.troopIncrease += eventInfo.troopIncrease;
     }
 
+    public virtual void Copy(MeetEventAbstract other)
+    {
+        this.eventInfo = other.eventInfo;
+        this._eventValue = other.EventValue;
+    }
 }

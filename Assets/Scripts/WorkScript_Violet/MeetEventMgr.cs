@@ -54,11 +54,6 @@ public class MeetEventMgr
             isFreeze = true;
             //启动程序
             MeetEventGameCtrl._Instance.StartPrizeWheel();
-            //若抽奖次数用完则进入会议模式
-            if (MeetEventGameCtrl._Instance.currRounds >= MeetEventGameCtrl._Instance.maxRounds)
-            {
-                MeetEventGameCtrl._Instance.InvokeChangeGameType();
-            }
         }
     }
 
@@ -74,7 +69,7 @@ public class MeetEventMgr
             //进行资源更新
             currEvent.ResourceChange();
             //进行k值计算和更新
-            CaculateK();
+            //CaculateK();
         }
         //进行UI更新
         UIEventListener._Instance.UIMeetingEventUpdate();
@@ -87,7 +82,7 @@ public class MeetEventMgr
         }
         else
         {
-            //结束游戏
+            //结束游戏 TODO:若需要返回值：也可返回
             GameExit();
         }
     }
@@ -122,8 +117,10 @@ public class MeetEventMgr
         GameObject obj = currentEventList[MeetEventGameCtrl._Instance.currRounds].gameObject;
         //2.创建物体/从对象池中读取物体：暂定是创建物体
         obj = GameObject.Instantiate(obj, MeetEventGameCtrl._Instance.meetEventCanvas.transform);
+        obj.GetComponent<CommonEvent>().Copy(currentEventList[MeetEventGameCtrl._Instance.currRounds]);
         //3.赋值
         currEvent = obj.GetComponent<CommonEvent>();
+ 
     }
     #endregion
 
@@ -160,11 +157,9 @@ public class MeetEventMgr
             prizeIndex = (int)eventRarityArray[i + UIEventListener._Instance.prizeNums];
             currAngles += (int)((eventRarityArray[i] * 360) / sum);
             currPrizeDic.Add(currAngles, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
-            Debug.Log("第" + (i+1)+"位:" +"名字："+ MeetEventGameCtrl._Instance.eventList[prizeIndex].name+ ":角度"+currAngles);
         }
         prizeIndex = (int)eventRarityArray[2*UIEventListener._Instance.prizeNums-1];
         currPrizeDic.Add(360, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
-        Debug.Log("第" + UIEventListener._Instance.prizeNums + "位:" + "名字：" + MeetEventGameCtrl._Instance.eventList[prizeIndex].name + ":角度" + 360);
         //进行UI绘制
         //??：文本绘制还是图集绘制？
         UIEventListener._Instance.DrawPrizeWheel();
@@ -177,7 +172,8 @@ public class MeetEventMgr
     {
         //离开时：将两个canvas失活？
         Debug.Log("游戏结束");
-
+        MeetEventGameCtrl._Instance.meetEventCanvas.gameObject.SetActive(false);
+        MeetEventGameCtrl._Instance.prizeWheelCanvas.gameObject.SetActive(false);
     }
 
     
