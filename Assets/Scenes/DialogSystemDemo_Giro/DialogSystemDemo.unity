@@ -871,6 +871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 1070260928226414908}
+  dialogUnitResourcePath: DialogUnits_ByGiro
 --- !u!1 &1070260928000108605
 GameObject:
   m_ObjectHideFlags: 0
