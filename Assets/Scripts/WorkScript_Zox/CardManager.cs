@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Assertions.Must;
 
 public class CardManager : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class CardManager : MonoBehaviour {
     public CardPlayingArea cardPlayingArea;
     public CardPlayingArea enemyPlayingArea;
 
+    public event EventHandler OnCardPut;
 
     [SerializeField] Transform cardsCenterPoint;
     [SerializeField] Transform cardAnchor_Sky_Player;
@@ -23,12 +25,9 @@ public class CardManager : MonoBehaviour {
     [SerializeField] float offsetX_SelectableArea;
 
     private List<CardBaseSO> playerSelectableCardList;
-    public int playerSelectableCardListAmount;
     [SerializeField] private int playerSelectableCardListAmountMax;
 
-    public List<CardBase> landCardList;
-    public List<CardBase> skyCardList;
-    public List<CardBase> seaCardList;
+    [SerializeField] private Enemy enemy;
 
 
     private void Awake()
@@ -45,19 +44,27 @@ public class CardManager : MonoBehaviour {
 
         PlayerControl.Instance.OnKeyCodeEPressed += PlayerControl_OnKeyCodeEPressed;
         PlayerControl.Instance.OnMouseLeftClickedOnCard += PlayerControl_OnMouseLeftClickedOnCard;
+
+        OnCardPut += CardManager_OnCardPut;
     }
+
 
     private void PlayerControl_OnMouseLeftClickedOnCard(object sender, PlayerControl.MouseSelectedEventArgs e)
     {
+        UpdateCardPos(e.selectedCard);
 
-        UpdateBattleFieldPlayerCardList(e);
+        RearrangeAll();
+    }
 
-        UpdateCardPos(e.selectedCard, cardAnchor_Land_Player, cardAnchor_Sea_Player, cardAnchor_Sky_Player, cardsCenterPoint, offsetX_BattleField);
-
+    private void RearrangeAll()
+    {
         RearrangeCard(cardsCenterPoint, offsetX_SelectableArea);
         RearrangeCard(cardAnchor_Sky_Player, offsetX_BattleField);
         RearrangeCard(cardAnchor_Land_Player, offsetX_BattleField);
         RearrangeCard(cardAnchor_Sea_Player, offsetX_BattleField);
+        RearrangeCard(cardAnchor_Sky_Enemy, offsetX_BattleField);
+        RearrangeCard(cardAnchor_Land_Enemy, offsetX_BattleField);
+        RearrangeCard(cardAnchor_Sea_Enemy, offsetX_BattleField);
     }
 
     private void PlayerControl_OnKeyCodeEPressed(object sender, EventArgs e)
@@ -94,69 +101,25 @@ public class CardManager : MonoBehaviour {
         }
     }
 
-    private void UpdateBattleFieldPlayerCardList(PlayerControl.MouseSelectedEventArgs e)
-    {
-        if (e.selectedCard.GetCardPos() == Enums.CardPos.SelectionArea)
-        {
-            playerSelectableCardListAmount--;
-            playerSelectableCardList.Remove(e.selectedCard.GetCardSO());
-
-            switch (e.selectedCard.GetCardType())
-            {
-                case Enums.CardType.Army:
-                    cardPlayingArea.ground.Add(e.selectedCard);
-                    break;
-                case Enums.CardType.Navy:
-                    cardPlayingArea.sea.Add(e.selectedCard);
-                    break;
-                case Enums.CardType.AirForce:
-                    cardPlayingArea.sky.Add(e.selectedCard);
-                    break;
-                case Enums.CardType.Effect:
-                    break;
-            }
-        }
-        else
-        {
-
-            playerSelectableCardListAmount++;
-            playerSelectableCardList.Add(e.selectedCard.GetCardSO());
-
-            switch (e.selectedCard.GetCardPos())
-            {
-                case Enums.CardPos.LandPutArea:
-                    cardPlayingArea.ground.Remove(e.selectedCard);
-                    break;
-                case Enums.CardPos.SeaPutArea:
-                    cardPlayingArea.sea.Remove(e.selectedCard);
-                    break;
-                case Enums.CardPos.SkyPutArea:
-                    cardPlayingArea.sky.Remove(e.selectedCard);
-                    break;
-            }
-        }
-    }
-
-    private void UpdateCardPos(CardBase card, Transform cardAnchor_Land, Transform cardAnchor_Sea, Transform cardAnchor_Sky, Transform cardsCenterPoint, float offsetX_BattleField)
+    private void UpdateCardPos(CardBase card)
     {
         if (card.GetCardPos() == Enums.CardPos.SelectionArea)
         {
+            playerSelectableCardList.Remove(card.GetCardSO());
+
             switch (card.GetCardType())
             {
                 case Enums.CardType.Army:
-                    card.transform.SetParent(cardAnchor_Land, false);
-                    card.transform.localPosition = new Vector3((cardAnchor_Land.transform.childCount - 1) * offsetX_BattleField, 0, 0);
-                    card.SetCardPos(Enums.CardPos.LandPutArea);
+                    cardPlayingArea.ground.Add(card);
+                    UpdateCardPosVisual(card, cardAnchor_Land_Player, Enums.CardPos.LandPutArea);
                     break;
                 case Enums.CardType.Navy:
-                    card.transform.SetParent(cardAnchor_Sea, false);
-                    card.transform.localPosition = new Vector3((cardAnchor_Sea.transform.childCount - 1) * offsetX_BattleField, 0, 0);
-                    card.SetCardPos(Enums.CardPos.SeaPutArea);
+                    cardPlayingArea.sea.Add(card);
+                    UpdateCardPosVisual(card, cardAnchor_Sea_Player, Enums.CardPos.SeaPutArea);
                     break;
                 case Enums.CardType.AirForce:
-                    card.transform.SetParent(cardAnchor_Sky, false);
-                    card.transform.localPosition = new Vector3((cardAnchor_Sky.transform.childCount - 1) * offsetX_BattleField, 0, 0);
-                    card.SetCardPos(Enums.CardPos.SkyPutArea);
+                    cardPlayingArea.sky.Add(card);
+                    UpdateCardPosVisual(card, cardAnchor_Sky_Player, Enums.CardPos.SkyPutArea);
                     break;
                 case Enums.CardType.Effect:
                     break;
@@ -164,53 +127,97 @@ public class CardManager : MonoBehaviour {
         }
         else
         {
+
+            playerSelectableCardList.Add(card.GetCardSO());
+
+            UpdateCardPosVisual(card, cardsCenterPoint, Enums.CardPos.SelectionArea);
+
             switch (card.GetCardPos())
             {
                 case Enums.CardPos.LandPutArea:
-                    card.SetCardPos(Enums.CardPos.SelectionArea);
-                    card.transform.SetParent(cardsCenterPoint, false);
-                    card.transform.localPosition = Vector3.zero;
+                    cardPlayingArea.ground.Remove(card);
                     break;
                 case Enums.CardPos.SeaPutArea:
-                    card.SetCardPos(Enums.CardPos.SelectionArea);
-                    card.transform.SetParent(cardsCenterPoint, false);
-                    card.transform.localPosition = Vector3.zero;
+                    cardPlayingArea.sea.Remove(card);
                     break;
                 case Enums.CardPos.SkyPutArea:
-                    card.SetCardPos(Enums.CardPos.SelectionArea);
-                    card.transform.SetParent(cardsCenterPoint, false);
-                    card.transform.localPosition = Vector3.zero;
+                    cardPlayingArea.sky.Remove(card);
                     break;
             }
         }
     }
 
 
+    private void CardManager_OnCardPut(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 
-
+    private void UpdateCardPosVisual(CardBase card, Transform anchor, Enums.CardPos pos)
+    {
+        card.transform.SetParent(anchor, false);
+        //card.transform.localPosition = new Vector3((anchor.transform.childCount - 1) * offsetX, 0, 0);
+        card.SetCardPos(pos);
+    }
 
     private void DateManager_OnMonthChanged(object sender, EventArgs e)
     {
         //clearAllBattleFieldCardList(); //Debug
+        UpdateCardPoolPointer((sender as DateManager).GetSeason());
         UpdatePlayerSelectableCardList();
+
+        //Enemy put card
+        foreach(CardBaseSO enemyCardSO in enemy.cardList[(sender as DateManager).GetMonth() - 1])
+        {
+            Instantiate(enemyCardSO);
+        }
     }
 
     private void UpdatePlayerSelectableCardList()
     {
         AddCardSelectable(2);
     }
+    private void UpdateCardPoolPointer(Enums.Season season)
+    {
+        cardPool.UpdateCurrentPoolPointer(season);
+    }
 
     private void AddCardSelectable(int num)
     {
-        if (playerSelectableCardListAmount + num > playerSelectableCardListAmountMax)
+        if(playerSelectableCardList.Count > playerSelectableCardListAmountMax)
         {
-            num = playerSelectableCardListAmountMax - playerSelectableCardListAmount;
+            return;
         }
+        if (playerSelectableCardList.Count + num > playerSelectableCardListAmountMax)
+        {
+            num = playerSelectableCardListAmountMax - playerSelectableCardList.Count;
+        }
+        Debug.Log(num);
         for (int i = 0; i < num; i++)
         {
             playerSelectableCardList.Add(cardPool.currentCardSOListPointer[(int)UnityEngine.Random.Range(0, cardPool.currentCardSOListPointer.Count - 1)]);
         }
-        playerSelectableCardListAmount += num;
     }
 
+    private void InstantiateEnemy(CardBaseSO enemyCardSO)
+    {
+        Transform enemy_card = enemyCardSO.cardPrefab;
+
+        CardBase enemyCard = enemy_card.GetComponent<CardBase>();
+        switch (enemyCard.GetCardType()) {
+            case Enums.CardType.Army:
+                Transform newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy);
+                newCard.localPosition = Vector3.zero;
+                break;
+            case Enums.CardType.Navy:
+                Transform newCard1 = Instantiate(enemy_card, cardAnchor_Sea_Enemy);
+                newCard1.localPosition = Vector3.zero;
+                break;
+            case Enums.CardType.AirForce:
+                Transform newCard2 = Instantiate(enemy_card, cardAnchor_Sky_Enemy);
+                newCard2.localPosition = Vector3.zero;
+                break;
+        }
+        
+    }
 }

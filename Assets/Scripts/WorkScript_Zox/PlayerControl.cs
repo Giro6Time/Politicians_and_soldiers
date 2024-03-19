@@ -38,7 +38,8 @@ public class PlayerControl : MonoBehaviour
         UpdateMouse();
     }
 
-    private void UpdateMouse()
+    //2D Logic
+    /*private void UpdateMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics2D.Raycast(ray.origin, ray.direction))
@@ -63,5 +64,33 @@ public class PlayerControl : MonoBehaviour
                 }
             }
         }
+    }*/
+    private void UpdateMouse()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.TryGetComponent(out CardBase card))
+            {
+                selectedCard = card;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    OnMouseLeftClickedOnCard?.Invoke(this, new MouseSelectedEventArgs
+                    {
+                        selectedCard = selectedCard
+                    });
+                }
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    OnKeyCodeFPressedOnCard?.Invoke(this, new MouseSelectedEventArgs
+                    {
+                        selectedCard = selectedCard
+                    });
+                }
+            }
+        }
     }
+
 }
