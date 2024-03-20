@@ -20,15 +20,8 @@ public class CardBase : MonoBehaviour
 
     [SerializeField] private Enums.CardType cardType;
     [SerializeField] private Enums.CardAttackType cardAttackType;
-    //private int armyAmount;
     [SerializeField] private int decisionPointCost;
-    //private float progressInfluence;
-
     [SerializeField] private Enums.Season matchedSeason;
-    //[SerializeField] private Enums.Weather matchedWeather;
-
-    //based on concrete card ability
-    //private float amountFix;
 
     private Enums.CardPos cardPos = Enums.CardPos.SelectionArea;
 

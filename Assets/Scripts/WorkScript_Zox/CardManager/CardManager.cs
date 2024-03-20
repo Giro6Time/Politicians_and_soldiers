@@ -167,7 +167,7 @@ public class CardManager : MonoBehaviour {
         UpdatePlayerSelectableCardList();
 
         //Enemy put card
-        foreach(CardBaseSO enemyCardSO in enemy.cardList[(sender as DateManager).GetMonth() - 1])
+        foreach(CardBaseSO enemyCardSO in enemy.currentList)
         {
             Instantiate(enemyCardSO);
         }
@@ -175,7 +175,7 @@ public class CardManager : MonoBehaviour {
 
     private void UpdatePlayerSelectableCardList()
     {
-        AddCardSelectable(2);
+        AddCardSelectable((DateManager.Instance.GetMonth()-1)/4 + 1);
     }
     private void UpdateCardPoolPointer(Enums.Season season)
     {
