@@ -24,6 +24,12 @@ public class CardBase : MonoBehaviour
     [SerializeField] private Enums.Season matchedSeason;
 
     private Enums.CardPos cardPos = Enums.CardPos.SelectionArea;
+    public CardArrangement cardCurrentArea;
+
+    private void Awake()
+    {
+        cardCurrentArea = GetComponentInParent<CardArrangement>();
+    }
 
     public CardBaseSO GetCardSO()
     {

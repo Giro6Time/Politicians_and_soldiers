@@ -22,6 +22,9 @@ public class CardPlayingArea : MonoBehaviour
             case Enums.CardPos.SkyPutArea:
                 sky.Add(card);
                 break;
+            case Enums.CardPos.SelectionArea:
+                Debug.Log("error: card not put into battleField");
+                break;
         }
     }
     public void RemoveCard(CardBase card)

@@ -46,8 +46,15 @@ public class CardManager : MonoBehaviour {
         {
             cardPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
+            card.cardCurrentArea.RearrangeCard();
+
             card.SetCardPos(area.pos);
             area.RearrangeCard();
+            card.cardCurrentArea = area;
+        }
+        else
+        {
+            card.cardCurrentArea.RearrangeCard();
         }
     }
     public void MoveCard(CardBase card)
@@ -77,16 +84,6 @@ public class CardManager : MonoBehaviour {
             currentHand.Add(cardBaseComponent);
         }
         return currentHand;
-    }
-
-    //本回合内更新
-    private void RearrangeCard(Transform transform2bRearranged, float offsetX)
-    {
-        for (int i = 0; i < transform2bRearranged.childCount; i++)
-        {
-            Transform object2bRepositioned = transform2bRearranged.GetChild(i);
-            object2bRepositioned.localPosition = new Vector2(offsetX * i, 0);
-        }
     }
 
     private void DateManager_OnMonthChanged(object sender, EventArgs e)

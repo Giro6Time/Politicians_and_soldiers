@@ -115,8 +115,9 @@ MonoBehaviour:
   cardFace: {fileID: 0}
   cardBack: {fileID: 0}
   cardSO: {fileID: 11400000, guid: c05123a5a92070048993983e461efc92, type: 2}
-  matchedPos: 0
+  matchedPos: 1
   cardAttackType: 0
   decisionPointCost: 0
   matchedSeason: 0
+  cardCurrentArea: {fileID: 0}
   troopStrength: 0
