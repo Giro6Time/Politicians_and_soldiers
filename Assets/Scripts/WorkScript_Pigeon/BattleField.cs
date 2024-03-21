@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class BattleField : MonoBehaviour
 {
     public static BattleField instance;
 
-    BattleEnd battleEnd;
-    BattleProgress progressBar;
-    ArmyManager armyManager;
+    public BattleEndPanel battleEndPanel;
+    public BattleProgress battleProgress;
+    public ArmyManager armyManager;
 
     public float ProgressChangeValue = 0;
 
@@ -44,8 +41,8 @@ public class BattleField : MonoBehaviour
 
     public void OnBattleEnd()
     {
-        battleEnd.ShowPanel();
-        progressBar.ProgressChange(armyManager.progressChangeValue);
+        battleEndPanel.ShowPanel();
+        battleProgress.ProgressChange(armyManager.progressChangeValue);
         armyManager.progressChangeValue = 0;
     }
 }
