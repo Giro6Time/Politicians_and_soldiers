@@ -18,7 +18,7 @@ public class CardBase : MonoBehaviour
         UsingAbility
     }
 
-    [SerializeField] private Enums.CardType cardType;
+    [SerializeField] private Enums.CardPos matchedPos;
     [SerializeField] private Enums.CardAttackType cardAttackType;
     [SerializeField] private int decisionPointCost;
     [SerializeField] private Enums.Season matchedSeason;
@@ -40,7 +40,7 @@ public class CardBase : MonoBehaviour
         this.cardPos = cardPos;
     }
     
-    public Enums.CardType GetCardType(){
-        return cardType;
+    public Enums.CardPos GetCardMatchedPos(){
+        return matchedPos;
     }
 }

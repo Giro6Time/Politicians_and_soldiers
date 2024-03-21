@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6397168550642274267}
   - component: {fileID: 2098872864585181706}
+  - component: {fileID: 5251308203851864503}
+  - component: {fileID: 7902230919200253374}
   m_Layer: 0
   m_Name: ground
   m_TagString: Untagged
@@ -84,6 +86,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &5251308203851864503
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187948441393699789}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.027067, y: 3.3578963, z: 0.2}
+  m_Center: {x: 0.01879692, y: -0.4135337, z: 0}
+--- !u!114 &7902230919200253374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187948441393699789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: 0
+  offsetX: 0.5
+  offsetZ: 0.1
+  lerpSpeed: 5
 --- !u!1 &554664835406573018
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6756974019664405825}
   - component: {fileID: 9165001013476701195}
+  - component: {fileID: 665656839218697838}
   m_Layer: 0
   m_Name: sky
   m_TagString: Untagged
@@ -202,6 +234,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &665656839218697838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464572415285791682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: 0
+  offsetX: 0
+  offsetZ: 0.1
+  lerpSpeed: 5
 --- !u!1 &2857896744528613524
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8574664781688653891}
   - component: {fileID: 9113533750338505345}
+  - component: {fileID: 9174574538972076173}
   m_Layer: 0
   m_Name: sea
   m_TagString: Untagged
@@ -286,6 +335,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9174574538972076173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857896744528613524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: 0
+  offsetX: 0
+  offsetZ: 0.1
+  lerpSpeed: 5
 --- !u!1 &2903435861450198109
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7652561810012448129}
   - component: {fileID: 6231712863267618730}
+  - component: {fileID: 8123381318657152401}
   m_Layer: 0
   m_Name: ground
   m_TagString: Untagged
@@ -417,6 +483,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8123381318657152401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124355386346783257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: 0
+  offsetX: 0
+  offsetZ: 0.1
+  lerpSpeed: 5
 --- !u!1 &3332939007957813380
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +557,7 @@ GameObject:
   - component: {fileID: 6216654050645952752}
   - component: {fileID: 908945025472218380}
   - component: {fileID: 23419362029570892}
+  - component: {fileID: 9208364387985801833}
   m_Layer: 0
   m_Name: HeadPointAnhcor
   m_TagString: Untagged
@@ -561,6 +644,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pos: 0
+  offsetX: 1.2
+  offsetZ: 0
+  lerpSpeed: 5
+--- !u!65 &9208364387985801833
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4917512665802118243}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13.395487, y: 3.8842106, z: 0.2}
+  m_Center: {x: 3.890976, y: -0.6015034, z: 0}
 --- !u!1 &5142122264677324169
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +753,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1457410153328478533}
   - component: {fileID: 3539050998490635340}
+  - component: {fileID: 7217529702957694}
+  - component: {fileID: 5150442668194780245}
   m_Layer: 0
   m_Name: sea
   m_TagString: Untagged
@@ -727,6 +829,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &7217529702957694
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428080359948455364}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.478196, y: 3.2827075, z: 0.2}
+  m_Center: {x: -0.018797398, y: -0.41353357, z: 0}
+--- !u!114 &5150442668194780245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428080359948455364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: 0
+  offsetX: 0.5
+  offsetZ: 0.1
+  lerpSpeed: 5
 --- !u!1 &6607786230758769684
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,6 +902,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 506c72e1f9db1844ba6857c5cb52717c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardManager: {fileID: 271311364234959739}
+  dateManager: {fileID: 2519640628777163233}
+  currentState: 0
 --- !u!1 &6680650596211811336
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,16 +961,16 @@ MonoBehaviour:
   cardPool: {fileID: 145141721555288451}
   cardPlayingArea: {fileID: 2999336878500283097}
   enemyPlayingArea: {fileID: 6347213930102785611}
-  cardsCenterPoint: {fileID: 6216654050645952752}
-  cardAnchor_Sky_Player: {fileID: 3840036636776775717}
-  cardAnchor_Land_Player: {fileID: 6397168550642274267}
-  cardAnchor_Sea_Player: {fileID: 1457410153328478533}
-  cardAnchor_Sky_Enemy: {fileID: 6756974019664405825}
-  cardAnchor_Land_Enemy: {fileID: 7652561810012448129}
-  cardAnchor_Sea_Enemy: {fileID: 8574664781688653891}
+  cardsCenterPoint: {fileID: 23419362029570892}
+  cardAnchor_Sky_Player: {fileID: 9069396207733102568}
+  cardAnchor_Land_Player: {fileID: 7902230919200253374}
+  cardAnchor_Sea_Player: {fileID: 5150442668194780245}
+  cardAnchor_Sky_Enemy: {fileID: 665656839218697838}
+  cardAnchor_Land_Enemy: {fileID: 8123381318657152401}
+  cardAnchor_Sea_Enemy: {fileID: 9174574538972076173}
   offsetX_BattleField: 1
   offsetX_SelectableArea: 1
-  playerSelectableCardListAmountMax: 5
+  handMax: 10
   enemy: {fileID: 4721751027439379874}
 --- !u!1 &7480337419646260912
 GameObject:
@@ -848,6 +982,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3840036636776775717}
   - component: {fileID: 6559636934394718455}
+  - component: {fileID: 5419748056302128056}
+  - component: {fileID: 9069396207733102568}
   m_Layer: 0
   m_Name: sky
   m_TagString: Untagged
@@ -922,6 +1058,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &5419748056302128056
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7480337419646260912}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.51579, y: 3.2451131, z: 0.2}
+  m_Center: {x: 0.037593365, y: -0.2819544, z: 0}
+--- !u!114 &9069396207733102568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7480337419646260912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: 0
+  offsetX: 0.5
+  offsetZ: 0.1
+  lerpSpeed: 5
 --- !u!1001 &3106661048538699783
 PrefabInstance:
   m_ObjectHideFlags: 0

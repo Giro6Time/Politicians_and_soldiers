@@ -12,8 +12,6 @@ public class CardPool : MonoBehaviour
     [SerializeField] private List<CardBaseSO> autumnCardSOList;
     [SerializeField] private List<CardBaseSO> winterCardSOList;
 
-    public List<CardBaseSO> currentCardSOListPointer;
-
     private string folderPath;
 
     private void Awake()
@@ -25,11 +23,6 @@ public class CardPool : MonoBehaviour
         winterCardSOList = new List<CardBaseSO> ();*/
     }
 
-    private void Start()
-    {
-        currentCardSOListPointer = springCardSOList;
-        //LoadCardSOInFile();
-    }
 
     private void LoadCardSOInFile()
     {
@@ -65,22 +58,19 @@ public class CardPool : MonoBehaviour
         }
     }
 
-    public void UpdateCurrentPoolPointer(Enums.Season season)
+    public List<CardBaseSO> GetCurrentCardBaseSOList(Enums.Season season)
     {
         switch (season)
         {
             case Enums.Season.Spring:
-                currentCardSOListPointer = springCardSOList;
-                break;
+                return springCardSOList;
             case Enums.Season.Summer:
-                currentCardSOListPointer = summerCardSOList;
-                break;
+                return summerCardSOList;
             case Enums.Season.Autumn:
-                currentCardSOListPointer = autumnCardSOList;
-                break;
+                return autumnCardSOList;
             case Enums.Season.Winter:
-                currentCardSOListPointer = winterCardSOList;
-                break;
+                return winterCardSOList;
+            default: return null;
         }
     }
 }

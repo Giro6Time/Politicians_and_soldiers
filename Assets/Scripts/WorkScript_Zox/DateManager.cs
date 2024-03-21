@@ -30,21 +30,17 @@ public class DateManager : MonoBehaviour
     {
         //Initializing
         month = 0;
-        PlayerControl.Instance.OnSpacePressed += moveNextMonth;
     }
 
-    private void moveNextMonth(object sender, EventArgs e)
+    public void moveNextMonth()
     {
         if (canMoveNextMonth)
         {
             month++;
-            OnMonthChanged?.Invoke(this, new EventArgs());
-
             //获取季节
             UpdateSeason();
-            //获取天气
-            weather = (Enums.Weather)(int)UnityEngine.Random.Range(0, weatherTypeCount);
 
+            OnMonthChanged?.Invoke(this, new EventArgs());
         }
     }
 

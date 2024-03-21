@@ -9,28 +9,23 @@ public class PlayerControl : MonoBehaviour
 {
     public static PlayerControl Instance;
 
-
-    public event EventHandler OnSpacePressed;
-    public event EventHandler OnKeyCodeEPressed;
-    public class MouseSelectedEventArgs : EventArgs
-    {
-        public CardBase selectedCard;
-    }
-    public event EventHandler<MouseSelectedEventArgs> OnMouseLeftClickedOnCard;
-    public event EventHandler<MouseSelectedEventArgs> OnMouseRightClickedOnCard;
+    [SerializeField] private CardManager cardManager;
+    [SerializeField] private DateManager dateManager;
 
 
-    private enum State{
+    public enum State{
         SelectingCard,
         EnterCard,
         InfoCard,
-        AutoMoveCard
+        AutoMoveCard,
+        Null
     }
-    private State currentState;
+    public State currentState;
 
 
 
     private CardBase selectedCard;
+    private CardArrangement puttableArea;
 
 
     private Vector3 mouseAndCardCenterOffset;
@@ -65,43 +60,44 @@ public class PlayerControl : MonoBehaviour
         mousePosition = Input.mousePosition;
         mousePosition.z = 10f;
 
-        Debug.Log(currentState);
-
         switch (currentState)
         {
             case State.SelectingCard:
                 MouseSelectCard();
-                //If left mouse button clicked
-                if (Input.GetMouseButtonDown(0))
+                if(selectedCard != null)
                 {
-                    /*OnMouseLeftClickedOnCard?.Invoke(this, new MouseSelectedEventArgs
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        selectedCard = selectedCard
-                    });*/
-                    cardPrimaryPos = selectedCard.transform.position;
-                    mouseAndCardCenterOffset = selectedCard.transform.position - Camera.main.ScreenToWorldPoint(mousePosition);
+                        cardManager.MoveCard(selectedCard);
 
-                    cardPrimaryPos = selectedCard.transform.position;
+                        cardPrimaryPos = selectedCard.transform.position;
+                        mouseAndCardCenterOffset = selectedCard.transform.position - Camera.main.ScreenToWorldPoint(mousePosition);
 
-                    currentState = State.EnterCard;
-                }
-                //If right mouse button clicked
-                if (Input.GetMouseButtonDown(1))
-                {
-                    OnMouseRightClickedOnCard?.Invoke(this, new MouseSelectedEventArgs
+                        cardPrimaryPos = selectedCard.transform.position;
+
+                        currentState = State.EnterCard;
+                    }
+                    if (Input.GetMouseButtonDown(1))
                     {
-                        selectedCard = selectedCard
-                    });
-                    currentState = State.InfoCard;
+                        //Selecting and pressed right Click button
+                        currentState = State.InfoCard;
+                    }
                 }
                 break;
             case State.EnterCard:
                 
                 MoveCard();
+                MouseSelectPlaceableRegion();
+
                 if (Input.GetMouseButtonDown(0))
                 {
                     //valid position for card to put
-
+                    if(puttableArea != null)
+                    {
+                        cardManager.MoveCard(selectedCard, puttableArea);
+                        //puttableArea.RearrangeCard();
+                        currentState = State.SelectingCard;
+                    }
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
@@ -143,16 +139,13 @@ public class PlayerControl : MonoBehaviour
                     currentState = State.SelectingCard;
                 }
                 break;
+            case State.Null:
+                break;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            OnSpacePressed?.Invoke(this, EventArgs.Empty);
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            OnKeyCodeEPressed?.Invoke(this, EventArgs.Empty);
+            dateManager.moveNextMonth();
         }
 
     }
@@ -181,4 +174,37 @@ public class PlayerControl : MonoBehaviour
         selectedCard.transform.position = new Vector3(newPosition.x, newPosition.y, 0f);
     }
 
+    private void MouseSelectPlaceableRegion()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit[] hits = Physics.RaycastAll(ray);
+
+        foreach (RaycastHit hit in hits)
+        {
+            CardArrangement area = hit.collider.GetComponent<CardArrangement>();
+            if (area != null)
+            {
+                puttableArea = area;
+                break; 
+            }
+        }
+
+        if (puttableArea == null)
+        {
+            puttableArea = null;
+        }
+    }
+
+    public void SwitchOpenAndCloseState()
+    {
+        if(currentState == State.Null)
+        {
+            currentState = State.SelectingCard;
+        }
+        else if(currentState == State.SelectingCard)
+        {
+            currentState = State.Null;
+        }
+    }
 }
