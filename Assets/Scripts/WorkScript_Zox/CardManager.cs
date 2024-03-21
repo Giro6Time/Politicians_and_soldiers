@@ -74,7 +74,7 @@ public class CardManager : MonoBehaviour {
     }
 
     //进入下一回合时更新
-    private void UpdateSelectableCardList()
+    public void UpdateSelectableCardList()
     {
         Transform object2bDeleted;
         for (int i = 0; i < cardsCenterPoint.transform.childCount; i++)

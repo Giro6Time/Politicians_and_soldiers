@@ -1,26 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Player
+public class Player: Singleton<Player>
 {
-    //TODO：创建单例模式的基类
-    public static Player Instance
-    { 
-        get
-        {
-            if(instance == null)
-                instance = new Player();
-            return instance;
-        }
-        private set
-        {
-            instance = value;
-        }
-    }
-    private static Player instance;
-
     public int decisionValue;
     public float sanity;
     public float armament;
@@ -28,4 +13,8 @@ public class Player
     public float popularSupport;
     public float troopIncrease;
 
+    internal void Init()
+    {
+        //TODO: 初始化值为初值，或者读取PlayerSO初始化值
+    }
 }
