@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: 699fe91bd4290014ea73c4a42bc0eb8b
+guid: 92a00740a2cba604285173a69bc0c3c9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - battleEndPanel: {fileID: 6982559255806532254, guid: bf46f62d3b102a64fa5c01ee6bfa8453, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

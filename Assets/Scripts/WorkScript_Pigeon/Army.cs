@@ -5,9 +5,8 @@ using UnityEngine;
 public class Army : MonoBehaviour
 {
     public int attack = 0;
-
     public string m_name = "";
-    SpecialEffect specialEffect;
+    public SpecialEffect specialEffect;
 
     public void Effect()
     {
@@ -16,7 +15,7 @@ public class Army : MonoBehaviour
 
     public void ChangeAttack(int value)
     {
-        attack -= value;
+        attack = value;
     }
 
     public bool IsAlive()
