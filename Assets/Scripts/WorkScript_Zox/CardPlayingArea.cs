@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct CardPlayingArea
+public class CardPlayingArea
 {
-    public List<CardBase> sea;
-    public List<CardBase> ground;
-    public List<CardBase> sky;
+    public List<CardBase> sea = new();
+    public List<CardBase> ground = new();
+    public List<CardBase> sky = new();
 }

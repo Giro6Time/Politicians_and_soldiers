@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Assertions.Must;
+using UnityEngine.UIElements;
 
 public class CardManager : MonoBehaviour {
 
     public List<CardBaseSO> hand;
     public CardPool cardPool;
-    public CardPlayingArea cardPlayingArea;
-    public CardPlayingArea enemyPlayingArea;
+    public CardPlayingArea cardPlayingArea = new();
+    public CardPlayingArea enemyPlayingArea = new();
 
     public event EventHandler OnCardPut;
 
