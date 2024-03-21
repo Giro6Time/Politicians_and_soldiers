@@ -18,36 +18,36 @@ public class CardBase : MonoBehaviour
         UsingAbility
     }
 
-    [SerializeField] private Enums.CardType cardType;
-    [SerializeField] private Enums.CardAttackType cardAttackType;
+    [SerializeField] private CardType cardType;
+    [SerializeField] private CardAttackType cardAttackType;
     //private int armyAmount;
     [SerializeField] private int decisionPointCost;
     //private float progressInfluence;
 
-    [SerializeField] private Enums.Season matchedSeason;
+    [SerializeField] private Season matchedSeason;
     //[SerializeField] private Enums.Weather matchedWeather;
 
     //based on concrete card ability
     //private float amountFix;
 
-    private Enums.CardPos cardPos = Enums.CardPos.SelectionArea;
+    private CardPos cardPos = CardPos.SelectionArea;
 
     public CardBaseSO GetCardSO()
     {
         return cardSO;
     }
 
-    public Enums.CardPos GetCardPos()
+    public CardPos GetCardPos()
     {
         return cardPos;
     }
 
-    public void SetCardPos(Enums.CardPos cardPos)
+    public void SetCardPos(CardPos cardPos)
     {
         this.cardPos = cardPos;
     }
     
-    public Enums.CardType GetCardType(){
+    public CardType GetCardType(){
         return cardType;
     }
 }

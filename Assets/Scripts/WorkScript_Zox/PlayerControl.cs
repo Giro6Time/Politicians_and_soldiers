@@ -88,6 +88,7 @@ public class PlayerControl : MonoBehaviour
                     {
                         selectedCard = selectedCard
                     });
+
                 }
             }
         }

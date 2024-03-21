@@ -12,11 +12,11 @@ public class DateManager : MonoBehaviour
 
 
     [SerializeField] private int month;
-    [SerializeField] private Enums.Weather weather;
+    [SerializeField] private Weather weather;
     //需要修改
     private int weatherTypeCount = 3;
     //end
-    [SerializeField] private Enums.Season season;
+    [SerializeField] private Season season;
     
     private bool canMoveNextMonth = true;
 
@@ -43,7 +43,7 @@ public class DateManager : MonoBehaviour
             //获取季节
             UpdateSeason();
             //获取天气
-            weather = (Enums.Weather)(int)UnityEngine.Random.Range(0, weatherTypeCount);
+            weather = (Weather)(int)UnityEngine.Random.Range(0, weatherTypeCount);
 
         }
     }
@@ -52,16 +52,16 @@ public class DateManager : MonoBehaviour
     {
         if (1 <= month && month <= 3)
         {
-            season = Enums.Season.Spring;
+            season = Season.Spring;
         }else if (4 <= month && month <= 6)
         {
-            season = Enums.Season.Summer;
+            season = Season.Summer;
         }else if(7 <= month && month <= 9)
         {
-            season = Enums.Season.Autumn;
+            season = Season.Autumn;
         }else if(10 <= month && month <= 12)
         {
-            season = Enums.Season.Winter;
+            season = Season.Winter;
         }
     }
 
@@ -69,7 +69,7 @@ public class DateManager : MonoBehaviour
     {
         return month;
     }
-    public Enums.Season GetSeason()
+    public Season GetSeason()
     {
         return season;
     }

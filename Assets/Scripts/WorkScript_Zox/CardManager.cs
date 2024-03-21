@@ -103,25 +103,25 @@ public class CardManager : MonoBehaviour {
 
     private void UpdateCardPos(CardBase card)
     {
-        if (card.GetCardPos() == Enums.CardPos.SelectionArea)
+        if (card.GetCardPos() == CardPos.SelectionArea)
         {
             playerSelectableCardList.Remove(card.GetCardSO());
 
             switch (card.GetCardType())
             {
-                case Enums.CardType.Army:
+                case CardType.Army:
                     cardPlayingArea.ground.Add(card);
-                    UpdateCardPosVisual(card, cardAnchor_Land_Player, Enums.CardPos.LandPutArea);
+                    UpdateCardPosVisual(card, cardAnchor_Land_Player, CardPos.LandPutArea);
                     break;
-                case Enums.CardType.Navy:
+                case CardType.Navy:
                     cardPlayingArea.sea.Add(card);
-                    UpdateCardPosVisual(card, cardAnchor_Sea_Player, Enums.CardPos.SeaPutArea);
+                    UpdateCardPosVisual(card, cardAnchor_Sea_Player, CardPos.SeaPutArea);
                     break;
-                case Enums.CardType.AirForce:
+                case CardType.AirForce:
                     cardPlayingArea.sky.Add(card);
-                    UpdateCardPosVisual(card, cardAnchor_Sky_Player, Enums.CardPos.SkyPutArea);
+                    UpdateCardPosVisual(card, cardAnchor_Sky_Player, CardPos.SkyPutArea);
                     break;
-                case Enums.CardType.Effect:
+                case CardType.Effect:
                     break;
             }
         }
@@ -130,17 +130,17 @@ public class CardManager : MonoBehaviour {
 
             playerSelectableCardList.Add(card.GetCardSO());
 
-            UpdateCardPosVisual(card, cardsCenterPoint, Enums.CardPos.SelectionArea);
+            UpdateCardPosVisual(card, cardsCenterPoint, CardPos.SelectionArea);
 
             switch (card.GetCardPos())
             {
-                case Enums.CardPos.LandPutArea:
+                case CardPos.LandPutArea:
                     cardPlayingArea.ground.Remove(card);
                     break;
-                case Enums.CardPos.SeaPutArea:
+                case CardPos.SeaPutArea:
                     cardPlayingArea.sea.Remove(card);
                     break;
-                case Enums.CardPos.SkyPutArea:
+                case CardPos.SkyPutArea:
                     cardPlayingArea.sky.Remove(card);
                     break;
             }
@@ -153,7 +153,7 @@ public class CardManager : MonoBehaviour {
         throw new NotImplementedException();
     }
 
-    private void UpdateCardPosVisual(CardBase card, Transform anchor, Enums.CardPos pos)
+    private void UpdateCardPosVisual(CardBase card, Transform anchor, CardPos pos)
     {
         card.transform.SetParent(anchor, false);
         //card.transform.localPosition = new Vector3((anchor.transform.childCount - 1) * offsetX, 0, 0);
@@ -177,7 +177,7 @@ public class CardManager : MonoBehaviour {
     {
         AddCardSelectable(2);
     }
-    private void UpdateCardPoolPointer(Enums.Season season)
+    private void UpdateCardPoolPointer(Season season)
     {
         cardPool.UpdateCurrentPoolPointer(season);
     }
@@ -205,15 +205,15 @@ public class CardManager : MonoBehaviour {
 
         CardBase enemyCard = enemy_card.GetComponent<CardBase>();
         switch (enemyCard.GetCardType()) {
-            case Enums.CardType.Army:
+            case CardType.Army:
                 Transform newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy);
                 newCard.localPosition = Vector3.zero;
                 break;
-            case Enums.CardType.Navy:
+            case CardType.Navy:
                 Transform newCard1 = Instantiate(enemy_card, cardAnchor_Sea_Enemy);
                 newCard1.localPosition = Vector3.zero;
                 break;
-            case Enums.CardType.AirForce:
+            case CardType.AirForce:
                 Transform newCard2 = Instantiate(enemy_card, cardAnchor_Sky_Enemy);
                 newCard2.localPosition = Vector3.zero;
                 break;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardPlayingArea : MonoBehaviour
+public struct CardPlayingArea
 {
     public List<CardBase> sea;
     public List<CardBase> ground;

@@ -15,7 +15,7 @@ public class CardBaseSO : ScriptableObject
     // public float progressInfluence;
     // public Enums.CardType card_Type;
     // public Enums.CardAttackType card_AttackType;
-    public Enums.Season matchedSeason;
+    public Season matchedSeason;
     // public Enums.Weather matchedWeather;
     public Transform cardPrefab;
 }

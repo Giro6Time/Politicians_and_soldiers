@@ -46,16 +46,16 @@ public class CardPool : MonoBehaviour
                         cardSOList.Add(obj);
                         switch(obj.matchedSeason)
                         {
-                            case Enums.Season.Spring:
+                            case Season.Spring:
                                 springCardSOList.Add(obj);
                                 break;
-                            case Enums.Season.Summer:
+                            case Season.Summer:
                                 summerCardSOList.Add(obj);
                                 break;
-                            case Enums.Season.Autumn: 
+                            case Season.Autumn: 
                                 autumnCardSOList.Add(obj);
                                 break;
-                            case Enums.Season.Winter:
+                            case Season.Winter:
                                 winterCardSOList.Add(obj);
                                 break;
                         }
@@ -65,20 +65,20 @@ public class CardPool : MonoBehaviour
         }
     }
 
-    public void UpdateCurrentPoolPointer(Enums.Season season)
+    public void UpdateCurrentPoolPointer(Season season)
     {
         switch (season)
         {
-            case Enums.Season.Spring:
+            case Season.Spring:
                 currentCardSOListPointer = springCardSOList;
                 break;
-            case Enums.Season.Summer:
+            case Season.Summer:
                 currentCardSOListPointer = summerCardSOList;
                 break;
-            case Enums.Season.Autumn:
+            case Season.Autumn:
                 currentCardSOListPointer = autumnCardSOList;
                 break;
-            case Enums.Season.Winter:
+            case Season.Winter:
                 currentCardSOListPointer = winterCardSOList;
                 break;
         }
