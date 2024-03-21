@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Army : MonoBehaviour
 {
-    public int attack = 0;
+    public int troopStrength = 0;
     public string m_name = "";
     public SpecialEffect specialEffect;
 
@@ -13,14 +13,14 @@ public class Army : MonoBehaviour
 
     }
 
-    public void ChangeAttack(int value)
+    public void ChangeTroopStrength(int value)
     {
-        attack = value;
+        troopStrength = value;
     }
 
     public bool IsAlive()
     {
-        if(attack <= 0)
+        if(troopStrength <= 0)
         {
             return false;
         }

@@ -17,13 +17,13 @@ public class ArmyManager : MonoBehaviour
         }
     }
     //�ҷ�ս��
-    public List<Army> cardsOnLand1 = new List<Army>(5);
-    public List<Army> cardsOnOcean1 = new List<Army>(5);
-    public List<Army> cardsOnSky1 = new List<Army>(5);
+    public List<Army> armyOnLand = new List<Army>(5);
+    public List<Army> armyOnSea = new List<Army>(5);
+    public List<Army> armyOnSky = new List<Army>(5);
     //�з�ս��
-    public List<Army> cardsOnLand2 = new List<Army>(5);
-    public List<Army> cardsOnOcean2 = new List<Army>(5);
-    public List<Army> cardsOnSky2 = new List<Army>(5);
+    public List<Army> enemyArmyOnLand = new List<Army>(5);
+    public List<Army> enemyArmyOnSea = new List<Army>(5);
+    public List<Army> enemyArmyOnSky = new List<Army>(5);
 
     public float progressChangeValue = 0;
     public float landEffect1 = 0.02f;
@@ -35,7 +35,7 @@ public class ArmyManager : MonoBehaviour
     public float ElseEffect = 0;
     public int Fix = 0; //��������
 
-    public void Battle()
+    public BattleResult Battle()
     {
         //DebugFunc();
 
@@ -46,9 +46,10 @@ public class ArmyManager : MonoBehaviour
         BattleOcean();
 
         LandAnimation();
-        BattleLand();
+        var result = BattleLand();
 
         ResetEffect();
+        return result;
     }
     //public void DebugFunc()
     //{
@@ -74,84 +75,84 @@ public class ArmyManager : MonoBehaviour
     {
         for(int i = 0; i < 5; i++)
         { 
-            if (i < cardsOnLand1.Count && cardsOnLand1[i] != null)
+            if (i < armyOnLand.Count && armyOnLand[i] != null)
             {
-                Debug.Log("Card Name: " + cardsOnLand1[i].m_name);
-                Debug.Log("Attack: " + cardsOnLand1[i].attack);
+                Debug.Log("Card Name: " + armyOnLand[i].m_name);
+                Debug.Log("Attack: " + armyOnLand[i].troopStrength);
             }
 
-            if (i < cardsOnLand2.Count && cardsOnLand2[i] != null)
+            if (i < enemyArmyOnLand.Count && enemyArmyOnLand[i] != null)
             {
-                Debug.Log("Card Name: " + cardsOnLand2[i].m_name);
-                Debug.Log("Attack: " + cardsOnLand2[i].attack);
+                Debug.Log("Card Name: " + enemyArmyOnLand[i].m_name);
+                Debug.Log("Attack: " + enemyArmyOnLand[i].troopStrength);
             }
 
-            if (i < cardsOnOcean1.Count && cardsOnOcean1[i] != null)
+            if (i < armyOnSea.Count && armyOnSea[i] != null)
             {
-                Debug.Log("Card Name: " + cardsOnOcean1[i].m_name);
-                Debug.Log("Attack: " + cardsOnOcean1[i].attack);
+                Debug.Log("Card Name: " + armyOnSea[i].m_name);
+                Debug.Log("Attack: " + armyOnSea[i].troopStrength);
             }
 
-            if (i < cardsOnOcean2.Count && cardsOnOcean2[i] != null)
+            if (i < enemyArmyOnSea.Count && enemyArmyOnSea[i] != null)
             {
-                Debug.Log("Card Name: " + cardsOnOcean2[i].m_name);
-                Debug.Log("Attack: " + cardsOnOcean2[i].attack);
+                Debug.Log("Card Name: " + enemyArmyOnSea[i].m_name);
+                Debug.Log("Attack: " + enemyArmyOnSea[i].troopStrength);
             }
 
-            if (i < cardsOnSky1.Count && cardsOnSky1[i] != null)
+            if (i < armyOnSky.Count && armyOnSky[i] != null)
             {
-                Debug.Log("Card Name: " + cardsOnSky1[i].m_name);
-                Debug.Log("Attack: " + cardsOnSky1[i].attack);
+                Debug.Log("Card Name: " + armyOnSky[i].m_name);
+                Debug.Log("Attack: " + armyOnSky[i].troopStrength);
             }
 
-            if (i < cardsOnSky2.Count && cardsOnSky2[i] != null)
+            if (i < enemyArmyOnSky.Count && enemyArmyOnSky[i] != null)
             {
-                Debug.Log("Card Name: " + cardsOnSky2[i].m_name);
-                Debug.Log("Attack: " + cardsOnSky2[i].attack);
+                Debug.Log("Card Name: " + enemyArmyOnSky[i].m_name);
+                Debug.Log("Attack: " + enemyArmyOnSky[i].troopStrength);
             }
         } //CardInfo
     }
     public void BattleSky()
     {
-        if (0 < cardsOnSky1.Count && 0 < cardsOnSky2.Count)
+        if (0 < armyOnSky.Count && 0 < enemyArmyOnSky.Count)
         {
-            if (cardsOnSky2[0].attack < cardsOnSky1[0].attack)
+            if (enemyArmyOnSky[0].troopStrength < armyOnSky[0].troopStrength)
             {
-                cardsOnSky1[0].ChangeAttack(cardsOnSky1[0].attack - cardsOnSky2[0].attack);
-                cardsOnSky2[0].OnDead();
-                cardsOnSky2.Remove(cardsOnSky2[0]);
+                armyOnSky[0].ChangeTroopStrength(armyOnSky[0].troopStrength - enemyArmyOnSky[0].troopStrength);
+                enemyArmyOnSky[0].OnDead();
+                enemyArmyOnSky.Remove(enemyArmyOnSky[0]);
                 ForwardAnimation();
             }
-            else if (cardsOnSky2[0].attack > cardsOnSky1[0].attack)
+            else if (enemyArmyOnSky[0].troopStrength > armyOnSky[0].troopStrength)
             {
-                cardsOnSky2[0].ChangeAttack(cardsOnSky2[0].attack - cardsOnSky1[0].attack);
-                cardsOnSky1[0].OnDead();
-                cardsOnSky1.Remove(cardsOnSky1[0]);
+                enemyArmyOnSky[0].ChangeTroopStrength(enemyArmyOnSky[0].troopStrength - armyOnSky[0].troopStrength);
+                armyOnSky[0].OnDead();
+                armyOnSky.Remove(armyOnSky[0]);
                 ForwardAnimation();
             }
-            else if (cardsOnSky2[0].attack == cardsOnSky1[0].attack)
+            else if (enemyArmyOnSky[0].troopStrength == armyOnSky[0].troopStrength)
             {
-                cardsOnSky1[0].OnDead();
-                cardsOnSky2[0].OnDead();
-                cardsOnSky1.Remove(cardsOnSky1[0]);
-                cardsOnSky2.Remove(cardsOnSky2[0]);
+                armyOnSky[0].OnDead();
+                enemyArmyOnSky[0].OnDead();
+                armyOnSky.Remove(armyOnSky[0]);
+                enemyArmyOnSky.Remove(enemyArmyOnSky[0]);
                 ForwardAnimation();
             }
         }
 
-        if(0 < cardsOnSky1.Count && 0 < cardsOnSky2.Count) 
+        if(0 < armyOnSky.Count && 0 < enemyArmyOnSky.Count) 
         {
             BattleSky();
         }
-        else if (0 < cardsOnSky1.Count && 0 >= cardsOnSky2.Count)
+        else if (0 < armyOnSky.Count && 0 >= enemyArmyOnSky.Count)
         {
             skyEffect1 = 0;
         }
-        else if(0 >= cardsOnSky1.Count && 0 < cardsOnSky2.Count)
+        else if(0 >= armyOnSky.Count && 0 < enemyArmyOnSky.Count)
         {
             skyEffect2 = 0;
         }
-        else if (0 >= cardsOnSky1.Count && 0 >= cardsOnSky2.Count)
+        else if (0 >= armyOnSky.Count && 0 >= enemyArmyOnSky.Count)
         {
             skyEffect1 = 0;
             skyEffect2 = 0;
@@ -159,108 +160,112 @@ public class ArmyManager : MonoBehaviour
     }
     public void BattleOcean()
     {
-        if (0 < cardsOnOcean1.Count && 0 < cardsOnOcean2.Count)
+        if (0 < armyOnSea.Count && 0 < enemyArmyOnSea.Count)
         {
-            if (cardsOnOcean2[0].attack < cardsOnOcean1[0].attack)
+            if (enemyArmyOnSea[0].troopStrength < armyOnSea[0].troopStrength)
             {
-                cardsOnOcean1[0].ChangeAttack(cardsOnOcean1[0].attack - cardsOnOcean2[0].attack);
-                cardsOnOcean2[0].OnDead();
-                cardsOnOcean2.Remove(cardsOnOcean2[0]);
+                armyOnSea[0].ChangeTroopStrength(armyOnSea[0].troopStrength - enemyArmyOnSea[0].troopStrength);
+                enemyArmyOnSea[0].OnDead();
+                enemyArmyOnSea.Remove(enemyArmyOnSea[0]);
                 ForwardAnimation();
             }
-            else if (cardsOnOcean2[0].attack > cardsOnOcean1[0].attack)
+            else if (enemyArmyOnSea[0].troopStrength > armyOnSea[0].troopStrength)
             {
-                cardsOnOcean2[0].ChangeAttack(cardsOnOcean2[0].attack - cardsOnOcean1[0].attack);
-                cardsOnOcean1[0].OnDead();
-                cardsOnOcean1.Remove(cardsOnOcean1[0]);
+                enemyArmyOnSea[0].ChangeTroopStrength(enemyArmyOnSea[0].troopStrength - armyOnSea[0].troopStrength);
+                armyOnSea[0].OnDead();
+                armyOnSea.Remove(armyOnSea[0]);
                 ForwardAnimation();
             }
-            else if (cardsOnOcean2[0].attack == cardsOnOcean1[0].attack)
+            else if (enemyArmyOnSea[0].troopStrength == armyOnSea[0].troopStrength)
             {
-                cardsOnOcean1[0].OnDead();
-                cardsOnOcean2[0].OnDead();
-                cardsOnOcean1.Remove(cardsOnOcean1[0]);
-                cardsOnOcean2.Remove(cardsOnOcean2[0]);
+                armyOnSea[0].OnDead();
+                enemyArmyOnSea[0].OnDead();
+                armyOnSea.Remove(armyOnSea[0]);
+                enemyArmyOnSea.Remove(enemyArmyOnSea[0]);
                 ForwardAnimation();
             }
         }
 
 
-        if (0 < cardsOnOcean1.Count && 0 < cardsOnOcean2.Count)
+        if (0 < armyOnSea.Count && 0 < enemyArmyOnSea.Count)
         {
             BattleOcean();
         }
-        else if (0 < cardsOnOcean1.Count && 0 >= cardsOnOcean2.Count)
+        else if (0 < armyOnSea.Count && 0 >= enemyArmyOnSea.Count)
         {
             oceanEffect1 = 0;
         }
-        else if (0 >= cardsOnOcean1.Count && 0 < cardsOnOcean2.Count)
+        else if (0 >= armyOnSea.Count && 0 < enemyArmyOnSea.Count)
         {
             oceanEffect2 = 0;
         }
-        else if (0 >= cardsOnOcean1.Count && 0 >= cardsOnOcean2.Count)
+        else if (0 >= armyOnSea.Count && 0 >= enemyArmyOnSea.Count)
         {
             oceanEffect1 = 0;
             oceanEffect2 = 0;
         }
 
     }
-    public void BattleLand()
+    public BattleResult BattleLand()
     {
-        if (0 < cardsOnLand1.Count && 0 < cardsOnLand2.Count)
+        //双方部队进行一次攻击
+        if (0 < armyOnLand.Count && 0 < enemyArmyOnLand.Count)
         {
-            if (cardsOnLand2[0].attack < cardsOnLand1[0].attack)
+            if (enemyArmyOnLand[0].troopStrength < armyOnLand[0].troopStrength)
             {
-                cardsOnLand1[0].ChangeAttack(cardsOnLand1[0].attack - cardsOnLand2[0].attack);
-                cardsOnLand2[0].OnDead();
-                cardsOnLand2.Remove(cardsOnLand2[0]);
+                armyOnLand[0].ChangeTroopStrength(armyOnLand[0].troopStrength - enemyArmyOnLand[0].troopStrength);
+                enemyArmyOnLand[0].OnDead();
+                enemyArmyOnLand.Remove(enemyArmyOnLand[0]);
                 ForwardAnimation();
             }
-            else if (cardsOnLand2[0].attack > cardsOnLand1[0].attack)
+            else if (enemyArmyOnLand[0].troopStrength > armyOnLand[0].troopStrength)
             {
-                cardsOnLand2[0].ChangeAttack(cardsOnLand2[0].attack - cardsOnLand1[0].attack);
-                cardsOnLand1[0].OnDead();
-                cardsOnLand1.Remove(cardsOnLand1[0]);
+                enemyArmyOnLand[0].ChangeTroopStrength(enemyArmyOnLand[0].troopStrength - armyOnLand[0].troopStrength);
+                armyOnLand[0].OnDead();
+                armyOnLand.Remove(armyOnLand[0]);
                 ForwardAnimation();
             }
-            else if (cardsOnLand2[0].attack == cardsOnLand1[0].attack)
+            else if (enemyArmyOnLand[0].troopStrength == armyOnLand[0].troopStrength)
             {
-                cardsOnLand1[0].OnDead();
-                cardsOnLand2[0].OnDead();
-                cardsOnLand1.Remove(cardsOnLand1[0]);
-                cardsOnLand2.Remove(cardsOnLand2[0]);
+                armyOnLand[0].OnDead();
+                enemyArmyOnLand[0].OnDead();
+                armyOnLand.Remove(armyOnLand[0]);
+                enemyArmyOnLand.Remove(enemyArmyOnLand[0]);
                 ForwardAnimation();
             }
         }
-
-        if (0 < cardsOnLand1.Count && 0 < cardsOnLand2.Count)
+        //检测部队剩余，如果还有剩余则继续战斗
+        if (0 < armyOnLand.Count && 0 < enemyArmyOnLand.Count)
         {
-            BattleLand();
+            return BattleLand();
         }
-        else if (0 < cardsOnLand1.Count && 0 >= cardsOnLand2.Count)
+        //否则判断胜负结果
+        else if (0 < armyOnLand.Count && 0 >= enemyArmyOnLand.Count)
         {
             int SkyAttack = 0, OceanAttack = 0;
-            if (0 < cardsOnSky1.Count) SkyAttack = cardsOnSky1[0].attack;
-            if (0 < cardsOnOcean1.Count) OceanAttack = cardsOnOcean1[0].attack;
-            progressChangeValue = (((cardsOnLand1[0].attack) * landEffect1 +
+            if (0 < armyOnSky.Count) SkyAttack = armyOnSky[0].troopStrength;
+            if (0 < armyOnSea.Count) OceanAttack = armyOnSea[0].troopStrength;
+            progressChangeValue = (((armyOnLand[0].troopStrength) * landEffect1 +
                                     (SkyAttack) * skyEffect1 +
                                     (OceanAttack) * oceanEffect1) * ElseEffect + Fix);
-            battleEndPanel.res = 1;
+            return BattleResult.Win;
         }
-        else if (0 >= cardsOnLand1.Count && 0 < cardsOnLand2.Count)
+        else if (0 >= armyOnLand.Count && 0 < enemyArmyOnLand.Count)
         {
             int SkyAttack = 0, OceanAttack = 0;
-            if (0 < cardsOnSky2.Count) SkyAttack = cardsOnSky2[0].attack;
-            if (0 < cardsOnOcean2.Count) OceanAttack = cardsOnOcean2[0].attack;
-            progressChangeValue =-(((cardsOnLand2[0].attack) * landEffect2 +
+            if (0 < enemyArmyOnSky.Count) SkyAttack = enemyArmyOnSky[0].troopStrength;
+            if (0 < enemyArmyOnSea.Count) OceanAttack = enemyArmyOnSea[0].troopStrength;
+            progressChangeValue =-(((enemyArmyOnLand[0].troopStrength) * landEffect2 +
                                     (SkyAttack) * skyEffect2 +
                                     (OceanAttack) * oceanEffect2) * ElseEffect + Fix);
-            battleEndPanel.res = 2;
+            return BattleResult.Lose;
         }
-        else if (0 >= cardsOnLand1.Count && 0 >= cardsOnLand2.Count)
+        else if (0 >= armyOnLand.Count && 0 >= enemyArmyOnLand.Count)
         {
-            battleEndPanel.res = 3;
+            return BattleResult.Draw;
         }
+
+        return BattleResult.Default;
     }
     public void ForwardAnimation()
     {
@@ -273,4 +278,12 @@ public class ArmyManager : MonoBehaviour
         skyEffect2 = 10f;
         oceanEffect2 = 10f;
     }
+}
+
+public enum BattleResult
+{
+    Default,
+    Win,
+    Lose,
+    Draw,
 }

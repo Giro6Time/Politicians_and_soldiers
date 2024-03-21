@@ -10,7 +10,7 @@ public class BattleEnd : MonoBehaviour
     public GameObject panelWin, panelLose, panelDraw;
     public GameObject panelLeft, panelRight;
 
-    public BattleField cardManager;
+    public BattleField battleField;
     public ArmyManager armyManager;
     public static BattleEnd Instance;
 
@@ -24,13 +24,12 @@ public class BattleEnd : MonoBehaviour
 
     private void Start()
     {
-        ResetPanel();
-        Debug.Log("Start");
-        armyManager.DebugFunc();
-        cardManager.BattleStart();
-        cardManager.ApplyEffect();
-        cardManager.Battle();
-        cardManager.OnBattleEnd();
+        //ResetPanel();
+        //Debug.Log("Start");
+        //battleField.BattleStart();
+        //battleField.ApplyEffect();
+        //battleField.Battle();
+        //battleField.OnBattleEnd();
     }
 
     public void ResetPanel()

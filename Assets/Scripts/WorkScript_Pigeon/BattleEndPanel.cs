@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class BattleEndPanel : MonoBehaviour
 {
-    public int res = 0;
+    public BattleResult res = 0;
     public GameObject panelWin, panelLose, panelDraw;
     public GameObject panelLeft, panelRight;
 
     //public BattleField battleField;
     public static BattleEndPanel Instance;
-    
+
+    public Action onClose;
 
     private void Awake()
     {
@@ -32,6 +33,12 @@ public class BattleEndPanel : MonoBehaviour
         //battleField.OnBattleEnd();
     }
 
+    public void ClosePanel()
+    {
+        ResetPanel();
+        onClose?.Invoke();
+    }
+
     public void ResetPanel()
     {
         panelLose.SetActive(false);
@@ -45,32 +52,23 @@ public class BattleEndPanel : MonoBehaviour
 
     public void ShowPanel()
     {
-        if(res == 1)
+        if(res == BattleResult.Win)
         {
             panelWin.SetActive(true);
         }
-        else if (res == 2)
+        else if (res == BattleResult.Lose)
         {
             panelLose.SetActive(true);
         }
-        else if (res == 3)
+        else if (res == BattleResult.Draw)
         {
             panelDraw.SetActive(true);
         }
         panelLeft.SetActive(true);
         panelRight.SetActive(true);
-        res = 0;
+        res = BattleResult.Default;
     }
 
-    public void OnLeftPressed()
-    {
-        panelLeft.SetActive(true);
-    }
-
-    public void OnRightPressed()
-    {
-        panelRight.SetActive(true);
-    }
 
     public void OnStartPressed()
     {
