@@ -153,9 +153,9 @@ public class PlayerControl : MonoBehaviour
     private void MouseSelectCard()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        RaycastHit[] hits = Physics.RaycastAll(ray);
 
-        if (Physics.Raycast(ray, out hit))
+        foreach (RaycastHit hit in hits)
         {
             if (hit.collider.TryGetComponent(out CardBase card))
             {
@@ -166,12 +166,13 @@ public class PlayerControl : MonoBehaviour
                 selectedCard = null;
             }
         }
+        Debug.Log(selectedCard);
     }
 
     private void MoveCard()
     {
         Vector3 newPosition = Camera.main.ScreenToWorldPoint(mousePosition) + mouseAndCardCenterOffset;
-        selectedCard.transform.position = new Vector3(newPosition.x, newPosition.y, 0f);
+        selectedCard.transform.position = new Vector3(newPosition.x, newPosition.y, -0.1f);
     }
 
     private void MouseSelectPlaceableRegion()

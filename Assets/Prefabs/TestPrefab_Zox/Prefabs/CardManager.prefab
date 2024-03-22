@@ -646,7 +646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: 0
   offsetX: 1.2
-  offsetZ: 0
+  offsetZ: 0.01
   lerpSpeed: 5
 --- !u!65 &9208364387985801833
 BoxCollider:

@@ -10,7 +10,6 @@ public class CardPlayingArea : MonoBehaviour
 
     public void AddCard(CardBase card, Enums.CardPos pos)
     {
-        Debug.Log(pos);
         switch (pos)
         {
             case Enums.CardPos.LandPutArea:

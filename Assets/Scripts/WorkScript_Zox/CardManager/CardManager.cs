@@ -42,7 +42,7 @@ public class CardManager : MonoBehaviour {
 
     public void MoveCard(CardBase card, CardArrangement area)
     {
-        if(card.GetCardMatchedPos() == area.pos)
+        if(card.GetCardMatchedPos() == area.pos || area.pos == Enums.CardPos.SelectionArea)
         {
             cardPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);

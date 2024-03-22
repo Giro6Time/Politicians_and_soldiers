@@ -21,9 +21,6 @@ public class CardArrangement : MonoBehaviour
             Transform object2bRepositioned = transform.GetChild(i);
             Vector3 targetPosition = new Vector3(offsetX * i, 0, offsetZ*i);
 
-            Debug.Log(object2bRepositioned.transform.position);
-            Debug.Log(targetPosition);
-
             StartCoroutine(MoveSmoothly(object2bRepositioned, targetPosition));
         }
     }
