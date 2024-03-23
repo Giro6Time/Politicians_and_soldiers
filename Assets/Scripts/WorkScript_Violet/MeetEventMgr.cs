@@ -36,7 +36,6 @@ public class MeetEventMgr
     public bool isDisposeMeetEvent;
 
     public Action onExit;
-    public Action onDie;
 
     public MeetEventMgr()
     { 
