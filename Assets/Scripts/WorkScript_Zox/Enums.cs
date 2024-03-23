@@ -9,11 +9,9 @@ public enum Weather
     Cold
 }
 
-public enum CardType
+public enum CardBaseType
 {
     Army,
-    Navy,
-    AirForce,
     Effect
 }
 

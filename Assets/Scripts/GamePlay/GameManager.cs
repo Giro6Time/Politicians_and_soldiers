@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
         //cardMgr.InstantiateEnemy(
 
-        cardMgr.UpdateSelectableCardList();
+        //cardMgr.UpdateSelectableCardList();
 
 
         //playerControl.Enable()

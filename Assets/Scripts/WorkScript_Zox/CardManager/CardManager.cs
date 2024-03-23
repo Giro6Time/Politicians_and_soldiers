@@ -67,7 +67,7 @@ public class CardManager : MonoBehaviour {
             card.SetCardPos(area.pos);
             area.RearrangeCard();
             card.cardCurrentArea = area;
-        }else if(area.pos == Enums.CardPos.SelectionArea)
+        }else if(area.pos == CardPos.SelectionArea)
         {
             cardPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
@@ -81,7 +81,7 @@ public class CardManager : MonoBehaviour {
     }
     public void MoveCard(CardBase card)
     {
-        if(card.GetCardPos() == Enums.CardPos.SelectionArea)
+        if(card.GetCardPos() == CardPos.SelectionArea)
         {
             hand.Remove(card);
         }
@@ -122,13 +122,13 @@ public class CardManager : MonoBehaviour {
         UpdatePlayerHand((sender as DateManager).GetMonth(), (sender as DateManager).GetSeason());
     }
 
-    private void UpdatePlayerHand(int month, Enums.Season season)
+    private void UpdatePlayerHand(int month, Season season)
     {
         AddCard((month-1)/4 + 1, season);
         
     }
 
-    private void AddCard(int num, Enums.Season season)
+    private void AddCard(int num, Season season)
     {
         //Create Card object
         if(hand.Count > handMax)
@@ -158,13 +158,13 @@ public class CardManager : MonoBehaviour {
         Transform newCard;
 
         switch (enemyCard.GetCardMatchedPos()) {
-            case Enums.CardPos.LandPutArea:
+            case CardPos.LandPutArea:
                 newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy.transform);
                 break;
-            case Enums.CardPos.SeaPutArea:
+            case CardPos.SeaPutArea:
                 newCard = Instantiate(enemy_card, cardAnchor_Sea_Enemy.transform);
                 break;
-            case Enums.CardPos.SkyPutArea:
+            case CardPos.SkyPutArea:
                 newCard = Instantiate(enemy_card, cardAnchor_Sky_Enemy.transform);
                 break;
             default:

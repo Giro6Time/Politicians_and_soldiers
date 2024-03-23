@@ -58,17 +58,17 @@ public class CardPool : MonoBehaviour
         }
     }
 
-    public List<CardBaseSO> GetCurrentCardBaseSOList(Enums.Season season)
+    public List<CardBaseSO> GetCurrentCardBaseSOList(Season season)
     {
         switch (season)
         {
-            case Enums.Season.Spring:
+            case Season.Spring:
                 return springCardSOList;
-            case Enums.Season.Summer:
+            case Season.Summer:
                 return summerCardSOList;
-            case Enums.Season.Autumn:
+            case Season.Autumn:
                 return autumnCardSOList;
-            case Enums.Season.Winter:
+            case Season.Winter:
                 return winterCardSOList;
             default: return null;
         }

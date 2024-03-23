@@ -6,7 +6,7 @@ using UnityEngine;
 public class CardArrangement : MonoBehaviour
 {
 
-    public Enums.CardPos pos;
+    public CardPos pos;
 
     [SerializeField] float offsetX;
     [SerializeField] float offsetZ;
