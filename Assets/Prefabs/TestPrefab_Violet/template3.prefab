@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventInfo:
-    decisionValue: 1
+    decisionValue: 0
     sanity: 1
     armament: 1
     fund: 1
