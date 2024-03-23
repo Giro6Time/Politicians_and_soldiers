@@ -52,12 +52,14 @@ public class CardManager : MonoBehaviour {
         }
         if(card.GetCardMatchedPos() == area.pos)
         {
-            //update player decisionValue
+            //放到目的地战区
             if(Player.Instance.decisionValue - card.cost < 0)
             {
+                //如果费用够
                 card.cardCurrentArea.RearrangeCard();
                 return;
             }
+            //花费决策点
             Player.Instance.decisionValue -= card.cost;
 
             cardPlayingArea.AddCard(card, area.pos);
@@ -69,6 +71,9 @@ public class CardManager : MonoBehaviour {
             card.cardCurrentArea = area;
         }else if(area.pos == CardPos.SelectionArea)
         {
+            //放回选择区
+            //返还决策点
+            Player.Instance.decisionValue += card.cost;
             cardPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
             card.cardCurrentArea.RearrangeCard();

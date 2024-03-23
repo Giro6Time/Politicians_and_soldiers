@@ -22,7 +22,6 @@ public class CardPlayingArea : MonoBehaviour
                 sky.Add(card);
                 break;
             case CardPos.SelectionArea:
-                Debug.Log("error: card not put into battleField");
                 break;
         }
     }
