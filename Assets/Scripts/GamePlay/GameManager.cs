@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("BattleStart");
         PushCard2BattleField();
         battleField.BattleStart();
+        battleField.battleEndPanel.ClosePanel();
     }
 
     private void IntermissionStart()
