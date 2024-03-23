@@ -5,8 +5,12 @@ using UnityEngine;
 public class ArmyCard : CardBase
 {
     public int troopStrength;
+    public ArmyType type;
 
-    // public Army CreateArmy(){
-    //     //Generation of Army form Card
-    // }
+    public enum ArmyType
+    {
+        LandArmy,
+        SeaArmy,
+        SkyArmy
+    }
 }

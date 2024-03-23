@@ -22,6 +22,7 @@ public class CardBase : MonoBehaviour
 
     [SerializeField] private Enums.CardPos matchedPos;
     [SerializeField] private Enums.CardAttackType cardAttackType;
+    [SerializeField] private Enums.CardBaseType cardBaseType;
     [SerializeField] private Enums.Season matchedSeason;
 
     private Enums.CardPos cardPos = Enums.CardPos.SelectionArea;
