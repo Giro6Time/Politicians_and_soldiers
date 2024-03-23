@@ -17,5 +17,6 @@ public class Player: Singleton<Player>
     internal void Init()
     {
         //TODO: ��ʼ��ֵΪ��ֵ�����߶�ȡPlayerSO��ʼ��ֵ
+        decisionValue = 1000000;
     }
 }

@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6579115633913635757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6579115633913635747}
+  - component: {fileID: 6579115633913635756}
+  - component: {fileID: 6579115633913635746}
+  m_Layer: 0
+  m_Name: MeetEventGameCtrl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6579115633913635747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6579115633913635757}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6579115633913635756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6579115633913635757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a72e2d439bf29a4596aa2649477b6c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currRounds: 0
+  maxRounds: 3
+  maxArmPlugNum: 20
+  meetEventCanvas: {fileID: 0}
+  prizeWheelCanvas: {fileID: 0}
+  eventList:
+  - {fileID: 6872932350644171797, guid: 41c807ce97bec44479d8e3ee88a3d7cc, type: 3}
+  - {fileID: 7349079416049036636, guid: 8a4564f755a6caf4eb73362e271cdc08, type: 3}
+  - {fileID: 4578358636834725118, guid: b88ec6fcfb5be3f46925594c465e6c2f, type: 3}
+  - {fileID: 852183518463951166, guid: ecc40d1016a20084e9d7568cd5707170, type: 3}
+  currEventProfit:
+    decisionValue: 1
+    decisionValueMax: 0
+    sanity: 1
+    armament: 1
+    fund: 1
+    popularSupport: 1
+    troopIncrease: 1
+--- !u!114 &6579115633913635746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6579115633913635757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f526dc8db6181fd4cb179766284f3a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prizeWheelPointer: {fileID: 0}
+  prizeWheelRotateSpeed: 20
+  prizeWheelRotateTime: 2
+  prizeNums: 6
+  prizeWheelDivider: {fileID: 4805741510934981310, guid: 02d8b92b6b59096438213f24d92c2bbb, type: 3}
+  slider_ArmForce: {fileID: 0}
+  sanityText: {fileID: 0}
+  armamentText: {fileID: 0}
+  fundText: {fileID: 0}
+  popularSupportText: {fileID: 0}
+  troopIncreaseText: {fileID: 0}

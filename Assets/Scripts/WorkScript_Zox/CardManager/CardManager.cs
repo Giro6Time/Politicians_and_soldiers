@@ -9,6 +9,14 @@ using System.Threading.Tasks;
 
 public class CardManager : MonoBehaviour {
 
+    public List<CardBase> Hand
+    {
+        get => GetCurrentHand();
+        set
+        {
+            hand = value;
+        }
+    }
     public List<CardBase> hand;
     public CardPool cardPool;
     public CardPlayingArea cardPlayingArea;
@@ -33,16 +41,10 @@ public class CardManager : MonoBehaviour {
 
     [SerializeField] private Enemy enemy;
 
-    private void Update()
+    public void Init()
     {
-        hand = GetCurrentHand();
+        //TODO 可能并不需要初始化。？
     }
-
-    private void Start()
-    {
-        DateManager.Instance.OnMonthChanged += DateManager_OnMonthChanged;
-    }
-
     public void MoveCard(CardBase card, CardArrangement area)
     {
         if(card.GetCardPos() == area.pos || card.isEnemy == true)
@@ -88,7 +90,7 @@ public class CardManager : MonoBehaviour {
     {
         if(card.GetCardPos() == CardPos.SelectionArea)
         {
-            hand.Remove(card);
+            Hand.Remove(card);
         }
         else
         {
@@ -100,11 +102,7 @@ public class CardManager : MonoBehaviour {
     private List<CardBase> GetCurrentHand()
     {
         List<CardBase> currentHand = new List<CardBase>();
-        if (cardsCenterPoint.transform.childCount == 0)
-        {
-            return currentHand;
-        }
-
+     
         for (int i = 0; i < cardsCenterPoint.transform.childCount; i++)
         {
             CardBase cardBaseComponent = cardsCenterPoint.transform.GetChild(0).GetComponent<CardBase>();
@@ -113,21 +111,19 @@ public class CardManager : MonoBehaviour {
         return currentHand;
     }
 
-    private async void DateManager_OnMonthChanged(object sender, EventArgs e)
+
+    public void SpawnEnemyCard(int month)
     {
         //Enemy put card
-        foreach(CardBaseSO enemyCardSO in enemy.GetCardBaseSOList(DateManager.Instance.GetMonth()))
+        foreach (CardBaseSO enemyCardSO in enemy.GetCardBaseSOList(month))
         {
             InstantiateEnemy(enemyCardSO);
         }
 
-        await Task.Delay(1000);
-
-        //Player get card
-        UpdatePlayerHand((sender as DateManager).GetMonth(), (sender as DateManager).GetSeason());
     }
-
-    private void UpdatePlayerHand(int month, Season season)
+    
+    //TODO:此方法可能参数不足（需要和策划讨论，例如是否需要将决策点作为参数传入）
+    public void UpdatePlayerHand(int month, Season season)
     {
         AddCard((month-1)/4 + 1, season);
         
@@ -135,14 +131,15 @@ public class CardManager : MonoBehaviour {
 
     private void AddCard(int num, Season season)
     {
+        Debug.Log("Add card to hand");
         //Create Card object
-        if(hand.Count > handMax)
+        if(Hand.Count > handMax)
         {
             return;
         }
-        if (hand.Count + num > handMax)
+        if (Hand.Count + num > handMax)
         {
-            num = handMax - hand.Count;
+            num = handMax - Hand.Count;
         }
 
         for (int i = 0; i < num; i++)

@@ -22,6 +22,13 @@ public class GameManager : MonoBehaviour
 
     [Header("配置")]
     public ConfigSO config;
+
+    void Start()
+    {
+#if UNITY_EDITOR
+        GameStart();
+#endif
+    }
     public void GameStart()
     {
         InitGame();
@@ -33,19 +40,15 @@ public class GameManager : MonoBehaviour
     {
         ////TODO：
         //回合开始时
-        //显示敌方场面 -> 读取玩家属性计算决策点 -> 发牌 -> enable input等待玩家交互
+        //回合计数器+1 -> 显示敌方场面 -> 读取玩家属性计算决策点 -> 发牌 -> enable input等待玩家交互
+        dateMgr.moveNextMonth();
 
-        //cardMgr.InstantiateEnemy(
-
-        //cardMgr.UpdateSelectableCardList();
-
-
-        //playerControl.Enable()
     }
     private void BattleStart()
     {
         //战斗开始时
         //卡片生成军队 -> 进入战斗
+        Debug.Log("BattleStart");
         PushCard2BattleField();
         battleField.BattleStart();
     }
@@ -65,15 +68,25 @@ public class GameManager : MonoBehaviour
     {
         gameFlowController.Init();
         Player.Instance.Init();
+
+        dateMgr.Init();
+        cardMgr.Init();
+        ArmyFactory.prefab = config.armyPrefab;
+
         RegisterEvent();
     }
 
     void RegisterEvent()
     {
         gameFlowController.onBattleStartClicked += BattleStart;
+
+        dateMgr.OnMonthChanged += () => cardMgr.SpawnEnemyCard(dateMgr.GetMonth());
+        dateMgr.OnMonthChanged += () => cardMgr.UpdatePlayerHand(dateMgr.GetMonth(), dateMgr.GetSeason());
+
         battleField.onGameWin += Win;
         battleField.onGameLose += Lose;
         battleField.battleEndPanel.onClose += IntermissionStart;
+
         gameFlowController.onReignsStartClicked += () => meetEventGameCtrl.Init(1);
         gameFlowController.onDialogStartClicked += dialogManager.OpenDialog;
         gameFlowController.onLeaveIntermissionClicked += TurnEnd;

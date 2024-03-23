@@ -918,91 +918,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529704505}
   m_CullTransparentMesh: 1
---- !u!1 &587943990
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 587943992}
-  - component: {fileID: 587943991}
-  - component: {fileID: 587943993}
-  m_Layer: 0
-  m_Name: MeetEventGameCtrl
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &587943991
+--- !u!114 &587943993 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6579115633913635746, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+  m_PrefabInstance: {fileID: 6579115633327174555}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587943990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a72e2d439bf29a4596aa2649477b6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currRounds: 0
-  maxRounds: 3
-  maxArmPlugNum: 20
-  meetEventCanvas: {fileID: 319644373}
-  prizeWheelCanvas: {fileID: 960926378}
-  eventList:
-  - {fileID: 6872932350644171797, guid: 41c807ce97bec44479d8e3ee88a3d7cc, type: 3}
-  - {fileID: 7349079416049036636, guid: 8a4564f755a6caf4eb73362e271cdc08, type: 3}
-  - {fileID: 4578358636834725118, guid: b88ec6fcfb5be3f46925594c465e6c2f, type: 3}
-  - {fileID: 852183518463951166, guid: ecc40d1016a20084e9d7568cd5707170, type: 3}
-  currEventProfit:
-    decisionValue: 1
-    sanity: 1
-    armament: 1
-    fund: 1
-    popularSupport: 1
-    troopIncrease: 1
---- !u!4 &587943992
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587943990}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &587943993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587943990}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f526dc8db6181fd4cb179766284f3a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prizeWheelPointer: {fileID: 281818001}
-  prizeWheelRotateSpeed: 20
-  prizeWheelRotateTime: 2
-  prizeNums: 6
-  prizeWheelDivider: {fileID: 4805741510934981310, guid: 02d8b92b6b59096438213f24d92c2bbb, type: 3}
-  slider_ArmForce: {fileID: 1116860670}
-  sanityText: {fileID: 1196515510}
-  armamentText: {fileID: 1923764339}
-  fundText: {fileID: 1484459953}
-  popularSupportText: {fileID: 397363582}
-  troopIncreaseText: {fileID: 710419853}
 --- !u!1 &656685375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,3 +1930,96 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &6579115633327174555
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6579115633913635746, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: fundText
+      value: 
+      objectReference: {fileID: 1484459953}
+    - target: {fileID: 6579115633913635746, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: sanityText
+      value: 
+      objectReference: {fileID: 1196515510}
+    - target: {fileID: 6579115633913635746, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: armamentText
+      value: 
+      objectReference: {fileID: 1923764339}
+    - target: {fileID: 6579115633913635746, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: slider_ArmForce
+      value: 
+      objectReference: {fileID: 1116860670}
+    - target: {fileID: 6579115633913635746, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: prizeWheelPointer
+      value: 
+      objectReference: {fileID: 281818001}
+    - target: {fileID: 6579115633913635746, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: troopIncreaseText
+      value: 
+      objectReference: {fileID: 710419853}
+    - target: {fileID: 6579115633913635746, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: popularSupportText
+      value: 
+      objectReference: {fileID: 397363582}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635747, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579115633913635756, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: meetEventCanvas
+      value: 
+      objectReference: {fileID: 319644373}
+    - target: {fileID: 6579115633913635756, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: prizeWheelCanvas
+      value: 
+      objectReference: {fileID: 960926378}
+    - target: {fileID: 6579115633913635757, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
+      propertyPath: m_Name
+      value: MeetEventGameCtrl
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6755b120d4b71e04bb8e1a52af9a4d9e, type: 3}
