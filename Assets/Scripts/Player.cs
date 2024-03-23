@@ -22,6 +22,7 @@ public class Player
     private static Player instance;
 
     public int decisionValue;
+    public int decisionValueMax;
     public float sanity;
     public float armament;
     public float fund;

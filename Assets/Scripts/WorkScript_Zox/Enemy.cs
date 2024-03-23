@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [HideInInspector] public List<CardBaseSO> currentList;
-
     public List<CardBaseSO> cardList_1;
     public List<CardBaseSO> cardList_2;
     public List<CardBaseSO> cardList_3;
@@ -21,45 +19,34 @@ public class Enemy : MonoBehaviour
     public List<CardBaseSO> cardList_11;
     public List<CardBaseSO> cardList_12;
 
-    public void MoveCardListPointer(int month)
+    public List<CardBaseSO> GetCardBaseSOList(int month)
     {
         switch (month) {
             case 1:
-                currentList = cardList_1;
-                break;
+                return cardList_1;
             case 2:
-                currentList = cardList_2;
-                break;
+                return cardList_2;
             case 3:
-                currentList = cardList_3;
-                break;
+                return cardList_3;
             case 4:
-                currentList = cardList_4;
-                break;
+                return cardList_4;
             case 5:
-                currentList = cardList_5;
-                break;
+                return cardList_5;
             case 6:
-                currentList = cardList_6;
-                break;
+                return cardList_6;
             case 7:
-                currentList = cardList_7;
-                break;
+                return cardList_7;
             case 8:
-                currentList = cardList_8;
-                break;
+                return cardList_8;
             case 9:
-                currentList = cardList_9;
-                break;
+                return cardList_9;
             case 10:
-                currentList = cardList_10;
-                break;
+                return cardList_10;
             case 11:
-                currentList = cardList_11;
-                break;
+                return cardList_11;
             case 12:
-                currentList = cardList_12;
-                break;
+                return cardList_12;
         }
+        return null;
     }
 }

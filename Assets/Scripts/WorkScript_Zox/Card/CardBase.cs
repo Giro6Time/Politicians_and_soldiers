@@ -9,6 +9,8 @@ public class CardBase : MonoBehaviour
     public Texture2D cardFace;
     public Texture2D cardBack;
 
+    public int cost = 33;
+
     [SerializeField] private CardBaseSO cardSO;
 
     private enum State
@@ -20,7 +22,6 @@ public class CardBase : MonoBehaviour
 
     [SerializeField] private Enums.CardPos matchedPos;
     [SerializeField] private Enums.CardAttackType cardAttackType;
-    [SerializeField] private int decisionPointCost;
     [SerializeField] private Enums.Season matchedSeason;
 
     private Enums.CardPos cardPos = Enums.CardPos.SelectionArea;

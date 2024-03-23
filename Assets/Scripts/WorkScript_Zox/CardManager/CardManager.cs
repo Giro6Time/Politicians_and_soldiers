@@ -5,6 +5,7 @@ using System;
 using UnityEngine.Assertions.Must;
 using System.Net.Sockets;
 using static UnityEditor.PlayerSettings;
+using System.Threading.Tasks;
 
 public class CardManager : MonoBehaviour {
 
@@ -22,6 +23,8 @@ public class CardManager : MonoBehaviour {
     [SerializeField] CardArrangement cardAnchor_Sky_Enemy;
     [SerializeField] CardArrangement cardAnchor_Land_Enemy;
     [SerializeField] CardArrangement cardAnchor_Sea_Enemy;
+    [SerializeField] Transform playerCardInitialPos;
+    [SerializeField] Transform enemyCardInitialPos;
 
     [SerializeField] float offsetX_BattleField;
     [SerializeField] float offsetX_SelectableArea;
@@ -42,7 +45,29 @@ public class CardManager : MonoBehaviour {
 
     public void MoveCard(CardBase card, CardArrangement area)
     {
-        if(card.GetCardMatchedPos() == area.pos || area.pos == Enums.CardPos.SelectionArea)
+        if(card.GetCardPos() == area.pos)
+        {
+            card.cardCurrentArea.RearrangeCard();
+            return;
+        }
+        if(card.GetCardMatchedPos() == area.pos)
+        {
+            //update player decisionValue
+            if(Player.Instance.decisionValue - card.cost < 0)
+            {
+                card.cardCurrentArea.RearrangeCard();
+                return;
+            }
+            Player.Instance.decisionValue -= card.cost;
+
+            cardPlayingArea.AddCard(card, area.pos);
+            card.transform.SetParent(area.transform, true);
+            card.cardCurrentArea.RearrangeCard();
+
+            card.SetCardPos(area.pos);
+            area.RearrangeCard();
+            card.cardCurrentArea = area;
+        }else if(area.pos == Enums.CardPos.SelectionArea)
         {
             cardPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
@@ -52,10 +77,7 @@ public class CardManager : MonoBehaviour {
             area.RearrangeCard();
             card.cardCurrentArea = area;
         }
-        else
-        {
-            card.cardCurrentArea.RearrangeCard();
-        }
+        card.cardCurrentArea.RearrangeCard();
     }
     public void MoveCard(CardBase card)
     {
@@ -86,13 +108,16 @@ public class CardManager : MonoBehaviour {
         return currentHand;
     }
 
-    private void DateManager_OnMonthChanged(object sender, EventArgs e)
+    private async void DateManager_OnMonthChanged(object sender, EventArgs e)
     {
         //Enemy put card
-        foreach(CardBaseSO enemyCardSO in enemy.currentList)
+        foreach(CardBaseSO enemyCardSO in enemy.GetCardBaseSOList(DateManager.Instance.GetMonth()))
         {
-            Instantiate(enemyCardSO);
+            InstantiateEnemy(enemyCardSO);
         }
+
+        await Task.Delay(1000);
+
         //Player get card
         UpdatePlayerHand((sender as DateManager).GetMonth(), (sender as DateManager).GetSeason());
     }
@@ -119,7 +144,8 @@ public class CardManager : MonoBehaviour {
         {
             int randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season).Count);
             Transform card = Instantiate(cardPool.GetCurrentCardBaseSOList(season)[randomIndex].cardPrefab, cardsCenterPoint.transform);
-            //Transform card = Instantiate(cardPool.GetCurrentCardBaseSOList(season)[(int)UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season).Count - 1)].cardPrefab, cardsCenterPoint.transform);
+
+            card.position = playerCardInitialPos.position;
         }
         cardsCenterPoint.RearrangeCard();
     }
@@ -127,22 +153,32 @@ public class CardManager : MonoBehaviour {
     private void InstantiateEnemy(CardBaseSO enemyCardSO)
     {
         Transform enemy_card = enemyCardSO.cardPrefab;
-
         CardBase enemyCard = enemy_card.GetComponent<CardBase>();
+
         switch (enemyCard.GetCardMatchedPos()) {
             case Enums.CardPos.LandPutArea:
                 Transform newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy.transform);
-                newCard.localPosition = Vector3.zero;
+                newCard.position = enemyCardInitialPos.position;
+
+                enemyPlayingArea.AddCard(enemyCard, enemyCard.GetCardMatchedPos());
+                cardAnchor_Land_Enemy.RearrangeCard();
                 break;
             case Enums.CardPos.SeaPutArea:
                 Transform newCard1 = Instantiate(enemy_card, cardAnchor_Sea_Enemy.transform);
-                newCard1.localPosition = Vector3.zero;
+                newCard1.position = enemyCardInitialPos.position;
+
+                enemyPlayingArea.AddCard(enemyCard, enemyCard.GetCardMatchedPos());
+                cardAnchor_Sea_Enemy.RearrangeCard();
                 break;
             case Enums.CardPos.SkyPutArea:
                 Transform newCard2 = Instantiate(enemy_card, cardAnchor_Sky_Enemy.transform);
-                newCard2.localPosition = Vector3.zero;
+                newCard2.position = enemyCardInitialPos.position;
+
+                enemyPlayingArea.AddCard(enemyCard, enemyCard.GetCardMatchedPos());
+                cardAnchor_Sky_Enemy.RearrangeCard();
                 break;
         }
         
     }
+
 }

@@ -24,6 +24,9 @@ public class DateManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        Player.Instance.decisionValueMax = 100;
+        Player.Instance.decisionValue = Player.Instance.decisionValueMax;
     }
 
     private void Start()

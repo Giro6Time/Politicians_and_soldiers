@@ -38,6 +38,7 @@ public class Enums
         SelectionArea,
         LandPutArea,
         SeaPutArea,
-        SkyPutArea
+        SkyPutArea,
+        UnselectableArea
     }
 }

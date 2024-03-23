@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  pos: 1
   offsetX: 0.5
   offsetZ: 0.1
   lerpSpeed: 5
@@ -146,6 +146,7 @@ Transform:
   - {fileID: 6756974019664405825}
   - {fileID: 7652561810012448129}
   - {fileID: 8574664781688653891}
+  - {fileID: 6157373780304608359}
   m_Father: {fileID: 6680650596211811339}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -246,9 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
-  offsetX: 0
-  offsetZ: 0.1
+  pos: 4
+  offsetX: 0.5
+  offsetZ: -0.1
   lerpSpeed: 5
 --- !u!1 &2857896744528613524
 GameObject:
@@ -347,9 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
-  offsetX: 0
-  offsetZ: 0.1
+  pos: 4
+  offsetX: 0.5
+  offsetZ: -0.1
   lerpSpeed: 5
 --- !u!1 &2903435861450198109
 GameObject:
@@ -495,9 +496,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
-  offsetX: 0
-  offsetZ: 0.1
+  pos: 4
+  offsetX: 0.5
+  offsetZ: -0.1
   lerpSpeed: 5
 --- !u!1 &3332939007957813380
 GameObject:
@@ -693,8 +694,40 @@ Transform:
   - {fileID: 3840036636776775717}
   - {fileID: 6397168550642274267}
   - {fileID: 1457410153328478533}
+  - {fileID: 2760058990884497609}
   m_Father: {fileID: 6680650596211811339}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5806421807097895631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2760058990884497609}
+  m_Layer: 0
+  m_Name: Initial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2760058990884497609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5806421807097895631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7, y: -6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4618453717120864784}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6050710499390119935
 GameObject:
@@ -743,6 +776,37 @@ MonoBehaviour:
   sea: []
   ground: []
   sky: []
+--- !u!1 &6193379509813902150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6157373780304608359}
+  m_Layer: 0
+  m_Name: Initial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6157373780304608359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193379509813902150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6752842925651130064}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6428080359948455364
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  pos: 2
   offsetX: 0.5
   offsetZ: 0.1
   lerpSpeed: 5
@@ -968,6 +1032,8 @@ MonoBehaviour:
   cardAnchor_Sky_Enemy: {fileID: 665656839218697838}
   cardAnchor_Land_Enemy: {fileID: 8123381318657152401}
   cardAnchor_Sea_Enemy: {fileID: 9174574538972076173}
+  playerCardInitialPos: {fileID: 2760058990884497609}
+  enemyCardInitialPos: {fileID: 6157373780304608359}
   offsetX_BattleField: 1
   offsetX_SelectableArea: 1
   handMax: 10
@@ -1083,7 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  pos: 3
   offsetX: 0.5
   offsetZ: 0.1
   lerpSpeed: 5
