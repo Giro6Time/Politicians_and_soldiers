@@ -9,6 +9,10 @@ public class CardBase : MonoBehaviour
     public Texture2D cardFace;
     public Texture2D cardBack;
 
+    public int cost = 33;
+
+    public bool isEnemy;
+
     [SerializeField] private CardBaseSO cardSO;
 
     private enum State
@@ -18,19 +22,18 @@ public class CardBase : MonoBehaviour
         UsingAbility
     }
 
-    [SerializeField] private CardType cardType;
+    [SerializeField] private CardPos matchedPos;
     [SerializeField] private CardAttackType cardAttackType;
-    //private int armyAmount;
-    [SerializeField] private int decisionPointCost;
-    //private float progressInfluence;
-
+    [SerializeField] private CardBaseType cardBaseType;
     [SerializeField] private Season matchedSeason;
-    //[SerializeField] private Enums.Weather matchedWeather;
-
-    //based on concrete card ability
-    //private float amountFix;
 
     private CardPos cardPos = CardPos.SelectionArea;
+    public CardArrangement cardCurrentArea;
+
+    private void Awake()
+    {
+        cardCurrentArea = GetComponentInParent<CardArrangement>();
+    }
 
     public CardBaseSO GetCardSO()
     {
@@ -47,7 +50,7 @@ public class CardBase : MonoBehaviour
         this.cardPos = cardPos;
     }
     
-    public CardType GetCardType(){
-        return cardType;
+    public CardPos GetCardMatchedPos(){
+        return matchedPos;
     }
 }
