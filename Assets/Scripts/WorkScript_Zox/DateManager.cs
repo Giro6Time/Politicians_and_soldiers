@@ -12,11 +12,11 @@ public class DateManager : MonoBehaviour
 
 
     [SerializeField] private int month;
-    [SerializeField] private Enums.Weather weather;
-    //ÐèÒªÐÞ¸Ä
+    [SerializeField] private Weather weather;
+    //ï¿½ï¿½Òªï¿½Þ¸ï¿½
     private int weatherTypeCount = 3;
     //end
-    [SerializeField] private Enums.Season season;
+    [SerializeField] private Season season;
     
     private bool canMoveNextMonth = true;
 
@@ -24,27 +24,28 @@ public class DateManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        Player.Instance.decisionValueMax = 100;
+        Player.Instance.decisionValue = Player.Instance.decisionValueMax;
     }
 
     private void Start()
     {
         //Initializing
         month = 0;
-        PlayerControl.Instance.OnSpacePressed += moveNextMonth;
     }
 
-    private void moveNextMonth(object sender, EventArgs e)
+    public void moveNextMonth()
     {
         if (canMoveNextMonth)
         {
             month++;
-            OnMonthChanged?.Invoke(this, new EventArgs());
-
-            //»ñÈ¡¼¾½Ú
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
             UpdateSeason();
-            //»ñÈ¡ÌìÆø
-            weather = (Enums.Weather)(int)UnityEngine.Random.Range(0, weatherTypeCount);
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+            weather = (Weather)(int)UnityEngine.Random.Range(0, weatherTypeCount);
 
+            OnMonthChanged?.Invoke(this, new EventArgs());
         }
     }
 
@@ -52,16 +53,16 @@ public class DateManager : MonoBehaviour
     {
         if (1 <= month && month <= 3)
         {
-            season = Enums.Season.Spring;
+            season = Season.Spring;
         }else if (4 <= month && month <= 6)
         {
-            season = Enums.Season.Summer;
+            season = Season.Summer;
         }else if(7 <= month && month <= 9)
         {
-            season = Enums.Season.Autumn;
+            season = Season.Autumn;
         }else if(10 <= month && month <= 12)
         {
-            season = Enums.Season.Winter;
+            season = Season.Winter;
         }
     }
 
@@ -69,7 +70,7 @@ public class DateManager : MonoBehaviour
     {
         return month;
     }
-    public Enums.Season GetSeason()
+    public Season GetSeason()
     {
         return season;
     }

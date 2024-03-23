@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b706cc894ddc7e64fb8274d04efd09e2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - panelWin: {instanceID: 0}
+  - panelLose: {instanceID: 0}
+  - panelDraw: {instanceID: 0}
+  - panelLeft: {instanceID: 0}
+  - panelRight: {instanceID: 0}
+  - battleField: {instanceID: 0}
+  - armyManager: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
