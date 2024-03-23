@@ -13,7 +13,7 @@ public class DateManager : MonoBehaviour
 
     [SerializeField] private int month;
     [SerializeField] private Weather weather;
-    //ÐèÒªÐÞ¸Ä
+    //ï¿½ï¿½Òªï¿½Þ¸ï¿½
     private int weatherTypeCount = 3;
     //end
     [SerializeField] private Season season;
@@ -24,27 +24,28 @@ public class DateManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        Player.Instance.decisionValueMax = 100;
+        Player.Instance.decisionValue = Player.Instance.decisionValueMax;
     }
 
     private void Start()
     {
         //Initializing
         month = 0;
-        PlayerControl.Instance.OnSpacePressed += moveNextMonth;
     }
 
-    private void moveNextMonth(object sender, EventArgs e)
+    public void moveNextMonth()
     {
         if (canMoveNextMonth)
         {
             month++;
-            OnMonthChanged?.Invoke(this, new EventArgs());
-
-            //»ñÈ¡¼¾½Ú
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
             UpdateSeason();
-            //»ñÈ¡ÌìÆø
+            //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
             weather = (Weather)(int)UnityEngine.Random.Range(0, weatherTypeCount);
 
+            OnMonthChanged?.Invoke(this, new EventArgs());
         }
     }
 

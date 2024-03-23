@@ -7,6 +7,7 @@ using UnityEngine;
 public class Player: Singleton<Player>
 {
     public int decisionValue;
+    public int decisionValueMax;
     public float sanity;
     public float armament;
     public float fund;
@@ -15,6 +16,6 @@ public class Player: Singleton<Player>
 
     internal void Init()
     {
-        //TODO: 初始化值为初值，或者读取PlayerSO初始化值
+        //TODO: 锟斤拷始锟斤拷值为锟斤拷值锟斤拷锟斤拷锟竭讹拷取PlayerSO锟斤拷始锟斤拷值
     }
 }
