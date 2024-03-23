@@ -16,15 +16,25 @@ public class MeetEventMgr
     public Dictionary<int,MeetEventAbstract> currPrizeDic;
 
     /// <summary>
-    /// 当前事件链表：即抽中的物体都将加入该链表
+    /// 当前事件链表：即抽中的物体都将加入该链表(不用栈是为了往后玩家能够更方便地进行卡牌选择)
     /// </summary>
     [HideInInspector]
     public List<MeetEventAbstract> currentEventList;
+    /// <summary>
+    /// 当前的事件下标
+    /// </summary>
+    public int currEventIndex;
 
     /// <summary>
     /// 是否处于冻结时间：冻结时：玩家再点击按钮都没用
     /// </summary>
     public bool isFreeze;
+
+    /// <summary>
+    /// 是否进行会议事件处理
+    /// </summary>
+    public bool isDisposeMeetEvent;
+
 
     public MeetEventMgr()
     { 
@@ -38,18 +48,38 @@ public class MeetEventMgr
     /// </summary>
     public void EventChange(bool isYes = false)
     {
-        //如果当前轮数已经到达最大轮数，则返回
-        if (MeetEventGameCtrl._Instance.currRounds >= MeetEventGameCtrl._Instance.maxRounds)
+        //冻结期我们应该禁止一切行为
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
             return;
-        //轮数增加
-        MeetEventGameCtrl._Instance.currRounds++;
-        //启动对应程序
-        if (MeetEventGameCtrl._Instance.meetEventCanvas.isActiveAndEnabled)
+        //抽奖和处理只能启动其中一个
+        if (isDisposeMeetEvent)
         {
+            //对于卡牌，一次一张
             MeettingEventChange(isYes);
         }
         else
         {
+            //玩家点击抽奖但是没有抽奖机会了，进行决策点检测：玩家只要还有决策点就消耗决策点获得三次抽卡机会
+            //如果条件不满足：那么就提示用户没决策点了
+            //TODO
+            //如果当前轮数已经到达最大轮数，检测玩家的决策点是否足够，给玩家补充3次抽奖机会,否则提示玩家已经没钱了
+            if (MeetEventGameCtrl._Instance.currRounds >= MeetEventGameCtrl._Instance.maxRounds)
+            {
+                if (MeetEventGameCtrl._Instance.currEventProfit.decisionValue > 0)
+                {
+                    MeetEventGameCtrl._Instance.currEventProfit.decisionValue--;
+                    MeetEventGameCtrl._Instance.maxRounds += 3;
+                }
+                else
+                {
+                    //TODO:给出资源不足提示
+                    Debug.Log("当前决策点不足");
+                    return;
+                }
+            }
+           
+            //对于抽奖池一次三张
+            MeetEventGameCtrl._Instance.currRounds += 3;
             Debug.Log("启动抽奖程序");
             isFreeze = true;
             //启动程序
@@ -63,38 +93,32 @@ public class MeetEventMgr
     /// </summary>
     private void MeettingEventChange(bool isYes)
     {
+        //如果卡库没有卡，那么禁止玩家进行取值
+        if(currentEventList.Count == 0)
+        {
+            //TODO提示玩家去抽卡
+            Debug.Log("您当前的卡池没有卡牌");
+            return;
+        }
+
         //如果交易，则进行资源变化,并更新UI
         if (isYes)
         {
             //进行资源更新
             currEvent.ResourceChange();
-            //进行k值计算和更新
-            //CaculateK();
         }
+        //只要资源更新了，就要把事件从牌库中弹出（是否答应都会弹出）
+        currentEventList.RemoveAt(currEventIndex);
         //进行UI更新
         UIEventListener._Instance.UIMeetingEventUpdate();
         DoExitAnimation();
         //进行迭代
-        if (MeetEventGameCtrl._Instance.currRounds < MeetEventGameCtrl._Instance.maxRounds)
+        if (currentEventList.Count >0)
         {
             //进行下一轮随机事件  
             ExtractCurrentEvent();
         }
-        else
-        {
-            //结束游戏 TODO:若需要返回值：也可返回
-            GameExit();
-        }
     }
-
-    /// <summary>
-    /// 计算当前收益/按k公式计算
-    /// </summary>
-    private void CaculateK()
-    {
-        MeetEventGameCtrl._Instance.currEventProfit.troopIncrease = 2 * MeetEventGameCtrl._Instance.currEventProfit.troopIncrease;
-    }
-
 
     /// <summary>
     /// 播放事件退出动画并让事件退出
@@ -105,6 +129,7 @@ public class MeetEventMgr
 
         //销毁OR隐藏(隐藏方案为对象池)
         MeetEventGameCtrl.Destroy(currEvent.gameObject);
+        currEvent = null;
     }
 
     /// <summary>
@@ -113,14 +138,16 @@ public class MeetEventMgr
     /// </summary>
     public void ExtractCurrentEvent()
     {
+        //如果没有事件，则无法抽卡
+        if (currentEventList.Count == 0||currEvent!=null)
+            return;
         //1.获取当前顺序的物体
-        GameObject obj = currentEventList[MeetEventGameCtrl._Instance.currRounds].gameObject;
+        GameObject obj = currentEventList[currEventIndex].gameObject;
         //2.创建物体/从对象池中读取物体：暂定是创建物体
         obj = GameObject.Instantiate(obj, MeetEventGameCtrl._Instance.meetEventCanvas.transform);
-        obj.GetComponent<CommonEvent>().Copy(currentEventList[MeetEventGameCtrl._Instance.currRounds]);
+        obj.GetComponent<CommonEvent>().Copy(currentEventList[currEventIndex]);
         //3.赋值
         currEvent = obj.GetComponent<CommonEvent>();
- 
     }
     #endregion
 
@@ -147,7 +174,6 @@ public class MeetEventMgr
             eventRarityArray[i] = 1.0f/MeetEventGameCtrl._Instance.eventList[prizeIndex].EventValue;
             eventRarityArray[i + UIEventListener._Instance.prizeNums] = prizeIndex;
             sum+=eventRarityArray[i];
-
         }
         //进行分区
         //为了确保无误差，注意最后一个要独立添加
@@ -166,12 +192,24 @@ public class MeetEventMgr
     }
 
     /// <summary>
-    /// 游戏结束：逻辑暂时不明
+    /// 游戏结束：
+    /// TODO：还有其他逻辑数值需要比对后决定怎么处理
     /// </summary>
-    private void GameExit()
+    public void GameExit()
     {
-        //离开时：将两个canvas失活？
+        //离开时：将两个canvas失活？还有其他信息是否要重置？
         Debug.Log("游戏结束");
+        //1.重置信息
+        if (currEvent != null)
+        {
+            MeetEventGameCtrl.Destroy(currEvent.gameObject);
+            currEvent = null;
+        }
+        isFreeze = false;
+        isDisposeMeetEvent = false;
+
+        //收益提现：怎么提现？
+
         MeetEventGameCtrl._Instance.meetEventCanvas.gameObject.SetActive(false);
         MeetEventGameCtrl._Instance.prizeWheelCanvas.gameObject.SetActive(false);
     }
