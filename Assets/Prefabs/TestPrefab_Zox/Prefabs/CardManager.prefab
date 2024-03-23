@@ -114,6 +114,7 @@ MonoBehaviour:
   pos: 1
   offsetX: 0.5
   offsetZ: 0.1
+  raiseHeight: 0
   lerpSpeed: 5
 --- !u!1 &554664835406573018
 GameObject:
@@ -250,6 +251,7 @@ MonoBehaviour:
   pos: 4
   offsetX: 0.5
   offsetZ: -0.1
+  raiseHeight: 0
   lerpSpeed: 5
 --- !u!1 &2857896744528613524
 GameObject:
@@ -351,6 +353,7 @@ MonoBehaviour:
   pos: 4
   offsetX: 0.5
   offsetZ: -0.1
+  raiseHeight: 0
   lerpSpeed: 5
 --- !u!1 &2903435861450198109
 GameObject:
@@ -499,6 +502,7 @@ MonoBehaviour:
   pos: 4
   offsetX: 0.5
   offsetZ: -0.1
+  raiseHeight: 0
   lerpSpeed: 5
 --- !u!1 &3332939007957813380
 GameObject:
@@ -647,7 +651,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: 0
   offsetX: 1.2
-  offsetZ: 0.01
+  offsetZ: -0.1
+  raiseHeight: 0.5
   lerpSpeed: 5
 --- !u!65 &9208364387985801833
 BoxCollider:
@@ -921,6 +926,7 @@ MonoBehaviour:
   pos: 2
   offsetX: 0.5
   offsetZ: 0.1
+  raiseHeight: 0
   lerpSpeed: 5
 --- !u!1 &6607786230758769684
 GameObject:
@@ -1152,6 +1158,7 @@ MonoBehaviour:
   pos: 3
   offsetX: 0.5
   offsetZ: 0.1
+  raiseHeight: 0
   lerpSpeed: 5
 --- !u!1001 &3106661048538699783
 PrefabInstance:

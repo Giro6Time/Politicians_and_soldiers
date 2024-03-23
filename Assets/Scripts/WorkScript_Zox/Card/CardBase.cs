@@ -11,6 +11,8 @@ public class CardBase : MonoBehaviour
 
     public int cost = 33;
 
+    public bool isEnemy;
+
     [SerializeField] private CardBaseSO cardSO;
 
     private enum State

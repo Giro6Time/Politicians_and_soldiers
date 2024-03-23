@@ -37,19 +37,6 @@ public class PlayerControl : MonoBehaviour
     private float moveTimeCounter = 0f;
 
 
-
-/*    private void OnMouseUp()
-    {
-
-        float validOffset = 1f;
-        if (Vector3.Distance(selectedCard.transform.position, targetPosition.position) < validOffset)
-        {
-            //if the destiny is correct
-            transform.position = targetPosition.position;
-        }
-    }*/
-
-
     private void Awake()
     {
         Instance = this;

@@ -45,7 +45,7 @@ public class CardManager : MonoBehaviour {
 
     public void MoveCard(CardBase card, CardArrangement area)
     {
-        if(card.GetCardPos() == area.pos)
+        if(card.GetCardPos() == area.pos || card.isEnemy == true)
         {
             card.cardCurrentArea.RearrangeCard();
             return;
@@ -155,30 +155,31 @@ public class CardManager : MonoBehaviour {
         Transform enemy_card = enemyCardSO.cardPrefab;
         CardBase enemyCard = enemy_card.GetComponent<CardBase>();
 
+        Transform newCard;
+
         switch (enemyCard.GetCardMatchedPos()) {
             case Enums.CardPos.LandPutArea:
-                Transform newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy.transform);
-                newCard.position = enemyCardInitialPos.position;
-
-                enemyPlayingArea.AddCard(enemyCard, enemyCard.GetCardMatchedPos());
-                cardAnchor_Land_Enemy.RearrangeCard();
+                newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy.transform);
                 break;
             case Enums.CardPos.SeaPutArea:
-                Transform newCard1 = Instantiate(enemy_card, cardAnchor_Sea_Enemy.transform);
-                newCard1.position = enemyCardInitialPos.position;
-
-                enemyPlayingArea.AddCard(enemyCard, enemyCard.GetCardMatchedPos());
-                cardAnchor_Sea_Enemy.RearrangeCard();
+                newCard = Instantiate(enemy_card, cardAnchor_Sea_Enemy.transform);
                 break;
             case Enums.CardPos.SkyPutArea:
-                Transform newCard2 = Instantiate(enemy_card, cardAnchor_Sky_Enemy.transform);
-                newCard2.position = enemyCardInitialPos.position;
-
-                enemyPlayingArea.AddCard(enemyCard, enemyCard.GetCardMatchedPos());
-                cardAnchor_Sky_Enemy.RearrangeCard();
+                newCard = Instantiate(enemy_card, cardAnchor_Sky_Enemy.transform);
+                break;
+            default:
+                newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy.transform);
                 break;
         }
-        
+        newCard.position = enemyCardInitialPos.position;
+        newCard.GetComponent<CardBase>().isEnemy = true;
+
+        enemyPlayingArea.AddCard(enemyCard, enemyCard.GetCardMatchedPos());
+
+        cardAnchor_Land_Enemy.RearrangeCard();
+        cardAnchor_Sea_Enemy.RearrangeCard();
+        cardAnchor_Sky_Enemy.RearrangeCard();
+
     }
 
 }
