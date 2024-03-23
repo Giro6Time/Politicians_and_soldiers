@@ -21,6 +21,7 @@ public class CardArrangement : MonoBehaviour
         {
             Transform object2bRepositioned = transform.GetChild(i);
             Vector3 targetPosition = new Vector3(offsetX * i, 0, offsetZ*i);
+            object2bRepositioned.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
 
             StartCoroutine(MoveSmoothly(object2bRepositioned, targetPosition));
         }

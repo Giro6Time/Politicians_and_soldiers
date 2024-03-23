@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2098872864585181706}
   - component: {fileID: 5251308203851864503}
   - component: {fileID: 7902230919200253374}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6752842925651130064}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnemyCardPut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 6756974019664405825}
   - component: {fileID: 9165001013476701195}
   - component: {fileID: 665656839218697838}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 8574664781688653891}
   - component: {fileID: 9113533750338505345}
   - component: {fileID: 9174574538972076173}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 7652561810012448129}
   - component: {fileID: 6231712863267618730}
   - component: {fileID: 8123381318657152401}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 908945025472218380}
   - component: {fileID: 23419362029570892}
   - component: {fileID: 9208364387985801833}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HeadPointAnhcor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4618453717120864784}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerCardSelectionNPut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -712,7 +712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2760058990884497609}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Initial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -790,7 +790,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6157373780304608359}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Initial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -824,7 +824,7 @@ GameObject:
   - component: {fileID: 3539050998490635340}
   - component: {fileID: 7217529702957694}
   - component: {fileID: 5150442668194780245}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -974,7 +974,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardManager: {fileID: 271311364234959739}
   dateManager: {fileID: 2519640628777163233}
+  cardLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  areaLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   currentState: 0
+  selectedCard: {fileID: 0}
 --- !u!1 &6680650596211811336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,7 +1063,7 @@ GameObject:
   - component: {fileID: 6559636934394718455}
   - component: {fileID: 5419748056302128056}
   - component: {fileID: 9069396207733102568}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sky
   m_TagString: Untagged
   m_Icon: {fileID: 0}

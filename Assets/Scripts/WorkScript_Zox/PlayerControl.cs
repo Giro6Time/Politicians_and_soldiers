@@ -12,6 +12,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private CardManager cardManager;
     [SerializeField] private DateManager dateManager;
 
+    public LayerMask cardLayer;
+    public LayerMask areaLayer;
 
     public enum State{
         SelectingCard,
@@ -24,7 +26,7 @@ public class PlayerControl : MonoBehaviour
 
 
 
-    private CardBase selectedCard;
+    public CardBase selectedCard;
     private CardArrangement puttableArea;
 
 
@@ -140,20 +142,18 @@ public class PlayerControl : MonoBehaviour
     private void MouseSelectCard()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] hits = Physics.RaycastAll(ray);
-
-        foreach (RaycastHit hit in hits)
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, 15, cardLayer))
         {
             if (hit.collider.TryGetComponent(out CardBase card))
             {
                 selectedCard = card;
             }
-            else
-            {
-                selectedCard = null;
-            }
         }
-        Debug.Log(selectedCard);
+        else
+        {
+            selectedCard = null;
+        }
     }
 
     private void MoveCard()
@@ -165,20 +165,15 @@ public class PlayerControl : MonoBehaviour
     private void MouseSelectPlaceableRegion()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        RaycastHit[] hits = Physics.RaycastAll(ray);
-
-        foreach (RaycastHit hit in hits)
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 15, areaLayer))
         {
-            CardArrangement area = hit.collider.GetComponent<CardArrangement>();
-            if (area != null)
+            if (hit.collider.TryGetComponent(out CardArrangement area))
             {
                 puttableArea = area;
-                break; 
             }
         }
-
-        if (puttableArea == null)
+        else
         {
             puttableArea = null;
         }

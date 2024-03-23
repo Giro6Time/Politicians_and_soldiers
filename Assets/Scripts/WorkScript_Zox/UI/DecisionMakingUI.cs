@@ -10,8 +10,5 @@ public class DecisionMakingUI : MonoBehaviour
     private void Update()
     {
         image.fillAmount = (float)Player.Instance.decisionValue / Player.Instance.decisionValueMax;
-
-        Debug.Log(Player.Instance.decisionValue);
-        Debug.Log(Player.Instance.decisionValueMax);
     }
 }
