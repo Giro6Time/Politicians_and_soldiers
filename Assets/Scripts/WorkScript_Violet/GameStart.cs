@@ -9,6 +9,7 @@ public class GameStart : MonoBehaviour
     public Vector3 pos;
     public float time;
     public List<int> a;
+    public GameObject obj;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +27,14 @@ public class GameStart : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            //假定补充3点决策点
+            //obj.SetActive(!obj.activeSelf);
+            //if (MeetEventGameCtrl._Instance == null)
+            //{
+            //    Debug.Log("单例为空");
+            //}
+            //假定补充2点决策点
             MeetEventGameCtrl._Instance.currEventProfit.decisionValue = 2;
+
         }
     }
 }

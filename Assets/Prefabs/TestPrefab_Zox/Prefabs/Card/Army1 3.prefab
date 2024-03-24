@@ -108,23 +108,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 3511590526491327928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99c504ccd1c334f9094682dd5762cc78, type: 3}
+  m_Script: {fileID: 11500000, guid: d55b34dbdb7c32b4e98a5863a598aa32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardName: Army1
+  cardName: 
   discription: 
   cardFace: {fileID: 0}
   cardBack: {fileID: 0}
   cost: 33
-  isEnemy: 1
-  cardSO: {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
-  matchedPos: 3
+  isEnemy: 0
+  cardSO: {fileID: 0}
+  matchedPos: 1
   cardAttackType: 0
   cardBaseType: 0
   matchedSeason: 0
   cardCurrentArea: {fileID: 0}
-  troopStrength: 0
-  type: 0
 --- !u!114 &-3049501900433450289
 MonoBehaviour:
   m_ObjectHideFlags: 0

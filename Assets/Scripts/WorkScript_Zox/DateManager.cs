@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class DateManager : MonoBehaviour
 {
     public static DateManager Instance;
 
-    public event EventHandler OnMonthChanged;
+    public Action OnMonthChanged;
 
 
     [SerializeField] private int month;
@@ -18,18 +19,18 @@ public class DateManager : MonoBehaviour
     //end
     [SerializeField] private Season season;
     
-    private bool canMoveNextMonth = true;
+    private bool canMoveNextMonth {
+        get { return 0 <= month && month < 12; }
+    }
 
 
     private void Awake()
     {
         Instance = this;
 
-        Player.Instance.decisionValueMax = 100;
-        Player.Instance.decisionValue = Player.Instance.decisionValueMax;
     }
 
-    private void Start()
+    public void Init()
     {
         //Initializing
         month = 0;
@@ -45,7 +46,7 @@ public class DateManager : MonoBehaviour
             //��ȡ����
             weather = (Weather)(int)UnityEngine.Random.Range(0, weatherTypeCount);
 
-            OnMonthChanged?.Invoke(this, new EventArgs());
+            OnMonthChanged?.Invoke();
         }
     }
 

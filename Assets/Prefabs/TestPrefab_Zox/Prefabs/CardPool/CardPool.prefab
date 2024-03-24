@@ -41,44 +41,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6845991277849165988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d8382e6477c4da47b86ffe69f11d738, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fe3deb4b47dc01499007f3ec420ac94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardSOList:
-  - {fileID: 11400000, guid: c05123a5a92070048993983e461efc92, type: 2}
   - {fileID: 11400000, guid: d6262ed333b86a04f92e035b23970b5d, type: 2}
   - {fileID: 11400000, guid: 96de8fd8b4b46d74f86629d929f3a7f6, type: 2}
   - {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
   - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
   - {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
   - {fileID: 11400000, guid: d881735d9458cba4d8a33cb626f0e61e, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  springCardSOList:
   - {fileID: 11400000, guid: c05123a5a92070048993983e461efc92, type: 2}
-  - {fileID: 11400000, guid: d6262ed333b86a04f92e035b23970b5d, type: 2}
-  - {fileID: 11400000, guid: 96de8fd8b4b46d74f86629d929f3a7f6, type: 2}
-  - {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
-  - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
-  - {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
-  - {fileID: 11400000, guid: d881735d9458cba4d8a33cb626f0e61e, type: 2}
-  summerCardSOList:
-  - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
-  - {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
-  autumnCardSOList:
-  - {fileID: 11400000, guid: 96de8fd8b4b46d74f86629d929f3a7f6, type: 2}
-  - {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
-  - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
-  - {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
-  winterCardSOList:
-  - {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
-  - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
-  - {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
-  - {fileID: 11400000, guid: d881735d9458cba4d8a33cb626f0e61e, type: 2}
+  springCardSOList: []
+  summerCardSOList: []
+  autumnCardSOList: []
+  winterCardSOList: []

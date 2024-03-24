@@ -19,6 +19,9 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public Transform prizeWheelPointer;
 
+    /// <summary>
+    /// 抽奖转盘容器
+    /// </summary>
     public Transform prizeWheelPanel;
 
     /// <summary>
@@ -48,12 +51,21 @@ public class UIEventListener : MonoBehaviour
     /// 文本容器
     /// </summary>
     [Header("基础UI设置")]
-    public GameObject textPanel;
+    
+    /// <summary>
+    /// 接受按钮
+    /// </summary>
+    public Button btn_ChooseYes;
 
     /// <summary>
-    /// 选择按钮（理论只有两个）
+    /// 拒绝按钮
     /// </summary>
-    public Button[] MeetEventChooseButton;
+    public Button btn_ChooseNo;
+
+    /// <summary>
+    /// 人物信息容器
+    /// </summary>
+    public GameObject textPanel;
 
     /// <summary>
     /// san值文本
@@ -99,24 +111,21 @@ public class UIEventListener : MonoBehaviour
     public void PrizeWheelUIInit()
     {
         //隐藏按钮（比如选择按钮和数值容器）还有当前的卡牌销毁并重新设定为null
-        for (int i = 0; i < MeetEventChooseButton.Length; i++)
-        {
-            MeetEventChooseButton[i].gameObject.SetActive(false);
-        }
+        btn_ChooseNo.gameObject.SetActive(false);
+        btn_ChooseYes.gameObject.SetActive(false);
 
         //更新信息
         UIMeetingEventUpdate();
     }
 
     /// <summary>
-    /// 会议时间UI初始化
+    /// 会议事件UI初始化
     /// </summary>
     public void MeetEventUIInit()
     {
-        for (int i = 0; i < MeetEventChooseButton.Length; i++)
-        {
-            MeetEventChooseButton[i].gameObject.SetActive(true);
-        }       
+        //显示按钮（比如选择按钮和数值容器）还有当前的卡牌销毁并重新设定为null
+        btn_ChooseNo.gameObject.SetActive(true);
+        btn_ChooseYes.gameObject.SetActive(true);
         //更新信息
         UIMeetingEventUpdate();
     }
@@ -268,7 +277,7 @@ public class UIEventListener : MonoBehaviour
     public void PrizeWheelUp(System.Action OnComplete=null)
     {
         MeetEventGameCtrl._Instance.eventMgr.isFreeze = true;
-        Vector3 pos = (MeetEventGameCtrl._Instance.prizeWheelCanvas.pixelRect.height / 2) * Vector3.up;
+        Vector3 pos = (MeetEventGameCtrl._Instance.meetEventCanvas.pixelRect.height / 2) * Vector3.up;
         StartCoroutine(MeetEventGameCtrl._Instance.ChangePosition(prizeWheelPanel, pos, 0.8f,
             () =>
             { 

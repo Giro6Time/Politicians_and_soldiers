@@ -35,6 +35,7 @@ public class MeetEventMgr
     /// </summary>
     public bool isDisposeMeetEvent;
 
+    public Action onExit;
 
     public MeetEventMgr()
     { 
@@ -211,7 +212,7 @@ public class MeetEventMgr
         //收益提现：怎么提现？
 
         MeetEventGameCtrl._Instance.meetEventCanvas.gameObject.SetActive(false);
-        MeetEventGameCtrl._Instance.prizeWheelCanvas.gameObject.SetActive(false);
+        onExit?.Invoke();
     }
 
     

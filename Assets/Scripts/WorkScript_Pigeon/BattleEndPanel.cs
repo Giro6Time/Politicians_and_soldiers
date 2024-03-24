@@ -8,7 +8,6 @@ public class BattleEndPanel : MonoBehaviour
 {
     public BattleResult res = 0;
     public GameObject panelWin, panelLose, panelDraw;
-    public GameObject panelLeft, panelRight;
 
     //public BattleField battleField;
     public static BattleEndPanel Instance;
@@ -26,7 +25,7 @@ public class BattleEndPanel : MonoBehaviour
     private void Start()
     {
         ResetPanel();
-        //Debug.Log("Start");
+        Debug.Log("Start");
         //battleField.BattleStart();
         //battleField.ApplyEffect();
         //battleField.Battle();
@@ -45,8 +44,6 @@ public class BattleEndPanel : MonoBehaviour
         panelWin.SetActive(false);
         panelDraw.SetActive(false);
 
-        panelLeft.SetActive(false);
-        panelRight.SetActive(false);
 
     }
 
@@ -64,14 +61,8 @@ public class BattleEndPanel : MonoBehaviour
         {
             panelDraw.SetActive(true);
         }
-        panelLeft.SetActive(true);
-        panelRight.SetActive(true);
         res = BattleResult.Default;
     }
 
 
-    public void OnStartPressed()
-    {
-        ResetPanel();
-    }
 }

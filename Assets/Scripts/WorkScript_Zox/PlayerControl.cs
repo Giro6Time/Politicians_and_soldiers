@@ -131,12 +131,13 @@ public class PlayerControl : MonoBehaviour
             case State.Null:
                 break;
         }
-
+#if UNITY_EDITOR
+        ///FOR DEBUG
         if (Input.GetKeyDown(KeyCode.Space))
         {
             dateManager.moveNextMonth();
         }
-
+#endif
     }
 
     private void MouseSelectCard()
