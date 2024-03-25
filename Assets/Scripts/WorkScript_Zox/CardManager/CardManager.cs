@@ -145,36 +145,38 @@ public class CardManager : MonoBehaviour {
         for (int i = 0; i < num; i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season).Count);
-            Transform card = Instantiate(cardPool.GetCurrentCardBaseSOList(season)[randomIndex].cardPrefab, cardsCenterPoint.transform);
 
-            card.position = playerCardInitialPos.position;
+            GameObject card = CardFactory.CreateCardInstance(cardPool.GetCurrentCardBaseSOList(season)[randomIndex]);
+            card.transform.SetParent(cardsCenterPoint.transform, false);
+            card.transform.position = playerCardInitialPos.position;
         }
         cardsCenterPoint.RearrangeCard();
     }
 
     private void InstantiateEnemy(CardBaseSO enemyCardSO)
     {
-        Transform enemy_card = enemyCardSO.cardPrefab;
-        CardBase enemyCard = enemy_card.GetComponent<CardBase>();
 
-        Transform newCard;
+        GameObject enemyCardGO = CardFactory.CreateCardInstance(enemyCardSO);
+        enemyCardGO.transform.SetParent (cardAnchor_Land_Enemy.transform, false);
+        CardBase enemyCard = enemyCardGO.GetComponent<CardBase>();
+        enemyCard.cardCurrentArea = cardAnchor_Land_Enemy;
 
+        
         switch (enemyCard.GetCardMatchedPos()) {
             case CardPos.LandPutArea:
-                newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy.transform);
+                enemyCard.transform.SetParent(cardAnchor_Land_Enemy.transform);
                 break;
             case CardPos.SeaPutArea:
-                newCard = Instantiate(enemy_card, cardAnchor_Sea_Enemy.transform);
+                enemyCard.transform.SetParent(cardAnchor_Sea_Enemy.transform);
                 break;
             case CardPos.SkyPutArea:
-                newCard = Instantiate(enemy_card, cardAnchor_Sky_Enemy.transform);
+                enemyCard.transform.SetParent(cardAnchor_Sky_Enemy.transform);
                 break;
             default:
-                newCard = Instantiate(enemy_card, cardAnchor_Land_Enemy.transform);
-                break;
+                throw new Exception("卡牌没有设置位置");
         }
-        newCard.position = enemyCardInitialPos.position;
-        newCard.GetComponent<CardBase>().isEnemy = true;
+        enemyCardGO.transform.position = enemyCardInitialPos.position;
+        enemyCard.GetComponent<CardBase>().isEnemy = true;
 
         enemyPlayingArea.AddCard(enemyCard, enemyCard.GetCardMatchedPos());
 
@@ -184,4 +186,40 @@ public class CardManager : MonoBehaviour {
 
     }
 
+
+
 }
+
+
+public static class CardFactory
+{
+    public static GameObject armyCardPrefab;
+    static bool initialized = false;
+    public static void Init(GameObject armyCardPrefab)//在gameManager中进行配置
+    {
+        initialized = true;
+        CardFactory.armyCardPrefab = armyCardPrefab;
+    }
+    public static GameObject CreateCardInstance(CardBaseSO cardSO)
+    {
+        if (!initialized)
+            throw new Exception("CardFactory 尚未初始化，卡片预设未加载");
+        GameObject instance = GameObject.Instantiate(armyCardPrefab);
+        switch (cardSO.cardBaseType)
+        {
+            default: throw new ArgumentNullException("卡牌未设置类型");
+            case CardBaseType.Army:
+                instance.GetComponent<MeshRenderer>().material.color = cardSO.color;
+                var armyC = instance.AddComponent<ArmyCard>();
+                armyC.troopStrength = cardSO.troopStrength;
+                armyC.isEnemy = false;
+                armyC.matchedPos = cardSO.matchedPos;
+                
+                return instance;
+            case CardBaseType.Effect:
+                throw new NotImplementedException("特殊类型卡牌待实现");
+
+        }
+    }
+}
+

@@ -65,8 +65,4 @@ public class BattleEndPanel : MonoBehaviour
     }
 
 
-    public void Close()
-    {
-        ResetPanel();
-    }
 }

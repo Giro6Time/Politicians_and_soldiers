@@ -22,7 +22,7 @@ public class CardBase : MonoBehaviour
         UsingAbility
     }
 
-    [SerializeField] private CardPos matchedPos;
+    public CardPos matchedPos;
     [SerializeField] private CardAttackType cardAttackType;
     [SerializeField] private CardBaseType cardBaseType;
     [SerializeField] private Season matchedSeason;
@@ -32,9 +32,9 @@ public class CardBase : MonoBehaviour
 
     private void Awake()
     {
-        cardCurrentArea = GetComponentInParent<CardArrangement>();
     }
 
+    
     public CardBaseSO GetCardSO()
     {
         return cardSO;

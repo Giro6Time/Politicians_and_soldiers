@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("BattleStart");
         PushCard2BattleField();
         battleField.BattleStart();
+        battleField.battleEndPanel.ClosePanel();
     }
 
     private void IntermissionStart()
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
 
         dateMgr.Init();
         cardMgr.Init();
+        CardFactory.Init(config.armyCardPrefab);
         ArmyFactory.prefab = config.armyPrefab;
 
         RegisterEvent();
@@ -87,7 +89,7 @@ public class GameManager : MonoBehaviour
         battleField.onGameLose += Lose;
         battleField.battleEndPanel.onClose += IntermissionStart;
 
-        gameFlowController.onReignsStartClicked += () => meetEventGameCtrl.Init(1);
+        gameFlowController.onReignsStartClicked += () => meetEventGameCtrl.Init();
         gameFlowController.onDialogStartClicked += dialogManager.OpenDialog;
         gameFlowController.onLeaveIntermissionClicked += TurnEnd;
     }

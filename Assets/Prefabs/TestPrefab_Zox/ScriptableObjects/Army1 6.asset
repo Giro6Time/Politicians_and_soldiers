@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Army1 6
   m_EditorClassIdentifier: 
+  troopStrength: 0
   matchedSeason: 3
-  cardPrefab: {fileID: 8331017955193306250, guid: e5e9f35bdd1ca1641a913f6dff899dfc, type: 3}
+  matchedPos: 1
+  cardBaseType: 0
+  color: {r: 0.505539, g: 0.37534708, b: 0.6698113, a: 0}
