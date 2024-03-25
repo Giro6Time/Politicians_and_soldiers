@@ -50,13 +50,13 @@ public class CardArrangement : MonoBehaviour
         StartCoroutine(MoveSmoothly(card, targetPosition));
     }*/
 
-    public void FocusCard(CardBase card)
+    public void FocusCard(CardBase card)//hovered
     {
         card.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
         card.transform.localPosition += new Vector3(0, 0, -0.5f);
     }
 
-    public void UnfocusCard(CardBase card)
+    public void UnfocusCard(CardBase card)//normal
     {
         card.transform.localScale = new Vector3(1f, 1f, 1f);
         card.transform.localPosition -= new Vector3(0, 0, -0.5f);

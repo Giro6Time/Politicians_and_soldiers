@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
 
         dateMgr.Init();
         cardMgr.Init();
+        CardFactory.Init(config.armyCardPrefab);
         ArmyFactory.prefab = config.armyPrefab;
 
         RegisterEvent();

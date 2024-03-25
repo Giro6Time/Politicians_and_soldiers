@@ -10,12 +10,14 @@ public class CardBaseSO : ScriptableObject
     // public string cardDescription;
     // public Sprite sprite;
     // public int level;
-    // public int armyAmount;
+    public int troopStrength;
     // public int decisionPointCost;
     // public float progressInfluence;
     // public Enums.CardType card_Type;
     // public Enums.CardAttackType card_AttackType;
     public Season matchedSeason;
+    public CardPos matchedPos;
     // public Enums.Weather matchedWeather;
-    public Transform cardPrefab;
+    public CardBaseType cardBaseType;
+    public Color color;//TODO：以后肯定不用color了。
 }
