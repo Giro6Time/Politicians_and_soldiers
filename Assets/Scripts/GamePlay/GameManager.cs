@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
         ////TODO：
         //回合开始时
         //回合计数器+1 -> 显示敌方场面 -> 读取玩家属性计算决策点 -> 发牌 -> enable input等待玩家交互
+        cardMgr.gameObject.SetActive(true);
         dateMgr.moveNextMonth();
 
     }
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
         //战斗开始时
         //卡片生成军队 -> 进入战斗
         Debug.Log("BattleStart");
+        cardMgr.gameObject.SetActive(false);
         PushCard2BattleField();
         battleField.BattleStart();
         battleField.battleEndPanel.ClosePanel();
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
     private void TurnEnd()
     {
         //回合结束阶段
+        gameFlowController.CloseIntermissionPanel();
         TurnStart();
     }
 

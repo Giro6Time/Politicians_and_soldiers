@@ -20,7 +20,10 @@ public class GameFlowController : MonoBehaviour
     {
         intermissionPanel.Open();
     }
-
+    public void CloseIntermissionPanel()
+    {
+        intermissionPanel.Close();   
+    }
     public void Init()
     {
         gameObject.SetActive(true);
