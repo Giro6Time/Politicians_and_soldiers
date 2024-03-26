@@ -44,6 +44,7 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+
         mousePosition = Input.mousePosition;
         mousePosition.z = 10f;
 

@@ -62,6 +62,11 @@ public class CardArrangement : MonoBehaviour
         card.transform.localPosition -= new Vector3(0, 0, -0.5f);
     }
 
+    private void MoveOtherCardsWhileFocus()
+    {
+        
+    }
+
     IEnumerator MoveSmoothly(Transform a, Vector3 b)
     {
         float elapsedTime = 0f;
@@ -77,4 +82,18 @@ public class CardArrangement : MonoBehaviour
         a.localPosition = b;
     }
 
+    IEnumerator ScaleSmoothly(Transform a, Vector3 b)
+    {
+        float elapsedTime = 0f;
+        Vector3 startScale = a.localScale;
+
+        while (elapsedTime < 1f)
+        {
+            a.localScale = Vector3.Lerp(startScale, b, elapsedTime);
+            elapsedTime += Time.deltaTime * lerpSpeed;
+            yield return null;
+        }
+
+        a.localScale = b;
+    }
 }
