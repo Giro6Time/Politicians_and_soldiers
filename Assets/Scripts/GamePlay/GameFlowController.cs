@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GameFlowController : MonoBehaviour
 {
-    [SerializeField] Button battleStartButton;
+    public Button battleStartButton;
     [SerializeField] IntermissionPanel /*fucking*/intermissionPanel;
 
 
