@@ -23,6 +23,17 @@ public class GameManager : MonoBehaviour
     [Header("配置")]
     public ConfigSO config;
 
+    public static GameManager Instance
+    {
+        get => instance;
+    }
+    static GameManager instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
 #if UNITY_EDITOR
@@ -41,14 +52,18 @@ public class GameManager : MonoBehaviour
         ////TODO：
         //回合开始时
         //回合计数器+1 -> 显示敌方场面 -> 读取玩家属性计算决策点 -> 发牌 -> enable input等待玩家交互
+        cardMgr.gameObject.SetActive(true);
         dateMgr.moveNextMonth();
+        gameFlowController.battleStartButton.gameObject.SetActive(true);
 
     }
     private void BattleStart()
     {
         //战斗开始时
         //卡片生成军队 -> 进入战斗
+        gameFlowController.battleStartButton.gameObject.SetActive(false);
         Debug.Log("BattleStart");
+        cardMgr.gameObject.SetActive(false);
         PushCard2BattleField();
         battleField.BattleStart();
         battleField.battleEndPanel.ClosePanel();
@@ -62,6 +77,7 @@ public class GameManager : MonoBehaviour
     private void TurnEnd()
     {
         //回合结束阶段
+        gameFlowController.CloseIntermissionPanel();
         TurnStart();
     }
 
@@ -72,6 +88,7 @@ public class GameManager : MonoBehaviour
 
         dateMgr.Init();
         cardMgr.Init();
+        CardFactory.Init(config.armyCardPrefab);
         ArmyFactory.prefab = config.armyPrefab;
 
         RegisterEvent();
@@ -95,12 +112,12 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void Win()
+    public static void Win()
     {
         Debug.Log("you win");
     }
 
-    public void Lose()
+    public static void Lose()
     {
         Debug.Log("you lose");
     }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GameFlowController : MonoBehaviour
 {
-    [SerializeField] Button battleStartButton;
+    public Button battleStartButton;
     [SerializeField] IntermissionPanel /*fucking*/intermissionPanel;
 
 
@@ -20,7 +20,10 @@ public class GameFlowController : MonoBehaviour
     {
         intermissionPanel.Open();
     }
-
+    public void CloseIntermissionPanel()
+    {
+        intermissionPanel.Close();   
+    }
     public void Init()
     {
         gameObject.SetActive(true);
