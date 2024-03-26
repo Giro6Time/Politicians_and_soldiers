@@ -27,44 +27,15 @@ public class CardArrangement : MonoBehaviour
         }
     }
 
-    /*public void RearrangeCard(Transform card)
-    {
-        int cardIndex = card.GetSiblingIndex();
-        Vector3 targetPosition = card.localPosition;
-
-        // Calculate target positions for other cards
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (i == cardIndex)
-                continue;
-
-            Transform otherCard = transform.GetChild(i);
-            Vector3 offset = new Vector3(offsetX * Mathf.Abs(i - cardIndex), 0, offsetZ * Mathf.Abs(i - cardIndex));
-            Vector3 otherTargetPosition = otherCard.localPosition - offset;
-
-            StartCoroutine(MoveSmoothly(otherCard, otherTargetPosition));
-        }
-
-        // Move the specified card upwards
-        targetPosition.y += raiseHeight;
-        StartCoroutine(MoveSmoothly(card, targetPosition));
-    }*/
-
     public void FocusCard(CardBase card)//hovered
     {
-        card.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-        card.transform.localPosition += new Vector3(0, 0, -0.5f);
+        Debug.Log("focus");
     }
 
-    public void UnfocusCard(CardBase card)//normal
+    public void UnfocusCard()//normal
     {
-        card.transform.localScale = new Vector3(1f, 1f, 1f);
-        card.transform.localPosition -= new Vector3(0, 0, -0.5f);
-    }
-
-    private void MoveOtherCardsWhileFocus()
-    {
-        
+        Debug.Log("unfocus");
+        RearrangeCard();
     }
 
     IEnumerator MoveSmoothly(Transform a, Vector3 b)
@@ -82,18 +53,4 @@ public class CardArrangement : MonoBehaviour
         a.localPosition = b;
     }
 
-    IEnumerator ScaleSmoothly(Transform a, Vector3 b)
-    {
-        float elapsedTime = 0f;
-        Vector3 startScale = a.localScale;
-
-        while (elapsedTime < 1f)
-        {
-            a.localScale = Vector3.Lerp(startScale, b, elapsedTime);
-            elapsedTime += Time.deltaTime * lerpSpeed;
-            yield return null;
-        }
-
-        a.localScale = b;
-    }
 }

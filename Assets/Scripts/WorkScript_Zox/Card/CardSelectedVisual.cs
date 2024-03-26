@@ -9,7 +9,7 @@ public class CardSelectedVisual : MonoBehaviour
     private Vector3 cardSelectedScale;
 
     [HideInInspector] public Vector3 cardDefaultPos;
-    private Vector3 cardPosOffset = new Vector3(0, 0, -0.5f);
+    private Vector3 cardPosOffset = new Vector3(0, 0.2f, -0.5f);
     
     private CardBase card;
     private void Awake()

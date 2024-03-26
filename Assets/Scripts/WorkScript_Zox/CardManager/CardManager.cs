@@ -158,9 +158,7 @@ public class CardManager : MonoBehaviour {
     {
 
         GameObject enemyCardGO = CardFactory.CreateCardInstance(enemyCardSO);
-        enemyCardGO.transform.SetParent (cardAnchor_Land_Enemy.transform, false);
         CardBase enemyCard = enemyCardGO.GetComponent<CardBase>();
-        enemyCard.cardCurrentArea = cardAnchor_Land_Enemy;
 
         
         switch (enemyCard.GetCardMatchedPos()) {

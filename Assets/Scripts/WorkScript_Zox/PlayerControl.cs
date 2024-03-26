@@ -44,7 +44,6 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-
         mousePosition = Input.mousePosition;
         mousePosition.z = 10f;
 
@@ -52,8 +51,13 @@ public class PlayerControl : MonoBehaviour
         {
             case State.SelectingCard:
                 MouseSelectCard();
-                if(selectedCard != null)
+                MouseSelectPlaceableRegion();
+                if (selectedCard != null)
                 {
+                    if(selectedCard.isEnemy == true)
+                    {
+                        return;
+                    }
                     if (Input.GetMouseButtonDown(0))
                     {
                         cardManager.MoveCard(selectedCard);
@@ -147,19 +151,27 @@ public class PlayerControl : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out CardBase card))
             {
-                selectedCard = card;
+                if(selectedCard != card)
+                {
+                    selectedCard = card;
+                    puttableArea?.FocusCard(card);
+                }
             }
         }
         else
         {
-            selectedCard = null;
+            if(selectedCard != null)
+            {
+                selectedCard = null;
+                puttableArea?.UnfocusCard();
+            }
         }
     }
 
     private void MoveCard()
     {
         Vector3 newPosition = Camera.main.ScreenToWorldPoint(mousePosition) + mouseAndCardCenterOffset;
-        selectedCard.transform.position = new Vector3(newPosition.x, newPosition.y, -0.1f);
+        selectedCard.transform.position = new Vector3(newPosition.x, newPosition.y, -0.5f);
     }
 
     private void MouseSelectPlaceableRegion()
@@ -170,7 +182,10 @@ public class PlayerControl : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out CardArrangement area))
             {
-                puttableArea = area;
+                if(puttableArea != area)
+                {
+                    puttableArea = area;
+                }
             }
         }
         else
