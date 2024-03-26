@@ -24,8 +24,6 @@ public class PlayerControl : MonoBehaviour
     }
     public State currentState;
 
-
-
     public CardBase selectedCard;
     private CardArrangement puttableArea;
 

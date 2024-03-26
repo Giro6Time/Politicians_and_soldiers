@@ -43,7 +43,7 @@ public class CardManager : MonoBehaviour {
 
     public void Init()
     {
-        //TODO ¿ÉÄÜ²¢²»ÐèÒª³õÊ¼»¯¡££¿
+        //TODO ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
     public void MoveCard(CardBase card, CardArrangement area)
     {
@@ -54,14 +54,14 @@ public class CardManager : MonoBehaviour {
         }
         if(card.GetCardMatchedPos() == area.pos)
         {
-            //·Åµ½Ä¿µÄµØÕ½Çø
+            //ï¿½Åµï¿½Ä¿ï¿½Äµï¿½Õ½ï¿½ï¿½
             if(Player.Instance.decisionValue - card.cost < 0)
             {
-                //Èç¹û·ÑÓÃ¹»
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½
                 card.cardCurrentArea.RearrangeCard();
                 return;
             }
-            //»¨·Ñ¾ö²ßµã
+            //ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ßµï¿½
             Player.Instance.decisionValue -= card.cost;
 
             cardPlayingArea.AddCard(card, area.pos);
@@ -73,8 +73,8 @@ public class CardManager : MonoBehaviour {
             card.cardCurrentArea = area;
         }else if(area.pos == CardPos.SelectionArea)
         {
-            //·Å»ØÑ¡ÔñÇø
-            //·µ»¹¾ö²ßµã
+            //ï¿½Å»ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½
             Player.Instance.decisionValue += card.cost;
             cardPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
@@ -122,7 +122,7 @@ public class CardManager : MonoBehaviour {
 
     }
     
-    //TODO:´Ë·½·¨¿ÉÄÜ²ÎÊý²»×ã£¨ÐèÒªºÍ²ß»®ÌÖÂÛ£¬ÀýÈçÊÇ·ñÐèÒª½«¾ö²ßµã×÷Îª²ÎÊý´«Èë£©
+    //TODO:ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£¨ï¿½ï¿½Òªï¿½Í²ß»ï¿½ï¿½ï¿½ï¿½Û£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£©
     public void UpdatePlayerHand(int month, Season season)
     {
         AddCard((month-1)/4 + 1, season);
@@ -145,15 +145,18 @@ public class CardManager : MonoBehaviour {
         for (int i = 0; i < num; i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season).Count);
+
             GameObject card = CardFactory.CreateCardInstance(cardPool.GetCurrentCardBaseSOList(season)[randomIndex]);
             card.transform.SetParent(cardsCenterPoint.transform, false);
             card.transform.position = playerCardInitialPos.position;
+            card.GetComponent<CardBase>().cardCurrentArea = cardsCenterPoint;
         }
         cardsCenterPoint.RearrangeCard();
     }
 
     private void InstantiateEnemy(CardBaseSO enemyCardSO)
     {
+
         GameObject enemyCardGO = CardFactory.CreateCardInstance(enemyCardSO);
         enemyCardGO.transform.SetParent (cardAnchor_Land_Enemy.transform, false);
         CardBase enemyCard = enemyCardGO.GetComponent<CardBase>();
@@ -171,7 +174,7 @@ public class CardManager : MonoBehaviour {
                 enemyCard.transform.SetParent(cardAnchor_Sky_Enemy.transform);
                 break;
             default:
-                throw new Exception("¿¨ÅÆÃ»ÓÐÉèÖÃÎ»ÖÃ");
+                throw new Exception("ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½");
         }
         enemyCardGO.transform.position = enemyCardInitialPos.position;
         enemyCard.GetComponent<CardBase>().isEnemy = true;
@@ -181,6 +184,7 @@ public class CardManager : MonoBehaviour {
         cardAnchor_Land_Enemy.RearrangeCard();
         cardAnchor_Sea_Enemy.RearrangeCard();
         cardAnchor_Sky_Enemy.RearrangeCard();
+
     }
 
 
@@ -192,7 +196,7 @@ public static class CardFactory
 {
     public static GameObject armyCardPrefab;
     static bool initialized = false;
-    public static void Init(GameObject armyCardPrefab)//ÔÚgameManagerÖÐ½øÐÐÅäÖÃ
+    public static void Init(GameObject armyCardPrefab)//ï¿½ï¿½gameManagerï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         initialized = true;
         CardFactory.armyCardPrefab = armyCardPrefab;
@@ -200,11 +204,11 @@ public static class CardFactory
     public static GameObject CreateCardInstance(CardBaseSO cardSO)
     {
         if (!initialized)
-            throw new Exception("CardFactory ÉÐÎ´³õÊ¼»¯£¬¿¨Æ¬Ô¤ÉèÎ´¼ÓÔØ");
+            throw new Exception("CardFactory ï¿½ï¿½Î´ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬Ô¤ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½");
         GameObject instance = GameObject.Instantiate(armyCardPrefab);
         switch (cardSO.cardBaseType)
         {
-            default: throw new ArgumentNullException("¿¨ÅÆÎ´ÉèÖÃÀàÐÍ");
+            default: throw new ArgumentNullException("ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             case CardBaseType.Army:
                 instance.GetComponent<MeshRenderer>().material.color = cardSO.color;
                 var armyC = instance.AddComponent<ArmyCard>();
@@ -214,8 +218,9 @@ public static class CardFactory
                 
                 return instance;
             case CardBaseType.Effect:
-                throw new NotImplementedException("ÌØÊâÀàÐÍ¿¨ÅÆ´ýÊµÏÖ");
+                throw new NotImplementedException("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½Æ´ï¿½Êµï¿½ï¿½");
 
         }
     }
 }
+
