@@ -14,10 +14,11 @@ public class UIEventListener : MonoBehaviour
     public static UIEventListener _Instance;
 
     [Header("抽奖转盘相关属性设置")]
-    /// <summary>
-    /// 旋转指针
-    /// </summary>
+    [Header("指针，转盘放置物模板，放置物相隔角度")]
     public Transform prizeWheelPointer;
+    public GameObject prizeWheelTemplate;
+    public float gapAngle;
+    [SerializeField, Space(20)]
 
     /// <summary>
     /// 抽奖转盘容器
@@ -32,19 +33,12 @@ public class UIEventListener : MonoBehaviour
     /// <summary>
     /// 抽奖转盘旋转时间
     /// </summary>
-    public float prizeWheelRotateTime;
+    public float prizeWheelRotateAngles;
 
     /// <summary>
     /// 奖品数量
     /// </summary>
     public int prizeNums;
-
-    /// <summary>
-    /// 抽奖转盘分割线
-    /// </summary>
-    [Header("抽奖转盘分隔线：自己测，最好是圆形，否则需要算法")]
-    public GameObject prizeWheelDivider;
-    private List<GameObject> prizeWheelDrawList;
 
 
     /// <summary>
@@ -96,13 +90,14 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Text troopIncreaseText;
+    [SerializeField]
+    private Text decisionValueText;
     #endregion
 
     private void Start()
     {
         if(_Instance==null)
         { _Instance = this; }
-        prizeWheelDrawList = new List<GameObject>();
     }
 
     /// <summary>
@@ -136,19 +131,23 @@ public class UIEventListener : MonoBehaviour
     public void UIMeetingEventUpdate()
     {
         //更新其余几个UI
-        sanityText.text = string.Format("san值：{0}",MeetEventGameCtrl._Instance.currEventProfit.sanity);
-        armamentText.text = string.Format("武备：{0}", MeetEventGameCtrl._Instance.currEventProfit.armament);
-        fundText.text = string.Format("资金：{0}", MeetEventGameCtrl._Instance.currEventProfit.fund);
-        popularSupportText.text = string.Format("民众：{0}", MeetEventGameCtrl._Instance.currEventProfit.popularSupport);
-        troopIncreaseText.text = string.Format("兵力增幅：{0}", MeetEventGameCtrl._Instance.currEventProfit.troopIncrease);
+        decisionValueText.text = string.Format("决策点：{0}",Player.Instance.decisionValue);
+        sanityText.text = string.Format("san值：{0}", Player.Instance.sanity);
+        armamentText.text = string.Format("武备：{0}", Player.Instance.armament);
+        fundText.text = string.Format("资金：{0}", Player.Instance.fund);
+        popularSupportText.text = string.Format("民众：{0}", Player.Instance.popularSupport);
+        troopIncreaseText.text = string.Format("兵力增幅：{0}", Player.Instance.troopIncrease);
     }
 
     /// <summary>
     /// 绘制抽奖转盘
     /// TODO
     /// </summary>
-    public void DrawPrizeWheel()
+    [System.Obsolete]
+    public void DrawPrizeWheel_Divider()
     {
+        #region 废弃方案
+        /*
         if (prizeWheelDivider == null)
         { Debug.LogError("你还没给分割线呢"); }
         //绘制分割线:如果分割线还没有就画，如果有了就是改变位置
@@ -178,9 +177,18 @@ public class UIEventListener : MonoBehaviour
                 prizeWheelDrawList[i++].transform.rotation = Quaternion.Euler(Vector3.forward * pair.Key);
             }
         }
-      
+        */
+        #endregion
         //TODO：绘制图层
 
+    }
+
+    /// <summary>
+    /// 新版抽奖转盘绘制 TODO
+    /// </summary>
+    public void DrawPrizeWheel()
+    {
+        //
     }
 
     private void OnDestroy()
@@ -234,11 +242,15 @@ public class UIEventListener : MonoBehaviour
 
     /// <summary>
     /// 退出王权模式
+    /// 只有当玩家完全处理完事件后才让玩家能退出
     /// </summary>
     public void OnBtnClick_ExitKingShipModel()
-    {        
-        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
+    {
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze || MeetEventGameCtrl._Instance.eventMgr.currentEventList.Count > 0)
+        {
+            Debug.Log("大厅上还有事件要处理呢！");
             return;
+        }
         MeetEventGameCtrl._Instance.eventMgr.GameExit();
     }
 

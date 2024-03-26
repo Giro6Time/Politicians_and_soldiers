@@ -33,7 +33,7 @@ public class GameStart : MonoBehaviour
             //    Debug.Log("单例为空");
             //}
             //假定补充2点决策点
-            MeetEventGameCtrl._Instance.currEventProfit.decisionValue = 2;
+            Player.Instance.decisionValue += 2;
 
         }
     }

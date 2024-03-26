@@ -11,7 +11,7 @@ public class MeetEventMgr
     public MeetEventAbstract currEvent;
 
     /// <summary>
-    /// 当前奖品链表
+    /// 当前奖品所在位置字典
     /// </summary>
     public Dictionary<int,MeetEventAbstract> currPrizeDic;
 
@@ -57,18 +57,19 @@ public class MeetEventMgr
         {
             //对于卡牌，一次一张
             MeettingEventChange(isYes);
+            if (IsDead())
+            {
+                //TODO：调用失败方法
+                Debug.Log("你无了");
+            }
         }
         else
         {
-            //玩家点击抽奖但是没有抽奖机会了，进行决策点检测：玩家只要还有决策点就消耗决策点获得三次抽卡机会
-            //如果条件不满足：那么就提示用户没决策点了
-            //TODO
-            //如果当前轮数已经到达最大轮数，检测玩家的决策点是否足够，给玩家补充3次抽奖机会,否则提示玩家已经没钱了
             if (MeetEventGameCtrl._Instance.currRounds >= MeetEventGameCtrl._Instance.maxRounds)
             {
-                if (MeetEventGameCtrl._Instance.currEventProfit.decisionValue > 0)
+                if (Player.Instance.decisionValue > 0)
                 {
-                    MeetEventGameCtrl._Instance.currEventProfit.decisionValue--;
+                    Player.Instance.decisionValue--;
                     MeetEventGameCtrl._Instance.maxRounds += 3;
                 }
                 else
@@ -107,6 +108,7 @@ public class MeetEventMgr
         {
             //进行资源更新
             currEvent.ResourceChange();
+            //资源更新过后：判定玩家是否死亡
         }
         //只要资源更新了，就要把事件从牌库中弹出（是否答应都会弹出）
         currentEventList.RemoveAt(currEventIndex);
@@ -160,8 +162,9 @@ public class MeetEventMgr
     /// </summary>
     public void UpdatePrizePool()
     {
-        int prizeIndex,currAngles=0;
+        int prizeIndex=0,currAngles=0;
         float sum = 0;
+        //i+1：该物体的下标  i：该物体的概率
         float[] eventRarityArray = new float[UIEventListener._Instance.prizeNums*2];
         //清空奖池
         currPrizeDic.Clear();
@@ -170,26 +173,46 @@ public class MeetEventMgr
         for (int i = 0; i < UIEventListener._Instance.prizeNums; i++)
         {
             //指定抽奖物
-            prizeIndex = UnityEngine.Random.Range(0,MeetEventGameCtrl._Instance.eventList.Count);
+            //通过循环调控抽中的物品价值的概率
+            for (int j = 0; j < 3; j++)
+            {
+                prizeIndex = UnityEngine.Random.Range(0, MeetEventGameCtrl._Instance.eventList.Count);
+                if(MeetEventGameCtrl._Instance.eventList[prizeIndex].EventValue < (Player.Instance.decisionValue/2+1))
+                {
+                    break;
+                }
+            }
             //存入抽奖物概率
-            eventRarityArray[i] = 1.0f/MeetEventGameCtrl._Instance.eventList[prizeIndex].EventValue;
+            eventRarityArray[i] = Mathf.Sqrt(1.0f/MeetEventGameCtrl._Instance.eventList[prizeIndex].EventValue);
             eventRarityArray[i + UIEventListener._Instance.prizeNums] = prizeIndex;
             sum+=eventRarityArray[i];
         }
         //进行分区
         //为了确保无误差，注意最后一个要独立添加
-        //欧拉角有360度，则：这些物体应该在中概率的基础上被分为那么多份，从1号开始
+        //将总概率分为若干份，然后根据份数决定结果
         for (int i = 0; i < UIEventListener._Instance.prizeNums-1; i++)
         {
             prizeIndex = (int)eventRarityArray[i + UIEventListener._Instance.prizeNums];
-            currAngles += (int)((eventRarityArray[i] * 360) / sum);
+            currAngles += (int)((eventRarityArray[i] * 1000) / sum);
             currPrizeDic.Add(currAngles, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
+            Debug.Log("第" + (i+1) + "位是"+ MeetEventGameCtrl._Instance.eventList[prizeIndex].name+ "：累计概率为：" + currAngles);
         }
-        prizeIndex = (int)eventRarityArray[2*UIEventListener._Instance.prizeNums-1];
-        currPrizeDic.Add(360, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
+        prizeIndex = (int)eventRarityArray[2 * UIEventListener._Instance.prizeNums - 1];
+        currPrizeDic.Add(1000, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
+        Debug.Log("第" + UIEventListener._Instance.prizeNums+"位是：" + MeetEventGameCtrl._Instance.eventList[prizeIndex].name + "累计概率为：" + 1000);
         //进行UI绘制
-        //??：文本绘制还是图集绘制？
-        UIEventListener._Instance.DrawPrizeWheel();
+        //UIEventListener._Instance.DrawPrizeWheel();
+    }
+
+    public bool IsDead()
+    {
+        bool isDead = false;
+        if (Player.Instance.sanity<=0)
+        {
+            isDead = true;
+        }
+
+        return isDead;
     }
 
     /// <summary>
@@ -214,9 +237,6 @@ public class MeetEventMgr
         MeetEventGameCtrl._Instance.meetEventCanvas.gameObject.SetActive(false);
         onExit?.Invoke();
     }
-
-    
-
 
 
 }

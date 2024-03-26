@@ -15,6 +15,10 @@ public class MeetEventGameCtrl : MonoBehaviour
 
     #region 可设置/可视化部分
     /// <summary>
+    /// 会议事件画布
+    /// </summary>
+    public Canvas meetEventCanvas;
+    /// <summary>
     /// 事件链表
     /// </summary>
     [Header("添加事件请加这")]
@@ -29,11 +33,6 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// 最大轮数
     /// </summary>
     public int maxRounds = 6;
-
-    /// <summary>
-    /// 会议事件画布
-    /// </summary>
-    public Canvas meetEventCanvas;
     #endregion
 
     #region 不可见部分
@@ -42,14 +41,6 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public MeetEventMgr eventMgr;
-
-    /// <summary>
-    /// 事件收益
-    /// UPDATE:如果已经有Player对象了，此处可删除该对象，并将所有该对象调用替换为目标对象
-    /// 步骤：
-    /// Ctrl+F->查找：输入待替换字符串   替换：输入目标字符串 选择：当前项目/整个解决方案 全部替换:即可
-    /// </summary>
-    public Player currEventProfit;
 
     /// <summary>
     /// 屏幕宽
@@ -68,7 +59,6 @@ public class MeetEventGameCtrl : MonoBehaviour
             _Instance = this;
         }
         eventMgr = new MeetEventMgr();
-        currEventProfit = new Player();
         screenSize_Height = Screen.height;
         screenSize_Width = Screen.width;
         meetEventCanvas.worldCamera = Camera.main;
@@ -200,7 +190,7 @@ public class MeetEventGameCtrl : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             //设定旋转时间
-            float rotateTime = (1 + UnityEngine.Random.Range(-0.3f, 0.3f)) * UIEventListener._Instance.prizeWheelRotateTime;
+            float rotateTime = (1 + UnityEngine.Random.Range(-0.3f, 0.3f)) * UIEventListener._Instance.prizeWheelRotateAngles;
             //播放动画：自定义动画/插值/旋转？
             while (rotateTime > 0)
             {
