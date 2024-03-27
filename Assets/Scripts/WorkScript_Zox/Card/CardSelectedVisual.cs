@@ -28,13 +28,25 @@ public class CardSelectedVisual : MonoBehaviour
     {
         if (PlayerControl.Instance.selectedCard == card)
         {
-            transform.localScale = cardSelectedScale;
-            transform.localPosition = cardDefaultPos + cardPosOffset;
+            transform.localScale = Vector3.Lerp(transform.localScale, cardSelectedScale, Time.deltaTime * 5f);
+            if (Vector3.Distance(transform.localScale, cardSelectedScale) < 0.01f)
+            {
+                transform.localScale = cardSelectedScale;
+            }
+
+            //transform.localPosition = cardDefaultPos + cardPosOffset;
+            //transform.parent.GetComponent<CardArrangement>().RearrangeCardWhileFocus(this);
         }
         else
         {
-            transform.localScale = cardDefaultScale;
-            transform.localPosition = cardDefaultPos;
+            transform.localScale = Vector3.Lerp(transform.localScale, cardDefaultScale, Time.deltaTime * 10f);
+            if (Vector3.Distance(transform.localScale, cardDefaultScale) < 0.01f)
+            {
+                transform.localScale = cardDefaultScale;
+            }
+
+            //transform.localPosition = cardDefaultPos;
+            //transform.parent.GetComponent<CardArrangement>().RearrangeCard();
         }
     }
 }
