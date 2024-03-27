@@ -49,6 +49,7 @@ public class DialogPanel : MonoBehaviour
         m_content.gameObject.SetActive(true);
         m_content.text = dialogUnit.m_content;
         m_dialogUnit = dialogUnit;
+        
         for (int i = 0; i < dialogUnit.m_options.Count; i++)
         {
             int optionIndex = i;
@@ -120,6 +121,9 @@ public class DialogPanel : MonoBehaviour
             {
                 closing = false;
                 onClosed?.Invoke();
+
+                //UPDATE:显示选择界面功能
+                GameManager.Instance.gameFlowController.OpenIntermissionPanel();
             }
         }
     }

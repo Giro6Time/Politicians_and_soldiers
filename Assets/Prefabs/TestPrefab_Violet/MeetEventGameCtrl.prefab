@@ -757,6 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a72e2d439bf29a4596aa2649477b6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meetEventCanvas: {fileID: 1969503762124862221}
   eventList:
   - {fileID: 6872932350644171797, guid: 41c807ce97bec44479d8e3ee88a3d7cc, type: 3}
   - {fileID: 7349079416049036636, guid: 8a4564f755a6caf4eb73362e271cdc08, type: 3}
@@ -764,7 +765,6 @@ MonoBehaviour:
   - {fileID: 852183518463951166, guid: ecc40d1016a20084e9d7568cd5707170, type: 3}
   currRounds: 0
   maxRounds: 3
-  meetEventCanvas: {fileID: 1969503762124862221}
 --- !u!114 &7609299513774453774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,11 +778,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prizeWheelPointer: {fileID: 7609299513642212305}
+  prizeWheelTemplate: {fileID: 4005413290323401978, guid: c8eb28b10da38c942bd8784331d31c69, type: 3}
+  gapAngle: 0
   prizeWheelPanel: {fileID: 7609299513734084674}
   prizeWheelRotateSpeed: 20
-  prizeWheelRotateTime: 2
+  prizeWheelRotateAngles: 0
   prizeNums: 6
-  prizeWheelDivider: {fileID: 4805741510934981310, guid: 02d8b92b6b59096438213f24d92c2bbb, type: 3}
   btn_ChooseYes: {fileID: 7609299513786803237}
   btn_ChooseNo: {fileID: 7609299514007185992}
   textPanel: {fileID: 7609299515111080132}

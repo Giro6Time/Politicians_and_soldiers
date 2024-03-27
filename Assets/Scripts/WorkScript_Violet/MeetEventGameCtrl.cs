@@ -182,6 +182,7 @@ public class MeetEventGameCtrl : MonoBehaviour
 
     /// <summary>
     /// 进行抽奖
+    /// TODO:模式改变成：先决定抽哪抽几圈了
     /// </summary>
     /// <returns></returns>
     public IEnumerator PrizeWheel()

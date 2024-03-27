@@ -14,10 +14,10 @@ public class UIEventListener : MonoBehaviour
     public static UIEventListener _Instance;
 
     [Header("抽奖转盘相关属性设置")]
-    [Header("指针，转盘放置物模板，放置物相隔角度")]
+    [Header("指针，转盘放置物模板，转盘半径")]
     public Transform prizeWheelPointer;
     public GameObject prizeWheelTemplate;
-    public float gapAngle;
+    public float prizeWheelRadius;
     [SerializeField, Space(20)]
 
     /// <summary>
@@ -45,7 +45,7 @@ public class UIEventListener : MonoBehaviour
     /// 文本容器
     /// </summary>
     [Header("基础UI设置")]
-    
+
     /// <summary>
     /// 接受按钮
     /// </summary>
@@ -141,7 +141,6 @@ public class UIEventListener : MonoBehaviour
 
     /// <summary>
     /// 绘制抽奖转盘
-    /// TODO
     /// </summary>
     [System.Obsolete]
     public void DrawPrizeWheel_Divider()
@@ -179,7 +178,6 @@ public class UIEventListener : MonoBehaviour
         }
         */
         #endregion
-        //TODO：绘制图层
 
     }
 
@@ -188,7 +186,22 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public void DrawPrizeWheel()
     {
-        //
+        //根据需求：绘制不需要考虑其他问题，只是将模板放置到设定好的位置
+        float gapAngle = (2*Mathf.PI) / prizeNums;
+        GameObject obj = null;
+        //依次将每个模板放置到指定位置
+        for (int i = 0; i < prizeNums; i++)
+        {
+            //1.绘制模板
+            obj = GameObject.Instantiate<GameObject>(prizeWheelTemplate,prizeWheelPanel);
+            obj.transform.localPosition=new Vector3(Mathf.Cos(gapAngle*i)*prizeWheelRadius,Mathf.Sin(gapAngle*i)*prizeWheelRadius,0);
+            //TODO:2.绘制特效
+        }
+        
+    }
+
+    private void DrawValueEffect(int value)
+    { 
     }
 
     private void OnDestroy()
@@ -252,6 +265,7 @@ public class UIEventListener : MonoBehaviour
             return;
         }
         MeetEventGameCtrl._Instance.eventMgr.GameExit();
+        GameManager.Instance.gameFlowController.OpenIntermissionPanel();
     }
 
     /// <summary>

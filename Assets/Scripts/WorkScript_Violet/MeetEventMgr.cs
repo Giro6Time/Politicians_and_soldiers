@@ -201,7 +201,7 @@ public class MeetEventMgr
         currPrizeDic.Add(1000, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
         Debug.Log("第" + UIEventListener._Instance.prizeNums+"位是：" + MeetEventGameCtrl._Instance.eventList[prizeIndex].name + "累计概率为：" + 1000);
         //进行UI绘制
-        //UIEventListener._Instance.DrawPrizeWheel();
+        UIEventListener._Instance.DrawPrizeWheel();
     }
 
     public bool IsDead()
