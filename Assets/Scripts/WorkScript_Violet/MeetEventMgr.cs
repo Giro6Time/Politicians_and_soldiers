@@ -11,7 +11,7 @@ public class MeetEventMgr
     public MeetEventAbstract currEvent;
 
     /// <summary>
-    /// 当前奖品所在位置字典
+    /// 当前奖品所在位置字典<奖品所在概率位，奖品>
     /// </summary>
     public Dictionary<int,MeetEventAbstract> currPrizeDic;
 
@@ -59,8 +59,8 @@ public class MeetEventMgr
             MeettingEventChange(isYes);
             if (IsDead())
             {
-                //TODO：调用失败方法
-                Debug.Log("你无了");
+                //调用失败方法
+                GameManager.Lose();
             }
         }
         else
@@ -74,8 +74,7 @@ public class MeetEventMgr
                 }
                 else
                 {
-                    //TODO:给出资源不足提示
-                    Debug.Log("当前决策点不足");
+                    MessageView._Instance.ShowTip("当前决策点不足");
                     return;
                 }
             }
@@ -98,8 +97,7 @@ public class MeetEventMgr
         //如果卡库没有卡，那么禁止玩家进行取值
         if(currentEventList.Count == 0)
         {
-            //TODO提示玩家去抽卡
-            Debug.Log("您当前的卡池没有卡牌");
+            MessageView._Instance.ShowTip("您当前的卡池没有卡牌");
             return;
         }
 
@@ -231,8 +229,6 @@ public class MeetEventMgr
         }
         isFreeze = false;
         isDisposeMeetEvent = false;
-
-        //收益提现：怎么提现？
 
         MeetEventGameCtrl._Instance.meetEventCanvas.gameObject.SetActive(false);
         onExit?.Invoke();

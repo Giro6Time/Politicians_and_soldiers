@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,27 +26,23 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public Transform prizeWheelPanel;
 
-    /// <summary>
-    /// 抽奖转盘旋转速度
-    /// </summary>
-    public int prizeWheelRotateSpeed;
-
+    [Header("转盘旋转的时间，旋转的圈数，奖品数")]
     /// <summary>
     /// 抽奖转盘旋转时间
     /// </summary>
-    public float prizeWheelRotateAngles;
+    public float prizeWheelRotateTime;
+
+    /// <summary>
+    /// 抽奖转盘旋转圈数
+    /// </summary>
+    public int prizeWheelRotateTurns;
 
     /// <summary>
     /// 奖品数量
     /// </summary>
     public int prizeNums;
 
-
-    /// <summary>
-    /// 文本容器
-    /// </summary>
     [Header("基础UI设置")]
-
     /// <summary>
     /// 接受按钮
     /// </summary>
@@ -96,8 +93,18 @@ public class UIEventListener : MonoBehaviour
 
     private void Start()
     {
-        if(_Instance==null)
+        if (_Instance == null)
         { _Instance = this; }
+    }
+    private void OnDestroy()
+    {
+        textPanel = null;
+        prizeWheelPointer = null;
+        sanityText = null;
+        armamentText = null;
+        fundText = null;
+        popularSupportText = null;
+        troopIncreaseText = null;
     }
 
     /// <summary>
@@ -131,7 +138,7 @@ public class UIEventListener : MonoBehaviour
     public void UIMeetingEventUpdate()
     {
         //更新其余几个UI
-        decisionValueText.text = string.Format("决策点：{0}",Player.Instance.decisionValue);
+        decisionValueText.text = string.Format("决策点：{0}", Player.Instance.decisionValue);
         sanityText.text = string.Format("san值：{0}", Player.Instance.sanity);
         armamentText.text = string.Format("武备：{0}", Player.Instance.armament);
         fundText.text = string.Format("资金：{0}", Player.Instance.fund);
@@ -187,35 +194,73 @@ public class UIEventListener : MonoBehaviour
     public void DrawPrizeWheel()
     {
         //根据需求：绘制不需要考虑其他问题，只是将模板放置到设定好的位置
-        float gapAngle = (2*Mathf.PI) / prizeNums;
+        float gapAngle = (2 * Mathf.PI) / prizeNums;
         GameObject obj = null;
+        int[] valueList = new int[prizeNums];
+        int index = 0;
+        foreach (KeyValuePair<int, MeetEventAbstract> pair in MeetEventGameCtrl._Instance.eventMgr.currPrizeDic)
+        {
+            //其余在目标角度上
+            valueList[index] = pair.Value.EventValue;
+        }
         //依次将每个模板放置到指定位置
         for (int i = 0; i < prizeNums; i++)
         {
             //1.绘制模板
-            obj = GameObject.Instantiate<GameObject>(prizeWheelTemplate,prizeWheelPanel);
-            obj.transform.localPosition=new Vector3(Mathf.Cos(gapAngle*i)*prizeWheelRadius,Mathf.Sin(gapAngle*i)*prizeWheelRadius,0);
+            obj = GameObject.Instantiate<GameObject>(prizeWheelTemplate, prizeWheelPanel);
+            obj.transform.localPosition = new Vector3(Mathf.Sin(gapAngle * i) * prizeWheelRadius, Mathf.Cos(gapAngle * i) * prizeWheelRadius, 0);
             //TODO:2.绘制特效
+            DrawValueEffect(valueList[i]);
         }
-        
+
     }
 
+    /// <summary>
+    /// 抽奖转盘特效...
+    /// </summary>
+    /// <param name="value"></param>
     private void DrawValueEffect(int value)
-    { 
-    }
-
-    private void OnDestroy()
     {
-        textPanel = null;
-        prizeWheelPointer = null;
-        sanityText = null;
-        armamentText = null;
-        fundText = null;
-        popularSupportText = null;
-        troopIncreaseText = null;
     }
 
 
+
+    /// <summary>
+    /// 转盘上移：内含多动症惩罚器
+    /// </summary>
+    /// <param name="OnComplete">完成事件</param>
+    public void PrizeWheelUp(System.Action OnComplete = null)
+    {
+        MeetEventGameCtrl._Instance.eventMgr.isFreeze = true;
+        Vector3 pos = ((MeetEventGameCtrl._Instance.meetEventCanvas.pixelRect.height * 1.0f / MeetEventGameCtrl._Instance.meetEventCanvas.scaleFactor) / 2) * Vector3.up;
+        StartCoroutine(MeetEventGameCtrl._Instance.ChangePosition(prizeWheelPanel, pos, 0.8f,
+            () =>
+            {
+                MeetEventGameCtrl._Instance.eventMgr.isFreeze = false;
+                if (OnComplete != null)
+                {
+                    OnComplete();
+                }
+            }));
+    }
+
+    /// <summary>
+    /// 转盘下移：内含多动症惩罚器
+    /// </summary>
+    /// <param name="OnComplete">完成事件</param>
+    public void PrizeWheelDown(System.Action OnComplete = null)
+    {
+        MeetEventGameCtrl._Instance.eventMgr.isFreeze = true;
+        StartCoroutine(MeetEventGameCtrl._Instance.ChangePosition(prizeWheelPanel, Vector3.zero, 0.8f,
+                () =>
+                {
+                    MeetEventGameCtrl._Instance.eventMgr.isFreeze = false;
+                    if (OnComplete != null)
+                    {
+                        OnComplete();
+                    }
+                }));
+    }
 
     #region 输入函数
     /// <summary>
@@ -297,40 +342,11 @@ public class UIEventListener : MonoBehaviour
     }
 
     /// <summary>
-    /// 转盘上移：内含多动症惩罚器
+    /// 提示关闭点击
     /// </summary>
-    /// <param name="OnComplete">完成事件</param>
-    public void PrizeWheelUp(System.Action OnComplete=null)
+    public void OnBtnClick_CloseTip()
     {
-        MeetEventGameCtrl._Instance.eventMgr.isFreeze = true;
-        Vector3 pos = (MeetEventGameCtrl._Instance.meetEventCanvas.pixelRect.height / 2) * Vector3.up;
-        StartCoroutine(MeetEventGameCtrl._Instance.ChangePosition(prizeWheelPanel, pos, 0.8f,
-            () =>
-            { 
-                MeetEventGameCtrl._Instance.eventMgr.isFreeze = false;
-                if (OnComplete != null)
-                {
-                    OnComplete();
-                }
-            }));
-    }
-
-    /// <summary>
-    /// 转盘下移：内含多动症惩罚器
-    /// </summary>
-    /// <param name="OnComplete">完成事件</param>
-    public void PrizeWheelDown(System.Action OnComplete = null)
-    {
-        MeetEventGameCtrl._Instance.eventMgr.isFreeze = true;
-        StartCoroutine(MeetEventGameCtrl._Instance.ChangePosition(prizeWheelPanel, Vector3.zero, 0.8f,
-                () =>
-                {
-                    MeetEventGameCtrl._Instance.eventMgr.isFreeze = false; 
-                    if (OnComplete != null)
-                    {
-                        OnComplete();
-                    }
-                }));
+        MessageView._Instance.btn_Tip.gameObject.SetActive(false);
     }
     #endregion
 

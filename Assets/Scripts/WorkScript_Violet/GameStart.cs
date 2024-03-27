@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Obsolete]
 public class GameStart : MonoBehaviour
 {
     public Transform btn;
@@ -16,8 +17,6 @@ public class GameStart : MonoBehaviour
     {
         
     }
-    float rotateDirection = 0;
-    float rotateSize = 0;
     // Update is called once per frame
     void Update()
     {
