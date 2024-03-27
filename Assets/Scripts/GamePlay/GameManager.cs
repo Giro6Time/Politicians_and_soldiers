@@ -105,7 +105,9 @@ public class GameManager : MonoBehaviour
         battleField.onGameLose += Lose;
         battleField.battleEndPanel.onClose += IntermissionStart;
 
+        gameFlowController.onReignsStartClicked +=()=>gameFlowController.CloseIntermissionPanel();
         gameFlowController.onReignsStartClicked += () => meetEventGameCtrl.Init();
+        gameFlowController.onDialogStartClicked += () => gameFlowController.CloseIntermissionPanel();
         gameFlowController.onDialogStartClicked += dialogManager.OpenDialog;
         gameFlowController.onLeaveIntermissionClicked += TurnEnd;
     }

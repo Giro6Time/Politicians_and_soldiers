@@ -46,11 +46,11 @@ public abstract class MeetEventAbstract:MonoBehaviour
     /// </summary>
     public void ResourceChange()
     {
-        MeetEventGameCtrl._Instance.currEventProfit.armament += eventInfo.armament;
-        MeetEventGameCtrl._Instance.currEventProfit.popularSupport += eventInfo.popularSupport;
-        MeetEventGameCtrl._Instance.currEventProfit.fund += eventInfo.fund;
-        MeetEventGameCtrl._Instance.currEventProfit.sanity += eventInfo.sanity;
-        MeetEventGameCtrl._Instance.currEventProfit.troopIncrease += eventInfo.troopIncrease;
+        Player.Instance.armament += eventInfo.armament;
+        Player.Instance.popularSupport += eventInfo.popularSupport;
+        Player.Instance.fund += eventInfo.fund;
+        Player.Instance.sanity += eventInfo.sanity;
+        Player.Instance.troopIncrease += eventInfo.troopIncrease;
     }
 
     public virtual void Copy(MeetEventAbstract other)

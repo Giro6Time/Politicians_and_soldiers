@@ -15,29 +15,24 @@ public class MeetEventGameCtrl : MonoBehaviour
 
     #region 可设置/可视化部分
     /// <summary>
-    /// 当前轮数:即使轮盘也是
-    /// </summary>
-    public int currRounds;
-    /// <summary>
-    /// 最大轮数
-    /// </summary>
-    public int maxRounds = 6;
-
-    /// <summary>
     /// 会议事件画布
     /// </summary>
     public Canvas meetEventCanvas;
-
-    /// <summary>
-    /// 抽奖转盘画布
-    /// </summary>
-    public Canvas prizeWheelCanvas;
-
     /// <summary>
     /// 事件链表
     /// </summary>
     [Header("添加事件请加这")]
     public List<MeetEventAbstract> eventList;
+
+    /// <summary>
+    /// 当前轮数:即使轮盘也是
+    /// </summary>
+    [Header("下面的仅供观测")]
+    public int currRounds;
+    /// <summary>
+    /// 最大轮数
+    /// </summary>
+    public int maxRounds = 6;
     #endregion
 
     #region 不可见部分
@@ -46,14 +41,6 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public MeetEventMgr eventMgr;
-
-    /// <summary>
-    /// 事件收益
-    /// UPDATE:如果已经有Player对象了，此处可删除该对象，并将所有该对象调用替换为目标对象
-    /// 步骤：
-    /// Ctrl+F->查找：输入待替换字符串   替换：输入目标字符串 选择：当前项目/整个解决方案 全部替换:即可
-    /// </summary>
-    public Player currEventProfit;
 
     /// <summary>
     /// 屏幕宽
@@ -65,19 +52,17 @@ public class MeetEventGameCtrl : MonoBehaviour
     private float screenSize_Height;
     #endregion
 
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (_Instance == null)
         {
             _Instance = this;
         }
         eventMgr = new MeetEventMgr();
-        currEventProfit = new Player();
         screenSize_Height = Screen.height;
         screenSize_Width = Screen.width;
-        Debug.Log("屏幕宽度的一半："+ screenSize_Width+"屏幕高度的一半：" + screenSize_Height);
+        meetEventCanvas.worldCamera = Camera.main;
+        meetEventCanvas.gameObject.SetActive(false);
     }
 
     float rotateDirection = 0;
@@ -100,6 +85,7 @@ public class MeetEventGameCtrl : MonoBehaviour
             else
             {
                 rotateSize = Mathf.Max(eventMgr.currEvent.transform.eulerAngles.z + rotateDirection, 360+rotateDirection * 120);
+                rotateSize = rotateSize < 300 ? 300 : rotateSize;
             }
             eventMgr.currEvent.gameObject.transform.rotation = Quaternion.Euler(Vector3.forward*rotateSize);
         }
@@ -108,7 +94,6 @@ public class MeetEventGameCtrl : MonoBehaviour
     private void OnDestroy()
     {
         meetEventCanvas = null;
-        prizeWheelCanvas = null;
         eventList.Clear();
         eventList = null;
         eventMgr = null;
@@ -124,7 +109,6 @@ public class MeetEventGameCtrl : MonoBehaviour
         currRounds = 0;
 
         //进行初始化:激活UI，完成UI初始化之后再解冻
-        prizeWheelCanvas.gameObject.SetActive(true);
         meetEventCanvas.gameObject.SetActive(true);
         Debug.Log("游戏开始");
         UIEventListener._Instance.textPanel.SetActive(false);
@@ -132,12 +116,11 @@ public class MeetEventGameCtrl : MonoBehaviour
         //对于抽奖轮盘：需要初始化的是有什么奖品(要不要总是更新还需要考虑)
         MeetEventGameCtrl._Instance.eventMgr.UpdatePrizePool();
         eventMgr.isFreeze = true;
-        StartCoroutine(ChangeAlpha(meetEventCanvas.gameObject,0.8f));
-        StartCoroutine(ChangeAlpha(prizeWheelCanvas.gameObject,0.8f,
-            ()=>
-            {
-                eventMgr.isFreeze = false;
-            }));
+        StartCoroutine(ChangeAlpha(meetEventCanvas.gameObject,0.8f,()
+            =>
+        {
+            eventMgr.isFreeze = false;
+        }));
     }
 
     /// <summary>
@@ -199,6 +182,7 @@ public class MeetEventGameCtrl : MonoBehaviour
 
     /// <summary>
     /// 进行抽奖
+    /// TODO:模式改变成：先决定抽哪抽几圈了
     /// </summary>
     /// <returns></returns>
     public IEnumerator PrizeWheel()
@@ -207,7 +191,7 @@ public class MeetEventGameCtrl : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             //设定旋转时间
-            float rotateTime = (1 + UnityEngine.Random.Range(-0.3f, 0.3f)) * UIEventListener._Instance.prizeWheelRotateTime;
+            float rotateTime = (1 + UnityEngine.Random.Range(-0.3f, 0.3f)) * UIEventListener._Instance.prizeWheelRotateAngles;
             //播放动画：自定义动画/插值/旋转？
             while (rotateTime > 0)
             {
