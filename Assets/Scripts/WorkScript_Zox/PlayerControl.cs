@@ -44,6 +44,8 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(selectedCard);
+
         mousePosition = Input.mousePosition;
         mousePosition.z = 10f;
 
@@ -154,7 +156,6 @@ public class PlayerControl : MonoBehaviour
                 if(selectedCard != card)
                 {
                     selectedCard = card;
-                    puttableArea?.FocusCard(card);
                 }
             }
         }
@@ -163,7 +164,6 @@ public class PlayerControl : MonoBehaviour
             if(selectedCard != null)
             {
                 selectedCard = null;
-                puttableArea?.UnfocusCard();
             }
         }
     }

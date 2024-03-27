@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   troopStrength: 0
   matchedSeason: 3
-  matchedPos: 1
+  matchedPos: 3
   cardBaseType: 0
   color: {r: 0.505539, g: 0.37534708, b: 0.6698113, a: 0}

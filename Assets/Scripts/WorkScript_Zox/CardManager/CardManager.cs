@@ -210,6 +210,7 @@ public static class CardFactory
             case CardBaseType.Army:
                 instance.GetComponent<MeshRenderer>().material.color = cardSO.color;
                 var armyC = instance.AddComponent<ArmyCard>();
+                instance.GetComponent<CardSelectedVisual>().card = armyC;
                 armyC.troopStrength = cardSO.troopStrength;
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;

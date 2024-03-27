@@ -11,10 +11,9 @@ public class CardSelectedVisual : MonoBehaviour
     [HideInInspector] public Vector3 cardDefaultPos;
     private Vector3 cardPosOffset = new Vector3(0, 0.2f, -0.5f);
     
-    private CardBase card;
+    public CardBase card;
     private void Awake()
     {
-        card = GetComponent<CardBase>();
         cardSelectedScale = cardDefaultScale * 1.2f;
     }
     private void Update()
