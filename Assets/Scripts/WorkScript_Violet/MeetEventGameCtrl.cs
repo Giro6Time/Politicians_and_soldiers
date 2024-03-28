@@ -18,6 +18,12 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// 会议事件画布
     /// </summary>
     public Canvas meetEventCanvas;
+
+    /// <summary>
+    /// 提示和信息画布
+    /// </summary>
+    public Canvas tipCanvas;
+
     /// <summary>
     /// 事件链表
     /// </summary>
@@ -45,11 +51,13 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// <summary>
     /// 屏幕宽
     /// </summary>
-    private float screenSize_Width;
+    [HideInInspector]
+    public float screenSize_Width;
     /// <summary>
     /// 屏幕高
     /// </summary>
-    private float screenSize_Height;
+    [HideInInspector]
+    public float screenSize_Height;
     #endregion
 
     void Awake()
@@ -62,6 +70,8 @@ public class MeetEventGameCtrl : MonoBehaviour
         screenSize_Height = Screen.height;
         screenSize_Width = Screen.width;
         meetEventCanvas.worldCamera = Camera.main;
+        tipCanvas.worldCamera = Camera.main;
+        tipCanvas.planeDistance = 1;
         meetEventCanvas.gameObject.SetActive(false);
     }
 
@@ -131,7 +141,7 @@ public class MeetEventGameCtrl : MonoBehaviour
     {
         if (eventMgr.currentEventList.Count == 0)
         {
-            Debug.Log("您当前卡库没有卡牌呢！");
+            MessageView._Instance.ShowTip("您当前卡库没有卡牌呢！");
             return;
         }
         //转盘上移:轮盘上移的条件是轮盘在下面
@@ -182,7 +192,6 @@ public class MeetEventGameCtrl : MonoBehaviour
 
     /// <summary>
     /// 进行抽奖
-    /// TODO:模式改变成：先决定抽哪抽几圈了
     /// </summary>
     /// <returns></returns>
     public IEnumerator PrizeWheel()
@@ -190,33 +199,44 @@ public class MeetEventGameCtrl : MonoBehaviour
         //鉴于需要抽取三次，所以应该进行3次循环
         for (int i = 0; i < 3; i++)
         {
-            //设定旋转时间
-            float rotateTime = (1 + UnityEngine.Random.Range(-0.3f, 0.3f)) * UIEventListener._Instance.prizeWheelRotateAngles;
-            //播放动画：自定义动画/插值/旋转？
-            while (rotateTime > 0)
-            {
-                rotateTime -= 0.04f;
-                //开始旋转
-                UIEventListener._Instance.prizeWheelPointer.Rotate(Vector3.forward, rotateTime * UIEventListener._Instance.prizeWheelRotateSpeed);
-                yield return new WaitForSeconds(0.04f);
-            }
-            //播放结束计算结果，并将结果入队
-            //计算方式1：直接遍历每个在位事件的位置，然后比对位置得出结果
-            //计算方式2：开局布局八个结点的位置：然后根据停止时指针指向的方向得到目标事件的结果
-            //采取方式2：
-            //1.获取指针当前旋转角度(euler是0-360度)
-            rotateTime = UIEventListener._Instance.prizeWheelPointer.transform.eulerAngles.z;
-            //2.从字典中搜索处于该角度的物体
+            //复位指针
+            UIEventListener._Instance.prizeWheelPointer.rotation = Quaternion.Euler(Vector3.zero);
+            //1.设定要抽到哪个
+            int rand = UnityEngine.Random.Range(0,1000);
+            int index = 0;
+            float rotateRealTime = 0f;
+            float rotateSpeed = 0f;
+            MeetEventAbstract prize = null;
             foreach (KeyValuePair<int, MeetEventAbstract> pair in eventMgr.currPrizeDic)
             {
-                //由于字典是依次从小到大放入的，所以如果当前角度小于目标角度，那么说明抽中的就是该目标
-                if (rotateTime < pair.Key)
+                if (rand < pair.Key)
                 {
                     eventMgr.currentEventList.Add(pair.Value);
-                    Debug.Log("指针角度：" + rotateTime + "目标角度：" + pair.Key + "目标名：" + pair.Value.name);
+                    prize = pair.Value;
+                    rotateRealTime = UIEventListener._Instance.prizeWheelRotateTurns * (1 + UnityEngine.Random.Range(0, UIEventListener._Instance.prizeWheelRotateTurns/2)) * 360 + index*360/UIEventListener._Instance.prizeNums;
+                    Debug.Log("抽中指数：" + rand + "目标指数：" + pair.Key + "目标名：" + pair.Value.name+"目标角度：" + index * 360 / UIEventListener._Instance.prizeNums);
                     break;
                 }
+                index++;
             }
+            Debug.Log("旋转角度：" + rotateRealTime);
+            //设定设定每一帧旋转的角度
+            rotateSpeed = rotateRealTime / (25*UIEventListener._Instance.prizeWheelRotateTime);
+            rotateRealTime = UIEventListener._Instance.prizeWheelRotateTime;
+            //设定旋转角度
+            //播放动画：自定义动画/插值/旋转？
+            while (rotateRealTime > 0)
+            {
+                rotateRealTime -= 0.04f;
+                //开始旋转
+                UIEventListener._Instance.prizeWheelPointer.Rotate(Vector3.forward, rotateSpeed);
+                yield return new WaitForSeconds(0.04f);
+            }
+            //旋转完成以后应该显示玩家抽到了什么
+            MessageView._Instance.ShowMessage(String.Format("恭喜你抽中了{0}",prize.name));
+
+            //每次抽奖完后休息0.8s
+            yield return new WaitForSeconds(0.8f);
         }
 
         //解除冻结
@@ -237,6 +257,7 @@ public class MeetEventGameCtrl : MonoBehaviour
     public IEnumerator ChangePosition(Transform obj, Vector3 endPos, float finishTime, Action onComplete = null)
     {
         //获取真距离
+        Debug.Log("Kais1");
         Vector3 begPos = obj.localPosition;
         //获取每一份的速度
         Vector3 moveSpeed = (endPos - begPos) / (finishTime * 25);
