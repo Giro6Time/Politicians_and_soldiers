@@ -12,6 +12,7 @@ public class CardBase : MonoBehaviour
     public int cost = 33;
 
     public bool isEnemy;
+    public bool isUsed;
 
     [SerializeField] private CardBaseSO cardSO;
 
@@ -52,5 +53,10 @@ public class CardBase : MonoBehaviour
     
     public CardPos GetCardMatchedPos(){
         return matchedPos;
+    }
+
+    public bool canBMoved()
+    {
+        return !isEnemy && !isUsed;
     }
 }

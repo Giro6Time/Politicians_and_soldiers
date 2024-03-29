@@ -44,7 +44,6 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(selectedCard);
 
         mousePosition = Input.mousePosition;
         mousePosition.z = 10f;
@@ -56,7 +55,7 @@ public class PlayerControl : MonoBehaviour
                 MouseSelectPlaceableRegion();
                 if (selectedCard != null)
                 {
-                    if(selectedCard.isEnemy == true)
+                    if(selectedCard.canBMoved() == false)
                     {
                         return;
                     }

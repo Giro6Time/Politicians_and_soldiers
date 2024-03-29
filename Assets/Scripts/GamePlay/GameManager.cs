@@ -127,6 +127,19 @@ public class GameManager : MonoBehaviour
         CardPlayingArea area = cardMgr.cardPlayingArea;
         CardPlayingArea enemyArea = cardMgr.enemyPlayingArea;
 
+        foreach(var item in area.ground)
+        {
+            item.isUsed = true;
+        }
+        foreach (var item in area.sea)
+        {
+            item.isUsed = true;
+        }
+        foreach (var item in area.sky)
+        {
+            item.isUsed = true;
+        }
+
         battleField.armyManager.armyOnLand.AddRange(ArmyFactory.CreateArmyListByCardList(area.ground));
         battleField.armyManager.armyOnSea.AddRange(ArmyFactory.CreateArmyListByCardList(area.sea));
         battleField.armyManager.armyOnSky.AddRange(ArmyFactory.CreateArmyListByCardList(area.sky));
