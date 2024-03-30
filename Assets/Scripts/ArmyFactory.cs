@@ -4,13 +4,13 @@ using UnityEngine;
 
 public static class ArmyFactory
 {
-    public static Army prefab;
+    public static GameObject prefab;
 
     public static List<Army> CreateArmyListByCardList(List<CardBase> cards)
     {
         if (!prefab)
         {
-            Debug.LogWarning("还没有进行军队配置，修改Config文件");
+            Debug.LogWarning("杩樻病鏈夎繘琛屽啗闃熼厤缃紝淇敼Config鏂囦欢");
             return new();
         }
         List<Army> armyList = new();
@@ -19,9 +19,10 @@ public static class ArmyFactory
             ArmyCard c = card as ArmyCard;
             if (!c)
                 continue;
-            var armyInstance = GameObject.Instantiate<Army>(prefab);
-            armyInstance.troopStrength = c.troopStrength;
-            armyList.Add(armyInstance);
+            var armyInstance = GameObject.Instantiate(prefab);
+            var army = armyInstance.AddComponent<Army>();
+            army.troopStrength = c.troopStrength;
+            armyList.Add(army);
         }
         return armyList;
     }

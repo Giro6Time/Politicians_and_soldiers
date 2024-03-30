@@ -40,6 +40,7 @@ public class DateManager : MonoBehaviour
     {
         if (canMoveNextMonth)
         {
+            Debug.Log("Month: " + month + " -> " + (month+1));
             month++;
             //��ȡ����
             UpdateSeason();

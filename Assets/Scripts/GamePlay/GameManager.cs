@@ -99,7 +99,9 @@ public class GameManager : MonoBehaviour
         gameFlowController.onBattleStartClicked += BattleStart;
 
         dateMgr.OnMonthChanged += () => cardMgr.SpawnEnemyCard(dateMgr.GetMonth());
-        dateMgr.OnMonthChanged += () => cardMgr.UpdatePlayerHand(dateMgr.GetMonth(), dateMgr.GetSeason());
+        dateMgr.OnMonthChanged += () =>
+            StartCoroutine(
+                DelayInvoke.DelayInvokeDo(() => cardMgr.UpdatePlayerHand(dateMgr.GetMonth(), dateMgr.GetSeason()), config.updateHandDelay));
 
         battleField.onGameWin += Win;
         battleField.onGameLose += Lose;

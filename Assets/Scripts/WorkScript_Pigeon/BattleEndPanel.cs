@@ -25,11 +25,7 @@ public class BattleEndPanel : MonoBehaviour
     private void Start()
     {
         ResetPanel();
-        Debug.Log("Start");
-        //battleField.BattleStart();
-        //battleField.ApplyEffect();
-        //battleField.Battle();
-        //battleField.OnBattleEnd();
+
     }
 
     public void ClosePanel()

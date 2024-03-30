@@ -123,6 +123,7 @@ public class CardManager : MonoBehaviour {
     //TODO:�˷������ܲ������㣨��Ҫ�Ͳ߻����ۣ������Ƿ���Ҫ�����ߵ���Ϊ�������룩
     public void UpdatePlayerHand(int month, Season season)
     {
+        Debug.Log("Update Hand");
         AddCard((month-1)/4 + 1, season);
         
     }
