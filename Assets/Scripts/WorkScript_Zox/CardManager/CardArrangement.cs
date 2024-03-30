@@ -27,6 +27,40 @@ public class CardArrangement : MonoBehaviour
         }
     }
 
+    public void RearrangeCardWhileFocus(CardSelectedVisual item)
+    {
+        int index = -1;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform object2bRepositioned = transform.GetChild(i);
+            if (object2bRepositioned.GetComponent<CardSelectedVisual>() == item)
+            {
+                index = i; 
+                break;
+            }
+        }
+        if(index != -1)
+        {
+            for(int i=0;i< transform.childCount; i++)
+            {
+                if(i == index) { continue; }
+                Transform otherChild = transform.GetChild(i);
+                Vector3 newPosition = CalculateNewPosition(otherChild.localPosition, i, index);
+                otherChild.localPosition = Vector3.Lerp(otherChild.localPosition, newPosition, Time.deltaTime);
+                if(Vector3.Distance(otherChild.localPosition, newPosition) < 0.1f)
+                {
+                    otherChild.localPosition = newPosition;
+                }
+            }
+        }
+    }
+
+    private Vector3 CalculateNewPosition(Vector3 originalPosition, int otherCardIndex, int selectedCardIndex)
+    {
+        Vector3 newPos = originalPosition + (otherCardIndex - selectedCardIndex) * Vector3.right * 1f;
+        return newPos;
+    }
+
     public void FocusCard(CardBase card)//hovered
     {
         Debug.Log("focus");

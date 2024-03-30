@@ -43,25 +43,23 @@ public class CardManager : MonoBehaviour {
 
     public void Init()
     {
-        //TODO ���ܲ�����Ҫ��ʼ������
+        
     }
     public void MoveCard(CardBase card, CardArrangement area)
     {
-        if(card.GetCardPos() == area.pos || card.isEnemy == true)
+        if (card.GetCardPos() == area.pos || card.canBMoved() == false)
         {
+            cardPlayingArea.AddCard(card, area.pos);
             card.cardCurrentArea.RearrangeCard();
             return;
         }
         if(card.GetCardMatchedPos() == area.pos)
         {
-            //�ŵ�Ŀ�ĵ�ս��
             if(Player.Instance.decisionValue - card.cost < 0)
             {
-                //������ù�
                 card.cardCurrentArea.RearrangeCard();
                 return;
             }
-            //���Ѿ��ߵ�
             Player.Instance.decisionValue -= card.cost;
 
             cardPlayingArea.AddCard(card, area.pos);
@@ -73,8 +71,6 @@ public class CardManager : MonoBehaviour {
             card.cardCurrentArea = area;
         }else if(area.pos == CardPos.SelectionArea)
         {
-            //�Ż�ѡ����
-            //�������ߵ�
             Player.Instance.decisionValue += card.cost;
             cardPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
@@ -85,6 +81,8 @@ public class CardManager : MonoBehaviour {
             card.cardCurrentArea = area;
         }
         card.cardCurrentArea.RearrangeCard();
+
+        Debug.Log(Player.Instance.decisionValue);
     }
     public void MoveCard(CardBase card)
     {
