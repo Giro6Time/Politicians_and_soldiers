@@ -32,6 +32,6 @@ public class Army : MonoBehaviour
 
     public void OnDead()
     {
-        
+        Destroy(gameObject);
     }
 }

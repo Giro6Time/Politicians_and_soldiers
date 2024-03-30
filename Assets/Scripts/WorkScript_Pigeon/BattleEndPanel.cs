@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class BattleEndPanel : MonoBehaviour
 {
-    public BattleResult res = 0;
-    public GameObject panelWin, panelLose, panelDraw;
-
+    public GameObject battleResultPanel;
+    public GameObject gameResultPanel;
+    public BattleAnimation battleAnimation;
     //public BattleField battleField;
     public static BattleEndPanel Instance;
 
@@ -40,29 +40,19 @@ public class BattleEndPanel : MonoBehaviour
 
     public void ResetPanel()
     {
-        panelLose.SetActive(false);
-        panelWin.SetActive(false);
-        panelDraw.SetActive(false);
-
-
+        battleResultPanel.SetActive(false);
+        gameResultPanel.SetActive(false);
     }
 
     public void ShowPanel()
     {
-        if(res == BattleResult.Win)
-        {
-            panelWin.SetActive(true);
-        }
-        else if (res == BattleResult.Lose)
-        {
-            panelLose.SetActive(true);
-        }
-        else if (res == BattleResult.Draw)
-        {
-            panelDraw.SetActive(true);
-        }
-        res = BattleResult.Default;
+        //battleAnimation.BattleEndPanelAni();
+        battleResultPanel.SetActive(true);
     }
 
-
+    public void ShowGameResult()
+    {
+        //battleAnimation.GameResultAni();
+        gameResultPanel.SetActive(true);
+    }
 }
