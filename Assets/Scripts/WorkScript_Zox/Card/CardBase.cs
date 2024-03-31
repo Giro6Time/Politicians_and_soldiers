@@ -28,7 +28,7 @@ public class CardBase : MonoBehaviour
     [SerializeField] private CardBaseType cardBaseType;
     [SerializeField] private Season matchedSeason;
 
-    private CardPos cardPos = CardPos.SelectionArea;
+    private CardPos cardPos;
     public CardArrangement cardCurrentArea;
 
     private void Awake()

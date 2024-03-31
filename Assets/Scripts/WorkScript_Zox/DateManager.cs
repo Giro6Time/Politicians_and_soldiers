@@ -14,15 +14,14 @@ public class DateManager : MonoBehaviour
 
     [SerializeField] private int month;
     [SerializeField] private Weather weather;
-    //��Ҫ�޸�
+
     private int weatherTypeCount = 3;
-    //end
+
     [SerializeField] private Season season;
     
     private bool canMoveNextMonth {
         get { return 0 <= month && month < 12; }
     }
-
 
     private void Awake()
     {
@@ -32,7 +31,6 @@ public class DateManager : MonoBehaviour
 
     public void Init()
     {
-        //Initializing
         month = 0;
     }
 
@@ -42,9 +40,7 @@ public class DateManager : MonoBehaviour
         {
             Debug.Log("Month: " + month + " -> " + (month+1));
             month++;
-            //��ȡ����
             UpdateSeason();
-            //��ȡ����
             weather = (Weather)(int)UnityEngine.Random.Range(0, weatherTypeCount);
 
             OnMonthChanged?.Invoke();
@@ -72,6 +68,7 @@ public class DateManager : MonoBehaviour
     {
         return month;
     }
+
     public Season GetSeason()
     {
         return season;
