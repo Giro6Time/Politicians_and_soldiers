@@ -83,6 +83,8 @@ public class MeetEventMgr
             MeetEventGameCtrl._Instance.currRounds += 3;
             Debug.Log("启动抽奖程序");
             isFreeze = true;
+            //进行UI更新
+            UIEventListener._Instance.UIMeetingEventUpdate();
             //启动程序
             MeetEventGameCtrl._Instance.StartPrizeWheel();
         }

@@ -11,7 +11,7 @@ public class MessageView : MonoBehaviour
     /// 信息文本
     /// </summary>
     [SerializeField]
-    private TextMesh text_MessageTemplate;
+    private Text text_MessageTemplate;
     /// <summary>
     /// 提示按钮
     /// </summary>
@@ -31,7 +31,7 @@ public class MessageView : MonoBehaviour
     /// <summary>
     /// 池链表
     /// </summary>
-    private List<TextMesh> messagePool;
+    private List<Text> messagePool;
 
     private int currStartNums;
     /// <summary>
@@ -45,7 +45,7 @@ public class MessageView : MonoBehaviour
         {
             _Instance = this;
         }
-        messagePool = new List<TextMesh>();
+        messagePool = new List<Text>();
         messageQueue = new Queue<string>();
         currStartNums = 0;
         timer = 0;
@@ -54,7 +54,7 @@ public class MessageView : MonoBehaviour
         {
             obj = GameObject.Instantiate(text_MessageTemplate.gameObject,this.transform);
             obj.SetActive(false);
-            messagePool.Add(obj.GetComponent<TextMesh>());
+            messagePool.Add(obj.GetComponent<Text>());
         }
     }
 
@@ -70,9 +70,10 @@ public class MessageView : MonoBehaviour
                 GameObject obj = messagePool[currStartNums].gameObject;
                 obj.SetActive(true);
                 //播放动画
-                obj.transform.localPosition = Vector3.zero;
+                obj.transform.localPosition = -Vector3.up * (MeetEventGameCtrl._Instance.tipCanvas.pixelRect.height * 0.5f);
+                Vector3 targetPosition =Vector3.zero;
                 currStartNums++;
-                StartCoroutine(MeetEventGameCtrl._Instance.ChangePosition(obj.transform, Vector3.up * 4, 2.5f,
+                StartCoroutine(MeetEventGameCtrl._Instance.ChangePosition(obj.transform, targetPosition, 2.5f,
                     () =>
                     {
                         obj.gameObject.SetActive(false);
@@ -82,12 +83,14 @@ public class MessageView : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 显示指定信息
+    /// </summary>
+    /// <param name="context"></param>
     public void ShowMessage(string context)
     {
         messageQueue.Enqueue(context);
     }
-
-
 
     /// <summary>
     /// 显示提示信息
@@ -97,5 +100,9 @@ public class MessageView : MonoBehaviour
     {
         btn_Tip.gameObject.SetActive(true);
         text_Tip.text = string.Format("{0}点击文本框可关闭",tipContext);
+    }
+
+    public void ShowHurt(string hurtValue, Vector3 targetPosition)
+    { 
     }
 }
