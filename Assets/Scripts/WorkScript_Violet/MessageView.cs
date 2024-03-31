@@ -78,6 +78,7 @@ public class MessageView : MonoBehaviour
                     {
                         obj.gameObject.SetActive(false);
                         currStartNums--;
+                        obj = null;
                     }));
             }
         }
