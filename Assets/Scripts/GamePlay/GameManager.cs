@@ -11,16 +11,16 @@ public class GameManager : MonoBehaviour
     public DateManager dateMgr;
     public PlayerControl playerControl;
 
-    [Header("Õ½¶·ÖÐ")]
+    [Header("Õ½ï¿½ï¿½ï¿½ï¿½")]
     public BattleField battleField;
 
-    [Header("ÍõÈ¨Ä£¿é")]
+    [Header("ï¿½ï¿½È¨Ä£ï¿½ï¿½")]
     public MeetEventGameCtrl meetEventGameCtrl;
 
-    [Header("¶Ô»°Ä£¿é")]
+    [Header("ï¿½Ô»ï¿½Ä£ï¿½ï¿½")]
     public DialogManager dialogManager;
 
-    [Header("ÅäÖÃ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     public ConfigSO config;
 
     public static GameManager Instance
@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
 
     private void TurnStart()
     {
-        ////TODO£º
-        //»ØºÏ¿ªÊ¼Ê±
-        //»ØºÏ¼ÆÊýÆ÷+1 -> ÏÔÊ¾µÐ·½³¡Ãæ -> ¶ÁÈ¡Íæ¼ÒÊôÐÔ¼ÆËã¾ö²ßµã -> ·¢ÅÆ -> enable inputµÈ´ýÍæ¼Ò½»»¥
+        ////TODOï¿½ï¿½
+        //ï¿½ØºÏ¿ï¿½Ê¼Ê±
+        //ï¿½ØºÏ¼ï¿½ï¿½ï¿½ï¿½ï¿½+1 -> ï¿½ï¿½Ê¾ï¿½Ð·ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ -> ï¿½ï¿½ï¿½ï¿½ -> enable inputï¿½È´ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½
         cardMgr.gameObject.SetActive(true);
         dateMgr.moveNextMonth();
         gameFlowController.battleStartButton.gameObject.SetActive(true);
@@ -59,8 +59,8 @@ public class GameManager : MonoBehaviour
     }
     private void BattleStart()
     {
-        //Õ½¶·¿ªÊ¼Ê±
-        //¿¨Æ¬Éú³É¾ü¶Ó -> ½øÈëÕ½¶·
+        //Õ½ï¿½ï¿½ï¿½ï¿½Ê¼Ê±
+        //ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½
         gameFlowController.battleStartButton.gameObject.SetActive(false);
         Debug.Log("BattleStart");
         cardMgr.gameObject.SetActive(false);
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     private void TurnEnd()
     {
-        //»ØºÏ½áÊø½×¶Î
+        //ï¿½ØºÏ½ï¿½ï¿½ï¿½ï¿½×¶ï¿½
         gameFlowController.CloseIntermissionPanel();
         TurnStart();
     }
@@ -130,6 +130,19 @@ public class GameManager : MonoBehaviour
     {
         CardPlayingArea area = cardMgr.cardPlayingArea;
         CardPlayingArea enemyArea = cardMgr.enemyPlayingArea;
+
+        foreach(var item in area.ground)
+        {
+            item.isUsed = true;
+        }
+        foreach (var item in area.sea)
+        {
+            item.isUsed = true;
+        }
+        foreach (var item in area.sky)
+        {
+            item.isUsed = true;
+        }
 
         foreach(var item in area.ground)
         {

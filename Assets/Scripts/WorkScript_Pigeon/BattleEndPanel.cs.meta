@@ -4,13 +4,9 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - panelWin: {instanceID: 0}
-  - panelLose: {instanceID: 0}
-  - panelDraw: {instanceID: 0}
-  - panelLeft: {instanceID: 0}
-  - panelRight: {instanceID: 0}
-  - battleField: {instanceID: 0}
-  - armyManager: {instanceID: 0}
+  - battleResultPanel: {fileID: 7180430528880602233, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
+  - gameResultPanel: {fileID: 6982559255806532252, guid: 2854790e54c3a154ea7195e9813c2b5d, type: 3}
+  - battleAnimation: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
