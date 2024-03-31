@@ -16,4 +16,6 @@ MonoBehaviour:
   matchedSeason: 3
   matchedPos: 3
   cardBaseType: 0
+  cardFrame: {fileID: 21300000, guid: 497d845f3bcdf6c45b52965add15108e, type: 3}
+  inset: {fileID: 0}
   color: {r: 0.505539, g: 0.37534708, b: 0.6698113, a: 0}

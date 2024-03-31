@@ -213,6 +213,9 @@ public static class CardFactory
                 armyC.troopStrength = cardSO.troopStrength;
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;
+                armyC.cardFrame = cardSO.cardFrame;
+
+                armyC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
                 
                 return instance;
             case CardBaseType.Effect:
