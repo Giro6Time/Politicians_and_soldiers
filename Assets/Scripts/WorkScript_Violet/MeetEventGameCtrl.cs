@@ -240,6 +240,7 @@ public class MeetEventGameCtrl : MonoBehaviour
         }
 
         //½â³ý¶³½á
+        yield return new WaitForSeconds(0.8f);
         eventMgr.isFreeze = false;
 
         yield return null;
