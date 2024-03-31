@@ -84,6 +84,7 @@ public class CardManager : MonoBehaviour {
 
         Debug.Log(Player.Instance.decisionValue);
     }
+
     public void MoveCard(CardBase card)
     {
         if(card.GetCardPos() == CardPos.SelectionArea)
@@ -95,7 +96,6 @@ public class CardManager : MonoBehaviour {
             cardPlayingArea.RemoveCard(card);
         }
     }
-
 
     private List<CardBase> GetCurrentHand()
     {
@@ -109,7 +109,6 @@ public class CardManager : MonoBehaviour {
         return currentHand;
     }
 
-
     public void SpawnEnemyCard(int month)
     {
         //Enemy put card
@@ -120,7 +119,6 @@ public class CardManager : MonoBehaviour {
 
     }
     
-    //TODO:�˷������ܲ������㣨��Ҫ�Ͳ߻����ۣ������Ƿ���Ҫ�����ߵ���Ϊ�������룩
     public void UpdatePlayerHand(int month, Season season)
     {
         AddCard((month-1)/4 + 1, season);
@@ -162,12 +160,15 @@ public class CardManager : MonoBehaviour {
         switch (enemyCard.GetCardMatchedPos()) {
             case CardPos.LandPutArea:
                 enemyCard.transform.SetParent(cardAnchor_Land_Enemy.transform);
+                enemyCard.SetCardPos(CardPos.LandPutArea);
                 break;
             case CardPos.SeaPutArea:
                 enemyCard.transform.SetParent(cardAnchor_Sea_Enemy.transform);
+                enemyCard.SetCardPos(CardPos.SeaPutArea);
                 break;
             case CardPos.SkyPutArea:
                 enemyCard.transform.SetParent(cardAnchor_Sky_Enemy.transform);
+                enemyCard.SetCardPos(CardPos.SkyPutArea);
                 break;
             default:
                 throw new Exception("����û������λ��");
@@ -182,9 +183,6 @@ public class CardManager : MonoBehaviour {
         cardAnchor_Sky_Enemy.RearrangeCard();
 
     }
-
-
-
 }
 
 
@@ -209,6 +207,7 @@ public static class CardFactory
                 instance.GetComponent<MeshRenderer>().material.color = cardSO.color;
                 var armyC = instance.AddComponent<ArmyCard>();
                 instance.GetComponent<CardSelectedVisual>().card = armyC;
+                armyC.SetCardPos(CardPos.SelectionArea);
                 armyC.troopStrength = cardSO.troopStrength;
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;

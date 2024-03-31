@@ -11,6 +11,7 @@ public class CardArrangement : MonoBehaviour
     [SerializeField] float offsetX;
     [SerializeField] float offsetZ;
     [SerializeField] float raiseHeight;
+    [SerializeField] float cardSize;
 
     //Lerp speed
     public float lerpSpeed = 5f;
@@ -61,17 +62,6 @@ public class CardArrangement : MonoBehaviour
         return newPos;
     }
 
-    public void FocusCard(CardBase card)//hovered
-    {
-        Debug.Log("focus");
-    }
-
-    public void UnfocusCard()//normal
-    {
-        Debug.Log("unfocus");
-        RearrangeCard();
-    }
-
     IEnumerator MoveSmoothly(Transform a, Vector3 b)
     {
         float elapsedTime = 0f;
@@ -85,6 +75,20 @@ public class CardArrangement : MonoBehaviour
         }
 
         a.localPosition = b;
+    }
+    IEnumerator ScaleSmoothly(Transform a, Vector3 b)
+    {
+        float elapsedTime = 0f;
+        Vector3 startScale = a.localScale;
+
+        while (elapsedTime < 1f)
+        {
+            a.localPosition = Vector3.Lerp(startScale, b, elapsedTime);
+            elapsedTime += Time.deltaTime * lerpSpeed;
+            yield return null;
+        }
+
+        a.localScale = b;
     }
 
 }

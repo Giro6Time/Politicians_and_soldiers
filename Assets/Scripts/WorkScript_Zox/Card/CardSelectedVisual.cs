@@ -4,18 +4,31 @@ using UnityEngine;
 
 public class CardSelectedVisual : MonoBehaviour
 {
-    [SerializeField] Vector3 cardDefaultScale;
+    [SerializeField] Vector3 cardSize_Selecting;
+    [SerializeField] Vector3 cardSize_Put;
     [SerializeField] float cardSelectedZoomFactor;
-    private Vector3 cardSelectedScale;
+    private Vector3 cardSize;
+    private Vector3 cardSize_selected;
 
     [HideInInspector] public Vector3 cardDefaultPos;
     private Vector3 cardPosOffset = new Vector3(0, 0.2f, -0.5f);
     
+    //Initialized in CardManager CardFactory
     public CardBase card;
-    private void Awake()
+
+    private void Start()
     {
-        cardSelectedScale = cardDefaultScale * 1.2f;
+        if(card.GetCardPos() == CardPos.SelectionArea)
+        {
+            cardSize = cardSize_Selecting;
+        }
+        else
+        {
+            cardSize = cardSize_Put;
+        }
+        cardSize_selected = cardSize * 1.2f;
     }
+
     private void Update()
     {
        if(PlayerControl.Instance.currentState == PlayerControl.State.SelectingCard)
@@ -28,25 +41,40 @@ public class CardSelectedVisual : MonoBehaviour
     {
         if (PlayerControl.Instance.selectedCard == card)
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, cardSelectedScale, Time.deltaTime * 5f);
-            if (Vector3.Distance(transform.localScale, cardSelectedScale) < 0.01f)
+            transform.localScale = Vector3.Lerp(transform.localScale, cardSize_selected, Time.deltaTime * 5f);
+            if (Vector3.Distance(transform.localScale, cardSize_selected) < 0.01f)
             {
-                transform.localScale = cardSelectedScale;
+                transform.localScale = cardSize_selected;
             }
-
-            //transform.localPosition = cardDefaultPos + cardPosOffset;
-            //transform.parent.GetComponent<CardArrangement>().RearrangeCardWhileFocus(this);
         }
         else
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, cardDefaultScale, Time.deltaTime * 10f);
-            if (Vector3.Distance(transform.localScale, cardDefaultScale) < 0.01f)
+            transform.localScale = Vector3.Lerp(transform.localScale, cardSize, Time.deltaTime * 10f);
+            if (Vector3.Distance(transform.localScale, cardSize) < 0.01f)
             {
-                transform.localScale = cardDefaultScale;
+                transform.localScale = cardSize;
             }
-
-            //transform.localPosition = cardDefaultPos;
-            //transform.parent.GetComponent<CardArrangement>().RearrangeCard();
         }
+    }
+
+    private IEnumerator changeParent()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        // 在延迟后执行的逻辑
+        if (card.GetCardPos() == CardPos.SelectionArea)
+        {
+            cardSize = cardSize_Selecting;
+        }
+        else
+        {
+            cardSize = cardSize_Put;
+        }
+        cardSize_selected = cardSize * 1.2f;
+    }
+
+    private void OnTransformParentChanged()
+    {
+        StartCoroutine(changeParent());
     }
 }
