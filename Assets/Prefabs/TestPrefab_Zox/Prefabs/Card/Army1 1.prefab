@@ -195,7 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceff4b79c7d58ee44941d82bc6f70c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardDefaultScale: {x: 1, y: 1, z: 0}
+  cardSize_Selecting: {x: 1, y: 1, z: 0}
+  cardSize_Put: {x: 1, y: 1, z: 0}
   cardSelectedZoomFactor: 1.2
   cardDefaultPos: {x: 0, y: 0, z: 0}
   card: {fileID: 0}
