@@ -197,7 +197,7 @@ public class MeetEventGameCtrl : MonoBehaviour
     public IEnumerator PrizeWheel()
     {
         //鉴于需要抽取三次，所以应该进行3次循环
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             //复位指针
             UIEventListener._Instance.prizeWheelPointer.rotation = Quaternion.Euler(Vector3.zero);
@@ -229,11 +229,11 @@ public class MeetEventGameCtrl : MonoBehaviour
             {
                 rotateRealTime -= 0.04f;
                 //开始旋转
-                UIEventListener._Instance.prizeWheelPointer.Rotate(Vector3.forward, rotateSpeed);
+                UIEventListener._Instance.rotateParent.Rotate(Vector3.forward, rotateSpeed);
                 yield return new WaitForSeconds(0.04f);
             }
             //旋转完成以后应该显示玩家抽到了什么
-            MessageView._Instance.ShowMessage(String.Format("恭喜你抽中了{0}",prize.name));
+            MessageView._Instance.ShowMessage(String.Format("事件：{0}增加了",prize.name));
 
             //每次抽奖完后休息0.8s
             yield return new WaitForSeconds(0.8f);

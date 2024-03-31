@@ -42,6 +42,17 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public int prizeNums;
 
+    /// <summary>
+    /// 奖品父物体
+    /// </summary>
+    public Transform prizeParent;
+
+    /// <summary>
+    /// 旋转父物体
+    /// </summary>
+    public Transform rotateParent;
+
+
     [Header("基础UI设置")]
     /// <summary>
     /// 接受按钮
@@ -207,7 +218,7 @@ public class UIEventListener : MonoBehaviour
         for (int i = 0; i < prizeNums; i++)
         {
             //1.绘制模板
-            obj = GameObject.Instantiate<GameObject>(prizeWheelTemplate, prizeWheelPanel);
+            obj = GameObject.Instantiate<GameObject>(prizeWheelTemplate, prizeParent);
             obj.transform.localPosition = new Vector3(Mathf.Sin(gapAngle * i) * prizeWheelRadius, Mathf.Cos(gapAngle * i) * prizeWheelRadius, 0);
             //TODO:2.绘制特效
             DrawValueEffect(valueList[i]);
