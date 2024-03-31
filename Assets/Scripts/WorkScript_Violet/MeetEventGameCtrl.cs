@@ -197,7 +197,7 @@ public class MeetEventGameCtrl : MonoBehaviour
     public IEnumerator PrizeWheel()
     {
         //鉴于需要抽取三次，所以应该进行3次循环
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 3; i++)
         {
             //复位指针
             UIEventListener._Instance.prizeWheelPointer.rotation = Quaternion.Euler(Vector3.zero);

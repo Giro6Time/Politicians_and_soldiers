@@ -103,5 +103,6 @@ public class MessageView : MonoBehaviour
     }
 
     public void ShowHurt(string hurtValue, Vector3 targetPosition)
-    { }
+    { 
+    }
 }
