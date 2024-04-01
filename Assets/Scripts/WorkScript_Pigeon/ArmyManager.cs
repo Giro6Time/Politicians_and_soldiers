@@ -6,6 +6,7 @@ using UnityEngine;
 public class ArmyManager : MonoBehaviour
 {
     public BattleEndPanel battleEndPanel;
+    public Army army;
 
     public static ArmyManager instance;
     public BattleAnimation battleAnimation;
@@ -26,7 +27,8 @@ public class ArmyManager : MonoBehaviour
     public List<Army> enemyArmyOnSea = new List<Army>(5);
     public List<Army> enemyArmyOnSky = new List<Army>(5);
 
-    public List<GameObject> armyList;
+    GameObject armyObject;
+    GameObject enemyArmyObject;
 
     public float progressChangeValue = 0;
     public float landEffect1 = 0.02f;
@@ -37,6 +39,49 @@ public class ArmyManager : MonoBehaviour
     public float skyEffect2 = 10f;
     public float ElseEffect = 0;
     public int Fix = 0; //��������
+
+    private bool attacking = false;
+    private bool attacked = false;
+    private float startTime;
+    public AnimationCurve curve;
+    public float moveDuration = 5f;
+    Vector2 armyInitialPosition;
+    Vector2 enemyArmyInitialPosition;
+
+    private void Update()
+    {
+        if (attacking)
+        {
+            float t = (Time.time - startTime) / moveDuration;
+            Vector2 armyChangePosition = new Vector2(armyInitialPosition.x, armyInitialPosition.y + t);
+            Vector2 enemyArmyChangePosition = new Vector2(enemyArmyInitialPosition.x, enemyArmyInitialPosition.y + t);
+            armyObject.transform.position = armyChangePosition;
+            enemyArmyObject.transform.position = enemyArmyChangePosition;
+
+            if (t >= 1.0f)
+            {
+                attacking = false;
+                attacked = true;
+                Debug.Log("attacked");
+            }
+        }
+
+        if (attacked)
+        {
+            float t = (Time.time - startTime) / moveDuration;
+            Vector2 armyChangePosition = new Vector2(armyInitialPosition.x, armyInitialPosition.y - t);
+            Vector2 enemyArmyChangePosition = new Vector2(enemyArmyInitialPosition.x, enemyArmyInitialPosition.y - t);
+            armyObject.transform.position = armyChangePosition;
+            enemyArmyObject.transform.position = enemyArmyChangePosition;
+
+            if (t >= 1.0f)
+            {
+                attacked = false;
+                armyObject = null;
+                enemyArmyObject = null;
+            }
+        }
+    }
 
     public void Battle()
     {
@@ -248,15 +293,19 @@ public class ArmyManager : MonoBehaviour
     {
         if (ak == ArmyKind.Land)
         {
-            battleAnimation.BattleLandAni();
+            armyInitialPosition = armyOnLand[0].GetUpperBound();
+            enemyArmyInitialPosition = enemyArmyOnLand[0].GetLowerBound();
+            armyObject = armyOnLand[0].gameObject;
+            enemyArmyObject = enemyArmyOnLand[0].gameObject;
+            attacking = true;
         }
         else if (ak == ArmyKind.Ocean)
         {
-            battleAnimation.BattleOceanAni();
+            //battleAnimation.BattleOceanAni();
         }
         else if (ak == ArmyKind.Sky)
         {
-            battleAnimation.BattleSkyAni();
+            //battleAnimation.BattleSkyAni();
         }
     }
     public void ResetEffect()
