@@ -19,7 +19,6 @@ public class PlayerControl : MonoBehaviour
         SelectingCard,
         EnterCard,
         InfoCard,
-        AutoMoveCard,
         Null
     }
     public State currentState;
@@ -55,12 +54,13 @@ public class PlayerControl : MonoBehaviour
                 MouseSelectPlaceableRegion();
                 if (selectedCard != null)
                 {
-                    if(selectedCard.canBMoved() == false)
-                    {
-                        return;
-                    }
                     if (Input.GetMouseButtonDown(0))
                     {
+                        if (selectedCard.canBMoved() == false)
+                        {
+                            return;
+                        }
+
                         cardManager.MoveCard(selectedCard);
 
                         cardPrimaryPos = selectedCard.transform.position;
@@ -88,17 +88,10 @@ public class PlayerControl : MonoBehaviour
                     if(puttableArea != null)
                     {
                         cardManager.MoveCard(selectedCard, puttableArea);
-                        //puttableArea.RearrangeCard();
-                        currentState = State.SelectingCard;
+                    }else{
+                        cardManager.MoveCard(selectedCard, null);
                     }
-                }
-                if (Input.GetMouseButtonDown(1))
-                {
-                    //card go back
-                    cardDestinyPos = cardPrimaryPos;
-                    cardPrimaryPos = selectedCard.transform.position;
-
-                    currentState = State.AutoMoveCard;
+                    currentState = State.SelectingCard;
                 }
                 break;
             case State.InfoCard:
@@ -110,25 +103,6 @@ public class PlayerControl : MonoBehaviour
                 if (Input.GetMouseButtonDown(1))
                 {
                     //stop info
-                    currentState = State.SelectingCard;
-                }
-                break;
-            case State.AutoMoveCard:
-                if(moveTimeCounter < moveDuration)
-                {
-                    moveTimeCounter += Time.deltaTime;
-
-                    float t = moveTimeCounter / moveDuration;
-                    t = Mathf.SmoothStep(0f, 1f, t);
-                    selectedCard.transform.position = Vector3.Lerp(cardPrimaryPos, cardDestinyPos, t);
-                }
-                
-                //Card been put automatically
-                if(selectedCard.transform.position == cardDestinyPos)
-                {
-                    moveTimeCounter = 0f;
-
-                    selectedCard = null;
                     currentState = State.SelectingCard;
                 }
                 break;
