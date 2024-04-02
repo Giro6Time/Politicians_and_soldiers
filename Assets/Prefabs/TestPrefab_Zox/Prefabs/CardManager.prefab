@@ -99,7 +99,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 355585252e0f2d944a7a5495520d1ffb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82f306c34a460b04fa8068c63da9afbc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -273,7 +273,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4067074731508651634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -362,6 +362,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
+  incline: 10
   lerpSpeed: 5
   angleIncrement: 180
   radius: 1
@@ -551,10 +552,11 @@ MonoBehaviour:
   offsetX: 1.2
   offsetZ: -0.1
   raiseHeight: 0.5
+  incline: 0
   lerpSpeed: 5
-  angleIncrement: 30
-  radius: 5
-  centerPoint: {x: 0, y: -4.5, z: 0}
+  angleIncrement: 10
+  radius: 20
+  centerPoint: {x: 0, y: -20, z: 0}
 --- !u!65 &4067074731599333287
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -594,7 +596,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4067074731612137165}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -670,6 +672,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
+  incline: 10
   lerpSpeed: 5
   angleIncrement: 30
   radius: 2
@@ -837,6 +840,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
+  incline: 10
   lerpSpeed: 5
   angleIncrement: 180
   radius: 1
@@ -867,7 +871,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4067074732211485009}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: -6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -943,6 +947,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
+  incline: 10
   lerpSpeed: 5
   angleIncrement: 30
   radius: 2
@@ -974,7 +979,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4067074732315268606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: -6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1063,6 +1068,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
+  incline: 10
   lerpSpeed: 5
   angleIncrement: 180
   radius: 1
@@ -1528,6 +1534,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
+  incline: 10
   lerpSpeed: 5
   angleIncrement: 30
   radius: 2

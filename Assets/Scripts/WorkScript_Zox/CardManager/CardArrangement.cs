@@ -18,6 +18,7 @@ public class CardArrangement : MonoBehaviour
     [SerializeField] float offsetX;
     [SerializeField] float offsetZ;
     [SerializeField] float raiseHeight;
+    [SerializeField] float incline;
     //[SerializeField] float cardSize;
 
     //Lerp speed
@@ -88,7 +89,7 @@ public class CardArrangement : MonoBehaviour
 
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
 
-            Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
+            Quaternion targetRotation = Quaternion.Euler(incline, 0, 0);
             StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
         }
     }
@@ -125,21 +126,6 @@ public class CardArrangement : MonoBehaviour
     {
         Vector3 newPos = originalPosition + (otherCardIndex - selectedCardIndex) * Vector3.right * 1f;
         return newPos;
-    }
-
-    IEnumerator MoveSmoothly(Transform a, Vector3 b)
-    {
-        float elapsedTime = 0f;
-        Vector3 startPosition = a.localPosition;
-
-        while (elapsedTime < 1f)
-        {
-            a.localPosition = Vector3.Lerp(startPosition, b, elapsedTime);
-            elapsedTime += Time.deltaTime * lerpSpeed;
-            yield return null;
-        }
-
-        a.localPosition = b;
     }
 
     IEnumerator MoveSmoothly(Transform a, Vector3 b, Quaternion c)

@@ -7,6 +7,7 @@ public class CardSelectedVisual : MonoBehaviour
     [SerializeField] Vector3 cardSize_Selecting;
     [SerializeField] Vector3 cardSize_Put;
     [SerializeField] float cardSelectedZoomFactor;
+    [SerializeField] Vector3 cardSize_FullScreen;
     private Vector3 cardSize;
     private Vector3 cardSize_selected;
     private Vector3 cardEulerAngle_zero;
@@ -14,13 +15,13 @@ public class CardSelectedVisual : MonoBehaviour
 
     [HideInInspector] public Vector3 cardDefaultPos;
     private Vector3 cardPosOffset = new Vector3(0, 0.2f, -0.5f);
-    
+
     //Initialized in CardManager CardFactory
     public CardBase card;
 
     private void Start()
     {
-        if(card.GetCardPos() == CardPos.SelectionArea)
+        if (card.GetCardPos() == CardPos.SelectionArea)
         {
             cardSize = cardSize_Selecting;
         }
@@ -37,14 +38,22 @@ public class CardSelectedVisual : MonoBehaviour
 
     private void Update()
     {
-       if(PlayerControl.Instance.currentState == PlayerControl.State.SelectingCard || PlayerControl.Instance.currentState == PlayerControl.State.EnterCard)
-       {
+        /*if (PlayerControl.Instance.currentState == PlayerControl.State.InfoCard)
+        {
+            LookInfo(true);
+        }
+        else
+        {
+            LookInfo(false);
+        }*/
+        if (PlayerControl.Instance.currentState == PlayerControl.State.SelectingCard || PlayerControl.Instance.currentState == PlayerControl.State.EnterCard)
+        {
             Focus();
-       }
-       if(PlayerControl.Instance.currentState == PlayerControl.State.EnterCard)
-       {
+        }
+        if (PlayerControl.Instance.currentState == PlayerControl.State.EnterCard)
+        {
             ResetRotation();
-       }
+        }
     }
 
     private void Focus()
@@ -63,6 +72,33 @@ public class CardSelectedVisual : MonoBehaviour
             if (Vector3.Distance(transform.localScale, cardSize) < 0.01f)
             {
                 transform.localScale = cardSize;
+            }
+        }
+    }
+
+    private void LookInfo(bool look)
+    {
+        if (PlayerControl.Instance.selectedCard == card)
+        {
+            if (look)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, cardSize_FullScreen, Time.deltaTime * 5f);
+                transform.position = Vector3.Lerp(transform.position, Vector3.zero, Time.deltaTime * 5f);
+                if (Vector3.Distance(transform.localScale, cardSize_selected) < 0.01f)
+                {
+                    transform.localScale = cardSize_FullScreen;
+                    transform.position = Vector3.zero;
+                }
+            }
+            else
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, cardSize, Time.deltaTime * 5f);
+                transform.localPosition = Vector3.Lerp(transform.localPosition, cardDefaultPos, Time.deltaTime * 5f);
+                if (Vector3.Distance(transform.localScale, cardSize) < 0.01f)
+                {
+                    transform.localScale = cardSize;
+                    transform.localPosition = cardDefaultPos;
+                }
             }
         }
     }

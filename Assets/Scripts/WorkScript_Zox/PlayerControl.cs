@@ -54,12 +54,13 @@ public class PlayerControl : MonoBehaviour
                 MouseSelectPlaceableRegion();
                 if (selectedCard != null)
                 {
-                    if(selectedCard.canBMoved() == false)
-                    {
-                        return;
-                    }
                     if (Input.GetMouseButtonDown(0))
                     {
+                        if (selectedCard.canBMoved() == false)
+                        {
+                            return;
+                        }
+
                         cardManager.MoveCard(selectedCard);
 
                         cardPrimaryPos = selectedCard.transform.position;
