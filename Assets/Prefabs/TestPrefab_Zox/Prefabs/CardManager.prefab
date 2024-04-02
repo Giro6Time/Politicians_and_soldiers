@@ -362,10 +362,10 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  cardSize: 0
   lerpSpeed: 5
   angleIncrement: 180
   radius: 1
+  centerPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &4067074731591079401
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,10 +551,10 @@ MonoBehaviour:
   offsetX: 1.2
   offsetZ: -0.1
   raiseHeight: 0.5
-  cardSize: 0
   lerpSpeed: 5
   angleIncrement: 30
-  radius: 2
+  radius: 5
+  centerPoint: {x: 0, y: -4.5, z: 0}
 --- !u!65 &4067074731599333287
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -670,10 +670,10 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  cardSize: 0
   lerpSpeed: 5
   angleIncrement: 30
   radius: 2
+  centerPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &4067074731903470025
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,10 +837,10 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  cardSize: 0
   lerpSpeed: 5
   angleIncrement: 180
   radius: 1
+  centerPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &4067074732211485009
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,10 +943,10 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  cardSize: 0
   lerpSpeed: 5
   angleIncrement: 30
   radius: 2
+  centerPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &4067074732315268606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,10 +1063,10 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  cardSize: 0
   lerpSpeed: 5
   angleIncrement: 180
   radius: 1
+  centerPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &4067074732491047955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,10 +1528,10 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  cardSize: 0
   lerpSpeed: 5
   angleIncrement: 30
   radius: 2
+  centerPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &4137388476605016041
 GameObject:
   m_ObjectHideFlags: 0

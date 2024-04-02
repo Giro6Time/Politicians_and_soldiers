@@ -47,6 +47,11 @@ public class CardManager : MonoBehaviour {
     }
     public void MoveCard(CardBase card, CardArrangement area)
     {
+        if(area == null){
+            card.cardCurrentArea.RearrangeCard();
+            return;
+        }
+
         if (card.GetCardPos() == area.pos || card.canBMoved() == false)
         {
             cardPlayingArea.AddCard(card, area.pos);
@@ -121,7 +126,6 @@ public class CardManager : MonoBehaviour {
     
     public void UpdatePlayerHand(int month, Season season)
     {
-        Debug.Log("Update Hand");
         AddCard((month-1)/4 + 1, season);
         
     }
@@ -186,7 +190,6 @@ public class CardManager : MonoBehaviour {
     }
 }
 
-
 public static class CardFactory
 {
     public static GameObject armyCardPrefab;
@@ -215,7 +218,7 @@ public static class CardFactory
                 armyC.cardFrame = cardSO.cardFrame;
 
                 armyC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
-                
+
                 return instance;
             case CardBaseType.Effect:
                 throw new NotImplementedException("�������Ϳ��ƴ�ʵ��");
@@ -223,4 +226,3 @@ public static class CardFactory
         }
     }
 }
-

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CardArrangement : MonoBehaviour
 {
@@ -17,13 +18,13 @@ public class CardArrangement : MonoBehaviour
     [SerializeField] float offsetX;
     [SerializeField] float offsetZ;
     [SerializeField] float raiseHeight;
-    [SerializeField] float cardSize;
+    //[SerializeField] float cardSize;
 
     //Lerp speed
     public float lerpSpeed = 5f;
     public float angleIncrement = 30f;
     public float radius = 2f;
-    public Transform centerPoint; // Բ��λ�����û�ָ��
+    public Vector3 centerPoint; // Բ��λ�����û�ָ��
 
     /*public float radius = 2f; // ���ΰ뾶
     public float startAngle = 0f; // ������ʼ�Ƕ�
@@ -50,69 +51,45 @@ public class CardArrangement : MonoBehaviour
         int cardCount = transform.childCount;
         float totalAngle = (cardCount - 1) * angleIncrement; // �����ܽǶ�
 
-        /*for (int i = 0; i < cardCount; i++)
-        {
-            Transform cardTransform = transform.GetChild(i);
-
-            // ���㿨���������еĽǶ�
-            float angle = -totalAngle / 2f + i * angleIncrement;
-            // ���Ƕ�ת��Ϊ����
-            float radians = angle * Mathf.Deg2Rad;
-
-            // ���㿨���������е�λ��
-            float x = radius * Mathf.Cos(radians);
-            float y = radius * Mathf.Sin(radians);
-
-            // Ŀ��λ��
-            Vector3 targetPosition = new Vector3(x, y, offsetZ * i);
-
-            // ���ÿ��Ƶ�Ĭ��λ��
-            cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
-
-            // ƽ���ƶ����Ƶ�Ŀ��λ��
-            StartCoroutine(MoveSmoothly(cardTransform, targetPosition));
-        }*/
-
-        /*int cardCount = transform.childCount;
-        float totalAngle = endAngle - startAngle; // �����ܽǶ�*/
-
-        /*for (int i = 0; i < cardCount; i++)
+        for (int i = 0; i < cardCount; i++)
         {
             Transform cardTransform = transform.GetChild(i);
 
             // ���㿨���������еĽǶ�
             float angle = 90f + totalAngle / 2f - i * angleIncrement;
+            float rotateZ = totalAngle/2f - i * angleIncrement;
             // ���Ƕ�ת��Ϊ����
             float radians = angle * Mathf.Deg2Rad;
 
             // ���㿨���������е�λ��
-            float x = centerPoint.position.x + radius * Mathf.Cos(radians);
-            float y = centerPoint.position.y + radius * Mathf.Sin(radians);
+            float x = centerPoint.x + radius * Mathf.Cos(radians);
+            float y = centerPoint.y + radius * Mathf.Sin(radians);
 
             // ���ÿ��Ƶ�Ŀ��λ��
             Vector3 targetPosition = new Vector3(x, y, offsetZ * i);
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
 
             // ���㿨�Ƶ�Ŀ����ת
-            Quaternion targetRotation = Quaternion.LookRotation(centerPoint.position - targetPosition, Vector3.up);
-            cardTransform.GetComponent<CardSelectedVisual>().cardDefaultRot = targetRotation;
+            Quaternion targetRotation = Quaternion.Euler(0,0,rotateZ);
 
             // ƽ���ƶ����Ƶ�Ŀ��λ��
             StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
-        }*/
+            //StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
+        }
     }
     private void RearrangeCard_Battlefield()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            Transform object2bRepositioned = transform.GetChild(i);
+            Transform cardTransform = transform.GetChild(i);
 
             //Ŀ��λ��
             Vector3 targetPosition = new Vector3(offsetX * i, 0, offsetZ * i);
 
-            object2bRepositioned.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
+            cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
 
-            StartCoroutine(MoveSmoothly(object2bRepositioned, targetPosition));
+            Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
+            StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
         }
     }
 
@@ -165,9 +142,26 @@ public class CardArrangement : MonoBehaviour
         a.localPosition = b;
     }
 
-    IEnumerator MoveSmoothly(Transform a, Vector3 b, Vector3 c)
+    IEnumerator MoveSmoothly(Transform a, Vector3 b, Quaternion c)
     {
-        yield return null;
+        float elapsedTime = 0f;
+        Vector3 startPosition = a.localPosition;
+        Quaternion startRotation = a.localRotation;
+
+        while (elapsedTime < 1f)
+        {
+            a.localPosition = Vector3.Lerp(startPosition, b, elapsedTime);
+            a.localRotation = Quaternion.Lerp(startRotation, c, elapsedTime);
+            elapsedTime += Time.deltaTime * lerpSpeed;
+            yield return null;
+        }
+
+        a.localPosition = b;
+
+        //可以调节缩放视效
+        //a.localScale = Vector3.one;
+
+        a.localRotation = c;
     }
 
     IEnumerator ScaleSmoothly(Transform a, Vector3 b)
@@ -184,5 +178,4 @@ public class CardArrangement : MonoBehaviour
 
         a.localScale = b;
     }
-
 }
