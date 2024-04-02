@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Army1
   m_EditorClassIdentifier: 
-  troopStrength: 0
+  troopStrength: 100
   matchedSeason: 3
   matchedPos: 1
   cardBaseType: 0
+  cardFrame: {fileID: 0}
+  inset: {fileID: 0}
   color: {r: 1, g: 0.72075474, b: 0.72075474, a: 0}

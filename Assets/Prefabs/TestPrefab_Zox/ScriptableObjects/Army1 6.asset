@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Army1 6
   m_EditorClassIdentifier: 
-  troopStrength: 0
+  troopStrength: 300
   matchedSeason: 3
   matchedPos: 3
   cardBaseType: 0
