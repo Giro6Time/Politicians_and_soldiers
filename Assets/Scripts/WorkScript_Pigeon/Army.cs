@@ -34,19 +34,21 @@ public class Army : MonoBehaviour
         armyRenderer = GetComponent<Renderer>();
     }
 
-    public float GetUpperBound()
+    public Vector3 GetUpperBound()
     {
         if (armyRenderer != null)
         {
             Bounds bounds = armyRenderer.bounds;
-            Vector2 center = bounds.center;
-            Vector2 extents = bounds.extents;
+            Vector3 center = bounds.center;
+            Vector3 extents = bounds.extents;
             // 边缘点
-            return center.y+extents.y;
+            Vector3 dot = new Vector3(center.x, center.y + extents.y, 0);
+
+            return dot;
         }
         throw new System.Exception("renderer不见了");
     }
-    public float GetLowerBound()
+    public Vector3 GetLowerBound()
     {
         if (armyRenderer != null)
         {
@@ -54,7 +56,8 @@ public class Army : MonoBehaviour
             Vector2 center = bounds.center;
             Vector2 extents = bounds.extents;
             // 边缘点
-            return center.y - extents.y;
+            Vector3 dot = new Vector3(center.x, center.y - extents.y, 0);
+            return dot;
             // Do something with corners
         }
         throw new System.Exception("renderer不见了");
