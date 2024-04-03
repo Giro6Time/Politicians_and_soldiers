@@ -48,6 +48,7 @@ public class BattleField : MonoBehaviour
 
     public void OnBattleEnd()
     {
+        Debug.Log("Battle is end!");
         battleProgress.ProgressChange(armyManager.progressChangeValue);
         armyManager.progressChangeValue = 0;
         //先进行一次胜负判定
