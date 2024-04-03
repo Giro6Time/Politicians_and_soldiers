@@ -1183,6 +1183,7 @@ GameObject:
   - component: {fileID: 1278761048}
   - component: {fileID: 1278761047}
   - component: {fileID: 1278761046}
+  - component: {fileID: 1278761049}
   m_Layer: 0
   m_Name: startBattleBtn
   m_TagString: Untagged
@@ -1293,6 +1294,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278761044}
   m_CullTransparentMesh: 1
+--- !u!114 &1278761049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278761044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ac47cc3e1ec3a44af2c7adcf8660f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_text: {fileID: 1609868158}
 --- !u!1 &1292925810
 GameObject:
   m_ObjectHideFlags: 0

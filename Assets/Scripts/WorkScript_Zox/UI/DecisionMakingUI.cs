@@ -1,14 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DecisionMakingUI : MonoBehaviour
 {
-    public Image image;
+    public TMPro.TMP_Text m_text;
+    private int decisionValue;
 
     private void Update()
     {
-        image.fillAmount = (float)Player.Instance.decisionValue / Player.Instance.decisionValueMax;
+        ChangeText();
+    }
+
+    private void ChangeText()
+    {
+        if(decisionValue != Player.Instance.decisionValue)
+        {
+            decisionValue = Player.Instance.decisionValue;
+            m_text.text = decisionValue.ToString();
+        }
     }
 }
