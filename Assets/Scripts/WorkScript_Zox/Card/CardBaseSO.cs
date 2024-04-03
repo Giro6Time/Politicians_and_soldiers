@@ -19,5 +19,7 @@ public class CardBaseSO : ScriptableObject
     public CardPos matchedPos;
     // public Enums.Weather matchedWeather;
     public CardBaseType cardBaseType;
+    public Sprite cardFrame;
+    public Sprite inset;
     public Color color;//TODO：以后肯定不用color了。
 }

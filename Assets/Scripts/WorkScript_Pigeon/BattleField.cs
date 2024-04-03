@@ -30,29 +30,27 @@ public class BattleField : MonoBehaviour
     public void BattleStart()
     {
         battleEndPanel.ResetPanel();
-        armyManager.GetCard();
-        armyManager.GetSpecialEffect();
 
         ApplyEffect();
     }
 
     public void ApplyEffect()
     {
-
         //OnApplyEffectEnd
         Battle();
     }
 
     public void Battle()
     {
-        battleEndPanel.res = armyManager.Battle();
+        armyManager.Battle();
         OnBattleEnd();
     }
 
     public void OnBattleEnd()
     {
+        Debug.Log("Battle is end!");
         battleProgress.ProgressChange(armyManager.progressChangeValue);
-
+        armyManager.progressChangeValue = 0;
         //先进行一次胜负判定
         if (battleProgress.progressBar >= 100)
             onGameWin?.Invoke();
@@ -60,11 +58,7 @@ public class BattleField : MonoBehaviour
             onGameLose?.Invoke();
         else
         {
-            armyManager.progressChangeValue = 0;
             battleEndPanel.ShowPanel();
         }
-    }
-
-
-    
+    }   
 }

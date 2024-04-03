@@ -4,49 +4,143 @@ using UnityEngine;
 
 public class CardSelectedVisual : MonoBehaviour
 {
-    [SerializeField] Vector3 cardDefaultScale;
+    [SerializeField] Vector3 cardSize_Selecting;
+    [SerializeField] Vector3 cardSize_Put;
     [SerializeField] float cardSelectedZoomFactor;
-    private Vector3 cardSelectedScale;
+    [SerializeField] Vector3 cardSize_FullScreen;
+    private Vector3 cardSize;
+    private Vector3 cardSize_selected;
+    private Vector3 cardEulerAngle_zero;
+    private Quaternion cardQuaternion_zero;
 
     [HideInInspector] public Vector3 cardDefaultPos;
     private Vector3 cardPosOffset = new Vector3(0, 0.2f, -0.5f);
-    
+
+    //Initialized in CardManager CardFactory
     public CardBase card;
-    private void Awake()
-    {
-        cardSelectedScale = cardDefaultScale * 1.2f;
-    }
-    private void Update()
-    {
-       if(PlayerControl.Instance.currentState == PlayerControl.State.SelectingCard)
-       {
-            ResetPosNScale();
-       }
-    }
 
-    private void ResetPosNScale()
+    private void Start()
     {
-        if (PlayerControl.Instance.selectedCard == card)
+        if (card.GetCardPos() == CardPos.SelectionArea)
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, cardSelectedScale, Time.deltaTime * 5f);
-            if (Vector3.Distance(transform.localScale, cardSelectedScale) < 0.01f)
-            {
-                transform.localScale = cardSelectedScale;
-            }
-
-            //transform.localPosition = cardDefaultPos + cardPosOffset;
-            //transform.parent.GetComponent<CardArrangement>().RearrangeCardWhileFocus(this);
+            cardSize = cardSize_Selecting;
         }
         else
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, cardDefaultScale, Time.deltaTime * 10f);
-            if (Vector3.Distance(transform.localScale, cardDefaultScale) < 0.01f)
+            cardSize = cardSize_Put;
+        }
+        cardSize_selected = cardSize * 1.2f;
+
+        cardEulerAngle_zero = Vector3.zero;
+        cardQuaternion_zero = Quaternion.identity;
+        //cardQuaternion_zero = Quaternion.Euler(cardEulerAngle_zero);
+    }
+
+    private void Update()
+    {
+        /*if (PlayerControl.Instance.currentState == PlayerControl.State.InfoCard)
+        {
+            LookInfo(true);
+        }
+        else
+        {
+            LookInfo(false);
+        }*/
+        if (PlayerControl.Instance.currentState == PlayerControl.State.SelectingCard || PlayerControl.Instance.currentState == PlayerControl.State.EnterCard)
+        {
+            Focus();
+        }
+        if (PlayerControl.Instance.currentState == PlayerControl.State.EnterCard)
+        {
+            ResetRotation();
+        }
+    }
+
+    private void Focus()
+    {
+        if (PlayerControl.Instance.selectedCard == card)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, cardSize_selected, Time.deltaTime * 5f);
+            if (Vector3.Distance(transform.localScale, cardSize_selected) < 0.01f)
             {
-                transform.localScale = cardDefaultScale;
+                transform.localScale = cardSize_selected;
+            }
+        }
+        else
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, cardSize, Time.deltaTime * 5f);
+            if (Vector3.Distance(transform.localScale, cardSize) < 0.01f)
+            {
+                transform.localScale = cardSize;
+            }
+        }
+    }
+
+    private void LookInfo(bool look)
+    {
+        if (PlayerControl.Instance.selectedCard == card)
+        {
+            if (look)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, cardSize_FullScreen, Time.deltaTime * 5f);
+                transform.position = Vector3.Lerp(transform.position, Vector3.zero, Time.deltaTime * 5f);
+                if (Vector3.Distance(transform.localScale, cardSize_selected) < 0.01f)
+                {
+                    transform.localScale = cardSize_FullScreen;
+                    transform.position = Vector3.zero;
+                }
+            }
+            else
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, cardSize, Time.deltaTime * 5f);
+                transform.localPosition = Vector3.Lerp(transform.localPosition, cardDefaultPos, Time.deltaTime * 5f);
+                if (Vector3.Distance(transform.localScale, cardSize) < 0.01f)
+                {
+                    transform.localScale = cardSize;
+                    transform.localPosition = cardDefaultPos;
+                }
+            }
+        }
+    }
+
+    private void ResetRotation()
+    {
+        if(PlayerControl.Instance.selectedCard == card)
+        {
+
+            //使用平滑
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, cardQuaternion_zero, Time.deltaTime * 5f);
+            if (Quaternion.Angle(transform.localRotation, cardQuaternion_zero) < 0.01f)
+            {
+                transform.localRotation = cardQuaternion_zero;
+                transform.localScale = cardSize_selected;
             }
 
-            //transform.localPosition = cardDefaultPos;
-            //transform.parent.GetComponent<CardArrangement>().RearrangeCard();
+            //不平滑
+            /*transform.localEulerAngles = cardEulerAngle_zero;
+            transform.localScale = cardSize_selected;*/
         }
+    }
+
+    private IEnumerator changeParent()
+    {
+        //不加会出bug
+        yield return new WaitForSeconds(0.2f);
+
+        // ���ӳٺ�ִ�е��߼�
+        if (card.GetCardPos() == CardPos.SelectionArea)
+        {
+            cardSize = cardSize_Selecting;
+        }
+        else
+        {
+            cardSize = cardSize_Put;
+        }
+        cardSize_selected = cardSize * 1.2f;
+    }
+
+    private void OnTransformParentChanged()
+    {
+        StartCoroutine(changeParent());
     }
 }

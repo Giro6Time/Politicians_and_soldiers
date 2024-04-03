@@ -3,10 +3,7 @@ guid: 9dd62c473170d3948866f5a9d2215922
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - battleEndPanel: {fileID: 6982559255806532254, guid: bf46f62d3b102a64fa5c01ee6bfa8453, type: 3}
-  - battleProgress: {instanceID: 0}
-  - armyManager: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

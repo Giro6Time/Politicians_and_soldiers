@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d3d95493edde84ea86af98e4c1cbc1, type: 3}
   m_Name: Config
   m_EditorClassIdentifier: 
+  updateHandDelay: 1
   armyCardPrefab: {fileID: 3511590526491327928, guid: 52f4bbfd7f69cf647987cf84d82192cd, type: 3}
-  armyPrefab: {fileID: 3632113723028580667, guid: 85592ebefbc818d408193fc9d0724e6b, type: 3}
+  armyPrefab: {fileID: 3511590526491327928, guid: e5e9f35bdd1ca1641a913f6dff899dfc, type: 3}
