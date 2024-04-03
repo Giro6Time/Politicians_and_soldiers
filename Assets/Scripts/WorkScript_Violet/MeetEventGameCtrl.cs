@@ -232,6 +232,9 @@ public class MeetEventGameCtrl : MonoBehaviour
                 UIEventListener._Instance.rotateParent.Rotate(Vector3.forward, rotateSpeed);
                 yield return new WaitForSeconds(0.04f);
             }
+            //强制校正
+            UIEventListener._Instance.rotateParent.rotation = Quaternion.Euler(Vector3.forward*index * 360 / UIEventListener._Instance.prizeNums);
+
             //旋转完成以后应该显示玩家抽到了什么
             MessageView._Instance.ShowMessage(String.Format("事件：{0}增加了",prize.name));
 

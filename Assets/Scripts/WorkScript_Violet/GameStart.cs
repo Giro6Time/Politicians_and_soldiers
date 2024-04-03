@@ -22,6 +22,7 @@ public class GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(this.transform.localRotation.eulerAngles);
         currrRate = -150;
         textList = new List<Text>();
         GameObject obj=null;
