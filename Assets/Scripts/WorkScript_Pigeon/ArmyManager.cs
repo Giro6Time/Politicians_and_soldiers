@@ -19,15 +19,16 @@ public class ArmyManager : MonoBehaviour
         }
     }
     //�ҷ�ս��
-    public List<Army> armyOnLand = new List<Army>(5);
-    public List<Army> armyOnSea = new List<Army>(5);
-    public List<Army> armyOnSky = new List<Army>(5);
+    public List<Army> armyOnLand = new ();
+    public List<Army> armyOnSea = new();
+    public List<Army> armyOnSky = new();
     //�з�ս��
-    public List<Army> enemyArmyOnLand = new List<Army>(5);
-    public List<Army> enemyArmyOnSea = new List<Army>(5);
-    public List<Army> enemyArmyOnSky = new List<Army>(5);
+    public List<Army> enemyArmyOnLand = new();
+    public List<Army> enemyArmyOnSea = new();
+    public List<Army> enemyArmyOnSky = new();
 
     public List<float> BattleEndTroopRemain = new List<float>(3);
+    public Action onBattleEnd;
 
     public float progressChangeValue = 0;
     public float landEffect1 = 0.02f;
@@ -70,43 +71,39 @@ public class ArmyManager : MonoBehaviour
     public Vector3 startEnemyBattlePos;
     public Vector3 targetEnemyBattlePos;
 
+
     public void InitArmy()
     {
+        //TODO:将Destroy改为播放动画，以及播放动画后回收/销毁部队对象
         foreach (Army army in armyOnLand)
             if (army != null)
             {
                 army.onDead += () => armyOnLand.Remove(army);
-                army.onDead += () => Destroy(army.gameObject);
             }
         foreach (Army army in armyOnSea)
             if (army != null)
             {
                 army.onDead += () => armyOnSea.Remove(army);
-                army.onDead += () => Destroy(army.gameObject);
             }
         foreach (Army army in armyOnSky)
             if (army != null)
             {
                 army.onDead += () => armyOnSky.Remove(army);
-                army.onDead += () => Destroy(army.gameObject);
             }
         foreach (Army army in enemyArmyOnLand)
             if (army != null)
             {
                 army.onDead += () => enemyArmyOnLand.Remove(army);
-                army.onDead += () => Destroy(army.gameObject);
             }
         foreach (Army army in enemyArmyOnSea)
             if (army != null)
             {
                 army.onDead += () => enemyArmyOnSea.Remove(army);
-                army.onDead += () => Destroy(army.gameObject);
             }
         foreach (Army army in enemyArmyOnSky)
             if (army != null)
             {
                 army.onDead += () => enemyArmyOnSky.Remove(army);
-                army.onDead += () => Destroy(army.gameObject);
             }
     }
 
@@ -134,21 +131,22 @@ public class ArmyManager : MonoBehaviour
             if(currEnemyArmy)
             currEnemyArmy.transform.position = Vector3.Lerp(targetEnemyBattlePos, startEnemyBattlePos, step);
 
-            if (t >= 1.5)
+            if (t >= 1)
             {
                 BattleResult(currArmy, currEnemyArmy, battleType);
-                if (t >= 2.0)
-                {
-                    BattleNext();
-                    startTime = Time.time;
-                }
+                BattleNext();
+                startTime = Time.time;
                 
             }
         }
 
-        if(currState == BattleState.Gapping)
+        if (currState == BattleState.Gapping)
         {
-            PlayBattleAnimation();        
+            float t = (Time.time - startTime) / battleGapDuration;
+            if (t >= 1)
+            {
+                PlayBattleAnimation();
+            }
         }
     }
 
@@ -174,7 +172,6 @@ public class ArmyManager : MonoBehaviour
 
         if (currArmy == null || currEnemyArmy == null)
         {
-            BattleNext();
             return;
         }
         var lower = currEnemyArmy.GetLowerBound();
@@ -254,6 +251,8 @@ public class ArmyManager : MonoBehaviour
             {
                 progressChangeValue = 0;
             }
+            onBattleEnd?.Invoke();
+            currState = BattleState.None;
         }
     }
     public List<float> CalculateTroopstrenth()
@@ -433,6 +432,35 @@ public class ArmyManager : MonoBehaviour
         oceanEffect1 = 10f;
         skyEffect2 = 10f;
         oceanEffect2 = 10f;
+    }
+
+    internal void Clear()
+    {
+        foreach (Army army in armyOnLand)
+            if (army != null)
+                Destroy(army.gameObject);
+        foreach (Army army in armyOnSea)
+            if (army != null)
+                Destroy(army.gameObject);
+        foreach (Army army in armyOnSky)
+            if (army != null)
+                Destroy(army.gameObject);
+        foreach (Army army in enemyArmyOnLand)
+            if (army != null)
+                Destroy(army.gameObject);
+        foreach (Army army in enemyArmyOnSea)
+            if (army != null)
+                Destroy(army.gameObject);
+        foreach (Army army in enemyArmyOnSky)
+            if (army != null)
+                Destroy(army.gameObject);
+
+        armyOnLand.Clear();
+        armyOnSea.Clear();
+        armyOnSky.Clear();
+        enemyArmyOnLand.Clear();
+        enemyArmyOnSea.Clear();
+        enemyArmyOnSky.Clear();
     }
 }
 public enum ArmyType
