@@ -6,24 +6,20 @@ using UnityEngine;
 public class MeetEventMgr
 {
     /// <summary>
-    /// 当前事件
+    /// 当前奖品池链表
     /// </summary>
-    public MeetEventAbstract currEvent;
-
-    /// <summary>
-    /// 当前奖品所在位置字典<奖品所在概率位，奖品>
-    /// </summary>
-    public Dictionary<int,MeetEventAbstract> currPrizeDic;
+    public List<Prize> prizePoolList;
 
     /// <summary>
     /// 当前事件链表：即抽中的物体都将加入该链表(不用栈是为了往后玩家能够更方便地进行卡牌选择)
     /// </summary>
     [HideInInspector]
-    public List<MeetEventAbstract> currentEventList;
+    public List<EventInfoCollector> currentEventList;
+
     /// <summary>
-    /// 当前的事件下标
+    /// 当前事件信息链表(即正在处理的事件链表)
     /// </summary>
-    public int currEventIndex;
+    public List<EventInfoCollector> currEventInfoList;
 
     /// <summary>
     /// 是否处于冻结时间：冻结时：玩家再点击按钮都没用
@@ -38,10 +34,10 @@ public class MeetEventMgr
     public Action onExit;
 
     public MeetEventMgr()
-    { 
-        currEvent = null;
-        currPrizeDic = new Dictionary<int, MeetEventAbstract>();
-        currentEventList = new List<MeetEventAbstract>();
+    {
+        prizePoolList = new List<Prize>();
+        currentEventList = new List<EventInfoCollector>();
+        currEventInfoList = new List<EventInfoCollector>();
     }
 
     /// <summary>
@@ -78,7 +74,7 @@ public class MeetEventMgr
                     return;
                 }
             }
-           
+
             //对于抽奖池一次三张
             MeetEventGameCtrl._Instance.currRounds += 3;
             isFreeze = true;
@@ -96,7 +92,7 @@ public class MeetEventMgr
     private void MeettingEventChange(bool isYes)
     {
         //如果卡库没有卡，那么禁止玩家进行取值
-        if(currentEventList.Count == 0)
+        if (currentEventList.Count == 0&&currEventInfoList.Count==0)
         {
             MessageView._Instance.ShowTip("您当前的卡池没有卡牌");
             return;
@@ -106,16 +102,18 @@ public class MeetEventMgr
         if (isYes)
         {
             //进行资源更新
-            currEvent.ResourceChange();
-            //资源更新过后：判定玩家是否死亡
+            for (int i = 0; i < 3; i++)
+            {
+                MeetEventGameCtrl._Instance.eventList[currEventInfoList[i].EventIndex].ResourceChange();
+            }
+            //TODO
+            //进行百分比更新
         }
-        //只要资源更新了，就要把事件从牌库中弹出（是否答应都会弹出）
-        currentEventList.RemoveAt(currEventIndex);
         //进行UI更新
         UIEventListener._Instance.UIMeetingEventUpdate();
-        DoExitAnimation();
+        RemoveCurrEvent();
         //进行迭代
-        if (currentEventList.Count >0)
+        if (currentEventList.Count > 0)
         {
             //进行下一轮随机事件  
             ExtractCurrentEvent();
@@ -123,79 +121,95 @@ public class MeetEventMgr
     }
 
     /// <summary>
-    /// 播放事件退出动画并让事件退出
+    /// 当前事件清空
     /// </summary>
-    private void DoExitAnimation()
+    private void RemoveCurrEvent()
     {
-        //播放动画？
-
         //销毁OR隐藏(隐藏方案为对象池)
-        MeetEventGameCtrl.Destroy(currEvent.gameObject);
-        currEvent = null;
+        for (int i = 0; i < 3; i++)
+        {
+            MeetEventGameCtrl.Destroy(currEventInfoList[i].obj);
+        }
+        //清空当前信息池
+        currEventInfoList.Clear();
     }
 
     /// <summary>
-    /// 抽出当前事件
+    /// 改变正在执行的事件状态
+    /// </summary>
+    public void CurrEventStateChange()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            currEventInfoList[i].obj.SetActive(!currEventInfoList[i].obj.activeSelf);
+        }
+    }
+
+    /// <summary>
+    /// 抽出3个事件
     /// TODO:看物体设定吧，如果包含父级接口，这里接的就是父级
     /// </summary>
     public void ExtractCurrentEvent()
     {
-        if (currentEventList.Count == 0||currEvent!=null)
+        if (currentEventList.Count == 0||currEventInfoList.Count>0)
             return;
-        //1.获取当前顺序的物体
-        GameObject obj = currentEventList[currEventIndex].gameObject;
-        //2.创建物体/从对象池中读取物体：暂定是创建物体
-        obj = GameObject.Instantiate(obj, MeetEventGameCtrl._Instance.meetEventCanvas.transform);
-        obj.GetComponent<CommonEvent>().Copy(currentEventList[currEventIndex]);
-        //3.赋值
-        currEvent = obj.GetComponent<CommonEvent>();
+        //1.事件抽出:总是抽前三张卡:然后删除
+        currEventInfoList.Add(currentEventList[0]);
+        currEventInfoList.Add(currentEventList[1]);
+        currEventInfoList.Add(currentEventList[2]);
+        currentEventList.RemoveRange(0,3);
+        //2.模型绘制
+        //依次绘制3个物体
+        int[] dis = new int[3] { -1, 0, 1 };
+        for (int i = 0; i < 3; i++)
+        {
+            currEventInfoList[i].obj = GameObject.Instantiate(MeetEventGameCtrl._Instance.eventList[currEventInfoList[i].EventIndex].gameObject, MeetEventGameCtrl._Instance.meetEventCanvas.transform);
+            //设置他们的位置
+            currEventInfoList[i].obj.transform.localPosition = Vector3.right * MeetEventGameCtrl._Instance.cardDistance * dis[i];
+        }
     }
     #endregion
 
     /// <summary>
     /// 奖池更新：假定转盘是圆的
+    /// 完成功能：存储当前奖池的<稀有度,累计概率>
     /// 奖池更新逻辑：
     /// 1.根据奖品数量和抽中的奖品的概率进行分区
     /// 2.在奖品的指定分区将奖品名/奖品事件小图放到其区域内
     /// </summary>
     public void UpdatePrizePool()
     {
-        int prizeIndex=0,currAngles=0;
+        int prizeValue = 0, currProbability = 0;
         float sum = 0;
-        //i+1：该物体的下标  i：该物体的概率
-        float[] eventRarityArray = new float[UIEventListener._Instance.prizeNums*2];
+        //num+1：该物体的稀有度  i：该物体的概率
+        float[] eventRarityArray = new float[UIEventListener._Instance.prizeNums * 2];
         //清空奖池
-        currPrizeDic.Clear();
+        prizePoolList.Clear();
         //限制于事件上限：抽奖应该是可重复的
         //进行抽奖
         for (int i = 0; i < UIEventListener._Instance.prizeNums; i++)
         {
-            //指定抽奖物
-            //通过循环调控抽中的物品价值的概率
-            for (int j = 0; j < 3; j++)
-            {
-                prizeIndex = UnityEngine.Random.Range(0, MeetEventGameCtrl._Instance.eventList.Count);
-                if(MeetEventGameCtrl._Instance.eventList[prizeIndex].EventValue < (Player.Instance.decisionValue/2+1))
-                {
-                    break;
-                }
-            }
+            //指定抽奖物价值
+            prizeValue = GetRandomValueEvent();
             //存入抽奖物概率
-            eventRarityArray[i] = Mathf.Sqrt(1.0f/MeetEventGameCtrl._Instance.eventList[prizeIndex].EventValue);
-            eventRarityArray[i + UIEventListener._Instance.prizeNums] = prizeIndex;
-            sum+=eventRarityArray[i];
+            eventRarityArray[i] = Mathf.Sqrt(1.0f / prizeValue);
+            eventRarityArray[i + UIEventListener._Instance.prizeNums] = prizeValue;
+            sum += eventRarityArray[i];
         }
-        //进行分区
-        //为了确保无误差，注意最后一个要独立添加
-        //将总概率分为若干份，然后根据份数决定结果
-        for (int i = 0; i < UIEventListener._Instance.prizeNums-1; i++)
+        //计算累计概率
+        for (int i = 0; i < UIEventListener._Instance.prizeNums - 1; i++)
         {
-            prizeIndex = (int)eventRarityArray[i + UIEventListener._Instance.prizeNums];
-            currAngles += (int)((eventRarityArray[i] * 1000) / sum);
-            currPrizeDic.Add(currAngles, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
+            prizeValue = (int)eventRarityArray[i + UIEventListener._Instance.prizeNums];
+            currProbability += (int)((eventRarityArray[i] * 10000) / sum);
+            prizePoolList.Add(new Prize(prizeValue, currProbability));
         }
-        prizeIndex = (int)eventRarityArray[2 * UIEventListener._Instance.prizeNums - 1];
-        currPrizeDic.Add(1000, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
+        prizePoolList.Add(new Prize((int)eventRarityArray[UIEventListener._Instance.prizeNums * 2 - 1], 10000));
+
+        //foreach (Prize prize in prizePoolList)
+        //{
+        //    Debug.Log("价值：" + prize.PrizeValue + "累计概率：" + prize.CumProbability);
+        //}
+
         //进行UI绘制
         UIEventListener._Instance.DrawPrizeWheel();
     }
@@ -203,7 +217,7 @@ public class MeetEventMgr
     public bool IsDead()
     {
         bool isDead = false;
-        if (Player.Instance.sanity<=0)
+        if (Player.Instance.sanity <= 0)
         {
             isDead = true;
         }
@@ -219,17 +233,64 @@ public class MeetEventMgr
     {
         //离开时：将两个canvas失活？还有其他信息是否要重置？
         //1.重置信息
-        if (currEvent != null)
-        {
-            MeetEventGameCtrl.Destroy(currEvent.gameObject);
-            currEvent = null;
-        }
         isFreeze = false;
         isDisposeMeetEvent = false;
-
         MeetEventGameCtrl._Instance.meetEventCanvas.gameObject.SetActive(false);
         onExit?.Invoke();
     }
 
+    /// <summary>
+    /// 获取随机价值事件（返回事件价值）
+    /// 1.总的概率为sum=1/value的和
+    /// 2.抽取一个随机值random，当currSum>random时，这个价值就是目标价值
+    /// </summary>
+    /// <returns>价值</returns>
+    public int GetRandomValueEvent()
+    {
+        int sum = 0, currSum = 0, index = 0, n = 0;
+        while (MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex != MeetEventGameCtrl._Instance.eventList.Count)
+        {
+            //因为最后一个价值进不来，所以这个价值没计入，即n=价值总个数-1
+            sum += (int)(10000 * 1.0f / MeetEventGameCtrl._Instance.eventList[index].EventValue);
+            index = MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex;
+            n++;
+        }
+        //加上最后一位的值
+        sum += (int)(10000 * (1.0f / MeetEventGameCtrl._Instance.eventList[index].EventValue));
+        n++;
 
+        index = 0;
+        int random = UnityEngine.Random.Range(0, sum);
+        for (int i = 0; i <= n; i++)
+        {
+            currSum += (int)(10000 * 1.0f / MeetEventGameCtrl._Instance.eventList[index].EventValue);
+            if (currSum < random)
+            {
+                index = MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex;
+            }
+            else
+            {
+                break;
+            }
+
+        }
+        return MeetEventGameCtrl._Instance.eventList[index].EventValue;
+    }
+
+    /// <summary>
+    /// 获取随机指定价值事件
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public int GetRandomValueEventIndex(int value)
+    {
+        int index = 0;
+        //找到指定价值起点
+        while (value != MeetEventGameCtrl._Instance.eventList[index].EventValue)
+        {
+            index = MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex;
+        }
+        //随机数为：起点->下一价值起点-1
+        return UnityEngine.Random.Range(index, MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex);
+    }
 }

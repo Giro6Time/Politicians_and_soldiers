@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class MeetEventGameCtrl : MonoBehaviour
@@ -27,8 +28,17 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// <summary>
     /// 事件链表
     /// </summary>
-    [Header("添加事件请加这")]
+    [Header("添加事件请加这(不需要在意顺序，内含排序算法)，卡牌间隔(特指X轴)")]
     public List<MeetEventAbstract> eventList;
+    /// <summary>
+    /// 卡牌间隔
+    /// </summary>
+    public float cardDistance;
+
+    /// <summary>
+    /// <价值，价值起始坐标>
+    /// </summary>
+    public Dictionary<int,int> eventValueBeginIndexDic;
 
     /// <summary>
     /// 当前轮数:即使轮盘也是
@@ -73,7 +83,50 @@ public class MeetEventGameCtrl : MonoBehaviour
         tipCanvas.worldCamera = Camera.main;
         tipCanvas.planeDistance = 1;
         meetEventCanvas.gameObject.SetActive(false);
+        //使用新线程进行排序以不影响主线程逻辑
+        Thread thread = new Thread(()=>
+        {
+            eventList.Sort((x, y) =>
+            {
+                return x.EventValue.CompareTo(y.EventValue);
+            });
+            List<int> valueChangeIndex = new List<int>();
+            //第一个价值的起点必然是0
+            valueChangeIndex.Add(0);
+            for (int i = 1; i < eventList.Count; i++)
+            {
+                //当价值发生变化时：将当前下标加入字典
+                if (eventList[i].EventValue > eventList[i - 1].EventValue)
+                {
+                    valueChangeIndex.Add(i);
+                }
+            }
+            int index = 0;
+            //之后：将本价值的所有点的下一价值起点设为指定点
+            for (int i = 0; i < eventList.Count; i++)
+            {
+                if (index < valueChangeIndex.Count - 1)
+                {
+                    if (eventList[i].EventValue == eventList[valueChangeIndex[index]].EventValue)
+                    {
+                        eventList[i].nextValueBeginIndex = valueChangeIndex[index + 1];
+                    }
+                    else
+                    {
+                        index++;
+                        i--;
+                    }
+                }
+                else
+                {
+                    eventList[i].nextValueBeginIndex = eventList.Count;//尾指针指向头指针
+                }
+            }
+        });
+        thread.Start();
     }
+
+
 
     private void Update()
     {
@@ -117,7 +170,7 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// </summary>
     public void DisposeMeetEvent()
     {
-        if (eventMgr.currentEventList.Count == 0)
+        if (eventMgr.currentEventList.Count == 0&& eventMgr.currEventInfoList.Count==0)
         {
             MessageView._Instance.ShowTip("您当前卡库没有卡牌呢！");
             return;
@@ -129,10 +182,16 @@ public class MeetEventGameCtrl : MonoBehaviour
                 () =>
                 {
                     //基本信息初始化
-                    eventMgr.currEventIndex = 0;
                     eventMgr.isDisposeMeetEvent = true;
                     UIEventListener._Instance.MeetEventUIInit();
-                    eventMgr.ExtractCurrentEvent();
+                    if (eventMgr.currEventInfoList.Count > 0)
+                    {
+                        eventMgr.CurrEventStateChange();
+                    }
+                    else
+                    {
+                        eventMgr.ExtractCurrentEvent();
+                    }
                 });
         }
    
@@ -145,13 +204,13 @@ public class MeetEventGameCtrl : MonoBehaviour
     public void DisposePrizeWheel()
     {
         eventMgr.isDisposeMeetEvent = false;
-        if (eventMgr.currEvent != null)
-        {
-            GameObject.Destroy(eventMgr.currEvent.gameObject);
-            eventMgr.currEvent = null;
-        }
         if (UIEventListener._Instance.prizeWheelPanel.localPosition.y > 10)
         {
+            //隐藏正在执行的事件
+            if (eventMgr.currEventInfoList.Count > 0)
+            {
+                eventMgr.CurrEventStateChange();
+            }
             UIEventListener._Instance.PrizeWheelUIInit();
             UIEventListener._Instance.PrizeWheelDown();
         }
@@ -179,17 +238,14 @@ public class MeetEventGameCtrl : MonoBehaviour
             //复位指针
             UIEventListener._Instance.prizeWheelPointer.rotation = Quaternion.Euler(Vector3.zero);
             //1.设定要抽到哪个
-            int rand = UnityEngine.Random.Range(0,1000);
+            int rand = UnityEngine.Random.Range(0,10000);
             int index = 0;
             float rotateRealTime = 0f;
             float rotateSpeed = 0f;
-            MeetEventAbstract prize = null;
-            foreach (KeyValuePair<int, MeetEventAbstract> pair in eventMgr.currPrizeDic)
+            foreach (Prize pair in eventMgr.prizePoolList)
             {
-                if (rand < pair.Key)
+                if (rand < pair.CumProbability)
                 {
-                    eventMgr.currentEventList.Add(pair.Value);
-                    prize = pair.Value;
                     rotateRealTime = UIEventListener._Instance.prizeWheelRotateTurns * (1 + UnityEngine.Random.Range(0, UIEventListener._Instance.prizeWheelRotateTurns/2)) * 360 + index*360/UIEventListener._Instance.prizeNums;
                     break;
                 }
@@ -209,9 +265,10 @@ public class MeetEventGameCtrl : MonoBehaviour
             }
             //强制校正
             UIEventListener._Instance.rotateParent.rotation = Quaternion.Euler(Vector3.forward*index * 360 / UIEventListener._Instance.prizeNums);
-
+            //抽完以后，进入奖池获取随机事件加入当前池列表
+            eventMgr.currentEventList.Add(new EventInfoCollector(eventMgr.GetRandomValueEventIndex(eventMgr.prizePoolList[index].PrizeValue)));
             //旋转完成以后应该显示玩家抽到了什么
-            MessageView._Instance.ShowMessage(String.Format("事件：{0}已经加入事务表",prize.eventName));
+            MessageView._Instance.ShowMessage(String.Format("事件：{0}已经加入事务表", eventList[eventMgr.currentEventList[eventMgr.currentEventList.Count-1].EventIndex].EventName));
 
             //每次抽奖完后休息0.4s
             yield return new WaitForSeconds(0.4f);

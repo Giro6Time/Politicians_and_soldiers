@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d7a53208d727042a5bd3d2640363e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventName: "\u7231\u79CD\u7530\u7684\u8D1E\u5FB7"
+  eventName: "\u5212\u6C34\u7684\u6A21\u677F2"
   eventInfo:
     decisionValue: 2
     sanity: 2

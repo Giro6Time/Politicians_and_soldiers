@@ -2183,6 +2183,10 @@ PrefabInstance:
       propertyPath: prizeWheelRotateTurns
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7609299513774453775, guid: 72516594734c0884ba555605abd0b034, type: 3}
+      propertyPath: cardDistance
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 7609299514855614448, guid: 72516594734c0884ba555605abd0b034, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

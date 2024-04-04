@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d7a53208d727042a5bd3d2640363e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventName: "\u4EE5\u5FB7\u670D\u4EBA\u7684\u9B54\u6CD5\u5E08"
+  eventName: "\u4E0B\u846C\u7684\u6A21\u677F4"
   eventInfo:
     decisionValue: 4
     sanity: 4
@@ -98,4 +98,5 @@ MonoBehaviour:
     popularSupport: 4
     troopIncrease: 4
     decisionValueMax: 0
-  _eventValue: 4
+  _eventValue: 1
+  nextValueBeginIndex: 4
