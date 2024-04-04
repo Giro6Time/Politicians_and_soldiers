@@ -1,42 +1,60 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Army : MonoBehaviour
 {
-    public int troopStrength = 0;
+#if UNITY_EDITOR
+    [SerializeField]
+#endif
+    private float troopStrength = 0;
+    
+    public float TroopStrength
+    {
+        get { return troopStrength; }
+        set
+        {
+            troopStrength = value;
+            if (troopStrength <= 0)
+            {
+                Debug.Log(gameObject.name + " is slain");
+                onDead?.Invoke();
+            }
+        }
+    }
+    
     public string m_name = "";
     public SpecialEffect specialEffect;
     Renderer armyRenderer;
+
+    public Action onDead;
     private void Awake()
     {
         armyRenderer = GetComponent<Renderer>();
     }
 
-    public Vector2 GetUpperBound()
+    public float GetUpperBound()
     {
         if (armyRenderer != null)
         {
             Bounds bounds = armyRenderer.bounds;
             Vector2 center = bounds.center;
             Vector2 extents = bounds.extents;
-            Vector2 InitialPosition = new Vector2(center.x + extents.x, center.y + extents.y);
             // 边缘点
-            return InitialPosition;
-            // Do something with corners
+            return center.y+extents.y;
         }
         throw new System.Exception("renderer不见了");
     }
-    public Vector2 GetLowerBound()
+    public float GetLowerBound()
     {
         if (armyRenderer != null)
         {
             Bounds bounds = armyRenderer.bounds;
             Vector2 center = bounds.center;
             Vector2 extents = bounds.extents;
-            Vector2 InitialPosition = new Vector2(center.x + extents.x, center.y - extents.y);
             // 边缘点
-            return InitialPosition;
+            return center.y - extents.y;
             // Do something with corners
         }
         throw new System.Exception("renderer不见了");
@@ -46,10 +64,6 @@ public class Army : MonoBehaviour
 
     }
 
-    public void ChangeTroopStrength(int value)
-    {
-        troopStrength = value;
-    }
 
     public bool IsAlive()
     {
@@ -63,8 +77,4 @@ public class Army : MonoBehaviour
         }
     }
 
-    public void OnDead()
-    {
-        Destroy(gameObject);
-    }
 }

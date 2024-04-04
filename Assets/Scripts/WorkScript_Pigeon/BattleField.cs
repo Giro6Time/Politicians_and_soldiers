@@ -30,15 +30,12 @@ public class BattleField : MonoBehaviour
     public void BattleStart()
     {
         battleEndPanel.ResetPanel();
-        armyManager.GetCard();
-        armyManager.GetSpecialEffect();
 
         ApplyEffect();
     }
 
     public void ApplyEffect()
     {
-
         //OnApplyEffectEnd
         Battle();
     }
