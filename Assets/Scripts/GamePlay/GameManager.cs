@@ -98,7 +98,9 @@ public class GameManager : MonoBehaviour
     {
         gameFlowController.onBattleStartClicked += BattleStart;
 
-        dateMgr.OnMonthChanged += () => cardMgr.SpawnEnemyCard(dateMgr.GetMonth());
+        dateMgr.OnMonthChanged += () =>
+            StartCoroutine(
+                DelayInvoke.DelayInvokeDo(() => cardMgr.SpawnEnemyCard(dateMgr.GetMonth()), config.updateEnemyDelay));
         dateMgr.OnMonthChanged += () =>
             StartCoroutine(
                 DelayInvoke.DelayInvokeDo(() => cardMgr.UpdatePlayerHand(dateMgr.GetMonth(), dateMgr.GetSeason()), config.updateHandDelay));

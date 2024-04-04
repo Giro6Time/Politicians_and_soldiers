@@ -6,8 +6,13 @@ using UnityEngine.UI;
 
 public class DecisionMakingUI : MonoBehaviour
 {
-    public TMPro.TMP_Text m_text;
+    private TMPro.TMP_Text m_text;
     private int decisionValue;
+
+    private void Awake()
+    {
+        m_text = GetComponent<TMP_Text>();
+    }
 
     private void Update()
     {
