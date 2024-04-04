@@ -75,30 +75,9 @@ public class MeetEventGameCtrl : MonoBehaviour
         meetEventCanvas.gameObject.SetActive(false);
     }
 
-    float rotateDirection = 0;
-    float rotateSize = 0;
     private void Update()
     {
-
-        //模拟王权的左移和右移
-        if (eventMgr.currEvent != null)
-        {
-            //根据鼠标在左屏还是右屏让卡片歪向那边(因为鼠标的坐标轴是从左下角开始的)
-            rotateDirection = 0.5f-Input.mousePosition.x / screenSize_Width;
-            //让卡片歪向指定方向,但是限制在鼠标的角度之下:
-            //在平面视角下：屏幕被分割为180度(但是希望是120度)，而rotateDirection的范围是(-0.5,+0.5)->(-60,60)
-            //当在左时：希望小于等于60，在右时希望大于等于-60,
-            if (rotateDirection > 0)
-            {
-                rotateSize = Mathf.Min(eventMgr.currEvent.transform.eulerAngles.z + rotateDirection, rotateDirection*120);
-            }
-            else
-            {
-                rotateSize = Mathf.Max(eventMgr.currEvent.transform.eulerAngles.z + rotateDirection, 360+rotateDirection * 120);
-                rotateSize = rotateSize < 300 ? 300 : rotateSize;
-            }
-            eventMgr.currEvent.gameObject.transform.rotation = Quaternion.Euler(Vector3.forward*rotateSize);
-        }
+        
     }
 
     private void OnDestroy()
@@ -120,7 +99,6 @@ public class MeetEventGameCtrl : MonoBehaviour
 
         //进行初始化:激活UI，完成UI初始化之后再解冻
         meetEventCanvas.gameObject.SetActive(true);
-        Debug.Log("游戏开始");
         UIEventListener._Instance.textPanel.SetActive(false);
         UIEventListener._Instance.PrizeWheelUIInit();
         //对于抽奖轮盘：需要初始化的是有什么奖品(要不要总是更新还需要考虑)
@@ -150,8 +128,7 @@ public class MeetEventGameCtrl : MonoBehaviour
             UIEventListener._Instance.PrizeWheelUp(
                 () =>
                 {
-                    Debug.Log("正在尝试初始化事件界面处理");
-                //基本信息初始化
+                    //基本信息初始化
                     eventMgr.currEventIndex = 0;
                     eventMgr.isDisposeMeetEvent = true;
                     UIEventListener._Instance.MeetEventUIInit();
@@ -214,12 +191,10 @@ public class MeetEventGameCtrl : MonoBehaviour
                     eventMgr.currentEventList.Add(pair.Value);
                     prize = pair.Value;
                     rotateRealTime = UIEventListener._Instance.prizeWheelRotateTurns * (1 + UnityEngine.Random.Range(0, UIEventListener._Instance.prizeWheelRotateTurns/2)) * 360 + index*360/UIEventListener._Instance.prizeNums;
-                    Debug.Log("抽中指数：" + rand + "目标指数：" + pair.Key + "目标名：" + pair.Value.name+"目标角度：" + index * 360 / UIEventListener._Instance.prizeNums);
                     break;
                 }
                 index++;
             }
-            Debug.Log("旋转角度：" + rotateRealTime);
             //设定设定每一帧旋转的角度
             rotateSpeed = rotateRealTime / (25*UIEventListener._Instance.prizeWheelRotateTime);
             rotateRealTime = UIEventListener._Instance.prizeWheelRotateTime;
@@ -236,10 +211,10 @@ public class MeetEventGameCtrl : MonoBehaviour
             UIEventListener._Instance.rotateParent.rotation = Quaternion.Euler(Vector3.forward*index * 360 / UIEventListener._Instance.prizeNums);
 
             //旋转完成以后应该显示玩家抽到了什么
-            MessageView._Instance.ShowMessage(String.Format("事件：{0}增加了",prize.name));
+            MessageView._Instance.ShowMessage(String.Format("事件：{0}已经加入事务表",prize.eventName));
 
-            //每次抽奖完后休息0.8s
-            yield return new WaitForSeconds(0.8f);
+            //每次抽奖完后休息0.4s
+            yield return new WaitForSeconds(0.4f);
         }
 
         //解除冻结
@@ -261,7 +236,6 @@ public class MeetEventGameCtrl : MonoBehaviour
     public IEnumerator ChangePosition(Transform obj, Vector3 endPos, float finishTime, Action onComplete = null)
     {
         //获取真距离
-        Debug.Log("Kais1");
         Vector3 begPos = obj.localPosition;
         //获取每一份的速度
         Vector3 moveSpeed = (endPos - begPos) / (finishTime * 25);
@@ -353,5 +327,31 @@ public class MeetEventGameCtrl : MonoBehaviour
         Destroy(obj);
     }
 
+    #region 弃用效果
+    //float rotateDirection = 0;
+    //float rotateSize = 0;
+    //private void Update()
+    //{
+    //    //模拟王权的左移和右移
+    //    if (eventMgr.currEvent != null)
+    //    {
+    //        //根据鼠标在左屏还是右屏让卡片歪向那边(因为鼠标的坐标轴是从左下角开始的)
+    //        rotateDirection = 0.5f-Input.mousePosition.x / screenSize_Width;
+    //        //让卡片歪向指定方向,但是限制在鼠标的角度之下:
+    //        //在平面视角下：屏幕被分割为180度(但是希望是120度)，而rotateDirection的范围是(-0.5,+0.5)->(-60,60)
+    //        //当在左时：希望小于等于60，在右时希望大于等于-60,
+    //        if (rotateDirection > 0)
+    //        {
+    //            rotateSize = Mathf.Min(eventMgr.currEvent.transform.eulerAngles.z + rotateDirection, rotateDirection*120);
+    //        }
+    //        else
+    //        {
+    //            rotateSize = Mathf.Max(eventMgr.currEvent.transform.eulerAngles.z + rotateDirection, 360+rotateDirection * 120);
+    //            rotateSize = rotateSize < 300 ? 300 : rotateSize;
+    //        }
+    //        eventMgr.currEvent.gameObject.transform.rotation = Quaternion.Euler(Vector3.forward*rotateSize);
+    //    }
+    //}
+    #endregion
 
 }

@@ -3,8 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MeetEventAbstract:MonoBehaviour
-{   
+public abstract class MeetEventAbstract : MonoBehaviour
+{
+    [Header("事件名：必填！")]
+    [SerializeField]
+    private string _eventName;
+
+    /// <summary>
+    /// 事件名称
+    /// </summary>
+    public string eventName
+    { 
+        get { return _eventName; }
+    }
     /// <summary>
     /// 事件信息
     /// </summary>
@@ -46,6 +57,7 @@ public abstract class MeetEventAbstract:MonoBehaviour
     /// </summary>
     public void ResourceChange()
     {
+        Player.Instance.decisionValue += eventInfo.decisionValue;
         Player.Instance.armament += eventInfo.armament;
         Player.Instance.popularSupport += eventInfo.popularSupport;
         Player.Instance.fund += eventInfo.fund;
@@ -58,4 +70,37 @@ public abstract class MeetEventAbstract:MonoBehaviour
         this.eventInfo = other.eventInfo;
         this._eventValue = other.EventValue;
     }
+}
+
+public class EventInfoCollector
+{
+    EventInfoCollector(int eventIndex,float eventProbality,float eventRatio=1)
+    {
+        this.eventIndex = eventIndex;
+        this.eventProbality = eventProbality;
+        this.eventRatio = eventRatio;
+    }
+
+    /// <summary>
+    /// 事件下标
+    /// </summary>
+    private int eventIndex;
+    public int EventIndex
+    {
+        get { return eventIndex; }
+    }
+
+    /// <summary>
+    /// 事件累计概率
+    /// </summary>
+    private float eventProbality;
+    public float EventProbality
+    {
+        get { return eventProbality; }
+    }
+
+    /// <summary>
+    /// 事件倍率
+    /// </summary>
+    public float eventRatio;
 }

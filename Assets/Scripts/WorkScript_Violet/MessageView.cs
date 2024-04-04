@@ -7,6 +7,11 @@ public class MessageView : MonoBehaviour
 {
     public static MessageView _Instance;
 
+    [Header("可以操作的")]
+    [SerializeField]
+    private Vector3 messageTargetPosition;
+    [Space(50)]
+
     /// <summary>
     /// 信息文本
     /// </summary>
@@ -39,7 +44,7 @@ public class MessageView : MonoBehaviour
     /// </summary>
     private Queue<string> messageQueue;
 
-    private void Awake()
+    private void Start()
     {
         if (_Instance == null)
         {
@@ -56,6 +61,7 @@ public class MessageView : MonoBehaviour
             obj.SetActive(false);
             messagePool.Add(obj.GetComponent<Text>());
         }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -71,9 +77,8 @@ public class MessageView : MonoBehaviour
                 obj.SetActive(true);
                 //播放动画
                 obj.transform.localPosition = -Vector3.up * (MeetEventGameCtrl._Instance.tipCanvas.pixelRect.height * 0.5f);
-                Vector3 targetPosition =Vector3.zero;
                 currStartNums++;
-                StartCoroutine(MeetEventGameCtrl._Instance.ChangePosition(obj.transform, targetPosition, 2.5f,
+                StartCoroutine(MeetEventGameCtrl._Instance.ChangePosition(obj.transform, messageTargetPosition, 1.8f,
                     () =>
                     {
                         obj.gameObject.SetActive(false);

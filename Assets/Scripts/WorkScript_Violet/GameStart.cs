@@ -34,7 +34,7 @@ public class GameStart : MonoBehaviour
             obj.SetActive(false);
             textList.Add(obj.GetComponent<Text>());
         }
-        currrRate = -80;
+        currrRate = -80;    
         for (int i = 0; i < 10; i++)
         {
             currrRate += 20;

@@ -89,12 +89,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d7a53208d727042a5bd3d2640363e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eventName: "\u7231\u79CD\u7530\u7684\u8D1E\u5FB7"
   eventInfo:
-    decisionValue: 0
+    decisionValue: 2
+    sanity: 2
+    armament: 2
+    fund: 2
+    popularSupport: 2
+    troopIncrease: 2
     decisionValueMax: 0
-    sanity: 1
-    armament: 1
-    fund: 1
-    popularSupport: 1
-    troopIncrease: 1
   _eventValue: 2

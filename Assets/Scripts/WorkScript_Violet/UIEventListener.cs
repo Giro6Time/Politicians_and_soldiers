@@ -317,7 +317,7 @@ public class UIEventListener : MonoBehaviour
     {
         if (MeetEventGameCtrl._Instance.eventMgr.isFreeze || MeetEventGameCtrl._Instance.eventMgr.currentEventList.Count > 0)
         {
-            Debug.Log("大厅上还有事件要处理呢！");
+            MessageView._Instance.ShowTip("大厅上还有事情等待处理呢！");
             return;
         }
         MeetEventGameCtrl._Instance.eventMgr.GameExit();

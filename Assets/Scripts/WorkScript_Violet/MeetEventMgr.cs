@@ -81,7 +81,6 @@ public class MeetEventMgr
            
             //对于抽奖池一次三张
             MeetEventGameCtrl._Instance.currRounds += 3;
-            Debug.Log("启动抽奖程序");
             isFreeze = true;
             //进行UI更新
             UIEventListener._Instance.UIMeetingEventUpdate();
@@ -141,7 +140,6 @@ public class MeetEventMgr
     /// </summary>
     public void ExtractCurrentEvent()
     {
-        //如果没有事件，则无法抽卡
         if (currentEventList.Count == 0||currEvent!=null)
             return;
         //1.获取当前顺序的物体
@@ -195,11 +193,9 @@ public class MeetEventMgr
             prizeIndex = (int)eventRarityArray[i + UIEventListener._Instance.prizeNums];
             currAngles += (int)((eventRarityArray[i] * 1000) / sum);
             currPrizeDic.Add(currAngles, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
-            Debug.Log("第" + (i+1) + "位是"+ MeetEventGameCtrl._Instance.eventList[prizeIndex].name+ "：累计概率为：" + currAngles);
         }
         prizeIndex = (int)eventRarityArray[2 * UIEventListener._Instance.prizeNums - 1];
         currPrizeDic.Add(1000, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
-        Debug.Log("第" + UIEventListener._Instance.prizeNums+"位是：" + MeetEventGameCtrl._Instance.eventList[prizeIndex].name + "累计概率为：" + 1000);
         //进行UI绘制
         UIEventListener._Instance.DrawPrizeWheel();
     }
@@ -222,7 +218,6 @@ public class MeetEventMgr
     public void GameExit()
     {
         //离开时：将两个canvas失活？还有其他信息是否要重置？
-        Debug.Log("游戏结束");
         //1.重置信息
         if (currEvent != null)
         {

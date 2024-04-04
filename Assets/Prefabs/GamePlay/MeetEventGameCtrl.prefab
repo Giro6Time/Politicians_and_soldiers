@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7073952751139074223}
   - component: {fileID: 8191841582634830123}
   - component: {fileID: 6519278059325684978}
-  - component: {fileID: 2200482550583135964}
   m_Layer: 5
   m_Name: Btn_Tip
   m_TagString: Untagged
@@ -135,21 +134,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2200482550583135964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563993864066972682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae0d62144f3eea4aa583454d9aea880, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text_MessageTemplate: {fileID: 0}
-  btn_Tip: {fileID: 0}
-  text_Tip: {fileID: 0}
 --- !u!1 &3419012221071534354
 GameObject:
   m_ObjectHideFlags: 0
