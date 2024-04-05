@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,5 +21,5 @@ public class CardBaseSO : ScriptableObject
     public CardBaseType cardBaseType;
     public Sprite cardFrame;
     public Sprite inset;
-    public Color color;//TODO£ºÒÔºó¿Ï¶¨²»ÓÃcolorÁË¡£
+    public Color color;//TODOï¼šä»¥åè‚¯å®šä¸ç”¨coloräº†ã€‚
 }

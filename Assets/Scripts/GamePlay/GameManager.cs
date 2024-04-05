@@ -6,21 +6,21 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameFlowController gameFlowController;
-    [Header("սǰ")]
+    [Header("战前")]
     public CardManager cardMgr;
     public DateManager dateMgr;
     public PlayerControl playerControl;
 
-    [Header("ս����")]
+    [Header("战斗中")]
     public BattleField battleField;
 
-    [Header("��Ȩģ��")]
+    [Header("王权模块")]
     public MeetEventGameCtrl meetEventGameCtrl;
 
-    [Header("�Ի�ģ��")]
+    [Header("对话模块")]
     public DialogManager dialogManager;
 
-    [Header("����")]
+    [Header("配置")]
     public ConfigSO config;
 
     public static GameManager Instance
@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
 
     private void TurnStart()
     {
-        ////TODO��
-        //�غϿ�ʼʱ
-        //�غϼ�����+1 -> ��ʾ�з����� -> ��ȡ������Լ�����ߵ� -> ���� -> enable input�ȴ���ҽ���
+        ////TODO：
+        //回合开始时
+        //回合计数器+1 -> 显示敌方场面 -> 读取玩家属性计算决策点 -> 发牌 -> enable input等待玩家交互
         cardMgr.gameObject.SetActive(true);
         dateMgr.moveNextMonth();
         gameFlowController.battleStartButton.gameObject.SetActive(true);
@@ -59,8 +59,8 @@ public class GameManager : MonoBehaviour
     }
     private void BattleStart()
     {
-        //ս����ʼʱ
-        //��Ƭ���ɾ��� -> ����ս��
+        //战斗开始时
+        //卡片生成军队 -> 进入战斗
         gameFlowController.battleStartButton.gameObject.SetActive(false);
         Debug.Log("BattleStart");
         cardMgr.gameObject.SetActive(false);
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     private void TurnEnd()
     {
-        //�غϽ����׶�
+        //回合结束阶段
         gameFlowController.CloseIntermissionPanel();
         TurnStart();
     }

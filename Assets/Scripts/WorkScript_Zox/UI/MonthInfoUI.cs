@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +11,6 @@ public class MonthInfoUI : MonoBehaviour
 
     private void Update()
     {
-        //TODO:¸üÐÂÍ¼Æ¬
+        //TODO:æ›´æ–°å›¾ç‰‡
     }
 }

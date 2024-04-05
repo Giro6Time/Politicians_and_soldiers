@@ -1,4 +1,4 @@
-using Microsoft.Unity.VisualStudio.Editor;
+ï»¿using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +24,7 @@ public class BattleProgress : MonoBehaviour
 
     public void ProgressAni()
     {
-        //½ø¶ÈÌõ¶¯»­ Ôİ×¢
+        //è¿›åº¦æ¡åŠ¨ç”» æš‚æ³¨
         //battleAnimation.ProgressChangeAni();
     }
 }

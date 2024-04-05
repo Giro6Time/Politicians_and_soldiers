@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public class BattleField : MonoBehaviour
@@ -51,7 +51,7 @@ public class BattleField : MonoBehaviour
         Debug.Log("Battle is end!");
         battleProgress.ProgressChange(armyManager.progressChangeValue);
         armyManager.progressChangeValue = 0;
-        //ÏÈ½øÐÐÒ»´ÎÊ¤¸ºÅÐ¶¨
+        //å…ˆè¿›è¡Œä¸€æ¬¡èƒœè´Ÿåˆ¤å®š
         if (battleProgress.progressBar >= 100)
             onGameWin?.Invoke();
         else if (battleProgress.progressBar <= 0)

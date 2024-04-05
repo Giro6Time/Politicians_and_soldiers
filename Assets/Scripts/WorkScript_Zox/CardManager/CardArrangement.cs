@@ -25,11 +25,11 @@ public class CardArrangement : MonoBehaviour
     public float lerpSpeed = 5f;
     public float angleIncrement = 30f;
     public float radius = 2f;
-    public Vector3 centerPoint; // Բ��λ�����û�ָ��
+    public Vector3 centerPoint; // 卡牌偏移中心点
 
-    /*public float radius = 2f; // ���ΰ뾶
-    public float startAngle = 0f; // ������ʼ�Ƕ�
-    public float endAngle = 180f; // ���ν����Ƕ�*/
+    /*public float radius = 2f; // 卡牌偏移半径
+    public float startAngle = 0f; // 起始角度
+    public float endAngle = 180f; // 终止角度*/
 
     public void RearrangeCard()
     {
@@ -50,30 +50,30 @@ public class CardArrangement : MonoBehaviour
     private void RearrangeCard_Hand()
     {
         int cardCount = transform.childCount;
-        float totalAngle = (cardCount - 1) * angleIncrement; // �����ܽǶ�
+        float totalAngle = (cardCount - 1) * angleIncrement; // 所有卡牌旋转的角度和
 
         for (int i = 0; i < cardCount; i++)
         {
             Transform cardTransform = transform.GetChild(i);
 
-            // ���㿨���������еĽǶ�
+            // angle：卡牌偏移的角度   rotateZ：卡牌Z轴旋转的角度
             float angle = 90f + totalAngle / 2f - i * angleIncrement;
             float rotateZ = totalAngle/2f - i * angleIncrement;
-            // ���Ƕ�ת��Ϊ����
+            // 将角度制转化为弧度制
             float radians = angle * Mathf.Deg2Rad;
 
-            // ���㿨���������е�λ��
+            // 计算卡牌在X和Y轴的位置
             float x = centerPoint.x + radius * Mathf.Cos(radians);
             float y = centerPoint.y + radius * Mathf.Sin(radians);
 
-            // ���ÿ��Ƶ�Ŀ��λ��
+            // 设置卡牌的目标位置
             Vector3 targetPosition = new Vector3(x, y, offsetZ * i);
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
 
-            // ���㿨�Ƶ�Ŀ����ת
+            // 设置卡牌的旋转角度
             Quaternion targetRotation = Quaternion.Euler(0,0,rotateZ);
 
-            // ƽ���ƶ����Ƶ�Ŀ��λ��
+            //使用协程平滑地将卡牌从初始位置转移至目标位置
             StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
             //StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
         }
@@ -84,7 +84,7 @@ public class CardArrangement : MonoBehaviour
         {
             Transform cardTransform = transform.GetChild(i);
 
-            //Ŀ��λ��
+            //战场卡牌的目标位置
             Vector3 targetPosition = new Vector3(offsetX * i, 0, offsetZ * i);
 
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;

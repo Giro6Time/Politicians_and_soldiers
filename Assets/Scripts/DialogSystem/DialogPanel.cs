@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -10,11 +10,11 @@ using UnityEngine.UI;
 
 public class DialogPanel : MonoBehaviour
 {
-    [Header("ÊôĞÔ£¨²ß»®×ÔÓÃ9³ÉĞÂ£©")]
+    [Header("å±æ€§ï¼ˆç­–åˆ’è‡ªç”¨9æˆæ–°ï¼‰")]
     public AnimationCurve curve;
     public float moveDuration = 5f;
 
-    [Header("¹ØÁª×é¼ş")]
+    [Header("å…³è”ç»„ä»¶")]
     public TMP_Text m_name;
     public TMP_Text m_content;
     public Button[] m_buttons;
@@ -122,7 +122,7 @@ public class DialogPanel : MonoBehaviour
                 closing = false;
                 onClosed?.Invoke();
 
-                //UPDATE:ÏÔÊ¾Ñ¡Ôñ½çÃæ¹¦ÄÜ
+                //UPDATE:æ˜¾ç¤ºé€‰æ‹©ç•Œé¢åŠŸèƒ½
                 GameManager.Instance.gameFlowController.OpenIntermissionPanel();
             }
         }

@@ -1,37 +1,37 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class MeetEventAbstract : MonoBehaviour
 {
-    [Header("ÊÂ¼şÃû£º±ØÌî£¡")]
+    [Header("äº‹ä»¶åï¼šå¿…å¡«ï¼")]
     [SerializeField]
     private string eventName;
 
     /// <summary>
-    /// ÊÂ¼şÃû³Æ
+    /// äº‹ä»¶åç§°
     /// </summary>
     public string EventName
     { 
         get { return eventName; }
     }
 
-    [Header("ÊÂ¼şÌá¹©µÄ±¶ÂÊ")]
+    [Header("äº‹ä»¶æä¾›çš„å€ç‡")]
     /// <summary>
-    /// ÊÂ¼ş±¶ÂÊ 
+    /// äº‹ä»¶å€ç‡ 
     /// </summary>
     public float eventRatio;
 
     /// <summary>
-    /// ÊÂ¼şĞÅÏ¢
+    /// äº‹ä»¶ä¿¡æ¯
     /// </summary>
     public Player eventInfo;
 
     /// <summary>
-    /// ÊÂ¼ş¼ÛÖµ
+    /// äº‹ä»¶ä»·å€¼
     /// </summary>
-    [Header("ÊÂ¼ş¼ÛÖµ£¨»áÓ°Ïì±»³éÈ¡¸ÅÂÊ,Ô½¸ßÔ½ÄÑ£©")]
+    [Header("äº‹ä»¶ä»·å€¼ï¼ˆä¼šå½±å“è¢«æŠ½å–æ¦‚ç‡,è¶Šé«˜è¶Šéš¾ï¼‰")]
     [SerializeField]
     private int _eventValue;
 
@@ -41,8 +41,8 @@ public abstract class MeetEventAbstract : MonoBehaviour
     }
 
     /// <summary>
-    /// ÏÂÒ»¼ÛÖµµÄÆğÊ¼×ø±ê
-    /// tip:×îÖÕ¼ÛÖµÖ¸ÏòµÄÊÇcount
+    /// ä¸‹ä¸€ä»·å€¼çš„èµ·å§‹åæ ‡
+    /// tip:æœ€ç»ˆä»·å€¼æŒ‡å‘çš„æ˜¯count
     /// </summary>
     [HideInInspector]
     public int nextValueBeginIndex;
@@ -67,7 +67,7 @@ public abstract class MeetEventAbstract : MonoBehaviour
     }
 
     /// <summary>
-    /// ×ÊÔ´±ä¶¯º¯Êı
+    /// èµ„æºå˜åŠ¨å‡½æ•°
     /// </summary>
     public void ResourceChange()
     {
@@ -96,12 +96,12 @@ public class EventInfoCollector
     }
 
     /// <summary>
-    /// ¶ÔÓ¦ÎïÌå
+    /// å¯¹åº”ç‰©ä½“
     /// </summary>
     public GameObject obj;
 
     /// <summary>
-    /// ÊÂ¼şÏÂ±ê
+    /// äº‹ä»¶ä¸‹æ ‡
     /// </summary>
     private readonly int eventIndex;
     public int EventIndex
@@ -110,13 +110,13 @@ public class EventInfoCollector
     }
 
     /// <summary>
-    /// ÊÂ¼ş±¶ÂÊ
+    /// äº‹ä»¶å€ç‡
     /// </summary>
     public float eventRatio;
 }
 
 /// <summary>
-/// ½±Æ·Àà
+/// å¥–å“ç±»
 /// </summary>
 public class Prize
 {
@@ -127,7 +127,7 @@ public class Prize
     }
 
     /// <summary>
-    /// ½±Æ·¼ÛÖµ
+    /// å¥–å“ä»·å€¼
     /// </summary>
     private readonly int prizeValue;
     public int PrizeValue
@@ -136,7 +136,7 @@ public class Prize
     }
 
     /// <summary>
-    /// ÀÛ¼Æ¸ÅÂÊ
+    /// ç´¯è®¡æ¦‚ç‡
     /// </summary>
     private readonly int cumProbability;
     public int CumProbability

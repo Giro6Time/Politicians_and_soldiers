@@ -1,16 +1,16 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MathfUtil
 {
     /// <summary>
-    /// »ñÈ¡Á½¸öµãµÄÂü¹ş¶Ù¾àÀë
+    /// è·å–ä¸¤ä¸ªç‚¹çš„æ›¼å“ˆé¡¿è·ç¦»
     /// </summary>
-    /// <param name="beginPos">ÆğÊ¼Î»ÖÃ</param>
-    /// <param name="endPos">ÖÕÖ¹Î»ÖÃ</param>
-    /// <param name="isAbs">ÊÇ·ñÈ¡¾ø¶ÔÖµ</param>
-    /// <returns>Âü¹ş¶Ù¾àÀë</returns>
+    /// <param name="beginPos">èµ·å§‹ä½ç½®</param>
+    /// <param name="endPos">ç»ˆæ­¢ä½ç½®</param>
+    /// <param name="isAbs">æ˜¯å¦å–ç»å¯¹å€¼</param>
+    /// <returns>æ›¼å“ˆé¡¿è·ç¦»</returns>
     public static float GetManhattanDistance(Vector3 beginPos,Vector3 endPos,bool isAbs=false)
     {
         float distance = endPos.x + endPos.y + endPos.z - beginPos.x - beginPos.y - beginPos.z;
@@ -22,12 +22,12 @@ public class MathfUtil
     }
 
     /// <summary>
-    /// »ñÈ¡Á½¸öµãµÄXYÂü¹ş¶Ù¾àÀë
+    /// è·å–ä¸¤ä¸ªç‚¹çš„XYæ›¼å“ˆé¡¿è·ç¦»
     /// </summary>
-    /// <param name="beginPos">ÆğÊ¼Î»ÖÃ</param>
-    /// <param name="endPos">ÖÕÖ¹Î»ÖÃ</param>
-    /// <param name="isAbs">ÊÇ·ñÈ¡¾ø¶ÔÖµ</param>
-    /// <returns>Âü¹ş¶Ù¾àÀë</returns>
+    /// <param name="beginPos">èµ·å§‹ä½ç½®</param>
+    /// <param name="endPos">ç»ˆæ­¢ä½ç½®</param>
+    /// <param name="isAbs">æ˜¯å¦å–ç»å¯¹å€¼</param>
+    /// <returns>æ›¼å“ˆé¡¿è·ç¦»</returns>
     public static float GetManhattanDistance_XY(Vector3 beginPos, Vector3 endPos, bool isAbs = false)
     {
         float distance = endPos.x + endPos.y- beginPos.x - beginPos.y;
@@ -39,10 +39,10 @@ public class MathfUtil
     }
 
     /// <summary>
-    /// »ñÈ¡Á½¸öµãµÄXYÖáÉÏµÄ·½Ïò
+    /// è·å–ä¸¤ä¸ªç‚¹çš„XYè½´ä¸Šçš„æ–¹å‘
     /// </summary>
-    /// <param name="beginPos">Æğµã</param>
-    /// <param name="endPos">ÖÕµã</param>
+    /// <param name="beginPos">èµ·ç‚¹</param>
+    /// <param name="endPos">ç»ˆç‚¹</param>
     /// <returns></returns>
     public static Vector3 GetDirection_XY(Vector3 beginPos,Vector3 endPos)
     {
