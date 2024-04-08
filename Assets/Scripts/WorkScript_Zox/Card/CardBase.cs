@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,5 +59,18 @@ public class CardBase : MonoBehaviour
     public bool canBMoved()
     {
         return !isEnemy && !isUsed;
+    }
+
+    protected EventHandler OnGetCard;
+    protected EventHandler OnSetCard_beforeBattle;
+
+    public virtual void Get_Effect()
+    {
+        //TODO:卡牌进入手牌时的效果触发，在派生类做
+    }
+
+    public virtual void BeforeBattle_Effect()
+    {
+        //卡牌在开战前打出的效果触发，在派生类做
     }
 }
