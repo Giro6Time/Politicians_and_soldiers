@@ -122,8 +122,9 @@ public class DialogPanel : MonoBehaviour
                 closing = false;
                 onClosed?.Invoke();
 
+
                 //UPDATE:显示选择界面功能
-                GameManager.Instance.gameFlowController.OpenIntermissionPanel();
+                GameManager.Instance.gameFlowController.OpenMiniGamePanel();
             }
         }
     }

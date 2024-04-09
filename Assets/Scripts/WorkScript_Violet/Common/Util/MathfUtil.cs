@@ -46,6 +46,6 @@ public class MathfUtil
     /// <returns></returns>
     public static Vector3 GetDirection_XY(Vector3 beginPos,Vector3 endPos)
     {
-        return new Vector3(endPos.x-beginPos.x,endPos.y-beginPos.y,0);
+        return new Vector3(endPos.x-beginPos.x,endPos.y-beginPos.y,0).normalized;
     }
 }

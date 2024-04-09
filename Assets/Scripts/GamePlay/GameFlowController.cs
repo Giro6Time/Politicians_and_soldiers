@@ -8,28 +8,28 @@ using UnityEngine.UI;
 public class GameFlowController : MonoBehaviour
 {
     public Button battleStartButton;
-    [SerializeField] IntermissionPanel /*fucking*/intermissionPanel;
+    [SerializeField] MiniGamePanel /*fucking*/miniGamePanel;
 
 
     public Action onBattleStartClicked;
     public Action onReignsStartClicked;
     public Action onDialogStartClicked;
-    public Action onLeaveIntermissionClicked;
+    //public Action onLeaveIntermissionClicked;
 
-    public void OpenIntermissionPanel()
+    public void OpenMiniGamePanel()
     {
-        intermissionPanel.Open();
+        miniGamePanel.Open();
     }
-    public void CloseIntermissionPanel()
+    public void CloseMiniGamePanel()
     {
-        intermissionPanel.Close();   
+        miniGamePanel.Close();   
     }
     public void Init()
     {
         gameObject.SetActive(true);
         battleStartButton.onClick.AddListener(() => onBattleStartClicked?.Invoke());
-        intermissionPanel.leftButton.onClick.AddListener(() => onReignsStartClicked?.Invoke());
-        intermissionPanel.rightButton.onClick.AddListener(() => onDialogStartClicked?.Invoke());
-        intermissionPanel.leaveButton.onClick.AddListener(() => onLeaveIntermissionClicked?.Invoke());
+        miniGamePanel.leftButton.onClick.AddListener(() => onReignsStartClicked?.Invoke());
+        miniGamePanel.rightButton.onClick.AddListener(() => onDialogStartClicked?.Invoke());
+        //intermissionPanel.leaveButton.onClick.AddListener(() => onLeaveIntermissionClicked?.Invoke());
     }
 }

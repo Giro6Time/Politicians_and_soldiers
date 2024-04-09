@@ -844,7 +844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 0.01
   m_ReferenceResolution: {x: 3840, y: 2160}
   m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0.5
@@ -1156,10 +1156,27 @@ MonoBehaviour:
   - {fileID: 7349079416049036636, guid: 8a4564f755a6caf4eb73362e271cdc08, type: 3}
   - {fileID: 4578358636834725118, guid: b88ec6fcfb5be3f46925594c465e6c2f, type: 3}
   - {fileID: 852183518463951166, guid: ecc40d1016a20084e9d7568cd5707170, type: 3}
+  cardDistance: 400
+  cardUpDistance: 120
+  BattleArrayAddtion:
+  - key: 0
+    value: 0.1
+  - key: 1
+    value: 0.2
+  - key: 2
+    value: 0.3
+  - key: 3
+    value: 0.4
+  - key: 4
+    value: 0.5
+  - key: 5
+    value: 0.6
+  - key: 6
+    value: 0.7
+  - key: 7
+    value: 0.8
   currRounds: 0
   maxRounds: 3
-  screenSize_Width: 0
-  screenSize_Height: 0
 --- !u!114 &7609299513774453774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1177,7 +1194,7 @@ MonoBehaviour:
   prizeWheelRadius: 200
   prizeWheelPanel: {fileID: 7609299513734084674}
   prizeWheelRotateTime: 0.8
-  prizeWheelRotateTurns: 3
+  prizeWheelRotateTurns: 4
   prizeNums: 6
   prizeParent: {fileID: 7021896279590248189}
   rotateParent: {fileID: 7742914671388403474}
@@ -1575,7 +1592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 79.99994, y: 0}
+  m_AnchoredPosition: {x: 80, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7609299514229788254
@@ -2871,7 +2888,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8671247666005825797}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2890,6 +2907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae0d62144f3eea4aa583454d9aea880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  messageTargetPosition: {x: 0, y: 0, z: 0}
   text_MessageTemplate: {fileID: 125859813335823033, guid: 6731d61ca3dd69c4091d87749a5639f1, type: 3}
   btn_Tip: {fileID: 6519278059325684978}
   text_Tip: {fileID: 727411259247881361}

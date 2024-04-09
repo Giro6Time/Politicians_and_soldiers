@@ -33,7 +33,7 @@ public class MeetEventMgr
 
     public Action onExit;
 
-    public MeetEventMgr()
+    public MeetEventMgr() 
     {
         prizePoolList = new List<Prize>();
         currentEventList = new List<EventInfoCollector>();
@@ -101,13 +101,13 @@ public class MeetEventMgr
         //如果交易，则进行资源变化,并更新UI
         if (isYes)
         {
+            //进行百分比更新
+            Player.Instance.troopIncrease *= GetAddtionValue();
             //进行资源更新
             for (int i = 0; i < 3; i++)
             {
                 MeetEventGameCtrl._Instance.eventList[currEventInfoList[i].EventIndex].ResourceChange();
             }
-            //TODO
-            //进行百分比更新
         }
         //进行UI更新
         UIEventListener._Instance.UIMeetingEventUpdate();
@@ -139,6 +139,7 @@ public class MeetEventMgr
     /// </summary>
     public void CurrEventStateChange()
     {
+        if (currEventInfoList.Count == 0) return;
         for (int i = 0; i < 3; i++)
         {
             currEventInfoList[i].obj.SetActive(!currEventInfoList[i].obj.activeSelf);
@@ -166,7 +167,23 @@ public class MeetEventMgr
             currEventInfoList[i].obj = GameObject.Instantiate(MeetEventGameCtrl._Instance.eventList[currEventInfoList[i].EventIndex].gameObject, MeetEventGameCtrl._Instance.meetEventCanvas.transform);
             //设置他们的位置
             currEventInfoList[i].obj.transform.localPosition = Vector3.right * MeetEventGameCtrl._Instance.cardDistance * dis[i];
+            ChangeEventState(i);
         }
+    }
+
+    /// <summary>
+    /// 是否死亡
+    /// </summary>
+    /// <returns></returns>
+    public bool IsDead()
+    {
+        bool isDead = false;
+        if (Player.Instance.sanity <= 0)
+        {
+            isDead = true;
+        }
+
+        return isDead;
     }
     #endregion
 
@@ -212,17 +229,6 @@ public class MeetEventMgr
 
         //进行UI绘制
         UIEventListener._Instance.DrawPrizeWheel();
-    }
-
-    public bool IsDead()
-    {
-        bool isDead = false;
-        if (Player.Instance.sanity <= 0)
-        {
-            isDead = true;
-        }
-
-        return isDead;
     }
 
     /// <summary>
@@ -293,4 +299,58 @@ public class MeetEventMgr
         //随机数为：起点->下一价值起点-1
         return UnityEngine.Random.Range(index, MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex);
     }
+
+    /// <summary>
+    /// 获取额外值
+    /// </summary>
+    /// <returns></returns>
+    public float GetAddtionValue()
+    {
+        int allValue = 0;
+        float num = Mathf.Pow(2,currEventInfoList.Count-1);
+        //获取二进制结果
+        //4-2-1:接受为1，不接受为0
+        foreach (EventInfoCollector item in currEventInfoList)
+        {
+            if (item.isAccept)
+            {
+                allValue += (int)num;
+            }
+            num /= 2;
+        }
+        BattleArray battleArray = (BattleArray)allValue;
+        foreach (var item in MeetEventGameCtrl._Instance.BattleArrayAddtion)
+        {
+            if (item.key == battleArray)
+            {
+                Debug.Log("阵法为：" + item.key.ToString() +"价值为：" + allValue + "加成为：" + (1+item.value));
+                return 1+item.value;
+            }
+        }
+        Debug.LogError("报错！阵法错误");
+        return -1;
+    }
+
+    /// <summary>
+    /// 改变指定事件的状态
+    /// </summary>
+    /// <param name="index"></param>
+    public void ChangeEventState(int index)
+    {
+        //1.改变状态
+        currEventInfoList[index].isAccept = !currEventInfoList[index].isAccept;  
+
+        //2.进行运动
+        //①确认最终位置
+        Vector3 endPos =  new Vector3( currEventInfoList[index].obj.transform.localPosition.x
+            ,currEventInfoList[index].isAccept ? MeetEventGameCtrl._Instance.cardUpDistance : -MeetEventGameCtrl._Instance.cardUpDistance,0);
+        isFreeze = true;
+        MeetEventGameCtrl._Instance.ChangePositionByCoroutine(currEventInfoList[index].obj.transform, endPos, 0.2f,
+            () =>
+            {
+                isFreeze = false;
+            });
+    }
+
+    
 }

@@ -92,6 +92,7 @@ public class EventInfoCollector
     {
         this.eventIndex = eventIndex;
         this.eventRatio = eventRatio;
+        isAccept = false;//默认状态为：接受
         obj = null;
     }
 
@@ -99,6 +100,11 @@ public class EventInfoCollector
     /// 对应物体
     /// </summary>
     public GameObject obj;
+
+    /// <summary>
+    /// 是否接受
+    /// </summary>
+    public bool isAccept;
 
     /// <summary>
     /// 事件下标

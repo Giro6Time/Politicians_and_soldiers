@@ -9,6 +9,8 @@ public class Army : MonoBehaviour
     [SerializeField]
 #endif
     private float troopStrength = 0;
+
+    public ArmyCard whereIFrom;
     
     public float TroopStrength
     {
@@ -20,6 +22,7 @@ public class Army : MonoBehaviour
             {
                 Debug.Log(gameObject.name + " is slain");
                 onDead?.Invoke();
+                Die();
             }
         }
     }
@@ -78,6 +81,11 @@ public class Army : MonoBehaviour
         { 
             return true; 
         }
+    }
+    public void Die()
+    {
+        DestroyImmediate(whereIFrom.gameObject);
+        Destroy(gameObject);
     }
 
 }

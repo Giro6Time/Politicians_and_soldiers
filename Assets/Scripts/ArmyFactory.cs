@@ -22,6 +22,7 @@ public static class ArmyFactory
                 continue;
             var armyInstance = GameObject.Instantiate(prefab);
             var army = armyInstance.AddComponent<Army>();
+            army.whereIFrom = c;
             army.TroopStrength = c.troopStrength;
             army.transform.position = c.transform.position;
             armyList.Add(army);

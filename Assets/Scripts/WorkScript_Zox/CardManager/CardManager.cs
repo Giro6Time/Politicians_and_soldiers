@@ -43,8 +43,14 @@ public class CardManager : MonoBehaviour {
 
     public void Init()
     {
-        
     }
+
+    public void RefreshList()
+    {
+        enemyPlayingArea.Refresh();
+        cardPlayingArea.Refresh();
+    }
+
     public void MoveCard(CardBase card, CardArrangement area)
     {
         if(area == null){
@@ -208,7 +214,6 @@ public static class CardFactory
         {
             default: throw new ArgumentNullException("卡牌未设置类型");
             case CardBaseType.Army:
-                instance.GetComponent<MeshRenderer>().material.color = cardSO.color;
                 var armyC = instance.AddComponent<ArmyCard>();
                 instance.GetComponent<CardSelectedVisual>().card = armyC;
                 armyC.SetCardPos(CardPos.SelectionArea);
@@ -222,7 +227,10 @@ public static class CardFactory
                 return instance;
             case CardBaseType.Effect:
                 throw new NotImplementedException("特殊类型卡牌待实现");
-
         }
     }
+
+
+
+   
 }

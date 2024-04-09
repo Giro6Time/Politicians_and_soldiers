@@ -314,7 +314,7 @@ public class UIEventListener : MonoBehaviour
             return;
         }
         MeetEventGameCtrl._Instance.eventMgr.GameExit();
-        GameManager.Instance.gameFlowController.OpenIntermissionPanel();
+        GameManager.Instance.gameFlowController.OpenMiniGamePanel();
     }
 
     /// <summary>
@@ -337,11 +337,21 @@ public class UIEventListener : MonoBehaviour
         }
         if (prizeWheelPanel.localPosition.y < 10)
         {
-            PrizeWheelUp();
+            if (MeetEventGameCtrl._Instance.eventMgr.currentEventList.Count == 0 && MeetEventGameCtrl._Instance.eventMgr.currEventInfoList.Count == 0)
+            {
+                PrizeWheelUp(() =>
+                {
+                    MeetEventUIInit();
+                });
+            }
+            else
+            {
+                OnBtnClick_ToDisposeMeetEvent();
+            }
         }
         else
         {
-            PrizeWheelDown();
+            OnBtnClick_StartPrizeWheel();
         }
     }
 

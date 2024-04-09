@@ -36,6 +36,23 @@ public class MeetEventGameCtrl : MonoBehaviour
     public float cardDistance;
 
     /// <summary>
+    /// 卡牌上升距离
+    /// </summary>
+    public float cardUpDistance;
+
+    [Serializable]
+    public struct BattleArrayKeyValue
+    {
+        public BattleArray key;
+        public float value;
+    }
+
+    /// <summary>
+    /// 阵容加成
+    /// </summary>
+    public List<BattleArrayKeyValue> BattleArrayAddtion = new List<BattleArrayKeyValue>(8);
+
+    /// <summary>
     /// <价值，价值起始坐标>
     /// </summary>
     public Dictionary<int,int> eventValueBeginIndexDic;
@@ -57,17 +74,6 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public MeetEventMgr eventMgr;
-
-    /// <summary>
-    /// 屏幕宽
-    /// </summary>
-    [HideInInspector]
-    public float screenSize_Width;
-    /// <summary>
-    /// 屏幕高
-    /// </summary>
-    [HideInInspector]
-    public float screenSize_Height;
     #endregion
 
     void Awake()
@@ -77,8 +83,6 @@ public class MeetEventGameCtrl : MonoBehaviour
             _Instance = this;
         }
         eventMgr = new MeetEventMgr();
-        screenSize_Height = Screen.height;
-        screenSize_Width = Screen.width;
         meetEventCanvas.worldCamera = Camera.main;
         tipCanvas.worldCamera = Camera.main;
         tipCanvas.planeDistance = 1;
@@ -130,6 +134,33 @@ public class MeetEventGameCtrl : MonoBehaviour
 
     private void Update()
     {
+        if(!eventMgr.isFreeze&&Input.GetMouseButtonUp(0)&& UIEventListener._Instance.prizeWheelPanel.localPosition.y > 10 && eventMgr.currEventInfoList.Count > 0)
+        {
+            //1.获取鼠标坐标
+            Vector3 mousePos = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2);
+            RectTransform rectTrans = eventMgr.currEventInfoList[0].obj.GetComponent<RectTransform>();
+            //2.判定鼠标位置
+            //从图像右边界开始
+            float targetX = -((eventMgr.currEventInfoList.Count / 2) * cardDistance - rectTrans.rect.width / 2) * meetEventCanvas.scaleFactor;
+            int index = 0;
+            //判定鼠标所在位置区间(curr,next)
+            while (mousePos.x > targetX)
+            {
+                targetX += cardDistance * meetEventCanvas.scaleFactor;
+                index++;
+            }
+            //判定鼠标与区间距离
+            //如果鼠标与目标区间的X距离小于width，这说明在目标区间
+            if ((targetX - mousePos.x) < rectTrans.rect.width)
+            {
+                //3.进行Y轴订正
+                if (Mathf.Abs(mousePos.y - eventMgr.currEventInfoList[index].obj.transform.localPosition.y*meetEventCanvas.scaleFactor) < rectTrans.rect.height * 0.8f)
+                {
+                    //进行运动
+                    eventMgr.ChangeEventState(index);
+                }
+            }
+        }
         
     }
 
@@ -207,10 +238,7 @@ public class MeetEventGameCtrl : MonoBehaviour
         if (UIEventListener._Instance.prizeWheelPanel.localPosition.y > 10)
         {
             //隐藏正在执行的事件
-            if (eventMgr.currEventInfoList.Count > 0)
-            {
-                eventMgr.CurrEventStateChange();
-            }
+            eventMgr.CurrEventStateChange();
             UIEventListener._Instance.PrizeWheelUIInit();
             UIEventListener._Instance.PrizeWheelDown();
         }
@@ -281,6 +309,11 @@ public class MeetEventGameCtrl : MonoBehaviour
         yield return null;
     }
     #endregion
+
+    public void ChangePositionByCoroutine(Transform obj,Vector3 endPos,float finishTime,Action onComplete=null)
+    {
+        StartCoroutine(ChangePosition(obj,endPos,finishTime,onComplete));
+    }
 
     /// <summary>
     /// 运用协程改变物体位置
