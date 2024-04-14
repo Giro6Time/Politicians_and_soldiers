@@ -135,7 +135,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &6381311501678950330
 MonoBehaviour:
@@ -824,6 +824,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2674567573335833308, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4067074731508651630, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline
       value: 0
@@ -899,6 +903,14 @@ PrefabInstance:
     - target: {fileID: 4067074733512522295, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365308633266129436, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842322038466308310, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4922606751251247633, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_Color.a
@@ -1263,6 +1275,10 @@ PrefabInstance:
     - target: {fileID: 3442491246628072415, guid: 72516594734c0884ba555605abd0b034, type: 3}
       propertyPath: m_Camera
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442491246628072415, guid: 72516594734c0884ba555605abd0b034, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7471388554770133859, guid: 72516594734c0884ba555605abd0b034, type: 3}
       propertyPath: m_AnchorMax.y

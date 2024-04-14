@@ -27,7 +27,6 @@ public class ArmyManager : MonoBehaviour
     public List<Army> enemyArmyOnSea = new();
     public List<Army> enemyArmyOnSky = new();
 
-    public List<float> BattleEndTroopRemain = new List<float>(3);
     public Action onBattleEnd;
 
     public float progressChangeValue = 0;
@@ -257,6 +256,8 @@ public class ArmyManager : MonoBehaviour
     }
     public List<float> CalculateTroopstrenth()
     {
+        List<float> BattleEndTroopRemain = new List<float>(3);
+
         BattleEndTroopRemain.AddRange(new float[] { 0, 0, 0 });
 
         float calc = 0;
