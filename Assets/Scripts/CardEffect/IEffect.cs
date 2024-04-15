@@ -14,10 +14,16 @@ public class IResultReflectEffect : IEffect
 {
     public CardPos pos;
     public float value;
-    public IResultReflectEffect(CardPos pos, float value) 
+    public float rate;
+
+
+
+
+    public IResultReflectEffect(CardPos pos, float value, float rate) 
     { 
         this.pos = pos; 
         this.value = value;
+        this.rate = rate;
     }
 
     public override void Trigger(object[] args)
