@@ -1,4 +1,10 @@
-﻿版本6.1更新须知：
+﻿关于代码参考：
+所有的代码逻辑只会在三个地方，通过这三个地方可以导向整个模块的任意地点
+1.MeetEventGameCtrl的Init中（初始化逻辑）
+2.MeetEventGameCtrl的Updata中（一些需要持续更新的逻辑）
+3.MeetEventMgr的EventChange中（所有的业物流（tip：理论上这个应该在ctrl中，但是懒））
+
+版本6.1更新须知：
 更新内容：修复了一些已知bug,新增奖池刷新功能
 
 合并须知：无

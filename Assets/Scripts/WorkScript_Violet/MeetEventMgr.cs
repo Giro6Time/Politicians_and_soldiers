@@ -51,6 +51,7 @@ public class MeetEventMgr
         //抽奖和处理只能启动其中一个
         if (isDisposeMeetEvent)
         {
+            //业务池
             //对于卡牌，一次一张
             MeettingEventChange();
             if (IsDead())
@@ -61,6 +62,7 @@ public class MeetEventMgr
         }
         else
         {
+            //抽奖池
             if (MeetEventGameCtrl._Instance.currRounds >= MeetEventGameCtrl._Instance.maxRounds)
             {
                 if (Player.Instance.decisionValue > 0)
