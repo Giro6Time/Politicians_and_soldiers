@@ -33,7 +33,7 @@ public class MeetEventMgr
 
     public Action onExit;
 
-    public MeetEventMgr() 
+    public MeetEventMgr()
     {
         prizePoolList = new List<Prize>();
         currentEventList = new List<EventInfoCollector>();
@@ -43,7 +43,7 @@ public class MeetEventMgr
     /// <summary>
     /// 事件变化
     /// </summary>
-    public void EventChange(bool isYes = false)
+    public void EventChange()
     {
         //冻结期我们应该禁止一切行为
         if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
@@ -52,7 +52,7 @@ public class MeetEventMgr
         if (isDisposeMeetEvent)
         {
             //对于卡牌，一次一张
-            MeettingEventChange(isYes);
+            MeettingEventChange();
             if (IsDead())
             {
                 //调用失败方法
@@ -89,26 +89,24 @@ public class MeetEventMgr
     /// <summary>
     /// 会议事件变化函数
     /// </summary>
-    private void MeettingEventChange(bool isYes)
+    private void MeettingEventChange()
     {
         //如果卡库没有卡，那么禁止玩家进行取值
-        if (currentEventList.Count == 0&&currEventInfoList.Count==0)
+        if (currentEventList.Count == 0 && currEventInfoList.Count == 0)
         {
             MessageView._Instance.ShowTip("您当前的卡池没有卡牌");
             return;
         }
 
         //如果交易，则进行资源变化,并更新UI
-        if (isYes)
+        //进行百分比更新
+        Player.Instance.troopIncrease *= GetAddtionValue();
+        //进行资源更新
+        for (int i = 0; i < 3; i++)
         {
-            //进行百分比更新
-            Player.Instance.troopIncrease *= GetAddtionValue();
-            //进行资源更新
-            for (int i = 0; i < 3; i++)
-            {
-                MeetEventGameCtrl._Instance.eventList[currEventInfoList[i].EventIndex].ResourceChange();
-            }
+            MeetEventGameCtrl._Instance.eventList[currEventInfoList[i].EventIndex].ResourceChange(currEventInfoList[i].isAccept);
         }
+
         //进行UI更新
         UIEventListener._Instance.UIMeetingEventUpdate();
         RemoveCurrEvent();
@@ -152,13 +150,13 @@ public class MeetEventMgr
     /// </summary>
     public void ExtractCurrentEvent()
     {
-        if (currentEventList.Count == 0||currEventInfoList.Count>0)
+        if (currentEventList.Count == 0 || currEventInfoList.Count > 0)
             return;
         //1.事件抽出:总是抽前三张卡:然后删除
         currEventInfoList.Add(currentEventList[0]);
         currEventInfoList.Add(currentEventList[1]);
         currEventInfoList.Add(currentEventList[2]);
-        currentEventList.RemoveRange(0,3);
+        currentEventList.RemoveRange(0, 3);
         //2.模型绘制
         //依次绘制3个物体
         int[] dis = new int[3] { -1, 0, 1 };
@@ -307,7 +305,7 @@ public class MeetEventMgr
     public float GetAddtionValue()
     {
         int allValue = 0;
-        float num = Mathf.Pow(2,currEventInfoList.Count-1);
+        float num = Mathf.Pow(2, currEventInfoList.Count - 1);
         //获取二进制结果
         //4-2-1:接受为1，不接受为0
         foreach (EventInfoCollector item in currEventInfoList)
@@ -323,8 +321,8 @@ public class MeetEventMgr
         {
             if (item.key == battleArray)
             {
-                Debug.Log("阵法为：" + item.key.ToString() +"价值为：" + allValue + "加成为：" + (1+item.value));
-                return 1+item.value;
+                Debug.Log("阵法为：" + item.key.ToString() + "价值为：" + allValue + "加成为：" + (1 + item.value));
+                return 1 + item.value;
             }
         }
         Debug.LogError("报错！阵法错误");
@@ -338,12 +336,12 @@ public class MeetEventMgr
     public void ChangeEventState(int index)
     {
         //1.改变状态
-        currEventInfoList[index].isAccept = !currEventInfoList[index].isAccept;  
+        currEventInfoList[index].isAccept = !currEventInfoList[index].isAccept;
 
         //2.进行运动
         //①确认最终位置
-        Vector3 endPos =  new Vector3( currEventInfoList[index].obj.transform.localPosition.x
-            ,currEventInfoList[index].isAccept ? MeetEventGameCtrl._Instance.cardUpDistance : -MeetEventGameCtrl._Instance.cardUpDistance,0);
+        Vector3 endPos = new Vector3(currEventInfoList[index].obj.transform.localPosition.x
+            , currEventInfoList[index].isAccept ? MeetEventGameCtrl._Instance.cardUpDistance : -MeetEventGameCtrl._Instance.cardUpDistance, 0);
         isFreeze = true;
         MeetEventGameCtrl._Instance.ChangePositionByCoroutine(currEventInfoList[index].obj.transform, endPos, 0.2f,
             () =>
@@ -352,5 +350,5 @@ public class MeetEventMgr
             });
     }
 
-    
+
 }

@@ -18,6 +18,7 @@ public class UIEventListener : MonoBehaviour
     [Header("指针，转盘放置物模板，转盘半径")]
     public Transform prizeWheelPointer;
     public GameObject prizeWheelTemplate;
+    [Header("可修改")]
     public float prizeWheelRadius;
     /// <summary>
     /// 奖品池
@@ -30,7 +31,7 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public Transform prizeWheelPanel;
 
-    [Header("转盘旋转的时间，旋转的圈数，奖品数")]
+    [Header("可修改：转盘旋转的时间，旋转的圈数，奖品数")]
     /// <summary>
     /// 抽奖转盘旋转时间
     /// </summary>
@@ -46,6 +47,7 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public int prizeNums;
 
+    [Space(30)]
     /// <summary>
     /// 奖品父物体
     /// </summary>
@@ -64,9 +66,9 @@ public class UIEventListener : MonoBehaviour
     public Button btn_ChooseYes;
 
     /// <summary>
-    /// 拒绝按钮
+    /// 奖池刷新按钮
     /// </summary>
-    public Button btn_ChooseNo;
+    public Button btn_PrizeWheelRefresh;
 
     /// <summary>
     /// 人物信息容器
@@ -116,6 +118,8 @@ public class UIEventListener : MonoBehaviour
     {
         textPanel = null;
         prizeWheelPointer = null;
+        btn_PrizeWheelRefresh = null;
+        btn_ChooseYes = null;
         sanityText = null;
         armamentText = null;
         fundText = null;
@@ -129,9 +133,8 @@ public class UIEventListener : MonoBehaviour
     public void PrizeWheelUIInit()
     {
         //隐藏按钮（比如选择按钮和数值容器）还有当前的卡牌销毁并重新设定为null
-        btn_ChooseNo.gameObject.SetActive(false);
         btn_ChooseYes.gameObject.SetActive(false);
-
+        btn_PrizeWheelRefresh.gameObject.SetActive(true);
         //更新信息
         UIMeetingEventUpdate();
     }
@@ -142,7 +145,7 @@ public class UIEventListener : MonoBehaviour
     public void MeetEventUIInit()
     {
         //显示按钮（比如选择按钮和数值容器）还有当前的卡牌销毁并重新设定为null
-        btn_ChooseNo.gameObject.SetActive(true);
+        btn_PrizeWheelRefresh.gameObject.SetActive(false);
         btn_ChooseYes.gameObject.SetActive(true);
         //更新信息
         UIMeetingEventUpdate();
@@ -214,7 +217,11 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public void DrawPrizeWheel()
     {
-        
+        if (prizePool.Count == prizeNums)
+        {
+            MessageView._Instance.ShowTip("奖池刷新已完成，请验收");
+            return; 
+        }
         //根据需求：绘制不需要考虑其他问题，只是将模板放置到设定好的位置
         float gapAngle = (2 * Mathf.PI) / prizeNums;
         GameObject obj = null;
@@ -280,13 +287,12 @@ public class UIEventListener : MonoBehaviour
     /// <summary>
     /// 议会事件按钮
     /// </summary>
-    /// <param name="isYes"></param>
-    public void OnBtnClick_MeetingEventChoose(bool isYes)
+    public void OnBtnClick_MeetingEventChoose()
     {
-        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze&&MeetEventGameCtrl._Instance.eventMgr.isDisposeMeetEvent)
             return;
             //修改事件并判定是否结束
-        MeetEventGameCtrl._Instance.eventMgr.EventChange(isYes);
+        MeetEventGameCtrl._Instance.eventMgr.EventChange();
     }
 
     /// <summary>
@@ -353,6 +359,16 @@ public class UIEventListener : MonoBehaviour
         {
             OnBtnClick_StartPrizeWheel();
         }
+    }
+
+    /// <summary>
+    /// 抽奖转盘奖池刷新
+    /// </summary>
+    public void OnBtnClick_PrizeWheelRefresh()
+    {
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
+            return;
+        MeetEventGameCtrl._Instance.eventMgr.UpdatePrizePool();
     }
 
     /// <summary>

@@ -17,16 +17,11 @@ public abstract class MeetEventAbstract : MonoBehaviour
         get { return eventName; }
     }
 
-    [Header("事件提供的倍率")]
-    /// <summary>
-    /// 事件倍率 
-    /// </summary>
-    public float eventRatio;
-
     /// <summary>
     /// 事件信息
     /// </summary>
-    public Player eventInfo;
+    public Player eventInfoActive;
+    public Player eventInfoInactive;
 
     /// <summary>
     /// 事件价值
@@ -69,19 +64,33 @@ public abstract class MeetEventAbstract : MonoBehaviour
     /// <summary>
     /// 资源变动函数
     /// </summary>
-    public void ResourceChange()
+    public virtual void ResourceChange(bool isYes)
     {
-        Player.Instance.decisionValue += eventInfo.decisionValue;
-        Player.Instance.armament += eventInfo.armament;
-        Player.Instance.popularSupport += eventInfo.popularSupport;
-        Player.Instance.fund += eventInfo.fund;
-        Player.Instance.sanity += eventInfo.sanity;
-        Player.Instance.troopIncrease += eventInfo.troopIncrease;
+        if (isYes)
+        {
+            Player.Instance.decisionValue += eventInfoActive.decisionValue;
+            Player.Instance.armament += eventInfoActive.armament;
+            Player.Instance.popularSupport += eventInfoActive.popularSupport;
+            Player.Instance.fund += eventInfoActive.fund;
+            Player.Instance.sanity += eventInfoActive.sanity;
+            Player.Instance.troopIncrease += eventInfoActive.troopIncrease;
+        }
+        else
+        {
+            Player.Instance.decisionValue += eventInfoInactive.decisionValue;
+            Player.Instance.armament += eventInfoInactive.armament;
+            Player.Instance.popularSupport += eventInfoInactive.popularSupport;
+            Player.Instance.fund += eventInfoInactive.fund;
+            Player.Instance.sanity += eventInfoInactive.sanity;
+            Player.Instance.troopIncrease += eventInfoInactive.troopIncrease;
+        }
+       
     }
 
     public virtual void Copy(MeetEventAbstract other)
     {
-        this.eventInfo = other.eventInfo;
+        this.eventInfoActive = other.eventInfoActive;
+        this.eventInfoInactive = other.eventInfoInactive;
         this._eventValue = other.EventValue;
     }
 }

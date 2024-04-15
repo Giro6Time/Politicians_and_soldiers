@@ -25,6 +25,7 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// </summary>
     public Canvas tipCanvas;
 
+    [Header("可修改部分(到大空格前都是)")]
     /// <summary>
     /// 事件链表
     /// </summary>
@@ -57,6 +58,7 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// </summary>
     public Dictionary<int,int> eventValueBeginIndexDic;
 
+    [Space(25)]
     /// <summary>
     /// 当前轮数:即使轮盘也是
     /// </summary>
@@ -260,11 +262,12 @@ public class MeetEventGameCtrl : MonoBehaviour
     /// <returns></returns>
     public IEnumerator PrizeWheel()
     {
+        Quaternion begQua = UIEventListener._Instance.rotateParent.rotation;
         //鉴于需要抽取三次，所以应该进行3次循环
         for (int i = 0; i < 3; i++)
         {
             //复位指针
-            UIEventListener._Instance.prizeWheelPointer.rotation = Quaternion.Euler(Vector3.zero);
+            UIEventListener._Instance.rotateParent.rotation = begQua;
             //1.设定要抽到哪个
             int rand = UnityEngine.Random.Range(0,10000);
             int index = 0;
@@ -292,16 +295,18 @@ public class MeetEventGameCtrl : MonoBehaviour
                 yield return new WaitForSeconds(0.04f);
             }
             //强制校正
-            UIEventListener._Instance.rotateParent.rotation = Quaternion.Euler(Vector3.forward*index * 360 / UIEventListener._Instance.prizeNums);
+            UIEventListener._Instance.rotateParent.rotation = Quaternion.Euler(new Vector3(begQua.eulerAngles.x,begQua.eulerAngles.y,index * 360 / UIEventListener._Instance.prizeNums));
             //抽完以后，进入奖池获取随机事件加入当前池列表
             eventMgr.currentEventList.Add(new EventInfoCollector(eventMgr.GetRandomValueEventIndex(eventMgr.prizePoolList[index].PrizeValue)));
             //旋转完成以后应该显示玩家抽到了什么
-            MessageView._Instance.ShowMessage(String.Format("事件：{0}已经加入事务表", eventList[eventMgr.currentEventList[eventMgr.currentEventList.Count-1].EventIndex].EventName));
+            MessageView._Instance.ShowMessage(String.Format("事件：{0}已经加入事务表，价值为：{1}", eventList[eventMgr.currentEventList[eventMgr.currentEventList.Count - 1].EventIndex].EventName,
+                eventList[eventMgr.currentEventList[eventMgr.currentEventList.Count - 1].EventIndex].EventValue));
 
             //每次抽奖完后休息0.4s
             yield return new WaitForSeconds(0.4f);
         }
-
+        //复位指针
+        UIEventListener._Instance.rotateParent.rotation = begQua;
         //解除冻结
         yield return new WaitForSeconds(0.8f);
         eventMgr.isFreeze = false;

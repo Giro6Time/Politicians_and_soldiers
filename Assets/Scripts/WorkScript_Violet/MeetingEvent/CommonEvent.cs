@@ -10,7 +10,6 @@ public class CommonEvent : MeetEventAbstract
     public override void OnAwake()
     {
         base.OnAwake();
-        eventInfo = new Player();
     }
 
 }

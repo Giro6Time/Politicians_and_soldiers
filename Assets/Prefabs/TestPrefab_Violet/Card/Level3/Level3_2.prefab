@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5299902085364418461}
   - component: {fileID: 6872932350644171797}
   m_Layer: 5
-  m_Name: template1
+  m_Name: Level3_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,13 +89,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d7a53208d727042a5bd3d2640363e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventName: "\u8DEF\u8FC7\u7684\u6A21\u677F1"
-  eventInfo:
+  eventName: "\u5360\u535C\u5E08"
+  eventInfoActive:
     decisionValue: 1
-    sanity: 1
-    armament: 1
-    fund: 1
-    popularSupport: 1
-    troopIncrease: 1
+    sanity: -10
+    armament: 0
+    fund: 0
+    popularSupport: 20
+    troopIncrease: 0
     decisionValueMax: 0
-  _eventValue: 4
+  eventInfoInactive:
+    decisionValue: 0
+    sanity: 20
+    armament: 0
+    fund: 0
+    popularSupport: 0
+    troopIncrease: 0
+    decisionValueMax: 0
+  _eventValue: 3
+  nextValueBeginIndex: 0
