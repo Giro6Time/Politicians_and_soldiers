@@ -22,7 +22,7 @@ public class Player
     private static Player instance;
 
     /// <summary>
-    /// ���ߵ�
+    /// 谁来把这注释补一下O.o
     /// </summary>
     public int decisionValue;
     /// <summary>
@@ -30,23 +30,24 @@ public class Player
     /// </summary>
     public float sanity;
     /// <summary>
-    /// �䱸
+    /// 
     /// </summary>
     public float armament;
     /// <summary>
-    /// �ʽ�
+    /// 
     /// </summary>
     public float fund;
     /// <summary>
-    /// ����
+    /// 
     /// </summary>
     public float popularSupport;
     /// <summary>
-    /// ��������
+    ///
     /// </summary>
     public float troopIncrease;
 
     public float decisionValueMax;
+
 
     internal void Init()
     {

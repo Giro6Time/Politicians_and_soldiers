@@ -321,7 +321,7 @@ public class UIEventListener : MonoBehaviour
             return;
         }
         MeetEventGameCtrl._Instance.eventMgr.GameExit();
-        GameManager.Instance.gameFlowController.OpenIntermissionPanel();
+        GameManager.Instance.gameFlowController.OpenMiniGamePanel();
     }
 
     /// <summary>

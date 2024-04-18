@@ -12,10 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Army1
   m_EditorClassIdentifier: 
+  cardName: 
+  description: 
   troopStrength: 100
+  cost: 0
   matchedSeason: 3
   matchedPos: 1
   cardBaseType: 0
   cardFrame: {fileID: 0}
   inset: {fileID: 0}
-  color: {r: 1, g: 0.72075474, b: 0.72075474, a: 0}
+  drawEffect:
+  - rid: 5247665862689161229
+  - rid: 5247665862689161230
+  invokeEffect: []
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5247665862689161229
+      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        pos: 1
+        value: 1
+        rate: 0
+    - rid: 5247665862689161230
+      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        pos: 1
+        value: 1
+        rate: 0

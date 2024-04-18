@@ -43,8 +43,14 @@ public class CardManager : MonoBehaviour {
 
     public void Init()
     {
-        
     }
+
+    public void RefreshList()
+    {
+        enemyPlayingArea.Refresh();
+        cardPlayingArea.Refresh();
+    }
+
     public void MoveCard(CardBase card, CardArrangement area)
     {
         //手上的牌放到了不合法的位置
@@ -227,7 +233,6 @@ public static class CardFactory
         {
             default: throw new ArgumentNullException("����δ��������");
             case CardBaseType.Army:
-                instance.GetComponent<MeshRenderer>().material.color = cardSO.color;
                 var armyC = instance.AddComponent<ArmyCard>();
                 instance.GetComponent<CardSelectedVisual>().card = armyC;
                 armyC.SetCardPos(CardPos.SelectionArea);
@@ -241,7 +246,10 @@ public static class CardFactory
                 return instance;
             case CardBaseType.Effect:
                 throw new NotImplementedException("�������Ϳ��ƴ�ʵ��");
-
         }
     }
+
+
+
+   
 }

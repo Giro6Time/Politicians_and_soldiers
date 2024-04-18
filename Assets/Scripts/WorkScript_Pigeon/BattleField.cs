@@ -27,6 +27,11 @@ public class BattleField : MonoBehaviour
 
     }
 
+    public void Init()
+    {
+        armyManager.onBattleEnd += OnBattleEnd;
+    }
+
     public void BattleStart()
     {
         battleEndPanel.ResetPanel();
@@ -43,11 +48,11 @@ public class BattleField : MonoBehaviour
     public void Battle()
     {
         armyManager.Battle();
-        OnBattleEnd();
     }
 
     public void OnBattleEnd()
     {
+        Debug.Log("Battle is end!");
         battleProgress.ProgressChange(armyManager.progressChangeValue);
         armyManager.progressChangeValue = 0;
         //先进行一次胜负判定
@@ -55,9 +60,5 @@ public class BattleField : MonoBehaviour
             onGameWin?.Invoke();
         else if (battleProgress.progressBar <= 0)
             onGameLose?.Invoke();
-        else
-        {
-            battleEndPanel.ShowPanel();
-        }
     }   
 }
