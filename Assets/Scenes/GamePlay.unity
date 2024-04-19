@@ -1681,18 +1681,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 129738282}
     m_Modifications:
-    - target: {fileID: 1532786291831206357, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1532786291831206357, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1532786291831206357, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1969503762124862221, guid: 72516594734c0884ba555605abd0b034, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1701,14 +1689,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
-    - target: {fileID: 6125951944997471056, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6125951944997471056, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7471388554770133859, guid: 72516594734c0884ba555605abd0b034, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1789,14 +1769,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7609299513774453774, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: prizeWheelRotateTime
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7609299513774453774, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: prizeWheelRotateTurns
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7609299514855614448, guid: 72516594734c0884ba555605abd0b034, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1867,42 +1839,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7609299515498788898, guid: 72516594734c0884ba555605abd0b034, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7742914671388403474, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9659258
-      objectReference: {fileID: 0}
-    - target: {fileID: 7742914671388403474, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.2588191
-      objectReference: {fileID: 0}
-    - target: {fileID: 7742914671388403474, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 8103179484146486234, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8276140963664031681, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8276140963664031681, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8276140963664031681, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8276140963664031681, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8276140963664031681, guid: 72516594734c0884ba555605abd0b034, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
