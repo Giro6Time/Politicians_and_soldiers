@@ -684,7 +684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4067074733232235408, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4067074733512522295, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline
