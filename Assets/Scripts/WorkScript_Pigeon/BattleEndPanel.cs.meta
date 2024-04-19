@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b706cc894ddc7e64fb8274d04efd09e2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - battleResultPanel: {fileID: 7180430528880602233, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
+  - gameResultPanel: {fileID: 6982559255806532252, guid: 2854790e54c3a154ea7195e9813c2b5d, type: 3}
+  - battleAnimation: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

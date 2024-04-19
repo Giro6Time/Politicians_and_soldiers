@@ -1,147 +1,255 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class MeetEventGameCtrl : MonoBehaviour
 {
-    [Header("Ê¹ÓÃËµÃ÷£º²»Í¬ÊÂ¼şÖ»ĞèÒªÖ¸¶¨¿¨ÃæºÍÎÄ×ÖËµÃ÷¾ÍĞĞ")]
+    [Header("ä½¿ç”¨è¯´æ˜ï¼šä¸åŒäº‹ä»¶åªéœ€è¦æŒ‡å®šå¡é¢å’Œæ–‡å­—è¯´æ˜å°±è¡Œ")]
 
     /// <summary>
-    /// µ¥Àı
+    /// å•ä¾‹
     /// </summary>
     [HideInInspector]
     public static MeetEventGameCtrl _Instance;
 
-    #region ¿ÉÉèÖÃ/¿ÉÊÓ»¯²¿·Ö
+    #region å¯è®¾ç½®/å¯è§†åŒ–éƒ¨åˆ†
     /// <summary>
-    /// µ±Ç°ÂÖÊı:¼´Ê¹ÂÖÅÌÒ²ÊÇ
-    /// </summary>
-    public int currRounds;
-    /// <summary>
-    /// ×î´óÂÖÊı
-    /// </summary>
-    public int maxRounds = 6;
-    /// <summary>
-    /// ×î´ó±øÁ¦²¹³äÖµ
-    /// UPDATE:ºóĞø¿ÉÄÜÎŞ×î´ó±øÁ¦ÏŞÖÆ
-    /// </summary>
-    public int maxArmPlugNum;
-
-    /// <summary>
-    /// »áÒéÊÂ¼ş»­²¼
+    /// ä¼šè®®äº‹ä»¶ç”»å¸ƒ
     /// </summary>
     public Canvas meetEventCanvas;
 
     /// <summary>
-    /// ³é½±×ªÅÌ»­²¼
+    /// æç¤ºå’Œä¿¡æ¯ç”»å¸ƒ
     /// </summary>
-    public Canvas prizeWheelCanvas;
+    public Canvas tipCanvas;
+
+    [Header("å¯ä¿®æ”¹éƒ¨åˆ†(åˆ°å¤§ç©ºæ ¼å‰éƒ½æ˜¯)")]
+    /// <summary>
+    /// äº‹ä»¶é“¾è¡¨
+    /// </summary>
+    [Header("æ·»åŠ äº‹ä»¶è¯·åŠ è¿™(ä¸éœ€è¦åœ¨æ„é¡ºåºï¼Œå†…å«æ’åºç®—æ³•)ï¼Œå¡ç‰Œé—´éš”(ç‰¹æŒ‡Xè½´)")]
+    public List<MeetEventAbstract> eventList;
+    /// <summary>
+    /// å¡ç‰Œé—´éš”
+    /// </summary>
+    public float cardDistance;
 
     /// <summary>
-    /// ÊÂ¼şÁ´±í
+    /// å¡ç‰Œä¸Šå‡è·ç¦»
     /// </summary>
-    [Header("Ìí¼ÓÊÂ¼şÇë¼ÓÕâ")]
-    public List<MeetEventAbstract> eventList;
+    public float cardUpDistance;
+
+    [Serializable]
+    public struct BattleArrayKeyValue
+    {
+        public BattleArray key;
+        public float value;
+    }
+
+    /// <summary>
+    /// é˜µå®¹åŠ æˆ
+    /// </summary>
+    public List<BattleArrayKeyValue> BattleArrayAddtion = new List<BattleArrayKeyValue>(8);
+
+    /// <summary>
+    /// <ä»·å€¼ï¼Œä»·å€¼èµ·å§‹åæ ‡>
+    /// </summary>
+    public Dictionary<int,int> eventValueBeginIndexDic;
+
+    [Space(25)]
+    /// <summary>
+    /// å½“å‰è½®æ•°:å³ä½¿è½®ç›˜ä¹Ÿæ˜¯
+    /// </summary>
+    [Header("ä¸‹é¢çš„ä»…ä¾›è§‚æµ‹")]
+    public int currRounds;
+    /// <summary>
+    /// æœ€å¤§è½®æ•°
+    /// </summary>
+    public int maxRounds = 6;
     #endregion
 
-    #region ²»¿É¼û²¿·Ö
+    #region ä¸å¯è§éƒ¨åˆ†
     /// <summary>
-    /// ÊÂ¼ş¹ÜÀíÆ÷
+    /// äº‹ä»¶ç®¡ç†å™¨
     /// </summary>
     [HideInInspector]
     public MeetEventMgr eventMgr;
-
-    /// <summary>
-    /// ÊÂ¼şÊÕÒæ
-    /// UPDATE:Èç¹ûÒÑ¾­ÓĞPlayer¶ÔÏóÁË£¬´Ë´¦¿ÉÉ¾³ı¸Ã¶ÔÏó£¬²¢½«ËùÓĞ¸Ã¶ÔÏóµ÷ÓÃÌæ»»ÎªÄ¿±ê¶ÔÏó
-    /// ²½Öè£º
-    /// Ctrl+F->²éÕÒ£ºÊäÈë´ıÌæ»»×Ö·û´®   Ìæ»»£ºÊäÈëÄ¿±ê×Ö·û´® Ñ¡Ôñ£ºµ±Ç°ÏîÄ¿/Õû¸ö½â¾ö·½°¸ È«²¿Ìæ»»:¼´¿É
-    /// </summary>
-    [HideInInspector]
-    public Player currEventProfit;
     #endregion
 
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (_Instance == null)
         {
             _Instance = this;
         }
         eventMgr = new MeetEventMgr();
-        currEventProfit = new Player();
+        meetEventCanvas.worldCamera = Camera.main;
+        tipCanvas.worldCamera = Camera.main;
+        tipCanvas.planeDistance = 1;
+        meetEventCanvas.gameObject.SetActive(false);
+        //ä½¿ç”¨æ–°çº¿ç¨‹è¿›è¡Œæ’åºä»¥ä¸å½±å“ä¸»çº¿ç¨‹é€»è¾‘
+        Thread thread = new Thread(()=>
+        {
+            eventList.Sort((x, y) =>
+            {
+                return x.EventValue.CompareTo(y.EventValue);
+            });
+            List<int> valueChangeIndex = new List<int>();
+            //ç¬¬ä¸€ä¸ªä»·å€¼çš„èµ·ç‚¹å¿…ç„¶æ˜¯0
+            valueChangeIndex.Add(0);
+            for (int i = 1; i < eventList.Count; i++)
+            {
+                //å½“ä»·å€¼å‘ç”Ÿå˜åŒ–æ—¶ï¼šå°†å½“å‰ä¸‹æ ‡åŠ å…¥å­—å…¸
+                if (eventList[i].EventValue > eventList[i - 1].EventValue)
+                {
+                    valueChangeIndex.Add(i);
+                }
+            }
+            int index = 0;
+            //ä¹‹åï¼šå°†æœ¬ä»·å€¼çš„æ‰€æœ‰ç‚¹çš„ä¸‹ä¸€ä»·å€¼èµ·ç‚¹è®¾ä¸ºæŒ‡å®šç‚¹
+            for (int i = 0; i < eventList.Count; i++)
+            {
+                if (index < valueChangeIndex.Count - 1)
+                {
+                    if (eventList[i].EventValue == eventList[valueChangeIndex[index]].EventValue)
+                    {
+                        eventList[i].nextValueBeginIndex = valueChangeIndex[index + 1];
+                    }
+                    else
+                    {
+                        index++;
+                        i--;
+                    }
+                }
+                else
+                {
+                    eventList[i].nextValueBeginIndex = eventList.Count;//å°¾æŒ‡é’ˆæŒ‡å‘å¤´æŒ‡é’ˆ
+                }
+            }
+        });
+        thread.Start();
+    }
+
+
+
+    private void Update()
+    {
+        if(!eventMgr.isFreeze&&Input.GetMouseButtonUp(0)&& UIEventListener._Instance.prizeWheelPanel.localPosition.y > 10 && eventMgr.currEventInfoList.Count > 0)
+        {
+            //1.è·å–é¼ æ ‡åæ ‡
+            Vector3 mousePos = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2);
+            RectTransform rectTrans = eventMgr.currEventInfoList[0].obj.GetComponent<RectTransform>();
+            //2.åˆ¤å®šé¼ æ ‡ä½ç½®
+            //ä»å›¾åƒå³è¾¹ç•Œå¼€å§‹
+            float targetX = -((eventMgr.currEventInfoList.Count / 2) * cardDistance - rectTrans.rect.width / 2) * meetEventCanvas.scaleFactor;
+            int index = 0;
+            //åˆ¤å®šé¼ æ ‡æ‰€åœ¨ä½ç½®åŒºé—´(curr,next)
+            while (mousePos.x > targetX)
+            {
+                targetX += cardDistance * meetEventCanvas.scaleFactor;
+                index++;
+            }
+            //åˆ¤å®šé¼ æ ‡ä¸åŒºé—´è·ç¦»
+            //å¦‚æœé¼ æ ‡ä¸ç›®æ ‡åŒºé—´çš„Xè·ç¦»å°äºwidthï¼Œè¿™è¯´æ˜åœ¨ç›®æ ‡åŒºé—´
+            if ((targetX - mousePos.x) < rectTrans.rect.width)
+            {
+                //3.è¿›è¡ŒYè½´è®¢æ­£
+                if (Mathf.Abs(mousePos.y - eventMgr.currEventInfoList[index].obj.transform.localPosition.y*meetEventCanvas.scaleFactor) < rectTrans.rect.height * 0.8f)
+                {
+                    //è¿›è¡Œè¿åŠ¨
+                    eventMgr.ChangeEventState(index);
+                }
+            }
+        }
+        
     }
 
     private void OnDestroy()
     {
         meetEventCanvas = null;
-        prizeWheelCanvas = null;
         eventList.Clear();
         eventList = null;
         eventMgr = null;
     }
 
-    public void Init(int decisionPointNums)
+    #region åˆå§‹åŒ–ä¸æ¨¡å¼æ”¹å˜é€»è¾‘
+    public void Init()
     {
-        //currEventProfit.fund = fundRate_Init * decisionPointNums;
-        //currEventProfit.people = peopleRate_Init * decisionPointNums;
-        //currEventProfit.equipment = equipRate_Init * decisionPointNums;
-        //UPDATE:³õÊ¼»¯Éè¶¨×î´ó³é¿¨´ÎÊı
-        maxRounds = 3 * decisionPointNums;
-        //¼ÓÔØ³õÊ¼»¯½çÃæ/¼¤»î³õÊ¼»¯½çÃæ
-        //¸Õ½øÀ´Ê±£º¼¤»îµÄ¶ÔÏóÎª£º³é½±ÂÖÅÌ
+        //UPDATE:åˆå§‹åŒ–è®¾å®šæœ€å¤§æŠ½å¡æ¬¡æ•°
+        maxRounds = 0;
+        //åŠ è½½åˆå§‹åŒ–ç•Œé¢/æ¿€æ´»åˆå§‹åŒ–ç•Œé¢
+        //åˆšè¿›æ¥æ—¶ï¼šæ¿€æ´»çš„å¯¹è±¡ä¸ºï¼šæŠ½å¥–è½®ç›˜
         currRounds = 0;
-        eventMgr.isFreeze = false;
-        prizeWheelCanvas.gameObject.SetActive(true);
-        meetEventCanvas.gameObject.SetActive(false);        
-        //È»ºó¸ù¾İÁ½Õß×´Ì¬½øĞĞ³õÊ¼»¯
-        if (prizeWheelCanvas.gameObject.activeSelf)
+
+        //è¿›è¡Œåˆå§‹åŒ–:æ¿€æ´»UIï¼Œå®ŒæˆUIåˆå§‹åŒ–ä¹‹åå†è§£å†»
+        meetEventCanvas.gameObject.SetActive(true);
+        UIEventListener._Instance.textPanel.SetActive(false);
+        UIEventListener._Instance.PrizeWheelUIInit();
+        //å¯¹äºæŠ½å¥–è½®ç›˜ï¼šéœ€è¦åˆå§‹åŒ–çš„æ˜¯æœ‰ä»€ä¹ˆå¥–å“(è¦ä¸è¦æ€»æ˜¯æ›´æ–°è¿˜éœ€è¦è€ƒè™‘)
+        MeetEventGameCtrl._Instance.eventMgr.UpdatePrizePool();
+        eventMgr.isFreeze = true;
+        StartCoroutine(ChangeAlpha(meetEventCanvas.gameObject,0.8f,()
+            =>
         {
-            //¶ÔÓÚ³é½±ÂÖÅÌ£ºĞèÒª³õÊ¼»¯µÄÊÇÓĞÊ²Ã´½±Æ·(Òª²»Òª×ÜÊÇ¸üĞÂ»¹ĞèÒª¿¼ÂÇ)
-            eventMgr.UpdatePrizePool();
-        }
-        else
-        {
-            //¶ÔÓÚ»áÒéÊÂ¼ş£ºĞèÒª³õÊ¼»¯µÄÊÇ¿ªÆôµÚÒ»¸öÊÂ¼ş
-            eventMgr.ExtractCurrentEvent();
-        }
+            eventMgr.isFreeze = false;
+        }));
     }
 
     /// <summary>
-    /// ¸Ä±äÓÎÏ·ÖÖÀà£º
-    /// ³é½±ÂÖÅÌºÍ»áÒéÊÂ¼ş
+    /// å¤„ç†ä¼šè®®äº‹ä»¶
+    /// åˆå§‹åŒ–+æŠ½å‡ºç‰Œ,åªæœ‰è½®ç›˜åœ¨ä¸‹é¢æ‰è¿è¡Œç©å®¶è¿›è¡ŒæŠ½ç‰Œå’Œè®¾ç½®
     /// </summary>
-    public void ChangeGameType()
+    public void DisposeMeetEvent()
     {
-        currRounds = 0;
-        eventMgr.isFreeze = false;
-        prizeWheelCanvas.gameObject.SetActive(!prizeWheelCanvas.gameObject.activeSelf);
-        meetEventCanvas.gameObject.SetActive(!prizeWheelCanvas.gameObject.activeSelf);
-        //È»ºó¸ù¾İÁ½Õß×´Ì¬½øĞĞ³õÊ¼»¯
-        if (prizeWheelCanvas.gameObject.activeSelf)
+        if (eventMgr.currentEventList.Count == 0&& eventMgr.currEventInfoList.Count==0)
         {
-            //¶ÔÓÚ³é½±ÂÖÅÌ£ºĞèÒª³õÊ¼»¯µÄÊÇÓĞÊ²Ã´½±Æ·(Òª²»Òª×ÜÊÇ¸üĞÂ»¹ĞèÒª¿¼ÂÇ)
-            eventMgr.UpdatePrizePool();
+            MessageView._Instance.ShowTip("æ‚¨å½“å‰å¡åº“æ²¡æœ‰å¡ç‰Œå‘¢ï¼");
+            return;
         }
-        else
+        //è½¬ç›˜ä¸Šç§»:è½®ç›˜ä¸Šç§»çš„æ¡ä»¶æ˜¯è½®ç›˜åœ¨ä¸‹é¢
+        if (UIEventListener._Instance.prizeWheelPanel.localPosition.y < 10)
         {
-            //¶ÔÓÚ»áÒéÊÂ¼ş£ºĞèÒª³õÊ¼»¯µÄÊÇ¿ªÆôµÚÒ»¸öÊÂ¼ş
-            eventMgr.ExtractCurrentEvent();
+            UIEventListener._Instance.PrizeWheelUp(
+                () =>
+                {
+                    //åŸºæœ¬ä¿¡æ¯åˆå§‹åŒ–
+                    eventMgr.isDisposeMeetEvent = true;
+                    UIEventListener._Instance.MeetEventUIInit();
+                    if (eventMgr.currEventInfoList.Count > 0)
+                    {
+                        eventMgr.CurrEventStateChange();
+                    }
+                    else
+                    {
+                        eventMgr.ExtractCurrentEvent();
+                    }
+                });
         }
+   
     }
 
     /// <summary>
-    /// ÑÓÊ±ĞŞ¸ÄÄ£Ê½£¨ÖĞ¼ä¿É²åÈë¶¯»­½¥Èë½¥³ö£©
+    /// å¤„ç†æŠ½å¥–è½¬ç›˜äº‹ä»¶
+    /// å¦‚æœè½¬ç›˜åœ¨ä¸Šé¢ï¼Œé‚£ä¹ˆè®©è½¬ç›˜ä¸‹æ¥ï¼Œå¹¶è¿”å›
     /// </summary>
-    public void InvokeChangeGameType()
+    public void DisposePrizeWheel()
     {
-        Invoke("ChangeGameType",1.5f);
+        eventMgr.isDisposeMeetEvent = false;
+        if (UIEventListener._Instance.prizeWheelPanel.localPosition.y > 10)
+        {
+            //éšè—æ­£åœ¨æ‰§è¡Œçš„äº‹ä»¶
+            eventMgr.CurrEventStateChange();
+            UIEventListener._Instance.PrizeWheelUIInit();
+            UIEventListener._Instance.PrizeWheelDown();
+        }
     }
+    #endregion
 
+    #region æŠ½å¥–é€»è¾‘
     /// <summary>
-    /// ×ªÅÌ¿ªÆô
+    /// è½¬ç›˜å¼€å¯
     /// </summary>
     public void StartPrizeWheel()
     {
@@ -149,50 +257,196 @@ public class MeetEventGameCtrl : MonoBehaviour
     }
 
     /// <summary>
-    /// ½øĞĞ³é½±
+    /// è¿›è¡ŒæŠ½å¥–
     /// </summary>
     /// <returns></returns>
     public IEnumerator PrizeWheel()
     {
-        //Éè¶¨Ğı×ªÊ±¼ä
-        float rotateTime = (1 + UnityEngine.Random.Range(-0.3f, 0.3f)) * UIEventListener._Instance.prizeWheelRotateTime;
-        //²¥·Å¶¯»­£º×Ô¶¨Òå¶¯»­/²åÖµ/Ğı×ª£¿
-        while (rotateTime > 0)
+        Quaternion begQua = UIEventListener._Instance.rotateParent.rotation;
+        //é‰´äºéœ€è¦æŠ½å–ä¸‰æ¬¡ï¼Œæ‰€ä»¥åº”è¯¥è¿›è¡Œ3æ¬¡å¾ªç¯
+        for (int i = 0; i < 3; i++)
         {
-            rotateTime -= 0.04f;
-            //¿ªÊ¼Ğı×ª
-            UIEventListener._Instance.prizeWheelPointer.Rotate(Vector3.forward, rotateTime * UIEventListener._Instance.prizeWheelRotateSpeed);
+            //å¤ä½æŒ‡é’ˆ
+            UIEventListener._Instance.rotateParent.rotation = begQua;
+            //1.è®¾å®šè¦æŠ½åˆ°å“ªä¸ª
+            int rand = UnityEngine.Random.Range(0,10000);
+            int index = 0;
+            float rotateRealTime = 0f;
+            float rotateSpeed = 0f;
+            foreach (Prize pair in eventMgr.prizePoolList)
+            {
+                if (rand < pair.CumProbability)
+                {
+                    rotateRealTime = UIEventListener._Instance.prizeWheelRotateTurns * (1 + UnityEngine.Random.Range(0, UIEventListener._Instance.prizeWheelRotateTurns/2)) * 360 + index*360/UIEventListener._Instance.prizeNums;
+                    break;
+                }
+                index++;
+            }
+            //è®¾å®šè®¾å®šæ¯ä¸€å¸§æ—‹è½¬çš„è§’åº¦
+            rotateSpeed = rotateRealTime / (25*UIEventListener._Instance.prizeWheelRotateTime);
+            rotateRealTime = UIEventListener._Instance.prizeWheelRotateTime;
+            //è®¾å®šæ—‹è½¬è§’åº¦
+            //æ’­æ”¾åŠ¨ç”»ï¼šè‡ªå®šä¹‰åŠ¨ç”»/æ’å€¼/æ—‹è½¬ï¼Ÿ
+            while (rotateRealTime > 0)
+            {
+                rotateRealTime -= 0.04f;
+                //å¼€å§‹æ—‹è½¬
+                UIEventListener._Instance.rotateParent.Rotate(Vector3.forward, rotateSpeed);
+                yield return new WaitForSeconds(0.04f);
+            }
+            //å¼ºåˆ¶æ ¡æ­£
+            UIEventListener._Instance.rotateParent.rotation = Quaternion.Euler(new Vector3(begQua.eulerAngles.x,begQua.eulerAngles.y,index * 360 / UIEventListener._Instance.prizeNums));
+            //æŠ½å®Œä»¥åï¼Œè¿›å…¥å¥–æ± è·å–éšæœºäº‹ä»¶åŠ å…¥å½“å‰æ± åˆ—è¡¨
+            eventMgr.currentEventList.Add(new EventInfoCollector(eventMgr.GetRandomValueEventIndex(eventMgr.prizePoolList[index].PrizeValue)));
+            //æ—‹è½¬å®Œæˆä»¥ååº”è¯¥æ˜¾ç¤ºç©å®¶æŠ½åˆ°äº†ä»€ä¹ˆ
+            MessageView._Instance.ShowMessage(String.Format("äº‹ä»¶ï¼š{0}å·²ç»åŠ å…¥äº‹åŠ¡è¡¨ï¼Œä»·å€¼ä¸ºï¼š{1}", eventList[eventMgr.currentEventList[eventMgr.currentEventList.Count - 1].EventIndex].EventName,
+                eventList[eventMgr.currentEventList[eventMgr.currentEventList.Count - 1].EventIndex].EventValue));
+
+            //æ¯æ¬¡æŠ½å¥–å®Œåä¼‘æ¯0.4s
+            yield return new WaitForSeconds(0.4f);
+        }
+        //å¤ä½æŒ‡é’ˆ
+        UIEventListener._Instance.rotateParent.rotation = begQua;
+        //è§£é™¤å†»ç»“
+        yield return new WaitForSeconds(0.8f);
+        eventMgr.isFreeze = false;
+
+        yield return null;
+    }
+    #endregion
+
+    public void ChangePositionByCoroutine(Transform obj,Vector3 endPos,float finishTime,Action onComplete=null)
+    {
+        StartCoroutine(ChangePosition(obj,endPos,finishTime,onComplete));
+    }
+
+    /// <summary>
+    /// è¿ç”¨åç¨‹æ”¹å˜ç‰©ä½“ä½ç½®
+    /// </summary>
+    /// <param name="obj">ç‰©ä½“</param>
+    /// <param name="endPos">ç»ˆæ­¢ä½ç½®</param>
+    /// <param name="finishTime">èŠ±è´¹çš„æ—¶é—´</param>
+    /// <param name="onComplete">å®Œæˆäº‹ä»¶</param>
+    /// <returns></returns>
+    public IEnumerator ChangePosition(Transform obj, Vector3 endPos, float finishTime, Action onComplete = null)
+    {
+        //è·å–çœŸè·ç¦»
+        Vector3 begPos = obj.localPosition;
+        //è·å–æ¯ä¸€ä»½çš„é€Ÿåº¦
+        Vector3 moveSpeed = (endPos - begPos) / (finishTime * 25);
+        //å¼€å§‹ä½ç§»
+        while (finishTime >= 0)
+        {
+            finishTime -= 0.04f;
+            obj.localPosition += moveSpeed;
             yield return new WaitForSeconds(0.04f);
         }
-        //²¥·Å½áÊø¼ÆËã½á¹û£¬²¢½«½á¹ûÈë¶Ó
-        //¼ÆËã·½Ê½1£ºÖ±½Ó±éÀúÃ¿¸öÔÚÎ»ÊÂ¼şµÄÎ»ÖÃ£¬È»ºó±È¶ÔÎ»ÖÃµÃ³ö½á¹û
-        //¼ÆËã·½Ê½2£º¿ª¾Ö²¼¾Ö°Ë¸ö½áµãµÄÎ»ÖÃ£ºÈ»ºó¸ù¾İÍ£Ö¹Ê±Ö¸ÕëÖ¸ÏòµÄ·½ÏòµÃµ½Ä¿±êÊÂ¼şµÄ½á¹û
-        //²ÉÈ¡·½Ê½2£º
-        //1.»ñÈ¡Ö¸Õëµ±Ç°Ğı×ª½Ç¶È(eulerÊÇ0-360¶È)
-        rotateTime = UIEventListener._Instance.prizeWheelPointer.transform.eulerAngles.z;
-        //2.´Ó×ÖµäÖĞËÑË÷´¦ÓÚ¸Ã½Ç¶ÈµÄÎïÌå
-        foreach (KeyValuePair<int, MeetEventAbstract> pair in eventMgr.currPrizeDic)
-        {
-            //ÓÉÓÚ×ÖµäÊÇÒÀ´Î´ÓĞ¡µ½´ó·ÅÈëµÄ£¬ËùÒÔÈç¹ûµ±Ç°½Ç¶ÈĞ¡ÓÚÄ¿±ê½Ç¶È£¬ÄÇÃ´ËµÃ÷³éÖĞµÄ¾ÍÊÇ¸ÃÄ¿±ê
-            if (rotateTime < pair.Key)
-            {
-                eventMgr.currentEventList.Add(pair.Value);
-                Debug.Log("Ö¸Õë½Ç¶È£º" + rotateTime + "Ä¿±ê½Ç¶È£º" + pair.Key + "Ä¿±êÃû£º" + pair.Value.name);
-                break;
-            }
-        }
-        //½â³ı¶³½á
-        eventMgr.isFreeze = false;
+        //è°ƒç”¨ç»“æŸäº‹ä»¶
+        if (onComplete != null)
+            onComplete();
         yield return null;
     }
 
     /// <summary>
-    /// Ïú»ÙÎïÌå
+    /// è¿ç”¨åç¨‹æ”¹å˜ç‰©ä½“ä½ç½®
+    /// </summary>
+    /// <param name="obj">ç‰©ä½“</param>
+    /// <param name="finishTime">èŠ±è´¹çš„æ—¶é—´</param>
+    /// <param name="onComplete">å®Œæˆäº‹ä»¶</param>
+    /// <returns></returns>
+    public IEnumerator ChangeAlpha(GameObject obj, float finishTime, Action onComplete = null)
+    {
+        //è·å–çœŸè·ç¦»
+        Renderer renderer = obj.GetComponent<Renderer>();
+        CanvasRenderer canvasRenderer = obj.GetComponent<CanvasRenderer>();
+        CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+        //ç‰©ä½“æ¸å…¥
+        if (renderer != null)
+        {
+            Material mat = renderer.material;
+            Color objColor = mat.color;
+            mat.color = Color.clear;
+            //è·å–æ¯ä¸€ä»½çš„é€Ÿåº¦
+            float ramp = objColor.a / (finishTime * 25);
+            objColor.a = 0;
+            mat.color = objColor;
+            //å¼€å§‹ä½ç§»
+            while (finishTime >= 0)
+            {
+                finishTime -= 0.04f;
+                objColor.a += ramp;
+                mat.color = objColor;
+                yield return new WaitForSeconds(0.04f);
+            }
+        }
+        else if (canvasRenderer != null)
+        {
+            //UIæ¸å…¥
+            float currAlpha = canvasRenderer.GetAlpha();
+            float ramp = currAlpha / (finishTime * 25);
+            //å¼€å§‹ä½ç§»
+            while (finishTime >= 0)
+            {
+                finishTime -= 0.04f;
+                currAlpha -= ramp;
+                canvasRenderer.SetAlpha(currAlpha);
+                yield return new WaitForSeconds(0.04f);
+            }
+        }
+        else
+        {
+            //ç”»å¸ƒæ¸å…¥
+            float currAlpha = canvasGroup.alpha;
+            float ramp = currAlpha / (finishTime * 25);
+            canvasGroup.alpha = 0;
+            //å¼€å§‹ä½ç§»
+            while (finishTime >= 0)
+            {
+                finishTime -= 0.04f;
+                canvasGroup.alpha += ramp;
+                yield return new WaitForSeconds(0.04f);
+            }
+        }
+    
+        //è°ƒç”¨ç»“æŸäº‹ä»¶
+        if (onComplete != null)
+            onComplete();
+        yield return null;
+    }
+
+    /// <summary>
+    /// é”€æ¯ç‰©ä½“
     /// </summary>
     public static void DestroyObj(GameObject obj)
     {
         Destroy(obj);
     }
 
+    #region å¼ƒç”¨æ•ˆæœ
+    //float rotateDirection = 0;
+    //float rotateSize = 0;
+    //private void Update()
+    //{
+    //    //æ¨¡æ‹Ÿç‹æƒçš„å·¦ç§»å’Œå³ç§»
+    //    if (eventMgr.currEvent != null)
+    //    {
+    //        //æ ¹æ®é¼ æ ‡åœ¨å·¦å±è¿˜æ˜¯å³å±è®©å¡ç‰‡æ­ªå‘é‚£è¾¹(å› ä¸ºé¼ æ ‡çš„åæ ‡è½´æ˜¯ä»å·¦ä¸‹è§’å¼€å§‹çš„)
+    //        rotateDirection = 0.5f-Input.mousePosition.x / screenSize_Width;
+    //        //è®©å¡ç‰‡æ­ªå‘æŒ‡å®šæ–¹å‘,ä½†æ˜¯é™åˆ¶åœ¨é¼ æ ‡çš„è§’åº¦ä¹‹ä¸‹:
+    //        //åœ¨å¹³é¢è§†è§’ä¸‹ï¼šå±å¹•è¢«åˆ†å‰²ä¸º180åº¦(ä½†æ˜¯å¸Œæœ›æ˜¯120åº¦)ï¼Œè€ŒrotateDirectionçš„èŒƒå›´æ˜¯(-0.5,+0.5)->(-60,60)
+    //        //å½“åœ¨å·¦æ—¶ï¼šå¸Œæœ›å°äºç­‰äº60ï¼Œåœ¨å³æ—¶å¸Œæœ›å¤§äºç­‰äº-60,
+    //        if (rotateDirection > 0)
+    //        {
+    //            rotateSize = Mathf.Min(eventMgr.currEvent.transform.eulerAngles.z + rotateDirection, rotateDirection*120);
+    //        }
+    //        else
+    //        {
+    //            rotateSize = Mathf.Max(eventMgr.currEvent.transform.eulerAngles.z + rotateDirection, 360+rotateDirection * 120);
+    //            rotateSize = rotateSize < 300 ? 300 : rotateSize;
+    //        }
+    //        eventMgr.currEvent.gameObject.transform.rotation = Quaternion.Euler(Vector3.forward*rotateSize);
+    //    }
+    //}
+    #endregion
 
 }

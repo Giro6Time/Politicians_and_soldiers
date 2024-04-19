@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SceneTest_Violet/ShaderLab.unity
+    guid: 78ec1f794b061c9439fe2f80edd406c2
   m_configObjects: {}
