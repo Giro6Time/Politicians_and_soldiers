@@ -18,11 +18,11 @@ public class ArmyManager : MonoBehaviour
             instance = this;
         }
     }
-    //�ҷ�ս��
+    //我方海陆空军
     public List<Army> armyOnLand = new ();
     public List<Army> armyOnSea = new();
     public List<Army> armyOnSky = new();
-    //�з�ս��
+    //敌方海陆空军
     public List<Army> enemyArmyOnLand = new();
     public List<Army> enemyArmyOnSea = new();
     public List<Army> enemyArmyOnSky = new();
@@ -37,7 +37,7 @@ public class ArmyManager : MonoBehaviour
     public float skyEffect1 = 10f;
     public float skyEffect2 = 10f;
     public float ElseEffect = 0;
-    public int Fix = 0; //��������
+    public int Fix = 0; //修补值：作用？
 
     [Header("动画相关")]
     private float startTime;

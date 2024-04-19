@@ -3,17 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MeetEventAbstract:MonoBehaviour
-{   
-    /// <summary>
-    /// �¼���Ϣ
-    /// </summary>
-    public Player eventInfo;
+public abstract class MeetEventAbstract : MonoBehaviour
+{
+    [Header("事件名：必填！")]
+    [SerializeField]
+    private string eventName;
 
     /// <summary>
-    /// �¼���ֵ
+    /// 事件名称
     /// </summary>
-    [Header("�¼���ֵ����Ӱ�챻��ȡ����,Խ��Խ�ѣ�")]
+    public string EventName
+    { 
+        get { return eventName; }
+    }
+
+    /// <summary>
+    /// 事件信息
+    /// </summary>
+    public Player eventInfoActive;
+    public Player eventInfoInactive;
+
+    /// <summary>
+    /// 事件价值
+    /// </summary>
+    [Header("事件价值（会影响被抽取概率,越高越难）")]
     [SerializeField]
     private int _eventValue;
 
@@ -21,6 +34,13 @@ public abstract class MeetEventAbstract:MonoBehaviour
     {
         get { return _eventValue; }
     }
+
+    /// <summary>
+    /// 下一价值的起始坐标
+    /// tip:最终价值指向的是count
+    /// </summary>
+    [HideInInspector]
+    public int nextValueBeginIndex;
 
     private void Start()
     {
@@ -42,20 +62,100 @@ public abstract class MeetEventAbstract:MonoBehaviour
     }
 
     /// <summary>
-    /// ��Դ�䶯����
+    /// 资源变动函数
     /// </summary>
-    public void ResourceChange()
+    public virtual void ResourceChange(bool isYes)
     {
-        Player.Instance.armament += eventInfo.armament;
-        Player.Instance.popularSupport += eventInfo.popularSupport;
-        Player.Instance.fund += eventInfo.fund;
-        Player.Instance.sanity += eventInfo.sanity;
-        Player.Instance.troopIncrease += eventInfo.troopIncrease;
+        if (isYes)
+        {
+            Player.Instance.decisionValue += eventInfoActive.decisionValue;
+            Player.Instance.armament += eventInfoActive.armament;
+            Player.Instance.popularSupport += eventInfoActive.popularSupport;
+            Player.Instance.fund += eventInfoActive.fund;
+            Player.Instance.sanity += eventInfoActive.sanity;
+            Player.Instance.troopIncrease += eventInfoActive.troopIncrease;
+        }
+        else
+        {
+            Player.Instance.decisionValue += eventInfoInactive.decisionValue;
+            Player.Instance.armament += eventInfoInactive.armament;
+            Player.Instance.popularSupport += eventInfoInactive.popularSupport;
+            Player.Instance.fund += eventInfoInactive.fund;
+            Player.Instance.sanity += eventInfoInactive.sanity;
+            Player.Instance.troopIncrease += eventInfoInactive.troopIncrease;
+        }
+       
     }
 
     public virtual void Copy(MeetEventAbstract other)
     {
-        this.eventInfo = other.eventInfo;
+        this.eventInfoActive = other.eventInfoActive;
+        this.eventInfoInactive = other.eventInfoInactive;
         this._eventValue = other.EventValue;
+    }
+}
+
+public class EventInfoCollector
+{
+    public EventInfoCollector(int eventIndex,float eventRatio=1)
+    {
+        this.eventIndex = eventIndex;
+        this.eventRatio = eventRatio;
+        isAccept = false;//默认状态为：接受
+        obj = null;
+    }
+
+    /// <summary>
+    /// 对应物体
+    /// </summary>
+    public GameObject obj;
+
+    /// <summary>
+    /// 是否接受
+    /// </summary>
+    public bool isAccept;
+
+    /// <summary>
+    /// 事件下标
+    /// </summary>
+    private readonly int eventIndex;
+    public int EventIndex
+    {
+        get { return eventIndex; }
+    }
+
+    /// <summary>
+    /// 事件倍率
+    /// </summary>
+    public float eventRatio;
+}
+
+/// <summary>
+/// 奖品类
+/// </summary>
+public class Prize
+{
+    public Prize(int prizeValue, int cumProbability)
+    {
+        this.prizeValue = prizeValue;
+        this.cumProbability = cumProbability;
+    }
+
+    /// <summary>
+    /// 奖品价值
+    /// </summary>
+    private readonly int prizeValue;
+    public int PrizeValue
+    {
+        get { return prizeValue; }
+    }
+
+    /// <summary>
+    /// 累计概率
+    /// </summary>
+    private readonly int cumProbability;
+    public int CumProbability
+    {
+        get { return cumProbability; }
     }
 }

@@ -201,7 +201,7 @@ public class CardManager : MonoBehaviour {
                 enemyCard.SetCardPos(CardPos.SkyPutArea);
                 break;
             default:
-                throw new Exception("����û������λ��");
+                throw new Exception("卡牌没有设置位置");
         }
         enemyCardGO.transform.position = enemyCardInitialPos.position;
         enemyCard.GetComponent<CardBase>().isEnemy = true;
@@ -219,7 +219,7 @@ public static class CardFactory
 {
     public static GameObject armyCardPrefab;
     static bool initialized = false;
-    public static void Init(GameObject armyCardPrefab)//��gameManager�н�������
+    public static void Init(GameObject armyCardPrefab)//在gameManager中进行配置
     {
         initialized = true;
         CardFactory.armyCardPrefab = armyCardPrefab;
@@ -227,11 +227,11 @@ public static class CardFactory
     public static GameObject CreateCardInstance(CardBaseSO cardSO)
     {
         if (!initialized)
-            throw new Exception("CardFactory ��δ��ʼ������ƬԤ��δ����");
+            throw new Exception("CardFactory 尚未初始化，卡片预设未加载");
         GameObject instance = GameObject.Instantiate(armyCardPrefab);
         switch (cardSO.cardBaseType)
         {
-            default: throw new ArgumentNullException("����δ��������");
+            default: throw new ArgumentNullException("卡牌未设置类型");
             case CardBaseType.Army:
                 var armyC = instance.AddComponent<ArmyCard>();
                 instance.GetComponent<CardSelectedVisual>().card = armyC;
@@ -245,7 +245,7 @@ public static class CardFactory
 
                 return instance;
             case CardBaseType.Effect:
-                throw new NotImplementedException("�������Ϳ��ƴ�ʵ��");
+                throw new NotImplementedException("特殊类型卡牌待实现");
         }
     }
 

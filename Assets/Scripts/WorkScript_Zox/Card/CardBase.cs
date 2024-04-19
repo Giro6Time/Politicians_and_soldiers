@@ -66,11 +66,11 @@ public class CardBase : MonoBehaviour
 
     public virtual void Get_Effect()
     {
-        //TODO:¿¨ÅÆ½øÈëÊÖÅÆÊ±µÄÐ§¹û´¥·¢£¬ÔÚÅÉÉúÀà×ö
+        //TODO:ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     public virtual void BeforeBattle_Effect()
     {
-        //¿¨ÅÆÔÚ¿ªÕ½Ç°´ò³öµÄÐ§¹û´¥·¢£¬ÔÚÅÉÉúÀà×ö
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½Õ½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 }

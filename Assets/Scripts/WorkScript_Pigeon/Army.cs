@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,12 +44,12 @@ public class Army : MonoBehaviour
             Bounds bounds = armyRenderer.bounds;
             Vector3 center = bounds.center;
             Vector3 extents = bounds.extents;
-            // ±ﬂ‘µµ„
+            // ËæπÁºòÁÇπ
             Vector3 dot = new Vector3(center.x, center.y + extents.y, 0);
 
             return dot;
         }
-        throw new System.Exception("renderer≤ªº˚¡À");
+        throw new System.Exception("renderer‰∏çËßÅ‰∫Ü");
     }
     public Vector3 GetLowerBound()
     {
@@ -58,12 +58,12 @@ public class Army : MonoBehaviour
             Bounds bounds = armyRenderer.bounds;
             Vector2 center = bounds.center;
             Vector2 extents = bounds.extents;
-            // ±ﬂ‘µµ„
+            // ËæπÁºòÁÇπ
             Vector3 dot = new Vector3(center.x, center.y - extents.y, 0);
             return dot;
             // Do something with corners
         }
-        throw new System.Exception("renderer≤ªº˚¡À");
+        throw new System.Exception("renderer‰∏çËßÅ‰∫Ü");
     }
     public void Effect()
     {

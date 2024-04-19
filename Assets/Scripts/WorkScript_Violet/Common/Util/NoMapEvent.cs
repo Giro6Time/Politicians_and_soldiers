@@ -3,7 +3,7 @@ using System.Collections;
 namespace UnityEngine.UI
 {
     /// <summary>
-    /// ÕâÊÇ¸öÍØÕ¹Àà£ºÄÜ¹»Ê¹µÃÄ³Ğ©ÊÂ¼şÀàĞÍ²»ĞèÒªÍ¼Æ¬¾ÍÄÜÉúĞ§
+    /// è¿™æ˜¯ä¸ªæ‹“å±•ç±»ï¼šèƒ½å¤Ÿä½¿å¾—æŸäº›äº‹ä»¶ç±»å‹ä¸éœ€è¦å›¾ç‰‡å°±èƒ½ç”Ÿæ•ˆ
     /// </summary>
     public class NoMapEvent : MaskableGraphic
     {

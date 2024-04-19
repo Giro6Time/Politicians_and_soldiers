@@ -1,4 +1,4 @@
-using System;
+锘縰sing System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +8,7 @@ public static class DialogFactory
     public static List<DialogUnit> CreateDialogBySOList(DialogUnitSO[] dialogUnitSOs)
     {
         if (dialogUnitSOs == null)
-            throw new ArgumentNullException("看着我的眼睛，你的so列表为什么是null呢？\ndamedane dameyo dame nanoyo");
+            throw new ArgumentNullException("鐪嬬潃鎴戠殑鐪肩潧锛屼綘鐨剆o鍒楄〃涓轰粈涔堟槸null鍛紵\ndamedane dameyo dame nanoyo");
         List<DialogUnit> units = new();
         foreach (DialogUnitSO so in dialogUnitSOs)
         {
@@ -19,7 +19,7 @@ public static class DialogFactory
     public static DialogUnit CreateDialogBySO(DialogUnitSO so)
     {
         if (so == null)
-            throw new ArgumentNullException("看着我的眼睛，你的so为什么是null呢？\ndamedane dameyo dame nanoyo");
+            throw new ArgumentNullException("鐪嬬潃鎴戠殑鐪肩潧锛屼綘鐨剆o涓轰粈涔堟槸null鍛紵\ndamedane dameyo dame nanoyo");
 
         return so.GenerateDialogUnit();
     }

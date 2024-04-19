@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +30,7 @@ public class DialogManager : MonoBehaviour
         panel.Open();
         currDialogUnits = LoadDialog();
 
-        //´ò¿ªºóÁ¢¿Ì²¥·ÅµÚÒ»¸ö¶Ô»°µ¥Ôª
+        //æ‰“å¼€åç«‹åˆ»æ’­æ”¾ç¬¬ä¸€ä¸ªå¯¹è¯å•å…ƒ
         currUnitInd = 0;
         if (currDialogUnits.Length > 0) 
             panel.onEntered += () => StartPlayDialog(currDialogUnits[0]);
@@ -51,7 +51,7 @@ public class DialogManager : MonoBehaviour
     {
         callback?.Invoke();
 
-        //¼ì²éÊ£ÓàµÄµ¥Ôª¾ç
+        //æ£€æŸ¥å‰©ä½™çš„å•å…ƒå‰§
         if(currUnitInd == currDialogUnits.Length-1)
             panel.Close();
         else

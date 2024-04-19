@@ -6,65 +6,63 @@ using UnityEngine;
 public class MeetEventMgr
 {
     /// <summary>
-    /// µ±Ç°ÊÂ¼ş
+    /// å½“å‰å¥–å“æ± é“¾è¡¨
     /// </summary>
-    public MeetEventAbstract currEvent;
+    public List<Prize> prizePoolList;
 
     /// <summary>
-    /// µ±Ç°½±Æ·ËùÔÚÎ»ÖÃ×Öµä<½±Æ·ËùÔÚ¸ÅÂÊÎ»£¬½±Æ·>
-    /// </summary>
-    public Dictionary<int,MeetEventAbstract> currPrizeDic;
-
-    /// <summary>
-    /// µ±Ç°ÊÂ¼şÁ´±í£º¼´³éÖĞµÄÎïÌå¶¼½«¼ÓÈë¸ÃÁ´±í(²»ÓÃÕ»ÊÇÎªÁËÍùºóÍæ¼ÒÄÜ¹»¸ü·½±ãµØ½øĞĞ¿¨ÅÆÑ¡Ôñ)
+    /// å½“å‰äº‹ä»¶é“¾è¡¨ï¼šå³æŠ½ä¸­çš„ç‰©ä½“éƒ½å°†åŠ å…¥è¯¥é“¾è¡¨(ä¸ç”¨æ ˆæ˜¯ä¸ºäº†å¾€åç©å®¶èƒ½å¤Ÿæ›´æ–¹ä¾¿åœ°è¿›è¡Œå¡ç‰Œé€‰æ‹©)
     /// </summary>
     [HideInInspector]
-    public List<MeetEventAbstract> currentEventList;
-    /// <summary>
-    /// µ±Ç°µÄÊÂ¼şÏÂ±ê
-    /// </summary>
-    public int currEventIndex;
+    public List<EventInfoCollector> currentEventList;
 
     /// <summary>
-    /// ÊÇ·ñ´¦ÓÚ¶³½áÊ±¼ä£º¶³½áÊ±£ºÍæ¼ÒÔÙµã»÷°´Å¥¶¼Ã»ÓÃ
+    /// å½“å‰äº‹ä»¶ä¿¡æ¯é“¾è¡¨(å³æ­£åœ¨å¤„ç†çš„äº‹ä»¶é“¾è¡¨)
+    /// </summary>
+    public List<EventInfoCollector> currEventInfoList;
+
+    /// <summary>
+    /// æ˜¯å¦å¤„äºå†»ç»“æ—¶é—´ï¼šå†»ç»“æ—¶ï¼šç©å®¶å†ç‚¹å‡»æŒ‰é’®éƒ½æ²¡ç”¨
     /// </summary>
     public bool isFreeze;
 
     /// <summary>
-    /// ÊÇ·ñ½øĞĞ»áÒéÊÂ¼ş´¦Àí
+    /// æ˜¯å¦è¿›è¡Œä¼šè®®äº‹ä»¶å¤„ç†
     /// </summary>
     public bool isDisposeMeetEvent;
 
     public Action onExit;
 
     public MeetEventMgr()
-    { 
-        currEvent = null;
-        currPrizeDic = new Dictionary<int, MeetEventAbstract>();
-        currentEventList = new List<MeetEventAbstract>();
+    {
+        prizePoolList = new List<Prize>();
+        currentEventList = new List<EventInfoCollector>();
+        currEventInfoList = new List<EventInfoCollector>();
     }
 
     /// <summary>
-    /// ÊÂ¼ş±ä»¯
+    /// äº‹ä»¶å˜åŒ–
     /// </summary>
-    public void EventChange(bool isYes = false)
+    public void EventChange()
     {
-        //¶³½áÆÚÎÒÃÇÓ¦¸Ã½ûÖ¹Ò»ÇĞĞĞÎª
+        //å†»ç»“æœŸæˆ‘ä»¬åº”è¯¥ç¦æ­¢ä¸€åˆ‡è¡Œä¸º
         if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
             return;
-        //³é½±ºÍ´¦ÀíÖ»ÄÜÆô¶¯ÆäÖĞÒ»¸ö
+        //æŠ½å¥–å’Œå¤„ç†åªèƒ½å¯åŠ¨å…¶ä¸­ä¸€ä¸ª
         if (isDisposeMeetEvent)
         {
-            //¶ÔÓÚ¿¨ÅÆ£¬Ò»´ÎÒ»ÕÅ
-            MeettingEventChange(isYes);
+            //ä¸šåŠ¡æ± 
+            //å¯¹äºå¡ç‰Œï¼Œä¸€æ¬¡ä¸€å¼ 
+            MeettingEventChange();
             if (IsDead())
             {
-                //µ÷ÓÃÊ§°Ü·½·¨
+                //è°ƒç”¨å¤±è´¥æ–¹æ³•
                 GameManager.Lose();
             }
         }
         else
         {
+            //æŠ½å¥–æ± 
             if (MeetEventGameCtrl._Instance.currRounds >= MeetEventGameCtrl._Instance.maxRounds)
             {
                 if (Player.Instance.decisionValue > 0)
@@ -74,166 +72,284 @@ public class MeetEventMgr
                 }
                 else
                 {
-                    MessageView._Instance.ShowTip("µ±Ç°¾ö²ßµã²»×ã");
+                    MessageView._Instance.ShowTip("å½“å‰å†³ç­–ç‚¹ä¸è¶³");
                     return;
                 }
             }
-           
-            //¶ÔÓÚ³é½±³ØÒ»´ÎÈıÕÅ
+
+            //å¯¹äºæŠ½å¥–æ± ä¸€æ¬¡ä¸‰å¼ 
             MeetEventGameCtrl._Instance.currRounds += 3;
-            Debug.Log("Æô¶¯³é½±³ÌĞò");
             isFreeze = true;
-            //½øĞĞUI¸üĞÂ
+            //è¿›è¡ŒUIæ›´æ–°
             UIEventListener._Instance.UIMeetingEventUpdate();
-            //Æô¶¯³ÌĞò
+            //å¯åŠ¨ç¨‹åº
             MeetEventGameCtrl._Instance.StartPrizeWheel();
         }
     }
 
-    #region »áÒéÊÂ¼ş²¿·Ö
+    #region ä¼šè®®äº‹ä»¶éƒ¨åˆ†
     /// <summary>
-    /// »áÒéÊÂ¼ş±ä»¯º¯Êı
+    /// ä¼šè®®äº‹ä»¶å˜åŒ–å‡½æ•°
     /// </summary>
-    private void MeettingEventChange(bool isYes)
+    private void MeettingEventChange()
     {
-        //Èç¹û¿¨¿âÃ»ÓĞ¿¨£¬ÄÇÃ´½ûÖ¹Íæ¼Ò½øĞĞÈ¡Öµ
-        if(currentEventList.Count == 0)
+        //å¦‚æœå¡åº“æ²¡æœ‰å¡ï¼Œé‚£ä¹ˆç¦æ­¢ç©å®¶è¿›è¡Œå–å€¼
+        if (currentEventList.Count == 0 && currEventInfoList.Count == 0)
         {
-            MessageView._Instance.ShowTip("Äúµ±Ç°µÄ¿¨³ØÃ»ÓĞ¿¨ÅÆ");
+            MessageView._Instance.ShowTip("æ‚¨å½“å‰çš„å¡æ± æ²¡æœ‰å¡ç‰Œ");
             return;
         }
 
-        //Èç¹û½»Ò×£¬Ôò½øĞĞ×ÊÔ´±ä»¯,²¢¸üĞÂUI
-        if (isYes)
+        //å¦‚æœäº¤æ˜“ï¼Œåˆ™è¿›è¡Œèµ„æºå˜åŒ–,å¹¶æ›´æ–°UI
+        //è¿›è¡Œç™¾åˆ†æ¯”æ›´æ–°
+        Player.Instance.troopIncrease *= GetAddtionValue();
+        //è¿›è¡Œèµ„æºæ›´æ–°
+        for (int i = 0; i < 3; i++)
         {
-            //½øĞĞ×ÊÔ´¸üĞÂ
-            currEvent.ResourceChange();
-            //×ÊÔ´¸üĞÂ¹ıºó£ºÅĞ¶¨Íæ¼ÒÊÇ·ñËÀÍö
+            MeetEventGameCtrl._Instance.eventList[currEventInfoList[i].EventIndex].ResourceChange(currEventInfoList[i].isAccept);
         }
-        //Ö»Òª×ÊÔ´¸üĞÂÁË£¬¾ÍÒª°ÑÊÂ¼ş´ÓÅÆ¿âÖĞµ¯³ö£¨ÊÇ·ñ´ğÓ¦¶¼»áµ¯³ö£©
-        currentEventList.RemoveAt(currEventIndex);
-        //½øĞĞUI¸üĞÂ
+
+        //è¿›è¡ŒUIæ›´æ–°
         UIEventListener._Instance.UIMeetingEventUpdate();
-        DoExitAnimation();
-        //½øĞĞµü´ú
-        if (currentEventList.Count >0)
+        RemoveCurrEvent();
+        //è¿›è¡Œè¿­ä»£
+        if (currentEventList.Count > 0)
         {
-            //½øĞĞÏÂÒ»ÂÖËæ»úÊÂ¼ş  
+            //è¿›è¡Œä¸‹ä¸€è½®éšæœºäº‹ä»¶  
             ExtractCurrentEvent();
         }
     }
 
     /// <summary>
-    /// ²¥·ÅÊÂ¼şÍË³ö¶¯»­²¢ÈÃÊÂ¼şÍË³ö
+    /// å½“å‰äº‹ä»¶æ¸…ç©º
     /// </summary>
-    private void DoExitAnimation()
+    private void RemoveCurrEvent()
     {
-        //²¥·Å¶¯»­£¿
-
-        //Ïú»ÙORÒş²Ø(Òş²Ø·½°¸Îª¶ÔÏó³Ø)
-        MeetEventGameCtrl.Destroy(currEvent.gameObject);
-        currEvent = null;
+        //é”€æ¯ORéšè—(éšè—æ–¹æ¡ˆä¸ºå¯¹è±¡æ± )
+        for (int i = 0; i < 3; i++)
+        {
+            MeetEventGameCtrl.Destroy(currEventInfoList[i].obj);
+        }
+        //æ¸…ç©ºå½“å‰ä¿¡æ¯æ± 
+        currEventInfoList.Clear();
     }
 
     /// <summary>
-    /// ³é³öµ±Ç°ÊÂ¼ş
-    /// TODO:¿´ÎïÌåÉè¶¨°É£¬Èç¹û°üº¬¸¸¼¶½Ó¿Ú£¬ÕâÀï½ÓµÄ¾ÍÊÇ¸¸¼¶
+    /// æ”¹å˜æ­£åœ¨æ‰§è¡Œçš„äº‹ä»¶çŠ¶æ€
+    /// </summary>
+    public void CurrEventStateChange()
+    {
+        if (currEventInfoList.Count == 0) return;
+        for (int i = 0; i < 3; i++)
+        {
+            currEventInfoList[i].obj.SetActive(!currEventInfoList[i].obj.activeSelf);
+        }
+    }
+
+    /// <summary>
+    /// æŠ½å‡º3ä¸ªäº‹ä»¶
+    /// TODO:çœ‹ç‰©ä½“è®¾å®šå§ï¼Œå¦‚æœåŒ…å«çˆ¶çº§æ¥å£ï¼Œè¿™é‡Œæ¥çš„å°±æ˜¯çˆ¶çº§
     /// </summary>
     public void ExtractCurrentEvent()
     {
-        //Èç¹ûÃ»ÓĞÊÂ¼ş£¬ÔòÎŞ·¨³é¿¨
-        if (currentEventList.Count == 0||currEvent!=null)
+        if (currentEventList.Count == 0 || currEventInfoList.Count > 0)
             return;
-        //1.»ñÈ¡µ±Ç°Ë³ĞòµÄÎïÌå
-        GameObject obj = currentEventList[currEventIndex].gameObject;
-        //2.´´½¨ÎïÌå/´Ó¶ÔÏó³ØÖĞ¶ÁÈ¡ÎïÌå£ºÔİ¶¨ÊÇ´´½¨ÎïÌå
-        obj = GameObject.Instantiate(obj, MeetEventGameCtrl._Instance.meetEventCanvas.transform);
-        obj.GetComponent<CommonEvent>().Copy(currentEventList[currEventIndex]);
-        //3.¸³Öµ
-        currEvent = obj.GetComponent<CommonEvent>();
+        //1.äº‹ä»¶æŠ½å‡º:æ€»æ˜¯æŠ½å‰ä¸‰å¼ å¡:ç„¶ååˆ é™¤
+        currEventInfoList.Add(currentEventList[0]);
+        currEventInfoList.Add(currentEventList[1]);
+        currEventInfoList.Add(currentEventList[2]);
+        currentEventList.RemoveRange(0, 3);
+        //2.æ¨¡å‹ç»˜åˆ¶
+        //ä¾æ¬¡ç»˜åˆ¶3ä¸ªç‰©ä½“
+        int[] dis = new int[3] { -1, 0, 1 };
+        for (int i = 0; i < 3; i++)
+        {
+            currEventInfoList[i].obj = GameObject.Instantiate(MeetEventGameCtrl._Instance.eventList[currEventInfoList[i].EventIndex].gameObject, MeetEventGameCtrl._Instance.meetEventCanvas.transform);
+            //è®¾ç½®ä»–ä»¬çš„ä½ç½®
+            currEventInfoList[i].obj.transform.localPosition = Vector3.right * MeetEventGameCtrl._Instance.cardDistance * dis[i];
+            ChangeEventState(i);
+        }
     }
-    #endregion
 
     /// <summary>
-    /// ½±³Ø¸üĞÂ£º¼Ù¶¨×ªÅÌÊÇÔ²µÄ
-    /// ½±³Ø¸üĞÂÂß¼­£º
-    /// 1.¸ù¾İ½±Æ·ÊıÁ¿ºÍ³éÖĞµÄ½±Æ·µÄ¸ÅÂÊ½øĞĞ·ÖÇø
-    /// 2.ÔÚ½±Æ·µÄÖ¸¶¨·ÖÇø½«½±Æ·Ãû/½±Æ·ÊÂ¼şĞ¡Í¼·Åµ½ÆäÇøÓòÄÚ
+    /// æ˜¯å¦æ­»äº¡
     /// </summary>
-    public void UpdatePrizePool()
-    {
-        int prizeIndex=0,currAngles=0;
-        float sum = 0;
-        //i+1£º¸ÃÎïÌåµÄÏÂ±ê  i£º¸ÃÎïÌåµÄ¸ÅÂÊ
-        float[] eventRarityArray = new float[UIEventListener._Instance.prizeNums*2];
-        //Çå¿Õ½±³Ø
-        currPrizeDic.Clear();
-        //ÏŞÖÆÓÚÊÂ¼şÉÏÏŞ£º³é½±Ó¦¸ÃÊÇ¿ÉÖØ¸´µÄ
-        //½øĞĞ³é½±
-        for (int i = 0; i < UIEventListener._Instance.prizeNums; i++)
-        {
-            //Ö¸¶¨³é½±Îï
-            //Í¨¹ıÑ­»·µ÷¿Ø³éÖĞµÄÎïÆ·¼ÛÖµµÄ¸ÅÂÊ
-            for (int j = 0; j < 3; j++)
-            {
-                prizeIndex = UnityEngine.Random.Range(0, MeetEventGameCtrl._Instance.eventList.Count);
-                if(MeetEventGameCtrl._Instance.eventList[prizeIndex].EventValue < (Player.Instance.decisionValue/2+1))
-                {
-                    break;
-                }
-            }
-            //´æÈë³é½±Îï¸ÅÂÊ
-            eventRarityArray[i] = Mathf.Sqrt(1.0f/MeetEventGameCtrl._Instance.eventList[prizeIndex].EventValue);
-            eventRarityArray[i + UIEventListener._Instance.prizeNums] = prizeIndex;
-            sum+=eventRarityArray[i];
-        }
-        //½øĞĞ·ÖÇø
-        //ÎªÁËÈ·±£ÎŞÎó²î£¬×¢Òâ×îºóÒ»¸öÒª¶ÀÁ¢Ìí¼Ó
-        //½«×Ü¸ÅÂÊ·ÖÎªÈô¸É·İ£¬È»ºó¸ù¾İ·İÊı¾ö¶¨½á¹û
-        for (int i = 0; i < UIEventListener._Instance.prizeNums-1; i++)
-        {
-            prizeIndex = (int)eventRarityArray[i + UIEventListener._Instance.prizeNums];
-            currAngles += (int)((eventRarityArray[i] * 1000) / sum);
-            currPrizeDic.Add(currAngles, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
-            Debug.Log("µÚ" + (i+1) + "Î»ÊÇ"+ MeetEventGameCtrl._Instance.eventList[prizeIndex].name+ "£ºÀÛ¼Æ¸ÅÂÊÎª£º" + currAngles);
-        }
-        prizeIndex = (int)eventRarityArray[2 * UIEventListener._Instance.prizeNums - 1];
-        currPrizeDic.Add(1000, MeetEventGameCtrl._Instance.eventList[prizeIndex]);
-        Debug.Log("µÚ" + UIEventListener._Instance.prizeNums+"Î»ÊÇ£º" + MeetEventGameCtrl._Instance.eventList[prizeIndex].name + "ÀÛ¼Æ¸ÅÂÊÎª£º" + 1000);
-        //½øĞĞUI»æÖÆ
-        UIEventListener._Instance.DrawPrizeWheel();
-    }
-
+    /// <returns></returns>
     public bool IsDead()
     {
         bool isDead = false;
-        if (Player.Instance.sanity<=0)
+        if (Player.Instance.sanity <= 0)
         {
             isDead = true;
         }
 
         return isDead;
     }
+    #endregion
 
     /// <summary>
-    /// ÓÎÏ·½áÊø£º
-    /// TODO£º»¹ÓĞÆäËûÂß¼­ÊıÖµĞèÒª±È¶Ôºó¾ö¶¨ÔõÃ´´¦Àí
+    /// å¥–æ± æ›´æ–°ï¼šå‡å®šè½¬ç›˜æ˜¯åœ†çš„
+    /// å®ŒæˆåŠŸèƒ½ï¼šå­˜å‚¨å½“å‰å¥–æ± çš„<ç¨€æœ‰åº¦,ç´¯è®¡æ¦‚ç‡>
+    /// å¥–æ± æ›´æ–°é€»è¾‘ï¼š
+    /// 1.æ ¹æ®å¥–å“æ•°é‡å’ŒæŠ½ä¸­çš„å¥–å“çš„æ¦‚ç‡è¿›è¡Œåˆ†åŒº
+    /// 2.åœ¨å¥–å“çš„æŒ‡å®šåˆ†åŒºå°†å¥–å“å/å¥–å“äº‹ä»¶å°å›¾æ”¾åˆ°å…¶åŒºåŸŸå†…
+    /// </summary>
+    public void UpdatePrizePool()
+    {
+        int prizeValue = 0, currProbability = 0;
+        float sum = 0;
+        //num+1ï¼šè¯¥ç‰©ä½“çš„ç¨€æœ‰åº¦  iï¼šè¯¥ç‰©ä½“çš„æ¦‚ç‡
+        float[] eventRarityArray = new float[UIEventListener._Instance.prizeNums * 2];
+        //æ¸…ç©ºå¥–æ± 
+        prizePoolList.Clear();
+        //é™åˆ¶äºäº‹ä»¶ä¸Šé™ï¼šæŠ½å¥–åº”è¯¥æ˜¯å¯é‡å¤çš„
+        //è¿›è¡ŒæŠ½å¥–
+        for (int i = 0; i < UIEventListener._Instance.prizeNums; i++)
+        {
+            //æŒ‡å®šæŠ½å¥–ç‰©ä»·å€¼
+            prizeValue = GetRandomValueEvent();
+            //å­˜å…¥æŠ½å¥–ç‰©æ¦‚ç‡
+            eventRarityArray[i] = Mathf.Sqrt(1.0f / prizeValue);
+            eventRarityArray[i + UIEventListener._Instance.prizeNums] = prizeValue;
+            sum += eventRarityArray[i];
+        }
+        //è®¡ç®—ç´¯è®¡æ¦‚ç‡
+        for (int i = 0; i < UIEventListener._Instance.prizeNums - 1; i++)
+        {
+            prizeValue = (int)eventRarityArray[i + UIEventListener._Instance.prizeNums];
+            currProbability += (int)((eventRarityArray[i] * 10000) / sum);
+            prizePoolList.Add(new Prize(prizeValue, currProbability));
+        }
+        prizePoolList.Add(new Prize((int)eventRarityArray[UIEventListener._Instance.prizeNums * 2 - 1], 10000));
+
+        //foreach (Prize prize in prizePoolList)
+        //{
+        //    Debug.Log("ä»·å€¼ï¼š" + prize.PrizeValue + "ç´¯è®¡æ¦‚ç‡ï¼š" + prize.CumProbability);
+        //}
+
+        //è¿›è¡ŒUIç»˜åˆ¶
+        UIEventListener._Instance.DrawPrizeWheel();
+    }
+
+    /// <summary>
+    /// æ¸¸æˆç»“æŸï¼š
+    /// TODOï¼šè¿˜æœ‰å…¶ä»–é€»è¾‘æ•°å€¼éœ€è¦æ¯”å¯¹åå†³å®šæ€ä¹ˆå¤„ç†
     /// </summary>
     public void GameExit()
     {
-        //Àë¿ªÊ±£º½«Á½¸öcanvasÊ§»î£¿»¹ÓĞÆäËûĞÅÏ¢ÊÇ·ñÒªÖØÖÃ£¿
-        Debug.Log("ÓÎÏ·½áÊø");
-        //1.ÖØÖÃĞÅÏ¢
-        if (currEvent != null)
-        {
-            MeetEventGameCtrl.Destroy(currEvent.gameObject);
-            currEvent = null;
-        }
+        //ç¦»å¼€æ—¶ï¼šå°†ä¸¤ä¸ªcanvaså¤±æ´»ï¼Ÿè¿˜æœ‰å…¶ä»–ä¿¡æ¯æ˜¯å¦è¦é‡ç½®ï¼Ÿ
+        //1.é‡ç½®ä¿¡æ¯
         isFreeze = false;
         isDisposeMeetEvent = false;
-
         MeetEventGameCtrl._Instance.meetEventCanvas.gameObject.SetActive(false);
         onExit?.Invoke();
+    }
+
+    /// <summary>
+    /// è·å–éšæœºä»·å€¼äº‹ä»¶ï¼ˆè¿”å›äº‹ä»¶ä»·å€¼ï¼‰
+    /// 1.æ€»çš„æ¦‚ç‡ä¸ºsum=1/valueçš„å’Œ
+    /// 2.æŠ½å–ä¸€ä¸ªéšæœºå€¼randomï¼Œå½“currSum>randomæ—¶ï¼Œè¿™ä¸ªä»·å€¼å°±æ˜¯ç›®æ ‡ä»·å€¼
+    /// </summary>
+    /// <returns>ä»·å€¼</returns>
+    public int GetRandomValueEvent()
+    {
+        int sum = 0, currSum = 0, index = 0, n = 0;
+        while (MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex != MeetEventGameCtrl._Instance.eventList.Count)
+        {
+            //å› ä¸ºæœ€åä¸€ä¸ªä»·å€¼è¿›ä¸æ¥ï¼Œæ‰€ä»¥è¿™ä¸ªä»·å€¼æ²¡è®¡å…¥ï¼Œå³n=ä»·å€¼æ€»ä¸ªæ•°-1
+            sum += (int)(10000 * 1.0f / MeetEventGameCtrl._Instance.eventList[index].EventValue);
+            index = MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex;
+            n++;
+        }
+        //åŠ ä¸Šæœ€åä¸€ä½çš„å€¼
+        sum += (int)(10000 * (1.0f / MeetEventGameCtrl._Instance.eventList[index].EventValue));
+        n++;
+
+        index = 0;
+        int random = UnityEngine.Random.Range(0, sum);
+        for (int i = 0; i <= n; i++)
+        {
+            currSum += (int)(10000 * 1.0f / MeetEventGameCtrl._Instance.eventList[index].EventValue);
+            if (currSum < random)
+            {
+                index = MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex;
+            }
+            else
+            {
+                break;
+            }
+
+        }
+        return MeetEventGameCtrl._Instance.eventList[index].EventValue;
+    }
+
+    /// <summary>
+    /// è·å–éšæœºæŒ‡å®šä»·å€¼äº‹ä»¶
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public int GetRandomValueEventIndex(int value)
+    {
+        int index = 0;
+        //æ‰¾åˆ°æŒ‡å®šä»·å€¼èµ·ç‚¹
+        while (value != MeetEventGameCtrl._Instance.eventList[index].EventValue)
+        {
+            index = MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex;
+        }
+        //éšæœºæ•°ä¸ºï¼šèµ·ç‚¹->ä¸‹ä¸€ä»·å€¼èµ·ç‚¹-1
+        return UnityEngine.Random.Range(index, MeetEventGameCtrl._Instance.eventList[index].nextValueBeginIndex);
+    }
+
+    /// <summary>
+    /// è·å–é¢å¤–å€¼
+    /// </summary>
+    /// <returns></returns>
+    public float GetAddtionValue()
+    {
+        int allValue = 0;
+        float num = Mathf.Pow(2, currEventInfoList.Count - 1);
+        //è·å–äºŒè¿›åˆ¶ç»“æœ
+        //4-2-1:æ¥å—ä¸º1ï¼Œä¸æ¥å—ä¸º0
+        foreach (EventInfoCollector item in currEventInfoList)
+        {
+            if (item.isAccept)
+            {
+                allValue += (int)num;
+            }
+            num /= 2;
+        }
+        BattleArray battleArray = (BattleArray)allValue;
+        foreach (var item in MeetEventGameCtrl._Instance.BattleArrayAddtion)
+        {
+            if (item.key == battleArray)
+            {
+                Debug.Log("é˜µæ³•ä¸ºï¼š" + item.key.ToString() + "ä»·å€¼ä¸ºï¼š" + allValue + "åŠ æˆä¸ºï¼š" + (1 + item.value));
+                return 1 + item.value;
+            }
+        }
+        Debug.LogError("æŠ¥é”™ï¼é˜µæ³•é”™è¯¯");
+        return -1;
+    }
+
+    /// <summary>
+    /// æ”¹å˜æŒ‡å®šäº‹ä»¶çš„çŠ¶æ€
+    /// </summary>
+    /// <param name="index"></param>
+    public void ChangeEventState(int index)
+    {
+        //1.æ”¹å˜çŠ¶æ€
+        currEventInfoList[index].isAccept = !currEventInfoList[index].isAccept;
+
+        //2.è¿›è¡Œè¿åŠ¨
+        //â‘ ç¡®è®¤æœ€ç»ˆä½ç½®
+        Vector3 endPos = new Vector3(currEventInfoList[index].obj.transform.localPosition.x
+            , currEventInfoList[index].isAccept ? MeetEventGameCtrl._Instance.cardUpDistance : -MeetEventGameCtrl._Instance.cardUpDistance, 0);
+        isFreeze = true;
+        MeetEventGameCtrl._Instance.ChangePositionByCoroutine(currEventInfoList[index].obj.transform, endPos, 0.2f,
+            () =>
+            {
+                isFreeze = false;
+            });
     }
 
 

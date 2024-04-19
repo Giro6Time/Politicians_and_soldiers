@@ -5,78 +5,40 @@ using UnityEngine.UI;
 
 public class GameStart : MonoBehaviour
 {
-    public Text text;
-
-    public TextMesh textMesh;
-
-    public List<Text> textList;
-
-    public List<TextMesh> textMeshList;
-
-    public Canvas canva;
-
-    public Transform partent;
-
-    public int currrRate;
-
+    public List<int> a;
+    public float mean = 0; // 均值
+    public float stdDev = 1; // 标准差
+    public float x = 1; // 想要计算密度函数的点
     // Start is called before the first frame update
     void Start()
     {
-        currrRate = -150;
-        textList = new List<Text>();
-        GameObject obj=null;
-        for (int i = 0; i < 10; i++)
+        a = new List<int>();
+        a.Add(3);
+        a.Add(5);
+        a.Add(7);
+        a.Add(9);
+        foreach (var item in a)
         {
-            currrRate += 30;
-            obj = GameObject.Instantiate(text.gameObject,canva.transform);
-            obj.transform.localPosition = Vector3.up* currrRate;
-            obj.SetActive(false);
-            textList.Add(obj.GetComponent<Text>());
+            Debug.Log(item+" ");
         }
-        currrRate = -80;
-        for (int i = 0; i < 10; i++)
+        a.RemoveRange(0,2);
+        foreach (var item in a)
         {
-            currrRate += 20;
-            obj = GameObject.Instantiate(textMesh.gameObject, partent.transform);
-            obj.transform.localPosition = Vector3.up * currrRate * 0.05f;
-            obj.SetActive(false);
-            textMeshList.Add(obj.GetComponent<TextMesh>());
+            Debug.Log(item + " ");
         }
     }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            for (int i = 0; i < textList.Count; i++)
-            {
-                GameObject obj = textList[i].gameObject;
-                obj.SetActive(true);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            for (int i = 0; i < textList.Count; i++)
-            {
-                GameObject obj = textList[i].gameObject;
-                obj.SetActive(false);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            for (int i = 0; i < textMeshList.Count; i++)
-            {
-                GameObject obj = textMeshList[i].gameObject;
-                obj.SetActive(true);
-            }
-        }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            for (int i = 0; i < textMeshList.Count; i++)
-            {
-                GameObject obj = textMeshList[i].gameObject;
-                obj.SetActive(false);
-            }
+            Debug.Log("正态分布密度函数在 x=" + x + " 处的值为: " + NormalDistribution(mean, stdDev, x));
         }
+    }
+    float NormalDistribution(float mean, float stdDev, float x)
+    {
+        float coef = 1.0f / (stdDev * Mathf.Sqrt(2 * Mathf.PI));
+        float exp = Mathf.Exp(-(Mathf.Pow(x - mean, 2) / (2 * Mathf.Pow(stdDev, 2))));
+        return coef * exp;
     }
 }
