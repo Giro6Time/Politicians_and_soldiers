@@ -80,6 +80,7 @@ public class MeetEventGameCtrl : MonoBehaviour
 
     void Awake()
     {
+
         if (_Instance == null)
         {
             _Instance = this;

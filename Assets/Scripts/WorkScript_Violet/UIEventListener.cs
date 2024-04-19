@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
@@ -106,6 +107,35 @@ public class UIEventListener : MonoBehaviour
     private Text troopIncreaseText;
     [SerializeField]
     private Text decisionValueText;
+
+    /// <summary>
+    /// 音乐设置选项
+    /// </summary>
+    [SerializeField]
+    private Toggle MusicSettingToggle;
+
+    /// <summary>
+    /// 音乐设置进度条
+    /// </summary>
+    [SerializeField]
+    private Slider MusicSettingSlider;
+
+    /// <summary>
+    /// 音效设置选项
+    /// </summary>
+    [SerializeField]
+    private Toggle SoundEffectSetttingToggle;
+
+    /// <summary>
+    /// 音效设置进度条
+    /// </summary>
+    [SerializeField]
+    private Slider SoundEffectSettingSlider;
+    
+    /// <summary>
+    /// 最后的时间缩放值(用于游戏暂停与恢复)
+    /// </summary>
+    private float lastTimeScale;
     #endregion
 
     private void Start()
@@ -113,6 +143,10 @@ public class UIEventListener : MonoBehaviour
         if (_Instance == null)
         { _Instance = this; }
         prizePool = new List<GameObject>();
+        MusicSettingToggle.onValueChanged.AddListener(OnToggleClick_MusicSetting);
+        MusicSettingSlider.onValueChanged.AddListener(OnSliderValueChanged_MusicSetting);
+        SoundEffectSetttingToggle.onValueChanged.AddListener(OnToggleClick_SoundEffectSetting);
+        SoundEffectSettingSlider.onValueChanged.AddListener(OnSliderValueChanged_SoundEffectSetting);
     }
     private void OnDestroy()
     {
@@ -377,6 +411,81 @@ public class UIEventListener : MonoBehaviour
     public void OnBtnClick_CloseTip()
     {
         MessageView._Instance.btn_Tip.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 保存与加载按钮
+    /// </summary>
+    public void OnBtnClick_SaveAndLoad(bool isSave)
+    {
+        if (isSave)
+        {
+            //数据保存
+            SaveAndLoadData._Instance.SaveByXML();
+            //TODO：数据保存后操作
+        }
+        else
+        {
+            //数据加载
+            SaveAndLoadData._Instance.LoadByXML();
+            //TODO：数据加载后操作
+        }
+    }
+
+    /// <summary>
+    /// 游戏暂停与恢复按钮
+    /// </summary>
+    /// <param name="isStop"></param>
+    public void OnBtnClick_StopAndRecover(bool isStop)
+    {
+        if (isStop)
+        {
+            if (Time.timeScale > 0)
+            {
+                lastTimeScale = Time.timeScale;
+                Time.timeScale = 0;
+            }
+            //TODO：暂停后操作/其他操作
+        }
+        else
+        {
+            Time.timeScale = lastTimeScale;
+        }
+    }
+
+    /// <summary>
+    /// 音乐设置选项
+    /// </summary>
+    public void OnToggleClick_MusicSetting(bool isOpen)
+    {
+        //TODO：设置音乐为关闭/打开
+    }
+
+    /// <summary>
+    /// 音乐大小设置滚动条
+    /// </summary>
+    /// <param name="volume"></param>
+    public void OnSliderValueChanged_MusicSetting(float volume)
+    {
+        //TODO:音乐大小设置
+        Debug.Log(volume);
+    }
+
+    /// <summary>
+    /// 音效设置选项 
+    /// </summary>
+    public void OnToggleClick_SoundEffectSetting(bool isOpen)
+    {
+        //TODO：设置音效为关闭/打开
+    }
+
+    /// <summary>
+    /// 音效大小设置滚动条
+    /// </summary>
+    /// <param name="volume"></param>
+    public void OnSliderValueChanged_SoundEffectSetting(float volume)
+    {
+        //TODO：音量大小设置
     }
     #endregion
 
