@@ -828,13 +828,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2782243973212470750, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4
+      objectReference: {fileID: 0}
     - target: {fileID: 4067074731508651630, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4067074731508651633, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4067074731612137162, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074731612137164, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4067074731911850604, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline
@@ -844,9 +856,17 @@ PrefabInstance:
       propertyPath: incline
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4067074732211485008, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 4067074732315268602, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074732315268605, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: cardSOList.Array.size
@@ -919,6 +939,10 @@ PrefabInstance:
     - target: {fileID: 5142122264677324169, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510306461971358530, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6680650596211811336, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_Name
