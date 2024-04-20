@@ -84,13 +84,27 @@ public class PlayerControl : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //valid position for card to put
-                    if(puttableArea != null)
+                    if(selectedCard is ArmyCard)
                     {
-                        cardManager.MoveCard(selectedCard, puttableArea);
-                    }else{
-                        cardManager.MoveCard(selectedCard, null);
+                        //valid position for card to put
+                        if (puttableArea != null)
+                        {
+                            cardManager.MoveCard(selectedCard, puttableArea);
+                        }
+                        else
+                        {
+                            cardManager.MoveCard(selectedCard, null);
+                        }
+                        currentState = State.SelectingCard;
+                    }else if(selectedCard is CardEffect)
+                    {
+                        Debug.Log("启动");
+                        (selectedCard as CardEffect).UseAbility();
+                        currentState = State.SelectingCard;
                     }
+                }else if (Input.GetMouseButtonDown(1))
+                {
+                    cardManager.MoveCard(selectedCard, null);
                     currentState = State.SelectingCard;
                 }
                 break;

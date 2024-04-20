@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ISpecialAbility
 {
-    
+    public void UseAbility();
 }

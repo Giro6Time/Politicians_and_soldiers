@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 public class CardManager : MonoBehaviour {
 
+    public static CardManager Instance;
+
     public List<CardBase> Hand
     {
         get => GetCurrentHand();
@@ -43,6 +45,14 @@ public class CardManager : MonoBehaviour {
 
     public void Init()
     {
+    }
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
     }
 
     public void RefreshList()
@@ -153,7 +163,7 @@ public class CardManager : MonoBehaviour {
         
     }
 
-    private void AddCard(int num, Season season)
+    public void AddCard(int num, Season season)
     {
         Debug.Log("Add card to hand");
         //Create Card object
@@ -245,7 +255,16 @@ public static class CardFactory
 
                 return instance;
             case CardBaseType.Effect:
-                throw new NotImplementedException("特殊类型卡牌待实现");
+                var effectC = instance.AddComponent<CardEffect>();
+                instance.GetComponent<CardSelectedVisual>().card = effectC;
+                effectC.SetCardPos(CardPos.SelectionArea);
+                effectC.isEnemy = false;
+                effectC.matchedPos = cardSO.matchedPos;
+                effectC.cardFrame = cardSO.cardFrame;
+
+                effectC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
+
+                return instance;
         }
     }
 
