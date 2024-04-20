@@ -64,17 +64,26 @@ public class UIEventListener : MonoBehaviour
     /// <summary>
     /// 接受按钮
     /// </summary>
-    public Button btn_ChooseYes;
+    [SerializeField]
+    private Button btn_ChooseYes;
 
     /// <summary>
     /// 奖池刷新按钮
     /// </summary>
-    public Button btn_PrizeWheelRefresh;
+    [SerializeField]
+    private Button btn_PrizeWheelRefresh;
+
+    /// <summary>
+    /// 设置容器
+    /// </summary>
+    [SerializeField]
+    private GameObject settingPanel;
 
     /// <summary>
     /// 人物信息容器
     /// </summary>
-    public GameObject textPanel;
+    [SerializeField]
+    private GameObject textPanel;
 
     /// <summary>
     /// san值文本
@@ -112,25 +121,25 @@ public class UIEventListener : MonoBehaviour
     /// 音乐设置选项
     /// </summary>
     [SerializeField]
-    private Toggle MusicSettingToggle;
+    public Toggle MusicSettingToggle;
 
     /// <summary>
     /// 音乐设置进度条
     /// </summary>
     [SerializeField]
-    private Slider MusicSettingSlider;
+    public Slider MusicSettingSlider;
 
     /// <summary>
     /// 音效设置选项
     /// </summary>
     [SerializeField]
-    private Toggle SoundEffectSetttingToggle;
+    public Toggle SoundEffectSetttingToggle;
 
     /// <summary>
     /// 音效设置进度条
     /// </summary>
     [SerializeField]
-    private Slider SoundEffectSettingSlider;
+    public Slider SoundEffectSettingSlider;
     
     /// <summary>
     /// 最后的时间缩放值(用于游戏暂停与恢复)
@@ -143,6 +152,8 @@ public class UIEventListener : MonoBehaviour
         if (_Instance == null)
         { _Instance = this; }
         prizePool = new List<GameObject>();
+        settingPanel.SetActive(false);
+        textPanel.SetActive(false);
         MusicSettingToggle.onValueChanged.AddListener(OnToggleClick_MusicSetting);
         MusicSettingSlider.onValueChanged.AddListener(OnSliderValueChanged_MusicSetting);
         SoundEffectSetttingToggle.onValueChanged.AddListener(OnToggleClick_SoundEffectSetting);
@@ -413,6 +424,11 @@ public class UIEventListener : MonoBehaviour
         MessageView._Instance.btn_Tip.gameObject.SetActive(false);
     }
 
+    public void OnBtnClick_ShowSettingMenu()
+    {
+        settingPanel.gameObject.SetActive(!settingPanel.gameObject.activeSelf);
+    }
+
     /// <summary>
     /// 保存与加载按钮
     /// </summary>
@@ -458,7 +474,7 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public void OnToggleClick_MusicSetting(bool isOpen)
     {
-        //TODO：设置音乐为关闭/打开
+        SoundsMgr._Instance.isOpenBackgroundMusic = isOpen;
     }
 
     /// <summary>
@@ -467,8 +483,8 @@ public class UIEventListener : MonoBehaviour
     /// <param name="volume"></param>
     public void OnSliderValueChanged_MusicSetting(float volume)
     {
-        //TODO:音乐大小设置
-        Debug.Log(volume);
+        SoundsMgr._Instance.currAudio.volume = volume > 1 ? 1 : volume;
+        SoundsMgr._Instance.backgroundVolume = volume > 1 ? 1 : volume;
     }
 
     /// <summary>
@@ -476,7 +492,7 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public void OnToggleClick_SoundEffectSetting(bool isOpen)
     {
-        //TODO：设置音效为关闭/打开
+        SoundsMgr._Instance.isOpenSoundEffects = isOpen;
     }
 
     /// <summary>
@@ -485,7 +501,7 @@ public class UIEventListener : MonoBehaviour
     /// <param name="volume"></param>
     public void OnSliderValueChanged_SoundEffectSetting(float volume)
     {
-        //TODO：音量大小设置
+        SoundsMgr._Instance.soundEffectVolume = volume;
     }
     #endregion
 
