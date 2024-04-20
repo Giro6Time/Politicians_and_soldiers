@@ -12,6 +12,12 @@ public class Army : MonoBehaviour
 
     public ArmyCard whereIFrom;
 
+    public List<IEffect> battleStartEffect = new();
+    public List<IEffect> liveEffect = new();
+    public List<IEffect> deathEffect = new();
+    public List<IEffect> beforeAttackEffect = new();
+    public List<IEffect> afterAttactEffect = new();
+
     public float TroopStrength
     {
         get { return troopStrength; }

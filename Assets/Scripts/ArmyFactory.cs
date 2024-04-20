@@ -21,10 +21,17 @@ public static class ArmyFactory
             if (!c)
                 continue;
             var armyInstance = GameObject.Instantiate(prefab);
-            var army = armyInstance.AddComponent<Army>();
+            Army army = armyInstance.AddComponent<Army>();
             army.whereIFrom = c;
             army.TroopStrength = c.troopStrength;
             army.transform.position = c.transform.position;
+
+            army.battleStartEffect = c.battleStartEffect;
+            army.liveEffect = c.liveEffect;
+            army.deathEffect = c.deathEffect;
+            army.beforeAttackEffect = c.beforeAttackEffect;
+            army.afterAttactEffect = c.afterAttactEffect;
+
             armyList.Add(army);
         }
         return armyList;

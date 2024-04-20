@@ -34,5 +34,5 @@ public enum CardPos
     SelectionArea,
     LandPutArea,
     SeaPutArea,
-    SkyPutArea
+    SkyPutArea,
 }

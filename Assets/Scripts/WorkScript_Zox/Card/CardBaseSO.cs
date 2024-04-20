@@ -22,7 +22,7 @@ public class CardBaseSO : ScriptableObject
     public Sprite cardFrame;
     public Sprite inset;
 
-    [HideInInspector, SerializeReference] 
+    [HideInInspector] 
     public List<IEffect> drawEffect = new();
     [HideInInspector]
     public List<IEffect> invokeEffect = new();
