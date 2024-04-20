@@ -81,7 +81,7 @@ public class Army : MonoBehaviour
     public void OnFightEnd()
     {
         onFightEnd?.Invoke();
-        Debug.Log(name + "FightEnd");
+        //Debug.Log(name + "FightEnd");
         animator.SetBool("Fight", false);
     }
 
