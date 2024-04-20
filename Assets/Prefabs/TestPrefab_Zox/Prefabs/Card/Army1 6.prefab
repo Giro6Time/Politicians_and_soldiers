@@ -70,6 +70,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   troopStrength: 0
   whereIFrom: {fileID: 0}
+  cardImage: {fileID: 0}
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
   animator: {fileID: 0}
   died: 0
   curve:
@@ -125,7 +131,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5

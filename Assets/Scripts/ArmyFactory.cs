@@ -23,6 +23,7 @@ public static class ArmyFactory
                 continue;
             var armyInstance = GameObject.Instantiate(prefab);
             var army = armyInstance.GetComponent<Army>();
+            var armyManager = armyInstance.GetComponent<ArmyManager>();
             SpriteRenderer spriteRenderer = prefab.GetComponent<SpriteRenderer>();
             if(spriteRenderer == null)
             {
@@ -34,7 +35,7 @@ public static class ArmyFactory
             //生成图片
             if(army.cardImage != null)
             {
-                spriteRenderer.sprite = Sprite.Create(c.cardImage, new Rect(0, 0, c.cardImage.width, c.cardImage.height), Vector2.one * 0.5f);
+                spriteRenderer.sprite = c.cardFrame;
             }
             //敌人的army动画翻转
             if(army.transform.position.y > 2)

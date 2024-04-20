@@ -211,6 +211,13 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.3333334
+    functionName: FightNext(currArmyType)
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: c9aa144f3b9e1b545907b74e5df05e1e, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.3333334
     functionName: OnFightEnd
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: c9aa144f3b9e1b545907b74e5df05e1e, type: 3}
