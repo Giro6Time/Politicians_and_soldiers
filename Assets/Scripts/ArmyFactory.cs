@@ -21,10 +21,19 @@ public static class ArmyFactory
             if (!c)
                 continue;
             var armyInstance = GameObject.Instantiate(prefab);
-            Army army = armyInstance.AddComponent<Army>();
+            var army = armyInstance.GetComponent<Army>();
             army.whereIFrom = c;
             army.TroopStrength = c.troopStrength;
             army.transform.position = c.transform.position;
+            //敌人的army动画翻转
+            if(army.transform.position.y > 2)
+            {
+                SpriteRenderer spriteRenderer = army.GetComponent<SpriteRenderer>();
+                Vector3 scale = army.transform.localScale;
+                scale.y = -1f;
+                army.transform.localScale = scale;
+                spriteRenderer.flipY = true;
+            }
 
             army.battleStartEffect = c.battleStartEffect;
             army.liveEffect = c.liveEffect;
