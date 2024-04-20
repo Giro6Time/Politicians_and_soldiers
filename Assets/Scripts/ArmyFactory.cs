@@ -44,6 +44,13 @@ public static class ArmyFactory
                 army.transform.localScale = scale;
                 spriteRenderer.flipY = true;
             }
+
+            army.battleStartEffect = c.battleStartEffect;
+            army.liveEffect = c.liveEffect;
+            army.deathEffect = c.deathEffect;
+            army.beforeAttackEffect = c.beforeAttackEffect;
+            army.afterAttactEffect = c.afterAttactEffect;
+
             armyList.Add(army);
         }
         return armyList;

@@ -53,17 +53,24 @@ public class CardManager : MonoBehaviour {
 
     public void MoveCard(CardBase card, CardArrangement area)
     {
+        //手上的牌放到了不合法的位置
         if(area == null){
             card.cardCurrentArea.RearrangeCard();
+
+            if(card.GetCardPos() == CardPos.SelectionArea){hand.Add(card);}
+
             return;
         }
-
+        //手上的牌被重新放回原来的位置，或者牌不能移动到别处
         if (card.GetCardPos() == area.pos || card.canBMoved() == false)
         {
+            if(card.GetCardPos() == CardPos.SelectionArea){hand.Add(card);}
+
             cardPlayingArea.AddCard(card, area.pos);
             card.cardCurrentArea.RearrangeCard();
             return;
         }
+        //手上的牌放到了匹配的位置
         if(card.GetCardMatchedPos() == area.pos)
         {
             if(Player.Instance.decisionValue - card.cost < 0)
@@ -73,6 +80,8 @@ public class CardManager : MonoBehaviour {
             }
             Player.Instance.decisionValue -= card.cost;
 
+            //hand.Remove(card);
+
             cardPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
             card.cardCurrentArea.RearrangeCard();
@@ -80,8 +89,12 @@ public class CardManager : MonoBehaviour {
             card.SetCardPos(area.pos);
             area.RearrangeCard();
             card.cardCurrentArea = area;
-        }else if(area.pos == CardPos.SelectionArea)
+        }
+        //手上的牌重新放回选牌区（选牌区不可能是卡牌匹配区域）
+        else if(area.pos == CardPos.SelectionArea)
         {
+            hand.Add(card);
+
             Player.Instance.decisionValue += card.cost;
             cardPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
@@ -90,6 +103,10 @@ public class CardManager : MonoBehaviour {
             card.SetCardPos(area.pos);
             area.RearrangeCard();
             card.cardCurrentArea = area;
+        }
+        //手上的牌放到了不匹配的位置
+        else{
+            if(card.GetCardPos() == CardPos.SelectionArea){hand.Add(card);}
         }
         card.cardCurrentArea.RearrangeCard();
 
@@ -100,7 +117,7 @@ public class CardManager : MonoBehaviour {
     {
         if(card.GetCardPos() == CardPos.SelectionArea)
         {
-            Hand.Remove(card);
+            hand.Remove(card);
         }
         else
         {
@@ -140,13 +157,13 @@ public class CardManager : MonoBehaviour {
     {
         Debug.Log("Add card to hand");
         //Create Card object
-        if(Hand.Count > handMax)
+        if(hand.Count > handMax)
         {
             return;
         }
-        if (Hand.Count + num > handMax)
+        if (hand.Count + num > handMax)
         {
-            num = handMax - Hand.Count;
+            num = handMax - hand.Count;
         }
 
         for (int i = 0; i < num; i++)
@@ -154,6 +171,8 @@ public class CardManager : MonoBehaviour {
             int randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season).Count);
 
             GameObject card = CardFactory.CreateCardInstance(cardPool.GetCurrentCardBaseSOList(season)[randomIndex]);
+            hand.Add(card.GetComponent<CardBase>());
+
             card.transform.SetParent(cardsCenterPoint.transform, false);
             card.transform.position = playerCardInitialPos.position;
             card.GetComponent<CardBase>().cardCurrentArea = cardsCenterPoint;
@@ -182,7 +201,7 @@ public class CardManager : MonoBehaviour {
                 enemyCard.SetCardPos(CardPos.SkyPutArea);
                 break;
             default:
-                throw new Exception("����û������λ��");
+                throw new Exception("卡牌没有设置位置");
         }
         enemyCardGO.transform.position = enemyCardInitialPos.position;
         enemyCard.GetComponent<CardBase>().isEnemy = true;
@@ -200,7 +219,7 @@ public static class CardFactory
 {
     public static GameObject armyCardPrefab;
     static bool initialized = false;
-    public static void Init(GameObject armyCardPrefab)//��gameManager�н�������
+    public static void Init(GameObject armyCardPrefab)//在gameManager中进行配置
     {
         initialized = true;
         CardFactory.armyCardPrefab = armyCardPrefab;
@@ -208,11 +227,11 @@ public static class CardFactory
     public static GameObject CreateCardInstance(CardBaseSO cardSO)
     {
         if (!initialized)
-            throw new Exception("CardFactory ��δ��ʼ������ƬԤ��δ����");
+            throw new Exception("CardFactory 尚未初始化，卡片预设未加载");
         GameObject instance = GameObject.Instantiate(armyCardPrefab);
         switch (cardSO.cardBaseType)
         {
-            default: throw new ArgumentNullException("����δ��������");
+            default: throw new ArgumentNullException("卡牌未设置类型");
             case CardBaseType.Army:
                 var armyC = instance.AddComponent<ArmyCard>();
                 instance.GetComponent<CardSelectedVisual>().card = armyC;
@@ -226,7 +245,7 @@ public static class CardFactory
 
                 return instance;
             case CardBaseType.Effect:
-                throw new NotImplementedException("�������Ϳ��ƴ�ʵ��");
+                throw new NotImplementedException("特殊类型卡牌待实现");
         }
     }
 

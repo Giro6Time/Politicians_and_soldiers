@@ -24,7 +24,7 @@ public class BattleProgress : MonoBehaviour
 
     public void ProgressAni()
     {
-        //½ø¶ÈÌõ¶¯»­ Ôİ×¢
+        //è¿›åº¦æ¡åŠ¨ç”» æš‚æ³¨
         //battleAnimation.ProgressChangeAni();
     }
 }

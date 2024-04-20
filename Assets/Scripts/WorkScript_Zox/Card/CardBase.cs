@@ -32,6 +32,14 @@ public class CardBase : MonoBehaviour
     private CardPos cardPos;
     public CardArrangement cardCurrentArea;
 
+    public List<IEffect> drawEffect = new();
+    public List<IEffect> invokeEffect = new();
+    public List<IEffect> battleStartEffect = new();
+    public List<IEffect> liveEffect = new();
+    public List<IEffect> deathEffect = new();
+    public List<IEffect> beforeAttackEffect = new();
+    public List<IEffect> afterAttactEffect = new();
+
     private void Awake()
     {
     }
@@ -66,11 +74,11 @@ public class CardBase : MonoBehaviour
 
     public virtual void Get_Effect()
     {
-        //TODO:¿¨ÅÆ½øÈëÊÖÅÆÊ±µÄÐ§¹û´¥·¢£¬ÔÚÅÉÉúÀà×ö
+        //TODO:ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     public virtual void BeforeBattle_Effect()
     {
-        //¿¨ÅÆÔÚ¿ªÕ½Ç°´ò³öµÄÐ§¹û´¥·¢£¬ÔÚÅÉÉúÀà×ö
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½Õ½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 }

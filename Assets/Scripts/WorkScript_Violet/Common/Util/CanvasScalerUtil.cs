@@ -24,7 +24,7 @@ public class CanvasScalerUtil : MonoBehaviour
             judgeFactor=(float)Screen.width/Screen.height;
             if (judgeFactor < 0.3f || judgeFactor > 2f)
             {
-                //µ±¿í¸ß±È¹ıÓÚÀëÆ×Ê±£ºÊ¹ÓÃ¸ü¼ÓÏ¸Î¢µÄµ÷½Ú·½Ê½
+                //å½“å®½é«˜æ¯”è¿‡äºç¦»è°±æ—¶ï¼šä½¿ç”¨æ›´åŠ ç»†å¾®çš„è°ƒèŠ‚æ–¹å¼
                 nextScaleFactor = Mathf.Min(judgeFactor,Screen.height/Screen.width)*1.5f;
             }
             else

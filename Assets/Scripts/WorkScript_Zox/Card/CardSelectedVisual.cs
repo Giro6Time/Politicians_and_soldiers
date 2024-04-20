@@ -127,7 +127,7 @@ public class CardSelectedVisual : MonoBehaviour
         //不加会出bug
         yield return new WaitForSeconds(0.2f);
 
-        // ���ӳٺ�ִ�е��߼�
+        // 如果卡牌位置在选择区域则设置大小为选择区域大小，否则设置为放置区域
         if (card.GetCardPos() == CardPos.SelectionArea)
         {
             cardSize = cardSize_Selecting;

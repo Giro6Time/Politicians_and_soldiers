@@ -1,4 +1,4 @@
-
+ï»¿
 using System.Collections.Generic;
 using System;
 using UnityEngine;
@@ -20,13 +20,13 @@ public class DialogUnitSO: ScriptableObject
         dialogUnit.m_content = m_content;
         foreach (var option in m_options)
         {
-            //´´½¨DialogOption¶ÔÏó£¬²¢Ìí¼Óµ½DialogOptionListÖĞ
+            //åˆ›å»ºDialogOptionå¯¹è±¡ï¼Œå¹¶æ·»åŠ åˆ°DialogOptionListä¸­
             DialogOption dialogOption = new DialogOption();
             dialogOption.m_description = option.m_description;
             dialogOption.m_result = option.m_result;
             foreach(var effect in option.m_effects)
             {
-                //¸ù¾İÅäÖÃÉú³ÉDialogEffect¶ÔÏó£¬ ²¢Ìí¼Óµ½DialogOptionÖĞ
+                //æ ¹æ®é…ç½®ç”ŸæˆDialogEffectå¯¹è±¡ï¼Œ å¹¶æ·»åŠ åˆ°DialogOptionä¸­
                 switch (effect.m_type)
                 {
                     default:

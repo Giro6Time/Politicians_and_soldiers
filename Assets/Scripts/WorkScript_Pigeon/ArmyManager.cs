@@ -9,7 +9,6 @@ using UnityEngine.Purchasing;
 public class ArmyManager : MonoBehaviour
 {
     public BattleEndPanel battleEndPanel;
-    public BattleField battleField;
 
     public static ArmyManager instance;
 
@@ -22,16 +21,15 @@ public class ArmyManager : MonoBehaviour
     }
 
     #region 一大坨声明
-    //�ҷ�ս��
+    //我方海陆空军
     public List<Army> armyOnLand = new();
     public List<Army> armyOnSea = new();
     public List<Army> armyOnSky = new();
-    //�з�ս��
+    //敌方海陆空军
     public List<Army> enemyArmyOnLand = new();
     public List<Army> enemyArmyOnSea = new();
     public List<Army> enemyArmyOnSky = new();
 
-    public List<float> BattleEndTroopRemain = new List<float>(3);
     public Action onBattleEnd;
 
     public float progressChangeValue = 0;
@@ -42,7 +40,7 @@ public class ArmyManager : MonoBehaviour
     public float skyEffect1 = 10f;
     public float skyEffect2 = 10f;
     public float ElseEffect = 0;
-    public int Fix = 0; //��������
+    public int Fix = 0; //修补值：作用？
 
     [Header("动画相关")]
     private float startTime;
@@ -273,7 +271,6 @@ public class ArmyManager : MonoBehaviour
             float damage = Mathf.Min(army[army.Count - 1].TroopStrength, enemyArmy[enemyArmy.Count - 1].TroopStrength);
             army[army.Count - 1].onDamaged += () => army[army.Count - 1].TroopStrength = army[army.Count - 1].TroopStrength - damage;
             enemyArmy[enemyArmy.Count - 1].onDamaged += () => enemyArmy[enemyArmy.Count - 1].TroopStrength = enemyArmy[enemyArmy.Count - 1].TroopStrength - damage;
-            Debug.Log(damage);
             army[army.Count - 1].PlayFight(false);
             enemyArmy[enemyArmy.Count - 1].PlayFight(true);
         }
@@ -463,6 +460,8 @@ public class ArmyManager : MonoBehaviour
 
     public List<float> CalculateTroopstrenth()
     {
+        List<float> BattleEndTroopRemain = new List<float>(3);
+
         BattleEndTroopRemain.AddRange(new float[] { 0, 0, 0 });
 
         float calc = 0;

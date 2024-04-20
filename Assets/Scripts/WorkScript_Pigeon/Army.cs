@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +10,12 @@ public class Army : MonoBehaviour
     public ArmyCard whereIFrom;
     public ArmyCard cardImage;
 
+    public List<IEffect> battleStartEffect = new();
+    public List<IEffect> liveEffect = new();
+    public List<IEffect> deathEffect = new();
+    public List<IEffect> beforeAttackEffect = new();
+    public List<IEffect> afterAttactEffect = new();
+
     public float TroopStrength
     {
         get { return troopStrength; }
@@ -20,7 +26,7 @@ public class Army : MonoBehaviour
             {
                 onDied?.Invoke();
                 died = true;
-                //´¥·¢ÍöÓï
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 //Deathrattle();
                 transform.GetChild(0).gameObject.SetActive(false);
                 onFightEnd += () => Destroy(gameObject);
@@ -90,7 +96,7 @@ public class Army : MonoBehaviour
 
             if (fracJourney >= 1.0f)
             {
-                // ÒÆ¶¯Íê³ÉºóµÄ²Ù×÷
+                // ï¿½Æ¶ï¿½ï¿½ï¿½Éºï¿½Ä²ï¿½ï¿½ï¿½
                 isMoving = false;
                 onMoveEnd?.Invoke();
             }

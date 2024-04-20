@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
@@ -8,93 +8,99 @@ using UnityEngine.UI;
 
 public class UIEventListener : MonoBehaviour
 {
-    #region ±äÁ¿
+    #region å˜é‡
     /// <summary>
-    /// µ¥Àı
+    /// å•ä¾‹
     /// </summary>
     public static UIEventListener _Instance;
 
-    [Header("³é½±×ªÅÌÏà¹ØÊôĞÔÉèÖÃ")]
-    [Header("Ö¸Õë£¬×ªÅÌ·ÅÖÃÎïÄ£°å£¬×ªÅÌ°ë¾¶")]
+    [Header("æŠ½å¥–è½¬ç›˜ç›¸å…³å±æ€§è®¾ç½®")]
+    [Header("æŒ‡é’ˆï¼Œè½¬ç›˜æ”¾ç½®ç‰©æ¨¡æ¿ï¼Œè½¬ç›˜åŠå¾„")]
     public Transform prizeWheelPointer;
     public GameObject prizeWheelTemplate;
+    [Header("å¯ä¿®æ”¹")]
     public float prizeWheelRadius;
+    /// <summary>
+    /// å¥–å“æ± 
+    /// </summary>
+    private List<GameObject> prizePool;
     [SerializeField, Space(20)]
 
     /// <summary>
-    /// ³é½±×ªÅÌÈİÆ÷
+    /// æŠ½å¥–è½¬ç›˜å®¹å™¨
     /// </summary>
     public Transform prizeWheelPanel;
 
-    [Header("×ªÅÌĞı×ªµÄÊ±¼ä£¬Ğı×ªµÄÈ¦Êı£¬½±Æ·Êı")]
+    [Header("å¯ä¿®æ”¹ï¼šè½¬ç›˜æ—‹è½¬çš„æ—¶é—´ï¼Œæ—‹è½¬çš„åœˆæ•°ï¼Œå¥–å“æ•°")]
     /// <summary>
-    /// ³é½±×ªÅÌĞı×ªÊ±¼ä
+    /// æŠ½å¥–è½¬ç›˜æ—‹è½¬æ—¶é—´
     /// </summary>
     public float prizeWheelRotateTime;
 
     /// <summary>
-    /// ³é½±×ªÅÌĞı×ªÈ¦Êı
+    /// æŠ½å¥–è½¬ç›˜æ—‹è½¬åœˆæ•°
     /// </summary>
     public int prizeWheelRotateTurns;
 
     /// <summary>
-    /// ½±Æ·ÊıÁ¿
+    /// å¥–å“æ•°é‡
     /// </summary>
     public int prizeNums;
 
+    [Space(30)]
     /// <summary>
-    /// ½±Æ·¸¸ÎïÌå
+    /// å¥–å“çˆ¶ç‰©ä½“
     /// </summary>
     public Transform prizeParent;
 
     /// <summary>
-    /// Ğı×ª¸¸ÎïÌå
+    /// æ—‹è½¬çˆ¶ç‰©ä½“
     /// </summary>
     public Transform rotateParent;
 
 
-    [Header("»ù´¡UIÉèÖÃ")]
+    [Header("åŸºç¡€UIè®¾ç½®")]
     /// <summary>
-    /// ½ÓÊÜ°´Å¥
+    /// æ¥å—æŒ‰é’®
     /// </summary>
     public Button btn_ChooseYes;
 
     /// <summary>
-    /// ¾Ü¾ø°´Å¥
+    /// å¥–æ± åˆ·æ–°æŒ‰é’®
     /// </summary>
-    public Button btn_ChooseNo;
+    public Button btn_PrizeWheelRefresh;
 
     /// <summary>
-    /// ÈËÎïĞÅÏ¢ÈİÆ÷
+    /// äººç‰©ä¿¡æ¯å®¹å™¨
     /// </summary>
     public GameObject textPanel;
 
     /// <summary>
-    /// sanÖµÎÄ±¾
+    /// sanå€¼æ–‡æœ¬
     /// </summary>
     [SerializeField]
     private Text sanityText;
 
     /// <summary>
-    /// Îä±¸ÎÄ±¾
+    /// æ­¦å¤‡æ–‡æœ¬
     /// </summary>
     [SerializeField]
     private Text armamentText;
 
     /// <summary>
-    /// ×Ê½ğÎÄ±¾
+    /// èµ„é‡‘æ–‡æœ¬
     /// </summary>
     [SerializeField]
     private Text fundText;
 
     /// <summary>
-    /// ÃñÖÚÎÄ±¾
+    /// æ°‘ä¼—æ–‡æœ¬
     /// </summary>
     [SerializeField]
     private Text popularSupportText;
 
     /// <summary>
-    /// ±øÁ¦Ôö·ùÎÄ±¾
+    /// å…µåŠ›å¢å¹…æ–‡æœ¬
     /// </summary>
     [SerializeField]
     private Text troopIncreaseText;
@@ -106,11 +112,14 @@ public class UIEventListener : MonoBehaviour
     {
         if (_Instance == null)
         { _Instance = this; }
+        prizePool = new List<GameObject>();
     }
     private void OnDestroy()
     {
         textPanel = null;
         prizeWheelPointer = null;
+        btn_PrizeWheelRefresh = null;
+        btn_ChooseYes = null;
         sanityText = null;
         armamentText = null;
         fundText = null;
@@ -119,66 +128,65 @@ public class UIEventListener : MonoBehaviour
     }
 
     /// <summary>
-    /// ×ªÅÌUI³õÊ¼»¯
+    /// è½¬ç›˜UIåˆå§‹åŒ–
     /// </summary>
     public void PrizeWheelUIInit()
     {
-        //Òş²Ø°´Å¥£¨±ÈÈçÑ¡Ôñ°´Å¥ºÍÊıÖµÈİÆ÷£©»¹ÓĞµ±Ç°µÄ¿¨ÅÆÏú»Ù²¢ÖØĞÂÉè¶¨Îªnull
-        btn_ChooseNo.gameObject.SetActive(false);
+        //éšè—æŒ‰é’®ï¼ˆæ¯”å¦‚é€‰æ‹©æŒ‰é’®å’Œæ•°å€¼å®¹å™¨ï¼‰è¿˜æœ‰å½“å‰çš„å¡ç‰Œé”€æ¯å¹¶é‡æ–°è®¾å®šä¸ºnull
         btn_ChooseYes.gameObject.SetActive(false);
-
-        //¸üĞÂĞÅÏ¢
+        btn_PrizeWheelRefresh.gameObject.SetActive(true);
+        //æ›´æ–°ä¿¡æ¯
         UIMeetingEventUpdate();
     }
 
     /// <summary>
-    /// »áÒéÊÂ¼şUI³õÊ¼»¯
+    /// ä¼šè®®äº‹ä»¶UIåˆå§‹åŒ–
     /// </summary>
     public void MeetEventUIInit()
     {
-        //ÏÔÊ¾°´Å¥£¨±ÈÈçÑ¡Ôñ°´Å¥ºÍÊıÖµÈİÆ÷£©»¹ÓĞµ±Ç°µÄ¿¨ÅÆÏú»Ù²¢ÖØĞÂÉè¶¨Îªnull
-        btn_ChooseNo.gameObject.SetActive(true);
+        //æ˜¾ç¤ºæŒ‰é’®ï¼ˆæ¯”å¦‚é€‰æ‹©æŒ‰é’®å’Œæ•°å€¼å®¹å™¨ï¼‰è¿˜æœ‰å½“å‰çš„å¡ç‰Œé”€æ¯å¹¶é‡æ–°è®¾å®šä¸ºnull
+        btn_PrizeWheelRefresh.gameObject.SetActive(false);
         btn_ChooseYes.gameObject.SetActive(true);
-        //¸üĞÂĞÅÏ¢
+        //æ›´æ–°ä¿¡æ¯
         UIMeetingEventUpdate();
     }
 
     /// <summary>
-    /// Òé»áÊÂ¼şUI¸üĞÂ
+    /// è®®ä¼šäº‹ä»¶UIæ›´æ–°
     /// </summary>
     public void UIMeetingEventUpdate()
     {
-        //¸üĞÂÆäÓà¼¸¸öUI
-        decisionValueText.text = string.Format("¾ö²ßµã£º{0}", Player.Instance.decisionValue);
-        sanityText.text = string.Format("sanÖµ£º{0}", Player.Instance.sanity);
-        armamentText.text = string.Format("Îä±¸£º{0}", Player.Instance.armament);
-        fundText.text = string.Format("×Ê½ğ£º{0}", Player.Instance.fund);
-        popularSupportText.text = string.Format("ÃñÖÚ£º{0}", Player.Instance.popularSupport);
-        troopIncreaseText.text = string.Format("±øÁ¦Ôö·ù£º{0}", Player.Instance.troopIncrease);
+        //æ›´æ–°å…¶ä½™å‡ ä¸ªUI
+        decisionValueText.text = string.Format("å†³ç­–ç‚¹ï¼š{0}", Player.Instance.decisionValue);
+        sanityText.text = string.Format("sanå€¼ï¼š{0}", Player.Instance.sanity);
+        armamentText.text = string.Format("æ­¦å¤‡ï¼š{0}", Player.Instance.armament);
+        fundText.text = string.Format("èµ„é‡‘ï¼š{0}", Player.Instance.fund);
+        popularSupportText.text = string.Format("æ°‘ä¼—ï¼š{0}", Player.Instance.popularSupport);
+        troopIncreaseText.text = string.Format("å…µåŠ›å¢å¹…ï¼š{0}", Player.Instance.troopIncrease);
     }
 
     /// <summary>
-    /// »æÖÆ³é½±×ªÅÌ
+    /// ç»˜åˆ¶æŠ½å¥–è½¬ç›˜
     /// </summary>
     [System.Obsolete]
     public void DrawPrizeWheel_Divider()
     {
-        #region ·ÏÆú·½°¸
+        #region åºŸå¼ƒæ–¹æ¡ˆ
         /*
         if (prizeWheelDivider == null)
-        { Debug.LogError("Äã»¹Ã»¸ø·Ö¸îÏßÄØ"); }
-        //»æÖÆ·Ö¸îÏß:Èç¹û·Ö¸îÏß»¹Ã»ÓĞ¾Í»­£¬Èç¹ûÓĞÁË¾ÍÊÇ¸Ä±äÎ»ÖÃ
+        { Debug.LogError("ä½ è¿˜æ²¡ç»™åˆ†å‰²çº¿å‘¢"); }
+        //ç»˜åˆ¶åˆ†å‰²çº¿:å¦‚æœåˆ†å‰²çº¿è¿˜æ²¡æœ‰å°±ç”»ï¼Œå¦‚æœæœ‰äº†å°±æ˜¯æ”¹å˜ä½ç½®
         if (prizeWheelDrawList.Count == 0)
         {
             GameObject obj = null;
-            //»æÖÆÂß¼­£º¿ªÊ¼ÔÚ0¶ÈÓĞÒ»Ìõ
+            //ç»˜åˆ¶é€»è¾‘ï¼šå¼€å§‹åœ¨0åº¦æœ‰ä¸€æ¡
             obj = GameObject.Instantiate(prizeWheelDivider, prizeWheelPanel.transform);
             obj.transform.rotation = Quaternion.Euler(Vector3.zero);
             prizeWheelDrawList.Add(obj);
 
             foreach (KeyValuePair<int, MeetEventAbstract> pair in MeetEventGameCtrl._Instance.eventMgr.currPrizeDic)
             {
-                //ÆäÓàÔÚÄ¿±ê½Ç¶ÈÉÏ
+                //å…¶ä½™åœ¨ç›®æ ‡è§’åº¦ä¸Š
                 obj = GameObject.Instantiate(prizeWheelDivider, prizeWheelPanel.transform);
                 obj.transform.rotation = Quaternion.Euler(Vector3.forward * pair.Key);
                 prizeWheelDrawList.Add(obj);
@@ -186,11 +194,11 @@ public class UIEventListener : MonoBehaviour
         }
         else
         {
-            //µÚ0ÌõÏßÓÀÔ¶²»ĞèÒª»æÖÆ£¬ÆäËûĞèÒª
+            //ç¬¬0æ¡çº¿æ°¸è¿œä¸éœ€è¦ç»˜åˆ¶ï¼Œå…¶ä»–éœ€è¦
             int i = 1;
             foreach (KeyValuePair<int, MeetEventAbstract> pair in MeetEventGameCtrl._Instance.eventMgr.currPrizeDic)
             {
-                //ÆäÓàÔÚÄ¿±ê½Ç¶ÈÉÏ
+                //å…¶ä½™åœ¨ç›®æ ‡è§’åº¦ä¸Š
                 prizeWheelDrawList[i++].transform.rotation = Quaternion.Euler(Vector3.forward * pair.Key);
             }
         }
@@ -200,46 +208,38 @@ public class UIEventListener : MonoBehaviour
     }
 
     /// <summary>
-    /// ĞÂ°æ³é½±×ªÅÌ»æÖÆ TODO
+    /// æ–°ç‰ˆæŠ½å¥–è½¬ç›˜ç»˜åˆ¶ 
+    /// TODO:å¯¹äºå¯¹è±¡æ± çš„å»ºç«‹ï¼š
+    /// å¼€å±€å»ºç«‹è‹¥å¹²çš„æ¨¡æ¿ï¼Œç„¶åç”¨çš„æ—¶å€™ï¼Œä»æ± é‡Œæ”¹å˜ä½ç½®
+    /// å³ï¼š
+    /// æ™®é€šé€»è¾‘ï¼šåˆ›å»ºç‰©ä½“
+    /// æ± é€»è¾‘ï¼šæ”¹å˜æ¨¡æ¿ä½ç½®
     /// </summary>
     public void DrawPrizeWheel()
     {
-        //¸ù¾İĞèÇó£º»æÖÆ²»ĞèÒª¿¼ÂÇÆäËûÎÊÌâ£¬Ö»ÊÇ½«Ä£°å·ÅÖÃµ½Éè¶¨ºÃµÄÎ»ÖÃ
+        if (prizePool.Count == prizeNums)
+        {
+            MessageView._Instance.ShowTip("å¥–æ± åˆ·æ–°å·²å®Œæˆï¼Œè¯·éªŒæ”¶");
+            return; 
+        }
+        //æ ¹æ®éœ€æ±‚ï¼šç»˜åˆ¶ä¸éœ€è¦è€ƒè™‘å…¶ä»–é—®é¢˜ï¼Œåªæ˜¯å°†æ¨¡æ¿æ”¾ç½®åˆ°è®¾å®šå¥½çš„ä½ç½®
         float gapAngle = (2 * Mathf.PI) / prizeNums;
         GameObject obj = null;
-        int[] valueList = new int[prizeNums];
-        int index = 0;
-        foreach (KeyValuePair<int, MeetEventAbstract> pair in MeetEventGameCtrl._Instance.eventMgr.currPrizeDic)
-        {
-            //ÆäÓàÔÚÄ¿±ê½Ç¶ÈÉÏ
-            valueList[index] = pair.Value.EventValue;
-        }
-        //ÒÀ´Î½«Ã¿¸öÄ£°å·ÅÖÃµ½Ö¸¶¨Î»ÖÃ
+        //ä¾æ¬¡å°†æ¯ä¸ªæ¨¡æ¿æ”¾ç½®åˆ°æŒ‡å®šä½ç½®
         for (int i = 0; i < prizeNums; i++)
         {
-            //1.»æÖÆÄ£°å
+            //ç»˜åˆ¶æ¨¡æ¿
             obj = GameObject.Instantiate<GameObject>(prizeWheelTemplate, prizeParent);
             obj.transform.localPosition = new Vector3(Mathf.Sin(gapAngle * i) * prizeWheelRadius, Mathf.Cos(gapAngle * i) * prizeWheelRadius, 0);
-            //TODO:2.»æÖÆÌØĞ§
-            DrawValueEffect(valueList[i]);
+            prizePool.Add(obj);
         }
 
     }
 
     /// <summary>
-    /// ³é½±×ªÅÌÌØĞ§...
+    /// è½¬ç›˜ä¸Šç§»ï¼šå†…å«å¤šåŠ¨ç—‡æƒ©ç½šå™¨
     /// </summary>
-    /// <param name="value"></param>
-    private void DrawValueEffect(int value)
-    {
-    }
-
-
-
-    /// <summary>
-    /// ×ªÅÌÉÏÒÆ£ºÄÚº¬¶à¶¯Ö¢³Í·£Æ÷
-    /// </summary>
-    /// <param name="OnComplete">Íê³ÉÊÂ¼ş</param>
+    /// <param name="OnComplete">å®Œæˆäº‹ä»¶</param>
     public void PrizeWheelUp(System.Action OnComplete = null)
     {
         MeetEventGameCtrl._Instance.eventMgr.isFreeze = true;
@@ -256,9 +256,9 @@ public class UIEventListener : MonoBehaviour
     }
 
     /// <summary>
-    /// ×ªÅÌÏÂÒÆ£ºÄÚº¬¶à¶¯Ö¢³Í·£Æ÷
+    /// è½¬ç›˜ä¸‹ç§»ï¼šå†…å«å¤šåŠ¨ç—‡æƒ©ç½šå™¨
     /// </summary>
-    /// <param name="OnComplete">Íê³ÉÊÂ¼ş</param>
+    /// <param name="OnComplete">å®Œæˆäº‹ä»¶</param>
     public void PrizeWheelDown(System.Action OnComplete = null)
     {
         MeetEventGameCtrl._Instance.eventMgr.isFreeze = true;
@@ -273,9 +273,9 @@ public class UIEventListener : MonoBehaviour
                 }));
     }
 
-    #region ÊäÈëº¯Êı
+    #region è¾“å…¥å‡½æ•°
     /// <summary>
-    /// ½øĞĞ»áÒéÊÂ¼ş´¦Àí
+    /// è¿›è¡Œä¼šè®®äº‹ä»¶å¤„ç†
     /// </summary>
     public void OnBtnClick_ToDisposeMeetEvent()
     {
@@ -285,39 +285,38 @@ public class UIEventListener : MonoBehaviour
     }
 
     /// <summary>
-    /// Òé»áÊÂ¼ş°´Å¥
+    /// è®®ä¼šäº‹ä»¶æŒ‰é’®
     /// </summary>
-    /// <param name="isYes"></param>
-    public void OnBtnClick_MeetingEventChoose(bool isYes)
+    public void OnBtnClick_MeetingEventChoose()
     {
-        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze&&MeetEventGameCtrl._Instance.eventMgr.isDisposeMeetEvent)
             return;
-            //ĞŞ¸ÄÊÂ¼ş²¢ÅĞ¶¨ÊÇ·ñ½áÊø
-        MeetEventGameCtrl._Instance.eventMgr.EventChange(isYes);
-    }
-
-    /// <summary>
-    /// ÂÖÅÌÆô¶¯°´Å¥
-    /// </summary>
-    public void OnBtnClick_StartPrizeWheel()
-    {
-        //ÓëÒé»áÊÂ¼ş²»Í¬£¬×ªÅÌÔÚ¶¯Ê±£ºÓ¦¸Ã½ûÖ¹Íæ¼Ò½øĞĞ³é½±
-        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
-            return;
-        MeetEventGameCtrl._Instance.DisposePrizeWheel();
-        //½øĞĞ³é½±
+            //ä¿®æ”¹äº‹ä»¶å¹¶åˆ¤å®šæ˜¯å¦ç»“æŸ
         MeetEventGameCtrl._Instance.eventMgr.EventChange();
     }
 
     /// <summary>
-    /// ÍË³öÍõÈ¨Ä£Ê½
-    /// Ö»ÓĞµ±Íæ¼ÒÍêÈ«´¦ÀíÍêÊÂ¼şºó²ÅÈÃÍæ¼ÒÄÜÍË³ö
+    /// è½®ç›˜å¯åŠ¨æŒ‰é’®
+    /// </summary>
+    public void OnBtnClick_StartPrizeWheel()
+    {
+        //ä¸è®®ä¼šäº‹ä»¶ä¸åŒï¼Œè½¬ç›˜åœ¨åŠ¨æ—¶ï¼šåº”è¯¥ç¦æ­¢ç©å®¶è¿›è¡ŒæŠ½å¥–
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
+            return;
+        MeetEventGameCtrl._Instance.DisposePrizeWheel();
+        //è¿›è¡ŒæŠ½å¥–
+        MeetEventGameCtrl._Instance.eventMgr.EventChange();
+    }
+
+    /// <summary>
+    /// é€€å‡ºç‹æƒæ¨¡å¼
+    /// åªæœ‰å½“ç©å®¶å®Œå…¨å¤„ç†å®Œäº‹ä»¶åæ‰è®©ç©å®¶èƒ½é€€å‡º
     /// </summary>
     public void OnBtnClick_ExitKingShipModel()
     {
-        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze || MeetEventGameCtrl._Instance.eventMgr.currentEventList.Count > 0)
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze || MeetEventGameCtrl._Instance.eventMgr.currentEventList.Count > 0||MeetEventGameCtrl._Instance.eventMgr.currEventInfoList.Count>0)
         {
-            Debug.Log("´óÌüÉÏ»¹ÓĞÊÂ¼şÒª´¦ÀíÄØ£¡");
+            MessageView._Instance.ShowTip("å¤§å…ä¸Šè¿˜æœ‰äº‹æƒ…ç­‰å¾…å¤„ç†å‘¢ï¼");
             return;
         }
         MeetEventGameCtrl._Instance.eventMgr.GameExit();
@@ -325,7 +324,7 @@ public class UIEventListener : MonoBehaviour
     }
 
     /// <summary>
-    /// ÈËÎïĞÅÏ¢ÏÔÊ¾°´Å¥
+    /// äººç‰©ä¿¡æ¯æ˜¾ç¤ºæŒ‰é’®
     /// </summary>
     public void OnBtnClick_ShowPlayerNews()
     {
@@ -333,27 +332,47 @@ public class UIEventListener : MonoBehaviour
     }
 
     /// <summary>
-    /// ÒÆ¶¯³é½±ÅÌ
+    /// ç§»åŠ¨æŠ½å¥–ç›˜
     /// </summary>
     public void OnBtnClick_MovePrizeWheel()
     {
-        //¶³½á»òÕßÃ»³éÍêÊ±µã»÷¾ù²»ÉúĞ§
+        //å†»ç»“æˆ–è€…æ²¡æŠ½å®Œæ—¶ç‚¹å‡»å‡ä¸ç”Ÿæ•ˆ
         if (MeetEventGameCtrl._Instance.eventMgr.isFreeze||MeetEventGameCtrl._Instance.currRounds<MeetEventGameCtrl._Instance.maxRounds)
         {
             return;
         }
         if (prizeWheelPanel.localPosition.y < 10)
         {
-            PrizeWheelUp();
+            if (MeetEventGameCtrl._Instance.eventMgr.currentEventList.Count == 0 && MeetEventGameCtrl._Instance.eventMgr.currEventInfoList.Count == 0)
+            {
+                PrizeWheelUp(() =>
+                {
+                    MeetEventUIInit();
+                });
+            }
+            else
+            {
+                OnBtnClick_ToDisposeMeetEvent();
+            }
         }
         else
         {
-            PrizeWheelDown();
+            OnBtnClick_StartPrizeWheel();
         }
     }
 
     /// <summary>
-    /// ÌáÊ¾¹Ø±Õµã»÷
+    /// æŠ½å¥–è½¬ç›˜å¥–æ± åˆ·æ–°
+    /// </summary>
+    public void OnBtnClick_PrizeWheelRefresh()
+    {
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze)
+            return;
+        MeetEventGameCtrl._Instance.eventMgr.UpdatePrizePool();
+    }
+
+    /// <summary>
+    /// æç¤ºå…³é—­ç‚¹å‡»
     /// </summary>
     public void OnBtnClick_CloseTip()
     {

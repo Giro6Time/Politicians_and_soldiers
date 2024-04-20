@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 普通事件：每个事件都必须携带的方法
+/// 鏅�氫簨浠讹細姣忎釜浜嬩欢閮藉繀椤绘惡甯︾殑鏂规硶
 /// </summary>
 public class CommonEvent : MeetEventAbstract
 {
     public override void OnAwake()
     {
         base.OnAwake();
-        eventInfo = new Player();
     }
 
 }

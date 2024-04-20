@@ -1,4 +1,4 @@
-
+ï»¿
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,7 +34,7 @@ public class SanityEffect : DialogEffect
     public override void Trigger(Player p)
     {
         p.sanity += value;
-        Debug.Log("Íæ¼ÒµÄSanÖµÔö¼ÓÁË" + value.ToString() + "µã£¡");
+        Debug.Log("ç©å®¶çš„Sanå€¼å¢åŠ äº†" + value.ToString() + "ç‚¹ï¼");
     }
 }
 
@@ -48,7 +48,7 @@ public class DecisionValueEffect : DialogEffect
     public override void Trigger(Player p)
     {
         p.decisionValue += (int)value;
-        Debug.Log("Íæ¼ÒµÄ¾ö²ßµãÔö¼ÓÁË" + value.ToString() + "µã£¡");
+        Debug.Log("ç©å®¶çš„å†³ç­–ç‚¹å¢åŠ äº†" + value.ToString() + "ç‚¹ï¼");
     }
 }
 
