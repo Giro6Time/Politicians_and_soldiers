@@ -29,6 +29,7 @@ public enum Season
     Winter
 }
 
+[SerializeField]
 public enum CardPos
 {
     SelectionArea,

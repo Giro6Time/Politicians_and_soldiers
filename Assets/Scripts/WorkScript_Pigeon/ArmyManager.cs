@@ -9,7 +9,6 @@ using UnityEngine.Purchasing;
 public class ArmyManager : MonoBehaviour
 {
     public BattleEndPanel battleEndPanel;
-    public BattleField battleField;
 
     public static ArmyManager instance;
 
@@ -272,7 +271,6 @@ public class ArmyManager : MonoBehaviour
             float damage = Mathf.Min(army[army.Count - 1].TroopStrength, enemyArmy[enemyArmy.Count - 1].TroopStrength);
             army[army.Count - 1].onDamaged += () => army[army.Count - 1].TroopStrength = army[army.Count - 1].TroopStrength - damage;
             enemyArmy[enemyArmy.Count - 1].onDamaged += () => enemyArmy[enemyArmy.Count - 1].TroopStrength = enemyArmy[enemyArmy.Count - 1].TroopStrength - damage;
-            Debug.Log(damage);
             army[army.Count - 1].PlayFight(false);
             enemyArmy[enemyArmy.Count - 1].PlayFight(true);
         }
@@ -314,7 +312,7 @@ public class ArmyManager : MonoBehaviour
             {
                 progressChangeValue = 0;
             }
-            battleField.OnBattleEnd();
+            onBattleEnd?.Invoke();
         }
     }
 

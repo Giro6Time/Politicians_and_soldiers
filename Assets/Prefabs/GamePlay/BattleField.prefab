@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: 50
+  battleAnimation: {fileID: 0}
 --- !u!114 &6008123851016489749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleEndPanel: {fileID: 0}
+  battleField: {fileID: 6008123851016489751}
   armyOnLand: []
   armyOnSea: []
   armyOnSky: []
@@ -91,3 +93,37 @@ MonoBehaviour:
   skyEffect2: 10
   ElseEffect: 0
   Fix: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  attackingDuration: 1
+  battleGapDuration: 1
+  distance: 0
+  pivot: {fileID: 0}
+  land:
+  - 0
+  - 0
+  - 0
+  enemyLand:
+  - 0
+  - 0
+  - 0
+  sea:
+  - 0
+  - 0
+  - 0
+  enemySea:
+  - 0
+  - 0
+  - 0
+  sky:
+  - 0
+  - 0
+  - 0
+  enemySky:
+  - 0
+  - 0
+  - 0

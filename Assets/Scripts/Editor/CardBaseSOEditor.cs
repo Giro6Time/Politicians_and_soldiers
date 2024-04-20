@@ -69,7 +69,7 @@ public class CardBaseSOEditor : Editor
     {
 
     }
-    void DrawListElement(Rect rect, int index, bool isActive, bool isFocused, ReorderableList list)
+    void DrawListElement(Rect rect, int index, bool isActive, bool isFocused,ref ReorderableList list)
     {
         SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
         // 获取element对应的对象实例
@@ -120,47 +120,46 @@ public class CardBaseSOEditor : Editor
 
     private void OnEnable()
     {
-        (target as CardBaseSO).drawEffect = new();
 
         drawEffectListProperty = serializedObject.FindProperty("drawEffect");
         drawEffectList = new ReorderableList(serializedObject, drawEffectListProperty, true, true, true, true);
-        drawEffectList.drawElementCallback = (rect, index, isActive, isFocused) =>DrawListElement(rect, index, isActive, isFocused, drawEffectList);
+        drawEffectList.drawElementCallback = (rect, index, isActive, isFocused) =>DrawListElement(rect, index, isActive, isFocused,ref drawEffectList);
         drawEffectList.drawHeaderCallback = DrawDrawEffectListHeader;
         drawEffectList.onAddCallback = (recordableList) =>AddEffect(recordableList, "drawEffect");
 
         invokeEffectListProperty = serializedObject.FindProperty("invokeEffect");
         invokeEffectList = new ReorderableList(serializedObject, invokeEffectListProperty, true, true, true, true);
-        invokeEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, invokeEffectList);
+        invokeEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused,ref invokeEffectList);
         invokeEffectList.drawHeaderCallback = DrawInvokeEffectListHeader;
         invokeEffectList.onAddCallback = (recordableList) => AddEffect(recordableList, "invokeEffect");
 
         battleStartEffectListProperty = serializedObject.FindProperty("battleStartEffect");
         battleStartEffectList = new ReorderableList(serializedObject, battleStartEffectListProperty, true, true, true, true);
-        battleStartEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, battleStartEffectList);
+        battleStartEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused,ref battleStartEffectList);
         battleStartEffectList.drawHeaderCallback = DrawBattleStartEffectListHeader;
         battleStartEffectList.onAddCallback = (recordableList) => AddEffect(recordableList, "battleStartEffect");
 
         liveEffectListProperty = serializedObject.FindProperty("liveEffect");
         liveEffectList = new ReorderableList(serializedObject, liveEffectListProperty, true, true, true, true);
-        liveEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, liveEffectList);
+        liveEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, ref liveEffectList);
         liveEffectList.drawHeaderCallback = DrawLiveEffectListHeader;
         liveEffectList.onAddCallback = (recordableList) => AddEffect(recordableList, "liveEffect");
 
         deathEffectListProperty = serializedObject.FindProperty("deathEffect");
         deathEffectList = new ReorderableList(serializedObject, deathEffectListProperty, true, true, true, true);
-        deathEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, deathEffectList);
+        deathEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, ref deathEffectList);
         deathEffectList.drawHeaderCallback = DrawDeathEffectListHeader;
         deathEffectList.onAddCallback = (recordableList) => AddEffect(recordableList, "deathEffect");
 
         beforeAttackEffectListProperty = serializedObject.FindProperty("beforeAttackEffect");
         beforeAttackEffectList = new ReorderableList(serializedObject, beforeAttackEffectListProperty, true, true, true, true);
-        beforeAttackEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, beforeAttackEffectList);
+        beforeAttackEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, ref beforeAttackEffectList);
         beforeAttackEffectList.drawHeaderCallback = DrawBeforeAttaceEffectHeader;
         beforeAttackEffectList.onAddCallback = (recordableList) => AddEffect(recordableList, "beforeAttackEffect");
 
         afterAttackEffectListProperty = serializedObject.FindProperty("afterAttackEffect");
         afterAttackEffectList = new ReorderableList(serializedObject, afterAttackEffectListProperty, true, true, true, true);
-        afterAttackEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, afterAttackEffectList);
+        afterAttackEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, ref afterAttackEffectList);
         afterAttackEffectList.drawHeaderCallback = DrawAfterAttaceEffectHeader;
         afterAttackEffectList.onAddCallback = (recordableList) => AddEffect(recordableList, "afterAttackEffect");
 
@@ -232,7 +231,7 @@ public class EffectConfigurationWindow : EditorWindow
         switch (selectedEffectType.ToString())
         {
             case "IResultReflectEffect":
-                args = new object[1] {1f };
+                args = new object[3] {(CardPos.LandPutArea),1f,1f }; 
                 EditorGUILayout.LabelField("影响位置");
                 args[0] = EditorGUILayout.EnumPopup((CardPos)args[0]);
                 EditorGUILayout.LabelField("value(加算)");
@@ -272,7 +271,7 @@ public class EffectConfigurationWindow : EditorWindow
                 switch (selectedEffectType.ToString())
                 {
                     case "IResultReflectEffect":
-                        effectInstance = (IResultReflectEffect)Activator.CreateInstance(effectType, (owner.target as CardBaseSO).matchedPos, (float)args[0]);
+                        effectInstance = (IResultReflectEffect)Activator.CreateInstance(effectType, (CardPos)args[0], (float)args[1], (float)args[2]);
                         break;
                         // 添加更多的case来处理其他子类类型的实例化
                 }
