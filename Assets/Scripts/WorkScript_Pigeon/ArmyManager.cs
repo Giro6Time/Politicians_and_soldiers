@@ -315,7 +315,7 @@ public class ArmyManager : MonoBehaviour
             {
                 progressChangeValue = 0;
             }
-            battleField.OnBattleEnd();
+            onBattleEnd?.Invoke();
         }
     }
 

@@ -8,6 +8,7 @@ public class Army : MonoBehaviour
     [SerializeField] float troopStrength;
 
     public ArmyCard whereIFrom;
+    public ArmyCard cardImage;
 
     public float TroopStrength
     {

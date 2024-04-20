@@ -6,6 +6,7 @@ using UnityEngine;
 public static class ArmyFactory
 {
     public static GameObject prefab;
+    public static Texture2D image;
 
     public static List<Army> CreateArmyListByCardList(List<CardBase> cards)
     {
@@ -22,13 +23,22 @@ public static class ArmyFactory
                 continue;
             var armyInstance = GameObject.Instantiate(prefab);
             var army = armyInstance.GetComponent<Army>();
+            SpriteRenderer spriteRenderer = prefab.GetComponent<SpriteRenderer>();
+            if(spriteRenderer == null)
+            {
+                spriteRenderer = prefab.AddComponent<SpriteRenderer>();
+            }
             army.whereIFrom = c;
             army.TroopStrength = c.troopStrength;
             army.transform.position = c.transform.position;
+            //生成图片
+            if(army.cardImage != null)
+            {
+                spriteRenderer.sprite = Sprite.Create(c.cardImage, new Rect(0, 0, c.cardImage.width, c.cardImage.height), Vector2.one * 0.5f);
+            }
             //敌人的army动画翻转
             if(army.transform.position.y > 2)
             {
-                SpriteRenderer spriteRenderer = army.GetComponent<SpriteRenderer>();
                 Vector3 scale = army.transform.localScale;
                 scale.y = -1f;
                 army.transform.localScale = scale;
