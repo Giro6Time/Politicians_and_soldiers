@@ -68,9 +68,26 @@ public class ArmyManager : MonoBehaviour
     {
         Init(ArmyType.Sky);
         Move(ArmyType.Sky);
-        //BattleNext();
-        //PlayBattleAnimation();
+        BattleStartEffect();
     }
+
+    void BattleStartEffect()
+    {
+        //我方海陆空军
+        foreach (var army in armyOnLand)
+            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+        foreach (var army in armyOnSky)
+            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+        foreach (var army in armyOnSea)
+            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+        foreach (var army in enemyArmyOnLand)
+            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+        foreach (var army in enemyArmyOnSky)
+            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+        foreach (var army in enemyArmyOnSea)
+            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+}
+
     public void Init(ArmyType at)
     {
         var currArmy = armyOnLand;
@@ -268,11 +285,18 @@ public class ArmyManager : MonoBehaviour
         #endregion
         if (army.Count > 0 && enemyArmy.Count > 0)
         {
-            float damage = Mathf.Min(army[army.Count - 1].TroopStrength, enemyArmy[enemyArmy.Count - 1].TroopStrength);
-            army[army.Count - 1].onDamaged += () => army[army.Count - 1].TroopStrength = army[army.Count - 1].TroopStrength - damage;
-            enemyArmy[enemyArmy.Count - 1].onDamaged += () => enemyArmy[enemyArmy.Count - 1].TroopStrength = enemyArmy[enemyArmy.Count - 1].TroopStrength - damage;
-            army[army.Count - 1].PlayFight(false);
-            enemyArmy[enemyArmy.Count - 1].PlayFight(true);
+            var a = army[army.Count-1];
+            var ea = enemyArmy[enemyArmy.Count-1];
+            float damage = Mathf.Min(a.TroopStrength, ea.TroopStrength);
+
+            a.onDamaged += () => a.TroopStrength = a.TroopStrength - damage;
+            a.onDamaged += () => IEffect.TriggerAllEffects(a.afterAttactEffect, new object[] { a, ea });
+            IEffect.TriggerAllEffects(a.beforeAttackEffect, new object[]{ a, ea });//触发战斗前效果
+            ea.onDamaged += () => ea.TroopStrength = ea.TroopStrength - damage;
+            ea.onDamaged += () => IEffect.TriggerAllEffects(ea.afterAttactEffect, new object[] { ea,a}); 
+            IEffect.TriggerAllEffects(ea.beforeAttackEffect, new object[]{ ea, a });//触发战斗前效果
+            a.PlayFight(false);
+            ea.PlayFight(true);
         }
 
         //只有一个区域的army完全打完才进入下一个阶段

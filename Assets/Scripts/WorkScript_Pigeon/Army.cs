@@ -28,6 +28,8 @@ public class Army : MonoBehaviour
                 //��������
                 //Deathrattle();
                 transform.GetChild(0).gameObject.SetActive(false);
+                ClearAllEvent();
+                IEffect.TriggerAllEffects(deathEffect, new object[] { this });
                 onFightEnd += () => Destroy(gameObject);
             }
         }
@@ -100,6 +102,14 @@ public class Army : MonoBehaviour
                 onMoveEnd?.Invoke();
             }
         }
+    }
+
+    void ClearAllEvent()
+    {
+        onDamaged = null;
+        onDied = null;
+        onFightEnd = null;
+        onMoveEnd = null;
     }
 
 }
