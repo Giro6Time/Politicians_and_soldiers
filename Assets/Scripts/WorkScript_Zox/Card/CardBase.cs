@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,5 +59,18 @@ public class CardBase : MonoBehaviour
     public bool canBMoved()
     {
         return !isEnemy && !isUsed;
+    }
+
+    protected EventHandler OnGetCard;
+    protected EventHandler OnSetCard_beforeBattle;
+
+    public virtual void Get_Effect()
+    {
+        //TODO:���ƽ�������ʱ��Ч������������������
+    }
+
+    public virtual void BeforeBattle_Effect()
+    {
+        //�����ڿ�սǰ�����Ч������������������
     }
 }

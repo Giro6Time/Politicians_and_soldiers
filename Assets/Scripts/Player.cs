@@ -48,6 +48,7 @@ public class Player
 
     public float decisionValueMax;
 
+
     internal void Init()
     {
         //TODO: ��ʼ��ֵΪ��ֵ�����߶�ȡPlayerSO��ʼ��ֵ  这个看起来像临时设置的，也没找到原字段

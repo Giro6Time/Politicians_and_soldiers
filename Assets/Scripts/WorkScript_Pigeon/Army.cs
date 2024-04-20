@@ -11,7 +11,7 @@ public class Army : MonoBehaviour
     private float troopStrength = 0;
 
     public ArmyCard whereIFrom;
-    
+
     public float TroopStrength
     {
         get { return troopStrength; }
@@ -26,7 +26,7 @@ public class Army : MonoBehaviour
             }
         }
     }
-    
+
     public string m_name = "";
     public SpecialEffect specialEffect;
     Renderer armyRenderer;
@@ -73,13 +73,13 @@ public class Army : MonoBehaviour
 
     public bool IsAlive()
     {
-        if(troopStrength <= 0)
+        if (troopStrength <= 0)
         {
             return false;
         }
-        else 
-        { 
-            return true; 
+        else
+        {
+            return true;
         }
     }
     public void Die()
@@ -87,5 +87,4 @@ public class Army : MonoBehaviour
         DestroyImmediate(whereIFrom.gameObject);
         Destroy(gameObject);
     }
-
 }

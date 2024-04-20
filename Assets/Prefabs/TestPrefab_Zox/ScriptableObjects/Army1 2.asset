@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Army1 2
   m_EditorClassIdentifier: 
+  cardName: 
+  description: 
   troopStrength: 101
+  cost: 0
   matchedSeason: 1
   matchedPos: 3
   cardBaseType: 0
   cardFrame: {fileID: 21300000, guid: 7468d501586abff40bfc5c24891fc9ba, type: 3}
   inset: {fileID: 0}
-  color: {r: 0.18903522, g: 0.5660378, b: 0.29807258, a: 0}
+  drawEffect: []
+  invokeEffect: []
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []

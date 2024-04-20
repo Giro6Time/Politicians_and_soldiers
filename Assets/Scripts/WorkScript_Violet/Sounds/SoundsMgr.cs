@@ -32,6 +32,7 @@ public class SoundsMgr : MonoBehaviour
     /// 音乐控制
     /// </summary>
     public bool isOpenBackgroundMusic;
+    public float lastBackgroundRate;
     public float backgroundVolume;
     public float soundEffectVolume;
     public bool isOpenSoundEffects;
@@ -87,6 +88,7 @@ public class SoundsMgr : MonoBehaviour
         {
             Debug.Log("背景音乐");
             PlayBackgroundMusic("BG");
+            MeetEventGameCtrl._Instance.Init();
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
