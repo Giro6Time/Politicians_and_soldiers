@@ -50,7 +50,7 @@ public class ArmyManager : MonoBehaviour
     public float battleGapDuration = 1f;
     public float distance;
     public GameObject pivot;
-    public ArmyType currArmyType;
+    public ArmyType currArmyType = ArmyType.Sky;
     public bool startFight = false;
 
     public float[] land = new float[3];
@@ -188,8 +188,8 @@ public class ArmyManager : MonoBehaviour
     {
         var army = armyOnLand;
         var enemyArmy = enemyArmyOnLand;
-        ToArmyType(at, ref army, ref enemyArmy);
         currArmyType = at;
+        ToArmyType(at, ref army, ref enemyArmy);
         if (army.Count > 0 && enemyArmy.Count > 0)
         {
             float damage = Mathf.Min(army[army.Count - 1].TroopStrength, enemyArmy[enemyArmy.Count - 1].TroopStrength);
@@ -198,8 +198,20 @@ public class ArmyManager : MonoBehaviour
             army[army.Count - 1].PlayFight(false);
             enemyArmy[enemyArmy.Count - 1].PlayFight(true);
         }
+
         if(army.Count != 0)
-        { 
+        {
+            army[army.Count - 1].onFightEnd += FightNext;
+            army[army.Count - 1].onFightEnd?.Invoke();
+            //army[army.Count - 1].onFightEnd -= FightNext;
+            //army[army.Count - 1].onFightEnd = null;
+        }
+        else if(enemyArmy.Count != 0)
+        {
+            enemyArmy[enemyArmy.Count - 1].onFightEnd += FightNext;
+            enemyArmy[enemyArmy.Count - 1].onFightEnd?.Invoke();
+            //enemyArmy[enemyArmy.Count - 1].onFightEnd -= FightNext;
+            //enemyArmy[enemyArmy.Count - 1].onFightEnd = null;
         }
     }
 
@@ -218,11 +230,13 @@ public class ArmyManager : MonoBehaviour
             {
                 Init(ArmyType.Ocean);
                 Move(ArmyType.Ocean);
+                //currArmyType = ArmyType.Ocean;
             }
             else if (at == ArmyType.Ocean)
             {
                 Init(ArmyType.Land);
                 Move(ArmyType.Land);
+                //currArmyType= ArmyType.Land;
             }
             //战斗结算，打完了
             else if (at == ArmyType.Land)
@@ -247,6 +261,7 @@ public class ArmyManager : MonoBehaviour
                 {
                     progressChangeValue = 0;
                 }
+                //currArmyType = ArmyType.Sky;
                 onBattleEnd?.Invoke();
             }
         }

@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
         battleField.onGameWin += Win;
         battleField.onGameLose += Lose;
-        battleField.armyManager.onBattleEnd += battleField.OnBattleEnd;
+        //battleField.armyManager.onBattleEnd += battleField.OnBattleEnd;
         battleField.armyManager.onBattleEnd += IntermissionStart;
         gameFlowController.onReignsStartClicked +=()=>gameFlowController.CloseMiniGamePanel();
         gameFlowController.onReignsStartClicked += () => meetEventGameCtrl.Init();
