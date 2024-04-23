@@ -104,6 +104,21 @@ public class CardBaseSOEditor : Editor
             );
         }
 
+        //TODO:
+        else if (instanceType.IsAssignableFrom(typeof(IAddCardEffect)))
+        {
+            list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAddCardEffect");
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Num:");
+            //
+            (effectInstance as IAddCardEffect).num = EditorGUI.IntField(
+                
+                new Rect(rect.x,rect.y+EditorGUIUtility.singleLineHeight*2,100,EditorGUIUtility.singleLineHeight),
+                (effectInstance as IAddCardEffect).num
+            );
+        }
 
     }
 
@@ -239,8 +254,14 @@ public class EffectConfigurationWindow : EditorWindow
                 EditorGUILayout.LabelField("rate(乘算)");
                 args[2] = EditorGUILayout.FloatField((float)args[2]);
                 break;
-            
-            // 添加更多的case来处理其他子类类型的参数
+
+            // TODO: 添加更多的case来处理其他子类类型的参数
+            case "IAddCardEffect":
+                args = new object[1] { 1 };
+                EditorGUILayout.LabelField("添加数量");
+                args[0] = EditorGUILayout.IntField((int)args[0]);
+                break;
+
             default:
                 Debug.Log(selectedEffectType); break;
         }
@@ -273,7 +294,10 @@ public class EffectConfigurationWindow : EditorWindow
                     case "IResultReflectEffect":
                         effectInstance = (IResultReflectEffect)Activator.CreateInstance(effectType, (CardPos)args[0], (float)args[1], (float)args[2]);
                         break;
-                        // 添加更多的case来处理其他子类类型的实例化
+                    // TODO:添加更多的case来处理其他子类类型的实例化
+                    case "IAddCardEffect":
+                        effectInstance = (IAddCardEffect)Activator.CreateInstance(effectType, args[0]);
+                        break;
                 }
 
                 // 将新创建的效果对象添加到drawEffect列表中

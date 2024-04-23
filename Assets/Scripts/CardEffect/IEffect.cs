@@ -62,13 +62,33 @@ public class IResultReflectEffect : IEffect
     }
 }
 
+public class IAddCardEffect : IEffect
+{
+    public int num;
 
-//½«ÑÓ³Ù´¥·¢µÄÐ§¹û
+    public IAddCardEffect(int num, CardEffect card)
+    {
+        this.num = num;
+    }
+
+    public override void Trigger(bool isPlayerTrigger, object[] args)
+    {
+        base.Trigger(isPlayerTrigger,args);
+        if (!GameManager.Instance)
+            return;
+        //ï¿½ß¼ï¿½
+        CardManager.Instance.AddCard(num, DateManager.Instance.GetSeason());
+
+    }
+}
+
+
+//ï¿½ï¿½ï¿½Ó³Ù´ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 [Serializable]
 public class IDelayTriggerEffect : IEffect
 {
     /// <summary>
-    /// ÑÓ³ÙµÄ»ØºÏÊý£¬Ä¬ÈÏÎª1
+    /// ï¿½Ó³ÙµÄ»Øºï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Îª1
     /// </summary>
     public int delayTurn;
 

@@ -46,7 +46,7 @@ public class Player
     /// </summary>
     public float troopIncrease;
 
-    public float decisionValueMax;
+    public int decisionValueMax;
 
 
     internal void Init()
