@@ -7,6 +7,11 @@ using UnityEngine;
 public class IEffect
 {
     public virtual void Trigger(object[] args) { }
+
+    public static void TriggerAllEffects(List<IEffect> effects, object[] args)
+    {
+        foreach (IEffect effect in effects) { effect.Trigger(args); }
+    }
 }
 
 [Serializable]
@@ -44,5 +49,7 @@ public class IResultReflectEffect : IEffect
                 GameManager.Instance.battleField.armyManager.skyEffect1+= value;
                 break;
         }
+
     }
 }
+

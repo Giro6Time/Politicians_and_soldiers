@@ -241,6 +241,15 @@ public static class CardFactory
                 armyC.matchedPos = cardSO.matchedPos;
                 armyC.cardFrame = cardSO.cardFrame;
 
+                armyC.drawEffect = cardSO.drawEffect;
+                armyC.invokeEffect = cardSO.invokeEffect;
+                armyC.battleStartEffect = cardSO.battleStartEffect;
+                armyC.liveEffect = cardSO.liveEffect;
+                armyC.deathEffect = cardSO.deathEffect;
+                armyC.beforeAttackEffect = cardSO.beforeAttackEffect;
+                armyC.afterAttactEffect = cardSO.afterAttactEffect;
+
+
                 armyC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
 
                 return instance;

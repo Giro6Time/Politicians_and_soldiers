@@ -29,6 +29,8 @@ public class Army : MonoBehaviour
                 //��������
                 //Deathrattle();
                 transform.GetChild(0).gameObject.SetActive(false);
+                ClearAllEvent();
+                IEffect.TriggerAllEffects(deathEffect, new object[] { this });
                 onFightEnd += () => Destroy(gameObject);
             }
         }
@@ -39,6 +41,7 @@ public class Army : MonoBehaviour
     public Action onFightEnd;
     public Action onDied;
     public Action onMoveEnd;
+    public Action canFightNext;
 
     public bool died = false;
     private Vector3 currPosition;
@@ -59,6 +62,7 @@ public class Army : MonoBehaviour
 
     public void Move(Vector3 Target, float duration = 1f)
     {
+        Debug.Log("MoveOn");
         isMoving = true;
         currPosition = transform.localPosition;
         startTime = Time.time;
@@ -80,8 +84,9 @@ public class Army : MonoBehaviour
     public void OnFightEnd()
     {
         onFightEnd?.Invoke();
-        //Debug.Log(name + "FightEnd");
+        Debug.Log(name + "FightEnd");
         animator.SetBool("Fight", false);
+        GameManager.Instance.battleField.armyManager.CanFightNext();
     }
 
     void Update()
@@ -96,11 +101,21 @@ public class Army : MonoBehaviour
 
             if (fracJourney >= 1.0f)
             {
+                Debug.Log("Here");
                 // �ƶ���ɺ�Ĳ���
                 isMoving = false;
-                onMoveEnd?.Invoke();
+                //onMoveEnd?.Invoke();
+                GameManager.Instance.battleField.armyManager.Fight(GameManager.Instance.battleField.armyManager.currArmyType);
             }
         }
+    }
+
+    void ClearAllEvent()
+    {
+        onDamaged = null;
+        onDied = null;
+        onFightEnd = null;
+        onMoveEnd = null;
     }
 
 }

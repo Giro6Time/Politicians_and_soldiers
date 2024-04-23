@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Politicians_and_soldiers.sln"
+    "dotnet.defaultSolution": "Politicians_and_soldiers.sln",
+    "dotnet.preferCSharpExtension": true
 }

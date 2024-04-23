@@ -114,8 +114,6 @@ public class GameManager : MonoBehaviour
         gameFlowController.onDialogStartClicked += () => gameFlowController.CloseMiniGamePanel();
         gameFlowController.onDialogStartClicked += dialogManager.OpenDialog;
 
-
-
     }
 
 
