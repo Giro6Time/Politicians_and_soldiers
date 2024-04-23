@@ -10,7 +10,7 @@ public class GameFlowController : MonoBehaviour
     public Button battleStartButton;
     [SerializeField] MiniGamePanel /*fucking*/miniGamePanel;
 
-    public GameLog log;
+    public GameLog log = new();
 
     public Action onBattleStartClicked;
     public Action onReignsStartClicked;
@@ -27,6 +27,7 @@ public class GameFlowController : MonoBehaviour
     }
     public void Init()
     {
+        log.Init();
         gameObject.SetActive(true);
         battleStartButton.onClick.AddListener(() => onBattleStartClicked?.Invoke());
         miniGamePanel.leftButton.onClick.AddListener(() => onReignsStartClicked?.Invoke());
@@ -53,9 +54,16 @@ public class GameLog
         }
     }
     public TurnInfo[] turnInfos = new TurnInfo[12];
+    public void Init()
+    {
+        for(int i = 0; i < turnInfos.Length; i++)
+        {
+            turnInfos[i] = new TurnInfo();
+        }
+    }
     public class TurnInfo
     {
-        public List<Behavior> behaviors;
+        public List<Behavior> behaviors = new();
         //被延迟到某个回合触发的效果
         public List<IDelayTriggerEffect> delayTriggerEffects;
     }
