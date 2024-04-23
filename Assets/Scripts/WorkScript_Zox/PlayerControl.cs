@@ -84,6 +84,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
+                    GameManager.Instance.gameFlowController.log.AddInvokeLog(selectedCard, true);
                     //valid position for card to put
                     if(puttableArea != null)
                     {

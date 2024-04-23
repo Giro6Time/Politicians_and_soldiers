@@ -6,11 +6,19 @@ using UnityEngine;
 [Serializable]
 public class IEffect
 {
-    public virtual void Trigger(object[] args) { }
-
-    public static void TriggerAllEffects(List<IEffect> effects, object[] args)
+    public virtual void Trigger(bool isPlayerTrigger, object[] args) 
     {
-        foreach (IEffect effect in effects) { effect.Trigger(args); }
+        GameManager.Instance.gameFlowController.log.AddEffectLog(this, isPlayerTrigger);
+    }
+
+    
+}
+
+public static class IEffectExtension
+{
+    public static void TriggerAllEffects(this List<IEffect> effects, bool isPlayerTrigger, object[] args)
+    {
+        foreach (IEffect effect in effects) { effect.Trigger(isPlayerTrigger, args); }
     }
 }
 
@@ -31,8 +39,9 @@ public class IResultReflectEffect : IEffect
         this.rate = rate;
     }
 
-    public override void Trigger(object[] args)
+    public override void Trigger(bool isPlayerTrigger, object[] args)
     {
+        base.Trigger(isPlayerTrigger, args);
         if (!GameManager.Instance)
             return;
         switch (pos)
@@ -53,3 +62,23 @@ public class IResultReflectEffect : IEffect
     }
 }
 
+
+//将延迟触发的效果
+[Serializable]
+public class IDelayTriggerEffect : IEffect
+{
+    /// <summary>
+    /// 延迟的回合数，默认为1
+    /// </summary>
+    public int delayTurn;
+
+    public IDelayTriggerEffect(int delayTurn = 1)
+    {
+        this.delayTurn = delayTurn;
+    }
+    public override void Trigger(bool isPlayerTrigger, object[] args) {  
+        base.Trigger(isPlayerTrigger, args);
+        if (!GameManager.Instance) return;
+
+    }
+}

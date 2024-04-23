@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         gameFlowController.battleStartButton.gameObject.SetActive(true);
         gameFlowController.OpenMiniGamePanel();
 
+
     }
     private void BattleStart()
     {

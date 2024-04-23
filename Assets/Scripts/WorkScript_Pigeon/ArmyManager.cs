@@ -78,18 +78,18 @@ public class ArmyManager : MonoBehaviour
     {
         //我方海陆空军
         foreach (var army in armyOnLand)
-            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
         foreach (var army in armyOnSky)
-            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
         foreach (var army in armyOnSea)
-            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
         foreach (var army in enemyArmyOnLand)
-            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
         foreach (var army in enemyArmyOnSky)
-            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
         foreach (var army in enemyArmyOnSea)
-            IEffect.TriggerAllEffects(army.battleStartEffect, new object[] { this });
-}
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
+    }
 
     public void Init(ArmyType at)
     {
@@ -118,31 +118,43 @@ public class ArmyManager : MonoBehaviour
         foreach (Army army in armyOnLand)
             if (army != null)
             {
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
                 army.onDied += () => armyOnLand.Remove(army);
             }
         foreach (Army army in armyOnSea)
             if (army != null)
             {
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
                 army.onDied += () => armyOnSea.Remove(army);
             }
         foreach (Army army in armyOnSky)
             if (army != null)
             {
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
                 army.onDied += () => armyOnSky.Remove(army);
             }
         foreach (Army army in enemyArmyOnLand)
             if (army != null)
             {
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, false);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(false, new object[] { army });
                 army.onDied += () => enemyArmyOnLand.Remove(army);
             }
         foreach (Army army in enemyArmyOnSea)
             if (army != null)
             {
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, false);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(false, new object[] { army });
                 army.onDied += () => enemyArmyOnSea.Remove(army);
             }
         foreach (Army army in enemyArmyOnSky)
             if (army != null)
             {
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, false);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(false, new object[] { army });
                 army.onDied += () => enemyArmyOnSky.Remove(army);
             }
     }
@@ -215,11 +227,11 @@ public class ArmyManager : MonoBehaviour
             float damage = Mathf.Min(a.TroopStrength, ea.TroopStrength);
 
             a.onDamaged += () => a.TroopStrength = a.TroopStrength - damage;
-            a.onDamaged += () => IEffect.TriggerAllEffects(a.afterAttactEffect, new object[] { a, ea });
-            IEffect.TriggerAllEffects(a.beforeAttackEffect, new object[]{ a, ea });//触发战斗前效果
+            a.onDamaged += () => a.afterAttactEffect.TriggerAllEffects(true, new object[] { a, ea });
+            a.beforeAttackEffect.TriggerAllEffects(true, new object[] { a, ea });//触发战斗前效果
             ea.onDamaged += () => ea.TroopStrength = ea.TroopStrength - damage;
-            ea.onDamaged += () => IEffect.TriggerAllEffects(ea.afterAttactEffect, new object[] { ea,a}); 
-            IEffect.TriggerAllEffects(ea.beforeAttackEffect, new object[]{ ea, a });//触发战斗前效果
+            ea.onDamaged += () => ea.afterAttactEffect.TriggerAllEffects(false, new object[] { ea, a }); 
+            ea.beforeAttackEffect.TriggerAllEffects(false, new object[] { ea, a });//触发战斗前效果
             a.PlayFight(false);
             ea.PlayFight(true);
         }
