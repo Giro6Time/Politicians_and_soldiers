@@ -26,7 +26,7 @@ public class CardManager : MonoBehaviour {
 
     public event EventHandler OnCardPut;
 
-    [SerializeField] CardArrangement cardsCenterPoint;
+    [SerializeField] public CardArrangement cardsCenterPoint;
     [SerializeField] CardArrangement cardAnchor_Sky_Player;
     [SerializeField] CardArrangement cardAnchor_Land_Player;
     [SerializeField] CardArrangement cardAnchor_Sea_Player;
@@ -250,6 +250,15 @@ public static class CardFactory
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;
                 armyC.cardFrame = cardSO.cardFrame;
+
+                armyC.drawEffect = cardSO.drawEffect;
+                armyC.invokeEffect = cardSO.invokeEffect;
+                armyC.battleStartEffect = cardSO.battleStartEffect;
+                armyC.liveEffect = cardSO.liveEffect;
+                armyC.deathEffect = cardSO.deathEffect;
+                armyC.beforeAttackEffect = cardSO.beforeAttackEffect;
+                armyC.afterAttactEffect = cardSO.afterAttactEffect;
+
 
                 armyC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
 

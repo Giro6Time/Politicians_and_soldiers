@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class Army : MonoBehaviour
 {
-#if UNITY_EDITOR
-    [SerializeField]
-#endif
-    private float troopStrength = 0;
+    [SerializeField] float troopStrength;
 
     public ArmyCard whereIFrom;
+    public ArmyCard cardImage;
+
+    public List<IEffect> battleStartEffect = new();
+    public List<IEffect> liveEffect = new();
+    public List<IEffect> deathEffect = new();
+    public List<IEffect> beforeAttackEffect = new();
+    public List<IEffect> afterAttactEffect = new();
 
     public float TroopStrength
     {
@@ -20,71 +24,93 @@ public class Army : MonoBehaviour
             troopStrength = value;
             if (troopStrength <= 0)
             {
-                Debug.Log(gameObject.name + " is slain");
-                onDead?.Invoke();
-                Die();
+                onDied?.Invoke();
+                died = true;
+                //��������
+                //Deathrattle();
+                transform.GetChild(0).gameObject.SetActive(false);
+                ClearAllEvent();
+                IEffect.TriggerAllEffects(deathEffect, new object[] { this });
+                onFightEnd += () => Destroy(gameObject);
             }
         }
     }
 
+    public Animator animator;
+    public Action onDamaged;
+    public Action onFightEnd;
+    public Action onDied;
+    public Action onMoveEnd;
+
+    public bool died = false;
+    private Vector3 currPosition;
+    private Vector3 targetPosition;
+    private float startTime;
+    public AnimationCurve curve;
+    public float duration;
+    private bool isMoving = false;
+
     public string m_name = "";
     public SpecialEffect specialEffect;
-    Renderer armyRenderer;
 
-    public Action onDead;
+
     private void Awake()
     {
-        armyRenderer = GetComponent<Renderer>();
+        animator = GetComponentInChildren<Animator>();
     }
 
-    public Vector3 GetUpperBound()
+    public void Move(Vector3 Target, float duration = 1f)
     {
-        if (armyRenderer != null)
+        isMoving = true;
+        currPosition = transform.localPosition;
+        startTime = Time.time;
+        targetPosition = Target;
+        this.duration = duration;
+    }
+
+    public void PlayFight(bool left)
+    {
+        animator.SetBool("Left", left);
+        animator.SetBool("Fight", true);
+    }
+
+    public void OnDamaged()
+    {
+        onDamaged?.Invoke();
+    }
+
+    public void OnFightEnd()
+    {
+        onFightEnd?.Invoke();
+        Debug.Log(name + "FightEnd");
+        animator.SetBool("Fight", false);
+    }
+
+    void Update()
+    {
+        if (isMoving)
         {
-            Bounds bounds = armyRenderer.bounds;
-            Vector3 center = bounds.center;
-            Vector3 extents = bounds.extents;
-            // 边缘点
-            Vector3 dot = new Vector3(center.x, center.y + extents.y, 0);
+            float journeyLength = Vector3.Distance(currPosition, targetPosition);
+            float distCovered = (Time.time - startTime) * curve.Evaluate((Time.time - startTime) / duration);
+            float fracJourney = distCovered / journeyLength;
 
-            return dot;
-        }
-        throw new System.Exception("renderer不见了");
-    }
-    public Vector3 GetLowerBound()
-    {
-        if (armyRenderer != null)
-        {
-            Bounds bounds = armyRenderer.bounds;
-            Vector2 center = bounds.center;
-            Vector2 extents = bounds.extents;
-            // 边缘点
-            Vector3 dot = new Vector3(center.x, center.y - extents.y, 0);
-            return dot;
-            // Do something with corners
-        }
-        throw new System.Exception("renderer不见了");
-    }
-    public void Effect()
-    {
+            transform.localPosition = Vector3.Lerp(currPosition, targetPosition, fracJourney);
 
-    }
-
-
-    public bool IsAlive()
-    {
-        if (troopStrength <= 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
+            if (fracJourney >= 1.0f)
+            {
+                // �ƶ���ɺ�Ĳ���
+                isMoving = false;
+                onMoveEnd?.Invoke();
+            }
         }
     }
-    public void Die()
+
+    void ClearAllEvent()
     {
-        DestroyImmediate(whereIFrom.gameObject);
-        Destroy(gameObject);
+        onDamaged = null;
+        onDied = null;
+        onFightEnd = null;
+        onMoveEnd = null;
     }
+
 }

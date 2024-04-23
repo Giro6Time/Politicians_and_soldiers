@@ -7,6 +7,11 @@ using UnityEngine;
 public class IEffect
 {
     public virtual void Trigger(object[] args) { }
+
+    public static void TriggerAllEffects(List<IEffect> effects, object[] args)
+    {
+        foreach (IEffect effect in effects) { effect.Trigger(args); }
+    }
 }
 
 [Serializable]
@@ -44,5 +49,26 @@ public class IResultReflectEffect : IEffect
                 GameManager.Instance.battleField.armyManager.skyEffect1+= value;
                 break;
         }
+
     }
 }
+
+public class IAddCardEffect : IEffect
+{
+    public int num;
+
+    public IAddCardEffect(int num, CardEffect card)
+    {
+        this.num = num;
+    }
+
+    public override void Trigger(object[] args)
+    {
+        if (!GameManager.Instance)
+            return;
+        //Âß¼­
+        CardManager.Instance.AddCard(num, DateManager.Instance.GetSeason());
+
+    }
+}
+

@@ -15,3 +15,4 @@ public class ArmyCard : CardBase
         SkyArmy
     }
 }
+

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardEffect : CardBase, ISpecialAbility
+public class CardEffect : CardBase//, ISpecialAbility
 {
 
     public Sprite cardFrame;
@@ -15,7 +15,7 @@ public class CardEffect : CardBase, ISpecialAbility
         RemainProgress,
     }
     public EffectType effectType;
-    public void UseAbility()
+    /*public void UseAbility()
     {
         switch (effectType)
         {
@@ -34,27 +34,30 @@ public class CardEffect : CardBase, ISpecialAbility
         }
         //À¿Õˆ
         Destroy(gameObject);
-    }
-    private static void AddCard()
+    }*/
+    public void AddCard(int n)
     {
-        CardManager.Instance.AddCard(1, DateManager.Instance.GetSeason());
+        CardManager.Instance.AddCard(n, DateManager.Instance.GetSeason());
+        
+        CardManager.Instance.cardsCenterPoint.RearrangeCard();
+        Destroy(this.gameObject);
     }
-    private static void ChangePossibility()
+    public void ChangePossibility()
     {
         //
     }
-    private static void AddDecision()
+    public void AddDecision(int n)
     {
-        if(Player.Instance.decisionValue+1 < Player.Instance.decisionValueMax)
+        if(Player.Instance.decisionValue+ n < Player.Instance.decisionValueMax)
         {
-            Player.Instance.decisionValue++;
+            Player.Instance.decisionValue += n;
         }
         else
         {
             Player.Instance.decisionValue = Player.Instance.decisionValueMax;
         }
     }
-    private static void RemainProgress()
+    public void RemainProgress()
     {
         //
     }

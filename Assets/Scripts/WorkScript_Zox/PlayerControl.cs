@@ -84,6 +84,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
+                    IEffect.TriggerAllEffects(selectedCard.invokeEffect,new object[] {selectedCard});
                     if(selectedCard is ArmyCard)
                     {
                         //valid position for card to put
@@ -99,7 +100,7 @@ public class PlayerControl : MonoBehaviour
                     }else if(selectedCard is CardEffect)
                     {
                         Debug.Log("启动");
-                        (selectedCard as CardEffect).UseAbility();
+                        //(selectedCard as CardEffect).UseAbility();
                         currentState = State.SelectingCard;
                     }
                 }else if (Input.GetMouseButtonDown(1))

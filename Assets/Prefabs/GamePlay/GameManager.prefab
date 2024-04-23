@@ -830,7 +830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2782243973212470750, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4067074731508651630, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline
@@ -838,6 +838,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4067074731508651633, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074731599333285, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: angleIncrement
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4067074731612137162, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
@@ -942,7 +946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5510306461971358530, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6680650596211811336, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_Name
