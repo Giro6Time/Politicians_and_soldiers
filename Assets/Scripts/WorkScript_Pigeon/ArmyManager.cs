@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -18,14 +20,16 @@ public class ArmyManager : MonoBehaviour
             instance = this;
         }
     }
+
+    #region 一大坨声明
     //我方海陆空军
-    public List<Army> armyOnLand = new ();
-    public List<Army> armyOnSea = new();
-    public List<Army> armyOnSky = new();
+    public List<Army> armyOnLand = new(8);
+    public List<Army> armyOnSea = new(8);
+    public List<Army> armyOnSky = new(8);
     //敌方海陆空军
-    public List<Army> enemyArmyOnLand = new();
-    public List<Army> enemyArmyOnSea = new();
-    public List<Army> enemyArmyOnSky = new();
+    public List<Army> enemyArmyOnLand = new(8);
+    public List<Army> enemyArmyOnSea = new(8);
+    public List<Army> enemyArmyOnSky = new(8);
 
     public Action onBattleEnd;
 
@@ -44,32 +48,75 @@ public class ArmyManager : MonoBehaviour
     public AnimationCurve curve;
     public float attackingDuration = 1f;
     public float battleGapDuration = 1f;
+    public float distance;
+    public GameObject pivot;
+    public ArmyType currArmyType = ArmyType.Sky;
+    public bool startFight = false;
+    public int currArmyCount = 0;
 
-    enum BattleState
+    public bool isFightNextOn = false;
+
+    public float[] land = new float[3];
+    public float[] enemyLand = new float[3];
+    public float[] sea = new float[3];
+    public float[] enemySea = new float[3];
+    public float[] sky = new float[3];
+    public float[] enemySky = new float[3];
+    #endregion
+
+    public void Battle()
     {
-        None,
-        Attacking,
-        Attacked,
-        Gapping
-    };
-    BattleState currState = BattleState.None;
+        StartBattle();
+        ResetEffect();
+    }
 
+    private void StartBattle()
+    {
+        currArmyType = ArmyType.Sky;
+        Init(ArmyType.Sky);
+        Init(ArmyType.Ocean);
+        Init(ArmyType.Sky);
+        Move();
+        BattleStartEffect();
+    }
 
-    public Vector3 skyBattlePos;
-    public Vector3 landBattlePos;
-    public Vector3 seaBattlePos;
-    public Vector3 enemySkyBattlePos;
-    public Vector3 enemyLandBattlePos;
-    public Vector3 enemySeaBattlePos;
+    void BattleStartEffect()
+    {
+        //我方海陆空军
+        foreach (var army in armyOnLand)
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
+        foreach (var army in armyOnSky)
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
+        foreach (var army in armyOnSea)
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
+        foreach (var army in enemyArmyOnLand)
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
+        foreach (var army in enemyArmyOnSky)
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
+        foreach (var army in enemyArmyOnSea)
+            army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
+    }
 
-    ArmyType battleType;
-    Army currArmy;
-    Army currEnemyArmy;
-    public Vector3 startBattlePos;
-    public Vector3 targetBattlePos;
-    public Vector3 startEnemyBattlePos;
-    public Vector3 targetEnemyBattlePos;
-
+    public void Init(ArmyType at)
+    {
+        var currArmy = armyOnLand;
+        var currObj = land;
+        ToArmyType(at, ref currArmy, ref currObj, 1);
+        for (int i = 0; i <= currArmy.Count - 1; i++)
+        {
+            currObj[i] = distance * (currArmy.Count - 1 - i + 0.5f);
+            //if (!currArmy[i]) continue;
+            //currArmy[i].transform.position = pivot.transform.position + new Vector3(distance * (currArmy.Count - 1 - i + 0.5f), 0f, 0f);
+            //currArmy[i].onFightEnd += () => Move(at);
+        }
+        ToArmyType(at, ref currArmy, ref currObj, 2);
+        for (int i = 0; i <= currArmy.Count - 1; i++)
+        {
+            currObj[i] = -distance * (currArmy.Count - 1 - i + 0.5f);
+            //if (!currArmy[i]) continue;
+            //currArmy[i].transform.position = pivot.transform.position + new Vector3(-distance * (currArmy.Count - 1 - i + 0.5f), 0f, 0f);
+        }
+    }
 
     public void InitArmy()
     {
@@ -77,183 +124,267 @@ public class ArmyManager : MonoBehaviour
         foreach (Army army in armyOnLand)
             if (army != null)
             {
-                army.onDead += () => armyOnLand.Remove(army);
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
+                army.onDied += () => armyOnLand.Remove(army);
             }
         foreach (Army army in armyOnSea)
             if (army != null)
             {
-                army.onDead += () => armyOnSea.Remove(army);
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
+                army.onDied += () => armyOnSea.Remove(army);
             }
         foreach (Army army in armyOnSky)
             if (army != null)
             {
-                army.onDead += () => armyOnSky.Remove(army);
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
+                army.onDied += () => armyOnSky.Remove(army);
             }
         foreach (Army army in enemyArmyOnLand)
             if (army != null)
             {
-                army.onDead += () => enemyArmyOnLand.Remove(army);
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, false);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(false, new object[] { army });
+                army.onDied += () => enemyArmyOnLand.Remove(army);
             }
         foreach (Army army in enemyArmyOnSea)
             if (army != null)
             {
-                army.onDead += () => enemyArmyOnSea.Remove(army);
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, false);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(false, new object[] { army });
+                army.onDied += () => enemyArmyOnSea.Remove(army);
             }
         foreach (Army army in enemyArmyOnSky)
             if (army != null)
             {
-                army.onDead += () => enemyArmyOnSky.Remove(army);
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, false);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(false, new object[] { army });
+                army.onDied += () => enemyArmyOnSky.Remove(army);
             }
     }
 
-    private void Update()
+    public void Move()
     {
-        if (currState == BattleState.Attacking)
+        Debug.Log(currArmyType + "Move");
+        var currArmy = armyOnLand;
+        var currObj = land;
+        ToArmyType(currArmyType, ref currArmy, ref currObj, 2);
+        bool IsMoved = false;
+        //Army lastone = null;
+        int target = -1;
+        for (int i = 0; i <= currArmy.Count - 1; i++)
         {
-            float t = (Time.time - startTime) / attackingDuration;
-            float step = curve.Evaluate(t);
-            currArmy.transform.position = Vector3.Lerp(startBattlePos, targetBattlePos, step);
-            currEnemyArmy.transform.position = Vector3.Lerp(startEnemyBattlePos, targetEnemyBattlePos, step);
-            if (t >= 1)
+            if (!currArmy[i] || currArmy[i].died)
             {
-                currState = BattleState.Attacked;
-                startTime = Time.time;
+                target = i;
             }
-        }
-
-        if (currState == BattleState.Attacked)
-        {
-            float t = (Time.time - startTime) / attackingDuration;
-            float step = curve.Evaluate(t);
-            if(currArmy)
-            currArmy.transform.position = Vector3.Lerp(targetBattlePos, startBattlePos, step);
-            if(currEnemyArmy)
-            currEnemyArmy.transform.position = Vector3.Lerp(targetEnemyBattlePos, startEnemyBattlePos, step);
-
-            if (t >= 1)
+            else
             {
-                BattleResult(currArmy, currEnemyArmy, battleType);
-                BattleNext();
-                startTime = Time.time;
-                
+                if (i == 0 || target == -1)
+                    continue;
+
+                Debug.Log("First Move");
+                //lastone = currArmy[i];
+                currArmy[i].onMoveEnd = null;
+                currArmy[i].Move(new Vector3(currObj[target], 0, 0));
+                IsMoved = true;
+                currArmy[target] = currArmy[i];
+                currArmy[i] = null;
+                i = target;
             }
         }
-
-        if (currState == BattleState.Gapping)
+        ToArmyType(currArmyType, ref currArmy, ref currObj, 1);
+        target = -1;
+        for (int i = 0; i <= currArmy.Count - 1; i++)
         {
-            float t = (Time.time - startTime) / battleGapDuration;
-            if (t >= 1)
+            if (!currArmy[i] || currArmy[i].died)
             {
-                PlayBattleAnimation();
+                target = i;
+            }
+            else
+            {
+                if (i == 0|| target == -1)
+                    continue;
+
+                //lastone = currArmy[i];
+                currArmy[i].onMoveEnd = null;
+                currArmy[i].Move(new Vector3(currObj[target], 0, 0));
+                IsMoved = true;
+                currArmy[target] = currArmy[i];
+                currArmy[i] = null;
+                i = target;
             }
         }
-    }
 
-    public void Battle()
-    {
-        StartBattle();
-        ResetEffect();
-    }
-   
-    private void StartBattle()
-    {
-        BattleNext();
-        PlayBattleAnimation();
-    }
-
-    /// <summary>
-    /// 播放一次卤蛋对撞
-    /// </summary>
-    private void PlayBattleAnimation()
-    {
-        //TODO：当前计算的目标位置不准，计算位置的公式需要改正 (已完成)
-        startTime = Time.time;
-
-        if (currArmy == null || currEnemyArmy == null)
+        if (!IsMoved)
         {
-            return;
+            Fight(currArmyType);
+            IsMoved = true;
         }
-        var lower = currEnemyArmy.GetLowerBound();
-        var upper = currArmy.GetUpperBound();
-
-        startBattlePos = currArmy.transform.position;
-        targetBattlePos = new Vector3((upper.x + lower.x) / 2, upper.y + 0.2f, 0);
-
-        startEnemyBattlePos = currEnemyArmy.transform.position;
-        targetEnemyBattlePos = new Vector3((upper.x + lower.x) / 2, lower.y - 0.2f, 0);
-
-        currState = BattleState.Attacking;
+        //if (lastone != null)    
+        //    lastone.onMoveEnd += () => Fight(at);
+        //else
+        //    Fight(at);
     }
 
-    private void BattleResult(Army army, Army enemyArmy, ArmyType type)
+    public void Fight(ArmyType at)
     {
-        float damage = MathF.Min(army.TroopStrength, enemyArmy.TroopStrength);
-        if (damage > 0)
+        isFightNextOn = false;
+        Debug.Log(at + "Fight");
+        var army = armyOnLand;
+        var enemyArmy = enemyArmyOnLand;
+        ToArmyType(at, ref army, ref enemyArmy);
+        if (army.Count > 0 && enemyArmy.Count > 0)
         {
-            army.TroopStrength -= damage;
-            enemyArmy.TroopStrength -= damage;
-        }
-    }
+            var a = army[0];
+            var ea = enemyArmy[0];
+            float damage = Mathf.Min(a.TroopStrength, ea.TroopStrength);
 
-    /// <summary>
-    /// 此函数用于设置当前正在卤蛋对撞的两个军队
-    /// </summary>
-    private void BattleNext()
-    {
-        //空军 > 海军 > 陆军
-        if (armyOnSky.Count > 0 && enemyArmyOnSky.Count > 0)
-        {
-            currArmy = armyOnSky[armyOnSky.Count - 1];
-            currEnemyArmy = enemyArmyOnSky[armyOnSky.Count - 1];
-            battleType = ArmyType.Sky;
-            currState = BattleState.Gapping;
-        }
-        else if (armyOnSea.Count > 0 && enemyArmyOnSky.Count > 0)
-        {
-            currArmy = armyOnSea[armyOnSea.Count - 1];
-            currEnemyArmy = enemyArmyOnSea[armyOnSea.Count - 1];
-            battleType = ArmyType.Ocean;
-            currState = BattleState.Gapping;
-        }
-        else if (armyOnLand.Count > 0 && enemyArmyOnLand.Count > 0)
-        {
-            currArmy = armyOnLand[armyOnLand.Count - 1];
-            currEnemyArmy = enemyArmyOnLand[armyOnLand.Count - 1];
-            battleType = ArmyType.Land;
-            currState = BattleState.Gapping;
+            a.onDamaged += () => a.TroopStrength = a.TroopStrength - damage;
+            a.onDamaged += () => a.afterAttactEffect.TriggerAllEffects(true, new object[] { a, ea });
+            a.beforeAttackEffect.TriggerAllEffects(true, new object[] { a, ea });//触发战斗前效果
+            ea.onDamaged += () => ea.TroopStrength = ea.TroopStrength - damage;
+            ea.onDamaged += () => ea.afterAttactEffect.TriggerAllEffects(false, new object[] { ea, a }); 
+            ea.beforeAttackEffect.TriggerAllEffects(false, new object[] { ea, a });//触发战斗前效果
+            a.PlayFight(true);
+            ea.PlayFight(true);
         }
         else
         {
-            currArmy = null;
-            currEnemyArmy = null;
-            currState = BattleState.Gapping;
-            //TODO: 添加结算公式：(已完成)
-            //代码运行到这里只有两种情况，一种是从一开始就没有任何战斗发生，另一种是所有的战斗动画都播放完了，场上只有剩余的兵力了
-            //需要统计剩余的所有兵力，并且计算出推动了多少战斗进度（即套公式）
-            List<float> result = CalculateTroopstrenth();
-            //战胜
-            if (result[0] > 0)
-            {
-                progressChangeValue = (result[0] * landEffect1 +
-                                        MathF.Max(result[1], 0) * oceanEffect1 +
-                                        MathF.Max(result[2], 0) * skyEffect1) * ElseEffect + Fix;
-            }
-            //战败
-            else if (result[0] < 0)
-            {
-                progressChangeValue = (result[0] * landEffect1 +
-                                        MathF.Min(result[1], 0) * oceanEffect1 +
-                                        MathF.Min(result[2], 0) * skyEffect1) * ElseEffect - Fix;
-            }
-            //平
-            else if (result[0] == 0)
-            {
-                progressChangeValue = 0;
-            }
-            onBattleEnd?.Invoke();
-            currState = BattleState.None;
+            CanFightNext();
         }
     }
+
+    public void CanFightNext()
+    {
+        if (!isFightNextOn)
+        {
+            isFightNextOn = true;
+            var army = armyOnLand;
+            var enemyArmy = enemyArmyOnLand;
+            ToArmyType(currArmyType, ref army, ref enemyArmy);
+            if (army.Count > 0 && enemyArmy.Count > 0)
+            {
+                Move();
+            }
+            else
+            {
+                FightNext();
+            }
+        }
+    }
+    public void FightNext()
+    {
+        ArmyType at = currArmyType;
+        var army = armyOnLand;
+        var enemyArmy = enemyArmyOnLand;
+        ToArmyType(at, ref army, ref enemyArmy);
+        //只有一个区域的army完全打完才进入下一个阶段
+        if (army.Count == 0 || enemyArmy.Count == 0)
+        {
+            Debug.Log(at + " dawanle");
+            //依次执行 空 海 陆 的战斗
+            if (at == ArmyType.Sky)
+            {
+                currArmyType = ArmyType.Ocean;
+                Move();
+            }
+            else if (at == ArmyType.Ocean)
+            {
+                currArmyType = ArmyType.Land;
+                Move();
+            }
+            //战斗结算，打完了
+            else if (at == ArmyType.Land)
+            {
+                currArmyType = ArmyType.Sky;
+                List<float> result = CalculateTroopstrenth();
+                //战胜
+                if (result[0] > 0)
+                {
+                    progressChangeValue = (result[0] * landEffect1 +
+                                            Mathf.Max(result[1], 0) * oceanEffect1 +
+                                            Mathf.Max(result[2], 0) * skyEffect1) * ElseEffect + Fix;
+                }
+                //战败
+                else if (result[0] < 0)
+                {
+                    progressChangeValue = (result[0] * landEffect1 +
+                                            Mathf.Min(result[1], 0) * oceanEffect1 +
+                                            Mathf.Min(result[2], 0) * skyEffect1) * ElseEffect - Fix;
+                }
+                //平
+                else if (result[0] == 0)
+                {
+                    progressChangeValue = 0;
+                }
+                onBattleEnd?.Invoke();
+            }
+        }
+    }
+
+    #region 根据种类赋值 函数
+    public void ToArmyType(ArmyType at, ref List<Army> army, ref List<Army> enemyArmy)
+    {
+        if (at == ArmyType.Land)
+        {
+            army = armyOnLand;
+            enemyArmy = enemyArmyOnLand;
+        }
+        else if (at == ArmyType.Ocean)
+        {
+            army = armyOnSea;
+            enemyArmy = enemyArmyOnSea;
+        }
+        else if (at == ArmyType.Sky)
+        {
+            army = armyOnSky;
+            enemyArmy = enemyArmyOnSky;
+        }
+    }
+
+    public void ToArmyType(ArmyType at, ref List<Army> currArmy, ref float[] currObj, int num)
+    {
+        if (num == 1)
+        {
+            if (at == ArmyType.Land)
+            {
+                currArmy = armyOnLand;
+                currObj = land;
+            }
+            else if (at == ArmyType.Ocean)
+            {
+                currArmy = armyOnSea;
+                currObj = sea;
+            }
+            else if (at == ArmyType.Sky)
+            {
+                currArmy = armyOnSky;
+                currObj = sky;
+            }
+        }
+        else if(num == 2)
+        {
+            if (at == ArmyType.Land)
+            {
+                currArmy = enemyArmyOnLand;
+                currObj = enemyLand;
+            }
+            else if (at == ArmyType.Ocean)
+            {
+                currArmy = enemyArmyOnSea;
+                currObj = enemySea;
+            }
+            else if (at == ArmyType.Sky)
+            {
+                currArmy = enemyArmyOnSky;
+                currObj = enemySky;
+            }
+        }
+    }
+    #endregion
     public List<float> CalculateTroopstrenth()
     {
         List<float> BattleEndTroopRemain = new List<float>(3);
@@ -328,104 +459,7 @@ public class ArmyManager : MonoBehaviour
         }
 
         return BattleEndTroopRemain;
-    }        
-
-    //public void BattleSky()
-    //{
-    //    if (0 < armyOnSky.Count && 0 < enemyArmyOnSky.Count)
-    //    {
-    //        if (enemyArmyOnSky[0].troopStrength < armyOnSky[0].troopStrength)
-    //        {
-    //            armyOnSky[0].ChangeTroopStrength(armyOnSky[0].troopStrength - enemyArmyOnSky[0].troopStrength);
-    //            enemyArmyOnSky[0].OnDead();
-    //            enemyArmyOnSky.Remove(enemyArmyOnSky[0]);
-    //        }
-    //        else if (enemyArmyOnSky[0].troopStrength > armyOnSky[0].troopStrength)
-    //        {
-    //            enemyArmyOnSky[0].ChangeTroopStrength(enemyArmyOnSky[0].troopStrength - armyOnSky[0].troopStrength);
-    //            armyOnSky[0].OnDead();
-    //            armyOnSky.Remove(armyOnSky[0]);
-    //        }
-    //        else if (enemyArmyOnSky[0].troopStrength == armyOnSky[0].troopStrength)
-    //        {
-    //            armyOnSky[0].OnDead();
-    //            enemyArmyOnSky[0].OnDead();
-    //            armyOnSky.Remove(armyOnSky[0]);
-    //            enemyArmyOnSky.Remove(enemyArmyOnSky[0]);
-    //        }
-    //    }
-
-    //    if(0 < armyOnSky.Count && 0 < enemyArmyOnSky.Count) 
-    //    {
-    //        BattleSky();
-    //    }
-    //    else if (0 < armyOnSky.Count && 0 >= enemyArmyOnSky.Count)
-    //    {
-    //        skyEffect1 = 0;
-    //    }
-    //    else if(0 >= armyOnSky.Count && 0 < enemyArmyOnSky.Count)
-    //    {
-    //        skyEffect2 = 0;
-    //    }
-    //    else if (0 >= armyOnSky.Count && 0 >= enemyArmyOnSky.Count)
-    //    {
-    //        skyEffect1 = 0;
-    //        skyEffect2 = 0;
-    //    }
-    //}
-    //public void BattleLand()
-    //{
-    //    //双方部队进行一次攻击
-    //    if (0 < armyOnLand.Count && 0 < enemyArmyOnLand.Count)
-    //    {
-    //        if (enemyArmyOnLand[0].troopStrength < armyOnLand[0].troopStrength)
-    //        {
-    //            armyOnLand[0].ChangeTroopStrength(armyOnLand[0].troopStrength - enemyArmyOnLand[0].troopStrength);
-    //            enemyArmyOnLand[0].OnDead();
-    //            enemyArmyOnLand.Remove(enemyArmyOnLand[0]);
-    //        }
-    //        else if (enemyArmyOnLand[0].troopStrength > armyOnLand[0].troopStrength)
-    //        {
-    //            enemyArmyOnLand[0].ChangeTroopStrength(enemyArmyOnLand[0].troopStrength - armyOnLand[0].troopStrength);
-    //            armyOnLand[0].OnDead();
-    //            armyOnLand.Remove(armyOnLand[0]);
-    //        }
-    //        else if (enemyArmyOnLand[0].troopStrength == armyOnLand[0].troopStrength)
-    //        {
-    //            armyOnLand[0].OnDead();
-    //            enemyArmyOnLand[0].OnDead();
-    //            armyOnLand.Remove(armyOnLand[0]);
-    //            enemyArmyOnLand.Remove(enemyArmyOnLand[0]);
-    //        }
-    //    }
-    //    //检测部队剩余，如果还有剩余则继续战斗
-    //    if (0 < armyOnLand.Count && 0 < enemyArmyOnLand.Count)
-    //    {
-    //        BattleLand();
-    //    }
-    //    //否则判断胜负结果
-    //    else if (0 < armyOnLand.Count && 0 >= enemyArmyOnLand.Count)
-    //    {
-    //        int SkyAttack = 0, OceanAttack = 0;
-    //        if (0 < armyOnSky.Count) SkyAttack = armyOnSky[0].troopStrength;
-    //        if (0 < armyOnSea.Count) OceanAttack = armyOnSea[0].troopStrength;
-    //        progressChangeValue = (((armyOnLand[0].troopStrength) * landEffect1 +
-    //                                (SkyAttack) * skyEffect1 +
-    //                                (OceanAttack) * oceanEffect1) * ElseEffect + Fix);
-    //    }
-    //    else if (0 >= armyOnLand.Count && 0 < enemyArmyOnLand.Count)
-    //    {
-    //        int SkyAttack = 0, OceanAttack = 0;
-    //        if (0 < enemyArmyOnSky.Count) SkyAttack = enemyArmyOnSky[0].troopStrength;
-    //        if (0 < enemyArmyOnSea.Count) OceanAttack = enemyArmyOnSea[0].troopStrength;
-    //        progressChangeValue =-(((enemyArmyOnLand[0].troopStrength) * landEffect2 +
-    //                                (SkyAttack) * skyEffect2 +
-    //                                (OceanAttack) * oceanEffect2) * ElseEffect + Fix);
-    //    }
-    //    else if (0 >= armyOnLand.Count && 0 >= enemyArmyOnLand.Count)
-    //    {
-    //    }
-    //}
+    }
 
     public void ResetEffect()
     {

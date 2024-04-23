@@ -15,7 +15,8 @@ public class PlayerControl : MonoBehaviour
     public LayerMask cardLayer;
     public LayerMask areaLayer;
 
-    public enum State{
+    public enum State
+    {
         SelectingCard,
         EnterCard,
         InfoCard,
@@ -78,19 +79,37 @@ public class PlayerControl : MonoBehaviour
                 }
                 break;
             case State.EnterCard:
-                
+
                 MoveCard();
                 MouseSelectPlaceableRegion();
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //valid position for card to put
-                    if(puttableArea != null)
+                    GameManager.Instance.gameFlowController.log.AddInvokeLog(selectedCard, true);
+                    selectedCard.invokeEffect.TriggerAllEffects(true, new object[] { selectedCard });
+                    if (selectedCard is ArmyCard)
                     {
-                        cardManager.MoveCard(selectedCard, puttableArea);
-                    }else{
-                        cardManager.MoveCard(selectedCard, null);
+                        //valid position for card to put
+                        if (puttableArea != null)
+                        {
+                            cardManager.MoveCard(selectedCard, puttableArea);
+                        }
+                        else
+                        {
+                            cardManager.MoveCard(selectedCard, null);
+                        }
+                        currentState = State.SelectingCard;
                     }
+                    else if (selectedCard is CardEffect)
+                    {
+                        Debug.Log("启动");
+                        //(selectedCard as CardEffect).UseAbility();
+                        currentState = State.SelectingCard;
+                    }
+                }
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    cardManager.MoveCard(selectedCard, null);
                     currentState = State.SelectingCard;
                 }
                 break;
@@ -122,11 +141,11 @@ public class PlayerControl : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 15, cardLayer))
+        if (Physics.Raycast(ray, out hit, 15, cardLayer))
         {
             if (hit.collider.TryGetComponent(out CardBase card))
             {
-                if(selectedCard != card)
+                if (selectedCard != card)
                 {
                     selectedCard = card;
                 }
@@ -134,7 +153,7 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
-            if(selectedCard != null)
+            if (selectedCard != null)
             {
                 selectedCard = null;
             }
@@ -155,7 +174,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out CardArrangement area))
             {
-                if(puttableArea != area)
+                if (puttableArea != area)
                 {
                     puttableArea = area;
                 }
@@ -169,11 +188,11 @@ public class PlayerControl : MonoBehaviour
 
     public void SwitchOpenAndCloseState()
     {
-        if(currentState == State.Null)
+        if (currentState == State.Null)
         {
             currentState = State.SelectingCard;
         }
-        else if(currentState == State.SelectingCard)
+        else if (currentState == State.SelectingCard)
         {
             currentState = State.Null;
         }

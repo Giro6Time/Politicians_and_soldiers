@@ -22,19 +22,19 @@ public class CardBaseSO : ScriptableObject
     public Sprite cardFrame;
     public Sprite inset;
 
-    [HideInInspector, SerializeReference] 
+    [HideInInspector,SerializeReference] 
     public List<IEffect> drawEffect = new();
-    [HideInInspector]
+    [HideInInspector, SerializeReference]
     public List<IEffect> invokeEffect = new();
-    [HideInInspector]
+    [HideInInspector, SerializeReference]
     public List<IEffect> battleStartEffect = new();
-    [HideInInspector]
+    [HideInInspector, SerializeReference]
     public List<IEffect> liveEffect = new();
-    [HideInInspector]
+    [HideInInspector, SerializeReference]
     public List<IEffect> deathEffect = new();
-    [HideInInspector]
+    [HideInInspector, SerializeReference]
     public List<IEffect> beforeAttackEffect = new();
-    [HideInInspector]
+    [HideInInspector, SerializeReference]
     public List<IEffect> afterAttactEffect = new();
 
 }

@@ -49,13 +49,13 @@ public class GameManager : MonoBehaviour
 
     private void TurnStart()
     {
-        ////TODO：
         //回合开始时
         //回合计数器+1 -> 显示敌方场面 -> 读取玩家属性计算决策点 -> 发牌 -> enable input等待玩家交互
         cardMgr.gameObject.SetActive(true);
         dateMgr.moveNextMonth();
         gameFlowController.battleStartButton.gameObject.SetActive(true);
         gameFlowController.OpenMiniGamePanel();
+
 
     }
     private void BattleStart()
@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     private void IntermissionStart()
     {
+        //因为流程改变，所以这块直接close掉了
         gameFlowController.CloseMiniGamePanel();
         TurnEnd();
     }
@@ -107,13 +108,12 @@ public class GameManager : MonoBehaviour
 
         battleField.onGameWin += Win;
         battleField.onGameLose += Lose;
+        //battleField.armyManager.onBattleEnd += battleField.OnBattleEnd;
         battleField.armyManager.onBattleEnd += IntermissionStart;
         gameFlowController.onReignsStartClicked +=()=>gameFlowController.CloseMiniGamePanel();
         gameFlowController.onReignsStartClicked += () => meetEventGameCtrl.Init();
         gameFlowController.onDialogStartClicked += () => gameFlowController.CloseMiniGamePanel();
         gameFlowController.onDialogStartClicked += dialogManager.OpenDialog;
-
-
 
     }
 

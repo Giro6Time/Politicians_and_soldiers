@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 public class CardManager : MonoBehaviour {
 
+    public static CardManager Instance;
+
     public List<CardBase> Hand
     {
         get => GetCurrentHand();
@@ -24,7 +26,7 @@ public class CardManager : MonoBehaviour {
 
     public event EventHandler OnCardPut;
 
-    [SerializeField] CardArrangement cardsCenterPoint;
+    [SerializeField] public CardArrangement cardsCenterPoint;
     [SerializeField] CardArrangement cardAnchor_Sky_Player;
     [SerializeField] CardArrangement cardAnchor_Land_Player;
     [SerializeField] CardArrangement cardAnchor_Sea_Player;
@@ -43,6 +45,14 @@ public class CardManager : MonoBehaviour {
 
     public void Init()
     {
+    }
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
     }
 
     public void RefreshList()
@@ -153,7 +163,7 @@ public class CardManager : MonoBehaviour {
         
     }
 
-    private void AddCard(int num, Season season)
+    public void AddCard(int num, Season season)
     {
         Debug.Log("Add card to hand");
         //Create Card object
@@ -241,11 +251,29 @@ public static class CardFactory
                 armyC.matchedPos = cardSO.matchedPos;
                 armyC.cardFrame = cardSO.cardFrame;
 
+                armyC.drawEffect = cardSO.drawEffect;
+                armyC.invokeEffect = cardSO.invokeEffect;
+                armyC.battleStartEffect = cardSO.battleStartEffect;
+                armyC.liveEffect = cardSO.liveEffect;
+                armyC.deathEffect = cardSO.deathEffect;
+                armyC.beforeAttackEffect = cardSO.beforeAttackEffect;
+                armyC.afterAttactEffect = cardSO.afterAttactEffect;
+
+
                 armyC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
 
                 return instance;
             case CardBaseType.Effect:
-                throw new NotImplementedException("特殊类型卡牌待实现");
+                var effectC = instance.AddComponent<CardEffect>();
+                instance.GetComponent<CardSelectedVisual>().card = effectC;
+                effectC.SetCardPos(CardPos.SelectionArea);
+                effectC.isEnemy = false;
+                effectC.matchedPos = cardSO.matchedPos;
+                effectC.cardFrame = cardSO.cardFrame;
+
+                effectC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
+
+                return instance;
         }
     }
 
