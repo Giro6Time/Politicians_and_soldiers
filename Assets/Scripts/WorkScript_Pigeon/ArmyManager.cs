@@ -23,13 +23,13 @@ public class ArmyManager : MonoBehaviour
 
     #region 一大坨声明
     //我方海陆空军
-    public List<Army> armyOnLand = new();
-    public List<Army> armyOnSea = new();
-    public List<Army> armyOnSky = new();
+    public List<Army> armyOnLand = new(8);
+    public List<Army> armyOnSea = new(8);
+    public List<Army> armyOnSky = new(8);
     //敌方海陆空军
-    public List<Army> enemyArmyOnLand = new();
-    public List<Army> enemyArmyOnSea = new();
-    public List<Army> enemyArmyOnSky = new();
+    public List<Army> enemyArmyOnLand = new(8);
+    public List<Army> enemyArmyOnSea = new(8);
+    public List<Army> enemyArmyOnSky = new(8);
 
     public Action onBattleEnd;
 
@@ -50,8 +50,11 @@ public class ArmyManager : MonoBehaviour
     public float battleGapDuration = 1f;
     public float distance;
     public GameObject pivot;
-    public ArmyType currArmyType;
+    public ArmyType currArmyType = ArmyType.Sky;
     public bool startFight = false;
+    public int currArmyCount = 0;
+
+    public bool isFightNextOn = false;
 
     public float[] land = new float[3];
     public float[] enemyLand = new float[3];
@@ -69,8 +72,11 @@ public class ArmyManager : MonoBehaviour
 
     private void StartBattle()
     {
+        currArmyType = ArmyType.Sky;
         Init(ArmyType.Sky);
-        Move(ArmyType.Sky);
+        Init(ArmyType.Ocean);
+        Init(ArmyType.Sky);
+        Move();
         BattleStartEffect();
     }
 
@@ -96,18 +102,18 @@ public class ArmyManager : MonoBehaviour
         var currArmy = armyOnLand;
         var currObj = land;
         ToArmyType(at, ref currArmy, ref currObj, 1);
-        for (int i = currArmy.Count - 1; i >= 0; i--)
+        for (int i = 0; i <= currArmy.Count - 1; i++)
         {
             currObj[i] = distance * (currArmy.Count - 1 - i + 0.5f);
-            if (!currArmy[i]) continue;
+            //if (!currArmy[i]) continue;
             //currArmy[i].transform.position = pivot.transform.position + new Vector3(distance * (currArmy.Count - 1 - i + 0.5f), 0f, 0f);
             //currArmy[i].onFightEnd += () => Move(at);
         }
         ToArmyType(at, ref currArmy, ref currObj, 2);
-        for (int i = currArmy.Count - 1; i >= 0; i--)
+        for (int i = 0; i <= currArmy.Count - 1; i++)
         {
             currObj[i] = -distance * (currArmy.Count - 1 - i + 0.5f);
-            if (!currArmy[i]) continue;
+            //if (!currArmy[i]) continue;
             //currArmy[i].transform.position = pivot.transform.position + new Vector3(-distance * (currArmy.Count - 1 - i + 0.5f), 0f, 0f);
         }
     }
@@ -159,14 +165,16 @@ public class ArmyManager : MonoBehaviour
             }
     }
 
-    public void Move(ArmyType at)
+    public void Move()
     {
+        Debug.Log(currArmyType + "Move");
         var currArmy = armyOnLand;
         var currObj = land;
-        ToArmyType(at, ref currArmy, ref currObj, 2);
-        Army lastone = null;
+        ToArmyType(currArmyType, ref currArmy, ref currObj, 2);
+        bool IsMoved = false;
+        //Army lastone = null;
         int target = -1;
-        for (int i = currArmy.Count - 1; i >= 0; i--)
+        for (int i = 0; i <= currArmy.Count - 1; i++)
         {
             if (!currArmy[i] || currArmy[i].died)
             {
@@ -174,20 +182,22 @@ public class ArmyManager : MonoBehaviour
             }
             else
             {
-                if (i == currArmy.Count - 1 || target == -1)
+                if (i == 0 || target == -1)
                     continue;
 
-                lastone = currArmy[i];
+                Debug.Log("First Move");
+                //lastone = currArmy[i];
                 currArmy[i].onMoveEnd = null;
                 currArmy[i].Move(new Vector3(currObj[target], 0, 0));
+                IsMoved = true;
                 currArmy[target] = currArmy[i];
                 currArmy[i] = null;
                 i = target;
             }
         }
-        ToArmyType(at, ref currArmy, ref currObj, 1);
+        ToArmyType(currArmyType, ref currArmy, ref currObj, 1);
         target = -1;
-        for (int i = currArmy.Count - 1; i >= 0; i--)
+        for (int i = 0; i <= currArmy.Count - 1; i++)
         {
             if (!currArmy[i] || currArmy[i].died)
             {
@@ -195,35 +205,41 @@ public class ArmyManager : MonoBehaviour
             }
             else
             {
-                if (i == currArmy.Count - 1 || target == -1)
+                if (i == 0|| target == -1)
                     continue;
 
-                lastone = currArmy[i];
+                //lastone = currArmy[i];
                 currArmy[i].onMoveEnd = null;
                 currArmy[i].Move(new Vector3(currObj[target], 0, 0));
+                IsMoved = true;
                 currArmy[target] = currArmy[i];
                 currArmy[i] = null;
                 i = target;
             }
         }
 
-        if (lastone != null)    
-            lastone.onMoveEnd += () => Fight(at);
-        else
-            Fight(at);
+        if (!IsMoved)
+        {
+            Fight(currArmyType);
+            IsMoved = true;
+        }
+        //if (lastone != null)    
+        //    lastone.onMoveEnd += () => Fight(at);
+        //else
+        //    Fight(at);
     }
 
     public void Fight(ArmyType at)
     {
+        isFightNextOn = false;
+        Debug.Log(at + "Fight");
         var army = armyOnLand;
         var enemyArmy = enemyArmyOnLand;
         ToArmyType(at, ref army, ref enemyArmy);
-        currArmyType = at;
-
         if (army.Count > 0 && enemyArmy.Count > 0)
         {
-            var a = army[army.Count-1];
-            var ea = enemyArmy[enemyArmy.Count-1];
+            var a = army[0];
+            var ea = enemyArmy[0];
             float damage = Mathf.Min(a.TroopStrength, ea.TroopStrength);
 
             a.onDamaged += () => a.TroopStrength = a.TroopStrength - damage;
@@ -232,14 +248,33 @@ public class ArmyManager : MonoBehaviour
             ea.onDamaged += () => ea.TroopStrength = ea.TroopStrength - damage;
             ea.onDamaged += () => ea.afterAttactEffect.TriggerAllEffects(false, new object[] { ea, a }); 
             ea.beforeAttackEffect.TriggerAllEffects(false, new object[] { ea, a });//触发战斗前效果
-            a.PlayFight(false);
+            a.PlayFight(true);
             ea.PlayFight(true);
         }
-        if(army.Count != 0)
-        { 
+        else
+        {
+            CanFightNext();
         }
     }
 
+    public void CanFightNext()
+    {
+        if (!isFightNextOn)
+        {
+            isFightNextOn = true;
+            var army = armyOnLand;
+            var enemyArmy = enemyArmyOnLand;
+            ToArmyType(currArmyType, ref army, ref enemyArmy);
+            if (army.Count > 0 && enemyArmy.Count > 0)
+            {
+                Move();
+            }
+            else
+            {
+                FightNext();
+            }
+        }
+    }
     public void FightNext()
     {
         ArmyType at = currArmyType;
@@ -253,17 +288,18 @@ public class ArmyManager : MonoBehaviour
             //依次执行 空 海 陆 的战斗
             if (at == ArmyType.Sky)
             {
-                Init(ArmyType.Ocean);
-                Move(ArmyType.Ocean);
+                currArmyType = ArmyType.Ocean;
+                Move();
             }
             else if (at == ArmyType.Ocean)
             {
-                Init(ArmyType.Land);
-                Move(ArmyType.Land);
+                currArmyType = ArmyType.Land;
+                Move();
             }
             //战斗结算，打完了
             else if (at == ArmyType.Land)
             {
+                currArmyType = ArmyType.Sky;
                 List<float> result = CalculateTroopstrenth();
                 //战胜
                 if (result[0] > 0)

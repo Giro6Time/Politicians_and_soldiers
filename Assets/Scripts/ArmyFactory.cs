@@ -6,7 +6,6 @@ using UnityEngine;
 public static class ArmyFactory
 {
     public static GameObject prefab;
-    public static Texture2D image;
 
     public static List<Army> CreateArmyListByCardList(List<CardBase> cards)
     {
@@ -23,7 +22,6 @@ public static class ArmyFactory
                 continue;
             var armyInstance = GameObject.Instantiate(prefab);
             var army = armyInstance.GetComponent<Army>();
-            var armyManager = armyInstance.GetComponent<ArmyManager>();
             SpriteRenderer spriteRenderer = prefab.GetComponent<SpriteRenderer>();
             if(spriteRenderer == null)
             {
