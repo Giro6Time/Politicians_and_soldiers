@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
@@ -63,17 +64,26 @@ public class UIEventListener : MonoBehaviour
     /// <summary>
     /// 接受按钮
     /// </summary>
-    public Button btn_ChooseYes;
+    [SerializeField]
+    private Button btn_ChooseYes;
 
     /// <summary>
     /// 奖池刷新按钮
     /// </summary>
-    public Button btn_PrizeWheelRefresh;
+    [SerializeField]
+    private Button btn_PrizeWheelRefresh;
+
+    /// <summary>
+    /// 设置容器
+    /// </summary>
+    [SerializeField]
+    private GameObject settingPanel;
 
     /// <summary>
     /// 人物信息容器
     /// </summary>
-    public GameObject textPanel;
+    [SerializeField]
+    private GameObject textPanel;
 
     /// <summary>
     /// san值文本
@@ -106,6 +116,35 @@ public class UIEventListener : MonoBehaviour
     private Text troopIncreaseText;
     [SerializeField]
     private Text decisionValueText;
+
+    /// <summary>
+    /// 音乐设置选项
+    /// </summary>
+    [SerializeField]
+    public Toggle MusicSettingToggle;
+
+    /// <summary>
+    /// 音乐设置进度条
+    /// </summary>
+    [SerializeField]
+    public Slider MusicSettingSlider;
+
+    /// <summary>
+    /// 音效设置选项
+    /// </summary>
+    [SerializeField]
+    public Toggle SoundEffectSetttingToggle;
+
+    /// <summary>
+    /// 音效设置进度条
+    /// </summary>
+    [SerializeField]
+    public Slider SoundEffectSettingSlider;
+    
+    /// <summary>
+    /// 最后的时间缩放值(用于游戏暂停与恢复)
+    /// </summary>
+    private float lastTimeScale;
     #endregion
 
     private void Start()
@@ -113,6 +152,12 @@ public class UIEventListener : MonoBehaviour
         if (_Instance == null)
         { _Instance = this; }
         prizePool = new List<GameObject>();
+        settingPanel.SetActive(false);
+        textPanel.SetActive(false);
+        MusicSettingToggle.onValueChanged.AddListener(OnToggleClick_MusicSetting);
+        MusicSettingSlider.onValueChanged.AddListener(OnSliderValueChanged_MusicSetting);
+        SoundEffectSetttingToggle.onValueChanged.AddListener(OnToggleClick_SoundEffectSetting);
+        SoundEffectSettingSlider.onValueChanged.AddListener(OnSliderValueChanged_SoundEffectSetting);
     }
     private void OnDestroy()
     {
@@ -377,6 +422,96 @@ public class UIEventListener : MonoBehaviour
     public void OnBtnClick_CloseTip()
     {
         MessageView._Instance.btn_Tip.gameObject.SetActive(false);
+    }
+
+    public void OnBtnClick_ShowSettingMenu()
+    {
+        settingPanel.gameObject.SetActive(!settingPanel.gameObject.activeSelf);
+    }
+
+    /// <summary>
+    /// 保存与加载按钮
+    /// </summary>
+    public void OnBtnClick_SaveAndLoad(bool isSave)
+    {
+        if (isSave)
+        {
+            //数据保存
+            SaveAndLoadData._Instance.SaveByXML();
+            //TODO：数据保存后操作
+        }
+        else
+        {
+            //数据加载
+            SaveAndLoadData._Instance.LoadByXML();
+            //TODO：数据加载后操作
+        }
+    }
+
+    /// <summary>
+    /// 游戏暂停与恢复按钮
+    /// </summary>
+    /// <param name="isStop"></param>
+    public void OnBtnClick_StopAndRecover(bool isStop)
+    {
+        if (isStop)
+        {
+            if (Time.timeScale > 0)
+            {
+                lastTimeScale = Time.timeScale;
+                Time.timeScale = 0;
+            }
+            //TODO：暂停后操作/其他操作
+        }
+        else
+        {
+            Time.timeScale = lastTimeScale;
+        }
+    }
+
+    /// <summary>
+    /// 音乐设置选项
+    /// </summary>
+    public void OnToggleClick_MusicSetting(bool isOpen)
+    {
+        SoundsMgr._Instance.isOpenBackgroundMusic = isOpen;
+        if (isOpen)
+        {
+            SoundsMgr._Instance.currAudio.time = SoundsMgr._Instance.lastBackgroundRate;
+            SoundsMgr._Instance.currAudio.Play();
+        }
+        else
+        {
+            SoundsMgr._Instance.lastBackgroundRate = SoundsMgr._Instance.currAudio.time;
+            SoundsMgr._Instance.currAudio.Stop();
+        }
+    }
+
+    /// <summary>
+    /// 音乐大小设置滚动条
+    /// </summary>
+    /// <param name="volume"></param>
+    public void OnSliderValueChanged_MusicSetting(float volume)
+    {
+        SoundsMgr._Instance.currAudio.volume = volume > 1 ? 1 : volume;
+        SoundsMgr._Instance.backgroundVolume = volume > 1 ? 1 : volume;
+    }
+
+    /// <summary>
+    /// 音效设置选项 
+    /// </summary>
+    public void OnToggleClick_SoundEffectSetting(bool isOpen)
+    {
+        SoundsMgr._Instance.isOpenSoundEffects = isOpen;
+    }
+
+    /// <summary>
+    /// 音效大小设置滚动条
+    /// </summary>
+    /// <param name="volume"></param>
+    public void OnSliderValueChanged_SoundEffectSetting(float volume)
+    {
+        SoundsMgr._Instance.soundEffectVolume = volume;
     }
     #endregion
 

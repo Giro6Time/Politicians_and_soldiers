@@ -80,6 +80,7 @@ public class MeetEventGameCtrl : MonoBehaviour
 
     void Awake()
     {
+
         if (_Instance == null)
         {
             _Instance = this;
@@ -185,7 +186,6 @@ public class MeetEventGameCtrl : MonoBehaviour
 
         //进行初始化:激活UI，完成UI初始化之后再解冻
         meetEventCanvas.gameObject.SetActive(true);
-        UIEventListener._Instance.textPanel.SetActive(false);
         UIEventListener._Instance.PrizeWheelUIInit();
         //对于抽奖轮盘：需要初始化的是有什么奖品(要不要总是更新还需要考虑)
         MeetEventGameCtrl._Instance.eventMgr.UpdatePrizePool();
