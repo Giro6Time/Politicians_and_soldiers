@@ -196,6 +196,10 @@ public class MeetEventMgr
     /// </summary>
     public void UpdatePrizePool()
     {
+        if (UIEventListener._Instance.prizePool.Count == UIEventListener._Instance.prizeNums)
+        {
+            return;
+        }
         int prizeValue = 0, currProbability = 0;
         float sum = 0;
         //num+1：该物体的稀有度  i：该物体的概率

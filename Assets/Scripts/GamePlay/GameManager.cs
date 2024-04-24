@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public CardManager cardMgr;
     public DateManager dateMgr;
     public PlayerControl playerControl;
+    public Camera UICamera;
 
     [Header("战斗中")]
     public BattleField battleField;

@@ -271,9 +271,9 @@ RectTransform:
   m_Father: {fileID: 2525995998029919773}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 370, y: 388}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -80, y: -15}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &489192598711823177
@@ -3583,6 +3583,7 @@ MonoBehaviour:
   prizeWheelPointer: {fileID: 7609299513642212305}
   prizeWheelTemplate: {fileID: 4005413290323401978, guid: c8eb28b10da38c942bd8784331d31c69, type: 3}
   prizeWheelRadius: 200
+  prizePool: []
   prizeWheelPanel: {fileID: 7609299513734084674}
   prizeWheelRotateTime: 0.8
   prizeWheelRotateTurns: 2

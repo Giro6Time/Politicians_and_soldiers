@@ -24,7 +24,8 @@ public class UIEventListener : MonoBehaviour
     /// <summary>
     /// 奖品池
     /// </summary>
-    private List<GameObject> prizePool;
+    [HideInInspector]
+    public List<GameObject> prizePool;
     [SerializeField, Space(20)]
 
     /// <summary>
