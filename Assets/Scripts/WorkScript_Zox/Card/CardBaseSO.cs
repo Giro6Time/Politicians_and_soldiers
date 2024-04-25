@@ -20,7 +20,7 @@ public class CardBaseSO : ScriptableObject
     // public Enums.Weather matchedWeather;
     public CardBaseType cardBaseType;
     public Sprite cardFrame;
-    public Sprite inset;
+    public GameObject cardLayourPrefab;
 
     [HideInInspector,SerializeReference] 
     public List<IEffect> drawEffect = new();
