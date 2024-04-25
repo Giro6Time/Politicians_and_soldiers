@@ -249,7 +249,7 @@ public static class CardFactory
                 armyC.troopStrength = cardSO.troopStrength;
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;
-                armyC.cardFrame = cardSO.cardFrame;
+                GameObject.Instantiate(cardSO.cardLayourPrefab).transform.SetParent(instance.transform);
 
                 armyC.drawEffect = cardSO.drawEffect;
                 armyC.invokeEffect = cardSO.invokeEffect;
@@ -258,10 +258,6 @@ public static class CardFactory
                 armyC.deathEffect = cardSO.deathEffect;
                 armyC.beforeAttackEffect = cardSO.beforeAttackEffect;
                 armyC.afterAttactEffect = cardSO.afterAttactEffect;
-
-
-                armyC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
-
                 return instance;
             case CardBaseType.Effect:
                 var effectC = instance.AddComponent<CardEffect>();
@@ -269,9 +265,8 @@ public static class CardFactory
                 effectC.SetCardPos(CardPos.SelectionArea);
                 effectC.isEnemy = false;
                 effectC.matchedPos = cardSO.matchedPos;
-                effectC.cardFrame = cardSO.cardFrame;
+                GameObject.Instantiate(cardSO.cardLayourPrefab).transform.SetParent(instance.transform);
 
-                effectC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
 
                 return instance;
         }
