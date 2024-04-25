@@ -19,7 +19,7 @@ public class CardBaseSO : ScriptableObject
     public CardPos matchedPos;
     // public Enums.Weather matchedWeather;
     public CardBaseType cardBaseType;
-    [Header("¿¨ÅÆÑùÊ½µÄprefab")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½prefab")]
     public GameObject cardLayourPrefab;
 
     [HideInInspector,SerializeReference] 

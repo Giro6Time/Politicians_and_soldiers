@@ -475,6 +475,16 @@ public class UIEventListener : MonoBehaviour
     public void OnToggleClick_MusicSetting(bool isOpen)
     {
         SoundsMgr._Instance.isOpenBackgroundMusic = isOpen;
+        if (isOpen)
+        {
+            SoundsMgr._Instance.currAudio.time = SoundsMgr._Instance.lastBackgroundRate;
+            SoundsMgr._Instance.currAudio.Play();
+        }
+        else
+        {
+            SoundsMgr._Instance.lastBackgroundRate = SoundsMgr._Instance.currAudio.time;
+            SoundsMgr._Instance.currAudio.Stop();
+        }
     }
 
     /// <summary>
