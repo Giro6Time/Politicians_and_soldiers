@@ -185,6 +185,7 @@ public class CardManager : MonoBehaviour {
         {
             int randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season).Count);
 
+            Debug.Log(randomIndex);
             GameObject card = CardFactory.CreateCardInstance(cardPool.GetCurrentCardBaseSOList(season)[randomIndex]);
             hand.Add(card.GetComponent<CardBase>());
 
@@ -210,9 +211,18 @@ public class CardManager : MonoBehaviour {
         for (int i = 0; i < num; i++)
         {
             int randomIndex = 0;
+            int lockNum = 0;
             do
             {
                 randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season).Count);
+                lockNum++;
+
+                if(lockNum > 10)
+                {
+                    Debug.Log("超过10");
+                    return;
+                }
+
             } while (cardPool.GetCurrentCardBaseSOList(season)[randomIndex].cardBaseType != cardBaseType);
 
 
@@ -312,6 +322,14 @@ public static class CardFactory
                 effectC.isEnemy = false;
                 effectC.matchedPos = cardSO.matchedPos;
                 effectC.cardFrame = cardSO.cardFrame;
+
+                effectC.drawEffect = cardSO.drawEffect;
+                effectC.invokeEffect = cardSO.invokeEffect;
+                effectC.battleStartEffect = cardSO.battleStartEffect;
+                effectC.liveEffect = cardSO.liveEffect;
+                effectC.deathEffect = cardSO.deathEffect;
+                effectC.beforeAttackEffect = cardSO.beforeAttackEffect;
+                effectC.afterAttactEffect = cardSO.afterAttactEffect;
 
                 effectC.GetComponentInChildren<SpriteRenderer>().sprite = cardSO.cardFrame;
 

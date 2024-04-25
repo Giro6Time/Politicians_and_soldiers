@@ -874,8 +874,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: cardSOList.Array.size
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardSOList.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ba9d7a7966534d42bce75095d28bd60, type: 2}
+    - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardSOList.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ba9d7a7966534d42bce75095d28bd60, type: 2}
+    - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardSOList.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ba9d7a7966534d42bce75095d28bd60, type: 2}
+    - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardSOList.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ba9d7a7966534d42bce75095d28bd60, type: 2}
     - target: {fileID: 4067074733232235407, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_RootOrder
       value: 1

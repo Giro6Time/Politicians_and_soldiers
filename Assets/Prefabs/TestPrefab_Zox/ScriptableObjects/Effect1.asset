@@ -16,9 +16,9 @@ MonoBehaviour:
   description: 
   troopStrength: 100
   cost: 0
-  matchedSeason: 3
+  matchedSeason: 0
   matchedPos: 1
-  cardBaseType: 0
+  cardBaseType: 1
   cardFrame: {fileID: 21300000, guid: 5bb5e2837b507ed499d5fccbb135867a, type: 3}
   inset: {fileID: 0}
   drawEffect: []
