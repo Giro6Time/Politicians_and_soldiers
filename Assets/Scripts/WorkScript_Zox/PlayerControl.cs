@@ -102,8 +102,7 @@ public class PlayerControl : MonoBehaviour
                     }
                     else if (selectedCard is CardEffect)
                     {
-                        Debug.Log("启动");
-                        //(selectedCard as CardEffect).UseAbility();
+                        Destroy(selectedCard.gameObject);
                         currentState = State.SelectingCard;
                     }
                 }

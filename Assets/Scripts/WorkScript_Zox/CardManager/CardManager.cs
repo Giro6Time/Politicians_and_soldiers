@@ -83,7 +83,14 @@ public class CardManager : MonoBehaviour {
         //手上的牌放到了匹配的位置
         if(card.GetCardMatchedPos() == area.pos)
         {
+            //决策点不够
             if(Player.Instance.decisionValue - card.cost < 0)
+            {
+                card.cardCurrentArea.RearrangeCard();
+                return;
+            }
+            //超出容量
+            if (cardPlayingArea.getCurrentPosNum(area.pos) == cardPlayingArea.maxNum)
             {
                 card.cardCurrentArea.RearrangeCard();
                 return;
@@ -165,8 +172,6 @@ public class CardManager : MonoBehaviour {
 
     public void AddCard(int num, Season season)
     {
-        Debug.Log("Add card to hand");
-        //Create Card object
         if(hand.Count > handMax)
         {
             return;
@@ -190,13 +195,50 @@ public class CardManager : MonoBehaviour {
         cardsCenterPoint.RearrangeCard();
     }
 
+    //选择添加法术牌或军队牌
+    public void AddCard_Type(int num, Season season, CardBaseType cardBaseType)
+    {
+        if (hand.Count > handMax)
+        {
+            return;
+        }
+        if (hand.Count + num > handMax)
+        {
+            num = handMax - hand.Count;
+        }
+
+        for (int i = 0; i < num; i++)
+        {
+            int randomIndex = 0;
+            do
+            {
+                randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season).Count);
+            } while (cardPool.GetCurrentCardBaseSOList(season)[randomIndex].cardBaseType != cardBaseType);
+
+
+            GameObject card = CardFactory.CreateCardInstance(cardPool.GetCurrentCardBaseSOList(season)[randomIndex]);
+            hand.Add(card.GetComponent<CardBase>());
+
+            card.transform.SetParent(cardsCenterPoint.transform, false);
+            card.transform.position = playerCardInitialPos.position;
+            card.GetComponent<CardBase>().cardCurrentArea = cardsCenterPoint;
+        }
+        cardsCenterPoint.RearrangeCard();
+    }
+
     private void InstantiateEnemy(CardBaseSO enemyCardSO)
     {
 
         GameObject enemyCardGO = CardFactory.CreateCardInstance(enemyCardSO);
         CardBase enemyCard = enemyCardGO.GetComponent<CardBase>();
 
-        
+
+        if (enemyPlayingArea.getCurrentPosNum(enemyCard.GetCardMatchedPos()) == enemyPlayingArea.maxNum)
+        {
+            Destroy(enemyCardGO);
+            return;
+        }
+
         switch (enemyCard.GetCardMatchedPos()) {
             case CardPos.LandPutArea:
                 enemyCard.transform.SetParent(cardAnchor_Land_Enemy.transform);

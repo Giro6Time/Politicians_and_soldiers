@@ -118,6 +118,27 @@ public class CardBaseSOEditor : Editor
                 new Rect(rect.x,rect.y+EditorGUIUtility.singleLineHeight*2,100,EditorGUIUtility.singleLineHeight),
                 (effectInstance as IAddCardEffect).num
             );
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Type:");
+            (effectInstance as IAddCardEffect).cardBaseType = (CardBaseType)EditorGUI.EnumPopup(
+
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IAddCardEffect).cardBaseType
+            );
+        }
+
+        else if (instanceType.IsAssignableFrom(typeof(IAddDecision)))
+        {
+            list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAddDecision");
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Num:");
+            //
+            (effectInstance as IAddDecision).num = EditorGUI.IntField(
+
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IAddDecision).num
+            );
         }
 
     }
@@ -257,8 +278,17 @@ public class EffectConfigurationWindow : EditorWindow
 
             // TODO: 添加更多的case来处理其他子类类型的参数
             case "IAddCardEffect":
-                args = new object[1] { 1 };
+                args = new object[2] { 1 , CardBaseType.Army};
                 EditorGUILayout.LabelField("添加数量");
+                args[0] = EditorGUILayout.IntField((int)args[0]);
+                EditorGUILayout.LabelField("所添加卡牌类型");
+                args[1] = EditorGUILayout.EnumPopup((CardBaseType)args[1]);
+                break;
+
+
+            case "IAddDecision":
+                args = new object[1] { 1 };
+                EditorGUILayout.LabelField("决策点添加数量");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
                 break;
 
@@ -296,7 +326,10 @@ public class EffectConfigurationWindow : EditorWindow
                         break;
                     // TODO:添加更多的case来处理其他子类类型的实例化
                     case "IAddCardEffect":
-                        effectInstance = (IAddCardEffect)Activator.CreateInstance(effectType, args[0]);
+                        effectInstance = (IAddCardEffect)Activator.CreateInstance(effectType, (int)args[0], (CardBaseType)args[1]);
+                        break;
+                    case "IAddDecision":
+                        effectInstance = (IAddDecision)Activator.CreateInstance(effectType, (int)args[0]);
                         break;
                 }
 

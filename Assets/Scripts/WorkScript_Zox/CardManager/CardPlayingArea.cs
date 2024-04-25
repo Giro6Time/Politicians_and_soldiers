@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CardPlayingArea : MonoBehaviour
 {
+
+    public int maxNum = 3;
+
     public List<CardBase> sea = new List<CardBase>();
     public List<CardBase> ground = new List<CardBase>();
     public List<CardBase> sky = new List<CardBase>();
@@ -63,5 +66,13 @@ public class CardPlayingArea : MonoBehaviour
             else
                 sky[i].gameObject.SetActive(true); 
         }
+    }
+
+    public int getCurrentPosNum(CardPos pos)
+    {
+        if(pos == CardPos.LandPutArea) { return ground.Count; }
+        if(pos == CardPos.SeaPutArea) { return sea.Count; }
+        if (pos == CardPos.SkyPutArea) { return sky.Count; }
+        return -1;
     }
 }

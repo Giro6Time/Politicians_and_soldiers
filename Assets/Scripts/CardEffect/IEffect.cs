@@ -65,10 +65,12 @@ public class IResultReflectEffect : IEffect
 public class IAddCardEffect : IEffect
 {
     public int num;
+    public CardBaseType cardBaseType;
 
-    public IAddCardEffect(int num, CardEffect card)
+    public IAddCardEffect(int num, CardBaseType cardBaseType)
     {
         this.num = num;
+        this.cardBaseType = cardBaseType;
     }
 
     public override void Trigger(bool isPlayerTrigger, object[] args)
@@ -77,7 +79,7 @@ public class IAddCardEffect : IEffect
         if (!GameManager.Instance)
             return;
         //�߼�
-        CardManager.Instance.AddCard(num, DateManager.Instance.GetSeason());
+        CardManager.Instance.AddCard_Type(num, DateManager.Instance.GetSeason(), cardBaseType);
 
     }
 }
@@ -99,6 +101,31 @@ public class IDelayTriggerEffect : IEffect
     public override void Trigger(bool isPlayerTrigger, object[] args) {  
         base.Trigger(isPlayerTrigger, args);
         if (!GameManager.Instance) return;
+
+    }
+}
+
+public class IAddDecision : IEffect
+{
+    public int num;
+
+    public IAddDecision(int num, CardEffect card)
+    {
+        this.num = num;
+    }
+
+    public override void Trigger(bool isPlayerTrigger, object[] args)
+    {
+        base.Trigger(isPlayerTrigger, args);
+        if (!GameManager.Instance)
+            return;
+        //�߼�
+        if(Player.Instance.decisionValue + num > Player.Instance.decisionValueMax)
+        {
+            Player.Instance.decisionValue = Player.Instance.decisionValueMax;
+            return;
+        }
+        Player.Instance.decisionValue += num;
 
     }
 }
