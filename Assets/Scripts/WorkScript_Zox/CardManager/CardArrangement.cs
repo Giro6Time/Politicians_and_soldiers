@@ -69,6 +69,7 @@ public class CardArrangement : MonoBehaviour
             // 设置卡牌的目标位置
             Vector3 targetPosition = new Vector3(x, y, offsetZ * i);
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
+            SetZOrder(i + 30, cardTransform);
 
             // 设置卡牌的旋转角度
             Quaternion targetRotation = Quaternion.Euler(0,0,rotateZ);
@@ -86,6 +87,7 @@ public class CardArrangement : MonoBehaviour
 
             //战场卡牌的目标位置
             Vector3 targetPosition = new Vector3(offsetX * i, 0, offsetZ * i);
+            SetZOrder(i,cardTransform);
 
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
 
@@ -163,5 +165,21 @@ public class CardArrangement : MonoBehaviour
         }
 
         a.localScale = b;
+    }
+
+    private void SetZOrder(int order, Transform transform)
+    {
+        var srList = transform.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var sr in srList)
+        {
+            sr.sortingOrder = order*4+3;
+            if(sr.gameObject.name == "Cardframe")
+                sr.sortingOrder -= 1;
+            else if (sr.gameObject.name == "Picture")
+                sr.sortingOrder -= 2;
+            else if (sr.gameObject.name == "Background")
+                sr.sortingOrder -= 3;
+        }
+        
     }
 }
