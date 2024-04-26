@@ -338,41 +338,9 @@ PrefabInstance:
       propertyPath: sea.Array.size
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_1.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_2.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_3.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_4.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_5.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_6.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_1.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_1.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: cc96defbb420a9d4faddd2d8259ccd00, type: 2}
     - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: cardSOList.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: cardSOList.Array.data[0]
@@ -385,11 +353,11 @@ PrefabInstance:
     - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: cardSOList.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: c05123a5a92070048993983e461efc92, type: 2}
+      objectReference: {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
     - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: cardSOList.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: c05123a5a92070048993983e461efc92, type: 2}
+      objectReference: {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
     - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: cardSOList.Array.data[4]
       value: 

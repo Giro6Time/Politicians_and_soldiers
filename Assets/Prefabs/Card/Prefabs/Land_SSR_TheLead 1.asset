@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
-  m_Name: Land_R_Archers
+  m_Name: Land_SSR_TheLead 1
   m_EditorClassIdentifier: 
   cardName: "\u9886\u5BFC\u8005"
   description: 
@@ -19,11 +19,7 @@ MonoBehaviour:
   matchedSeason: 0
   matchedPos: 1
   cardBaseType: 0
-<<<<<<< HEAD
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: 776685a6ad3b2ad48840ee622c43b9c4, type: 3}
-=======
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: 5cbc16e81555245408775c48958a0718, type: 3}
->>>>>>> 02cc9ff (20：31存档备份)
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 314a154b4e8129646bb6817b7c3ffaba, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []

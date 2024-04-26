@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
-  m_Name: Land_SSR_TheLead
+  m_Name: Land_SSR_ZD
   m_EditorClassIdentifier: 
-  cardName: "\u9886\u5BFC\u8005"
+  cardName: "\u8D1E\u5FB7"
   description: 
   troopStrength: 2
   cost: 1
