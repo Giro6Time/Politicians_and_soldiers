@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
-  m_Name: Land_R_Archers
+  m_Name: Land_SSR_TheLead 1
   m_EditorClassIdentifier: 
-  cardName: "\u666E\u901A\u7684\u5F13\u624B"
+  cardName: "\u9886\u5BFC\u8005"
   description: 
-  troopStrength: 1
+  troopStrength: 2
   cost: 1
   matchedSeason: 0
-  matchedPos: 3
+  matchedPos: 1
   cardBaseType: 0
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: 5cbc16e81555245408775c48958a0718, type: 3}
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 314a154b4e8129646bb6817b7c3ffaba, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []
