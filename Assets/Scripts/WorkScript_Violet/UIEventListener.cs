@@ -335,9 +335,12 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public void OnBtnClick_MeetingEventChoose()
     {
-        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze&&MeetEventGameCtrl._Instance.eventMgr.isDisposeMeetEvent)
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze || !MeetEventGameCtrl._Instance.eventMgr.isDisposeMeetEvent)
+        {
+            MessageView._Instance.ShowTip("目前无法进行事件决断");
             return;
-            //修改事件并判定是否结束
+        }
+        //修改事件并判定是否结束
         MeetEventGameCtrl._Instance.eventMgr.EventChange();
     }
 

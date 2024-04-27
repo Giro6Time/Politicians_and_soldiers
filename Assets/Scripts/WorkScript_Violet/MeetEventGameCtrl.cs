@@ -78,6 +78,8 @@ public class MeetEventGameCtrl : MonoBehaviour
     public MeetEventMgr eventMgr;
     #endregion
 
+   
+
     private void Start()
     {
         if (_Instance == null)
@@ -189,7 +191,10 @@ public class MeetEventGameCtrl : MonoBehaviour
         UIEventListener._Instance.PrizeWheelUIInit();
 
         //对于抽奖轮盘：需要初始化的是有什么奖品(要不要总是更新还需要考虑)
-        eventMgr.UpdatePrizePool();
+        if (UIEventListener._Instance.prizePool.Count != UIEventListener._Instance.prizeNums)
+        {
+            eventMgr.UpdatePrizePool();
+        }
         eventMgr.isFreeze = true;
         StartCoroutine(ChangeAlpha(meetEventCanvas.gameObject,0.8f,()
             =>
