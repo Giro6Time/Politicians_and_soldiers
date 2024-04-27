@@ -249,7 +249,13 @@ public static class CardFactory
                 armyC.troopStrength = cardSO.troopStrength;
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;
-                GameObject.Instantiate(cardSO.cardLayourPrefab).transform.SetParent(instance.transform);
+                var layoutGO = GameObject.Instantiate(cardSO.cardLayourPrefab);
+                layoutGO.transform.SetParent(instance.transform);
+                var renderers = layoutGO.GetComponentsInChildren<Renderer>();
+                foreach (Renderer renderer in renderers)
+                {
+                    renderer.sortingLayerName = "Card";
+                }
 
                 armyC.drawEffect = cardSO.drawEffect;
                 armyC.invokeEffect = cardSO.invokeEffect;
