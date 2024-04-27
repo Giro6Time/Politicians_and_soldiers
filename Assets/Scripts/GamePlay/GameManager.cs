@@ -171,6 +171,6 @@ public class GameManager : MonoBehaviour
         battleField.armyManager.enemyArmyOnSea.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.sea));
         battleField.armyManager.enemyArmyOnSky.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.sky));
 
-        battleField.armyManager.InitArmy();
+        battleField.armyManager.ResetArmy();
     }
 }

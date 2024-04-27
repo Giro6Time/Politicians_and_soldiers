@@ -36,7 +36,7 @@ public static class ArmyFactory
                 spriteRenderer.sprite = c.cardFrame;
             }
             //敌人的army动画翻转
-            if(army.transform.position.y > 2)
+            if(army.transform.position.y > 0)
             {
                 Vector3 scale = army.transform.localScale;
                 scale.y = -1f;

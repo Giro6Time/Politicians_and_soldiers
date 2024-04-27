@@ -44,24 +44,15 @@ public class CardPlayingArea : MonoBehaviour
     {
         for (int i = 0; i < sea.Count; i++)
         {
-            if (sea[i] == null)
-                sea.RemoveAt(i--);
-            else
-                sea[i].gameObject.SetActive(true);
+            sea[i].gameObject.SetActive(true);
         }
         for (int i = 0; i < ground.Count; i++)
         {
-            if (ground[i] == null)
-                ground.RemoveAt(i--);
-            else   
-                ground[i].gameObject.SetActive(true);
+            ground[i].gameObject.SetActive(true);
         }
         for (int i = 0; i < sky.Count; i++)
         {
-            if (sky[i] == null)
-                sky.RemoveAt(i--);
-            else
-                sky[i].gameObject.SetActive(true); 
+            sky[i].gameObject.SetActive(true);
         }
     }
 }

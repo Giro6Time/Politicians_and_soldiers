@@ -5,6 +5,7 @@ using System.Net;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 using UnityEngine.Purchasing;
 
 public class ArmyManager : MonoBehaviour
@@ -23,15 +24,22 @@ public class ArmyManager : MonoBehaviour
 
     #region 一大坨声明
     //我方海陆空军
-    public List<Army> armyOnLand = new(8);
-    public List<Army> armyOnSea = new(8);
-    public List<Army> armyOnSky = new(8);
+    public List<Army> armyOnLand = new();
+    public List<Army> armyOnSea = new();
+    public List<Army> armyOnSky = new();
     //敌方海陆空军
-    public List<Army> enemyArmyOnLand = new(8);
-    public List<Army> enemyArmyOnSea = new(8);
-    public List<Army> enemyArmyOnSky = new(8);
+    public List<Army> enemyArmyOnLand = new();
+    public List<Army> enemyArmyOnSea = new();
+    public List<Army> enemyArmyOnSky = new();
 
     public Action onBattleEnd;
+
+    [SerializeField] GameObject landArmyParent;
+    [SerializeField] GameObject seaArmyParent;
+    [SerializeField] GameObject skyArmyParent;
+    [SerializeField] GameObject enemyLandArmyParent;
+    [SerializeField] GameObject enemySeaArmyParent;
+    [SerializeField] GameObject enemySkyArmyParent;
 
     public float progressChangeValue = 0;
     public float landEffect1 = 0.02f;
@@ -56,12 +64,12 @@ public class ArmyManager : MonoBehaviour
 
     public bool isFightNextOn = false;
 
-    public float[] land = new float[3];
-    public float[] enemyLand = new float[3];
-    public float[] sea = new float[3];
-    public float[] enemySea = new float[3];
-    public float[] sky = new float[3];
-    public float[] enemySky = new float[3];
+    public float[] landArmyPosition = new float[3];
+    public float[] enemyLandArmyPosition = new float[3];
+    public float[] seaArmyPosition = new float[3];
+    public float[] enemySeaArmyPosition = new float[3];
+    public float[] skyArmyPosition = new float[3];
+    public float[] enemySkyArmyPosition = new float[3];
     #endregion
 
     public void Battle()
@@ -73,9 +81,7 @@ public class ArmyManager : MonoBehaviour
     private void StartBattle()
     {
         currArmyType = ArmyType.Sky;
-        Init(ArmyType.Sky);
-        Init(ArmyType.Ocean);
-        Init(ArmyType.Sky);
+        Init();
         Move();
         BattleStartEffect();
     }
@@ -97,81 +103,82 @@ public class ArmyManager : MonoBehaviour
             army.battleStartEffect.TriggerAllEffects(true, new object[] { army });
     }
 
-    public void Init(ArmyType at)
+    public void Init()
     {
-        var currArmy = armyOnLand;
-        var currObj = land;
-        ToArmyType(at, ref currArmy, ref currObj, 1);
-        for (int i = 0; i <= currArmy.Count - 1; i++)
-        {
-            currObj[i] = distance * (currArmy.Count - 1 - i + 0.5f);
-            //if (!currArmy[i]) continue;
-            //currArmy[i].transform.position = pivot.transform.position + new Vector3(distance * (currArmy.Count - 1 - i + 0.5f), 0f, 0f);
-            //currArmy[i].onFightEnd += () => Move(at);
-        }
-        ToArmyType(at, ref currArmy, ref currObj, 2);
-        for (int i = 0; i <= currArmy.Count - 1; i++)
-        {
-            currObj[i] = -distance * (currArmy.Count - 1 - i + 0.5f);
-            //if (!currArmy[i]) continue;
-            //currArmy[i].transform.position = pivot.transform.position + new Vector3(-distance * (currArmy.Count - 1 - i + 0.5f), 0f, 0f);
-        }
+        
     }
 
-    public void InitArmy()
+    public void ResetArmy()
     {
         //TODO:将Destroy改为播放动画，以及播放动画后回收/销毁部队对象
-        foreach (Army army in armyOnLand)
+        foreach(Army army in armyOnLand)
+        {
             if (army != null)
             {
+                army.transform.SetParent(landArmyParent.transform);
                 army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
                 army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
                 army.onDied += () => armyOnLand.Remove(army);
             }
+        }
         foreach (Army army in armyOnSea)
+        {
             if (army != null)
             {
+                army.transform.SetParent(seaArmyParent.transform);
                 army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
                 army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
                 army.onDied += () => armyOnSea.Remove(army);
             }
+        }
         foreach (Army army in armyOnSky)
+        {
             if (army != null)
             {
+                army.transform.SetParent(skyArmyParent.transform);
                 army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
                 army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
                 army.onDied += () => armyOnSky.Remove(army);
             }
+        }
         foreach (Army army in enemyArmyOnLand)
+        {
             if (army != null)
             {
-                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, false);
-                army.onDied += () => army.deathEffect.TriggerAllEffects(false, new object[] { army });
+                army.transform.SetParent(enemyLandArmyParent.transform);
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
                 army.onDied += () => enemyArmyOnLand.Remove(army);
             }
+        }
         foreach (Army army in enemyArmyOnSea)
+        {
             if (army != null)
             {
-                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, false);
-                army.onDied += () => army.deathEffect.TriggerAllEffects(false, new object[] { army });
+                army.transform.SetParent(enemySeaArmyParent.transform);
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
                 army.onDied += () => enemyArmyOnSea.Remove(army);
             }
+        }
         foreach (Army army in enemyArmyOnSky)
+        {
             if (army != null)
             {
-                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, false);
-                army.onDied += () => army.deathEffect.TriggerAllEffects(false, new object[] { army });
+                army.transform.SetParent(enemySkyArmyParent.transform);
+                army.onDied += () => GameManager.Instance.gameFlowController.log.AddDeathLog(army.whereIFrom, true);
+                army.onDied += () => army.deathEffect.TriggerAllEffects(true, new object[] { army });
                 army.onDied += () => enemyArmyOnSky.Remove(army);
             }
+        }
     }
 
     public void Move()
     {
         Debug.Log(currArmyType + "Move");
         var currArmy = armyOnLand;
-        var currObj = land;
+        var currObj = landArmyPosition;
         ToArmyType(currArmyType, ref currArmy, ref currObj, 2);
-        bool IsMoved = false;
         //Army lastone = null;
         int target = -1;
         for (int i = 0; i <= currArmy.Count - 1; i++)
@@ -185,11 +192,10 @@ public class ArmyManager : MonoBehaviour
                 if (i == 0 || target == -1)
                     continue;
 
-                Debug.Log("First Move");
+                //Debug.Log("First Move");
                 //lastone = currArmy[i];
                 currArmy[i].onMoveEnd = null;
                 currArmy[i].Move(new Vector3(currObj[target], 0, 0));
-                IsMoved = true;
                 currArmy[target] = currArmy[i];
                 currArmy[i] = null;
                 i = target;
@@ -211,18 +217,13 @@ public class ArmyManager : MonoBehaviour
                 //lastone = currArmy[i];
                 currArmy[i].onMoveEnd = null;
                 currArmy[i].Move(new Vector3(currObj[target], 0, 0));
-                IsMoved = true;
                 currArmy[target] = currArmy[i];
                 currArmy[i] = null;
                 i = target;
             }
         }
+        Fight(currArmyType);
 
-        if (!IsMoved)
-        {
-            Fight(currArmyType);
-            IsMoved = true;
-        }
         //if (lastone != null)    
         //    lastone.onMoveEnd += () => Fight(at);
         //else
@@ -231,7 +232,6 @@ public class ArmyManager : MonoBehaviour
 
     public void Fight(ArmyType at)
     {
-        isFightNextOn = false;
         Debug.Log(at + "Fight");
         var army = armyOnLand;
         var enemyArmy = enemyArmyOnLand;
@@ -245,15 +245,17 @@ public class ArmyManager : MonoBehaviour
             a.onDamaged += () => a.TroopStrength = a.TroopStrength - damage;
             a.onDamaged += () => a.afterAttactEffect.TriggerAllEffects(true, new object[] { a, ea });
             a.beforeAttackEffect.TriggerAllEffects(true, new object[] { a, ea });//触发战斗前效果
+
             ea.onDamaged += () => ea.TroopStrength = ea.TroopStrength - damage;
             ea.onDamaged += () => ea.afterAttactEffect.TriggerAllEffects(false, new object[] { ea, a }); 
             ea.beforeAttackEffect.TriggerAllEffects(false, new object[] { ea, a });//触发战斗前效果
-            a.PlayFight(true);
-            ea.PlayFight(true);
+            a.PlayFight();
+            ea.PlayFight();
+            isFightNextOn = false;
         }
         else
         {
-            CanFightNext();
+            FightNext();
         }
     }
 
@@ -325,6 +327,11 @@ public class ArmyManager : MonoBehaviour
         }
     }
 
+    public void DestoryCard()
+    {
+
+    }
+
     #region 根据种类赋值 函数
     public void ToArmyType(ArmyType at, ref List<Army> army, ref List<Army> enemyArmy)
     {
@@ -352,17 +359,17 @@ public class ArmyManager : MonoBehaviour
             if (at == ArmyType.Land)
             {
                 currArmy = armyOnLand;
-                currObj = land;
+                currObj = landArmyPosition;
             }
             else if (at == ArmyType.Ocean)
             {
                 currArmy = armyOnSea;
-                currObj = sea;
+                currObj = seaArmyPosition;
             }
             else if (at == ArmyType.Sky)
             {
                 currArmy = armyOnSky;
-                currObj = sky;
+                currObj = skyArmyPosition;
             }
         }
         else if(num == 2)
@@ -370,17 +377,17 @@ public class ArmyManager : MonoBehaviour
             if (at == ArmyType.Land)
             {
                 currArmy = enemyArmyOnLand;
-                currObj = enemyLand;
+                currObj = enemyLandArmyPosition;
             }
             else if (at == ArmyType.Ocean)
             {
                 currArmy = enemyArmyOnSea;
-                currObj = enemySea;
+                currObj = enemySeaArmyPosition;
             }
             else if (at == ArmyType.Sky)
             {
                 currArmy = enemyArmyOnSky;
-                currObj = enemySky;
+                currObj = enemySkyArmyPosition;
             }
         }
     }
