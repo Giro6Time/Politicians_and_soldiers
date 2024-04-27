@@ -69,12 +69,13 @@ public class CardArrangement : MonoBehaviour
             // 设置卡牌的目标位置
             Vector3 targetPosition = new Vector3(x, y, offsetZ * i);
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
+            //SetZOrder(i + 30, cardTransform);
 
             // 设置卡牌的旋转角度
             Quaternion targetRotation = Quaternion.Euler(0,0,rotateZ);
 
             //使用协程平滑地将卡牌从初始位置转移至目标位置
-            StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
+            StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation, i+30));
             //StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
         }
     }
@@ -86,11 +87,12 @@ public class CardArrangement : MonoBehaviour
 
             //战场卡牌的目标位置
             Vector3 targetPosition = new Vector3(offsetX * i, 0, offsetZ * i);
+            /*SetZOrder(i,cardTransform);*/
 
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
 
             Quaternion targetRotation = Quaternion.Euler(incline, 0, 0);
-            StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
+            StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation, i));
         }
     }
 
@@ -150,6 +152,31 @@ public class CardArrangement : MonoBehaviour
         a.localRotation = c;
     }
 
+    IEnumerator MoveSmoothly(Transform a, Vector3 b, Quaternion c, int index)
+    {
+        float elapsedTime = 0f;
+        Vector3 startPosition = a.localPosition;
+        Quaternion startRotation = a.localRotation;
+
+        while (elapsedTime < 1f)
+        {
+            a.localPosition = Vector3.Lerp(startPosition, b, elapsedTime);
+            a.localRotation = Quaternion.Lerp(startRotation, c, elapsedTime);
+            elapsedTime += Time.deltaTime * lerpSpeed;
+            yield return null;
+        }
+
+        a.localPosition = b;
+
+        //可以调节缩放视效
+        //a.localScale = Vector3.one;
+
+        a.localRotation = c;
+
+        //
+        SetZOrder(index, a);
+    }
+
     IEnumerator ScaleSmoothly(Transform a, Vector3 b)
     {
         float elapsedTime = 0f;
@@ -163,5 +190,21 @@ public class CardArrangement : MonoBehaviour
         }
 
         a.localScale = b;
+    }
+
+    public static void SetZOrder(int order, Transform transform)
+    {
+        var srList = transform.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var sr in srList)
+        {
+            sr.sortingOrder = order*4+3;
+            if(sr.gameObject.name == "Cardframe")
+                sr.sortingOrder -= 1;
+            else if (sr.gameObject.name == "Picture")
+                sr.sortingOrder -= 2;
+            else if (sr.gameObject.name == "Background")
+                sr.sortingOrder -= 3;
+        }
+        
     }
 }

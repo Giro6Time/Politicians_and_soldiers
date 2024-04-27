@@ -19,10 +19,15 @@ MonoBehaviour:
   matchedSeason: 1
   matchedPos: 3
   cardBaseType: 0
-  cardFrame: {fileID: 21300000, guid: 7468d501586abff40bfc5c24891fc9ba, type: 3}
-  inset: {fileID: 0}
+  cardFrame: {fileID: 21300000, guid: 137bea8d183151e40baa075a26f6a95f, type: 3}
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: b497e31439ce07045873710809d55e6a, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []
   liveEffect: []
   deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds: []

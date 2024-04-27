@@ -83,7 +83,7 @@ public class Army : MonoBehaviour
 
     public void OnFightEnd()
     {
-        Debug.Log(name + "FightEnd");
+        
         animator.SetBool("Fight", false);
         GameManager.Instance.battleField.armyManager.CanFightNext();
         onFightEnd?.Invoke();
@@ -104,7 +104,6 @@ public class Army : MonoBehaviour
                 Debug.Log("Here");
                 // �ƶ���ɺ�Ĳ���
                 isMoving = false;
-                //GameManager.Instance.battleField.armyManager.Fight(GameManager.Instance.battleField.armyManager.currArmyType);
             }
         }
     }
