@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: 
   description: 
-  troopStrength: 100
+  troopStrength: 700
   cost: 0
   matchedSeason: 3
   matchedPos: 1
   cardBaseType: 0
-  cardFrame: {fileID: 0}
-  inset: {fileID: 0}
+  cardLayourPrefab: {fileID: 0}
   drawEffect:
   - rid: 5247665862689161229
   - rid: 5247665862689161230
