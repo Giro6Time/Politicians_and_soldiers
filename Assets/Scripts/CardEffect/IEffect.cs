@@ -79,8 +79,7 @@ public class IAddCardEffect : IEffect
         if (!GameManager.Instance)
             return;
         //�߼�
-        CardManager.Instance.AddCard_Type(num, DateManager.Instance.GetSeason(), cardBaseType);
-
+        CardManager.Instance.AddCard(num, DateManager.Instance.GetSeason(), cardBaseType);
     }
 }
 
@@ -109,7 +108,7 @@ public class IAddDecision : IEffect
 {
     public int num;
 
-    public IAddDecision(int num, CardEffect card)
+    public IAddDecision(int num)
     {
         this.num = num;
     }
@@ -126,6 +125,29 @@ public class IAddDecision : IEffect
             return;
         }
         Player.Instance.decisionValue += num;
+
+    }
+}
+
+public class IChangePossibility : IEffect
+{
+    public ArmyType armyType;
+    /// <summary>
+    /// 从0到10，代表抽到相应卡片的概率越来越高
+    /// </summary>
+    public int possibility;
+
+    public IChangePossibility(ArmyType armyType, int possibility)
+    {
+        this.armyType = armyType;
+        this.possibility = possibility;
+    }
+    public override void Trigger(bool isPlayerTrigger, object[] args)
+    {
+        base.Trigger(isPlayerTrigger, args);
+        if (!GameManager.Instance)
+            return;
+        //�߼�
 
     }
 }

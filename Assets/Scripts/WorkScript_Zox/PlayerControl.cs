@@ -102,7 +102,10 @@ public class PlayerControl : MonoBehaviour
                     }
                     else if (selectedCard is CardEffect)
                     {
-                        Destroy(selectedCard.gameObject);
+                        //Unity中Destroy执行时物体不会立刻销毁，而是处于待销毁状态，下一帧销毁
+                        //而DestroyImmediate可以立刻销毁物体，但可能存在问题
+                        DestroyImmediate(selectedCard.gameObject);
+                        CardManager.Instance.cardsCenterPoint.RearrangeCard();
                         currentState = State.SelectingCard;
                     }
                 }
