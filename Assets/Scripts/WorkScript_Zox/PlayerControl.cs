@@ -162,6 +162,7 @@ public class PlayerControl : MonoBehaviour
     {
         Vector3 newPosition = Camera.main.ScreenToWorldPoint(mousePosition) + mouseAndCardCenterOffset;
         selectedCard.transform.position = new Vector3(newPosition.x, newPosition.y, -0.5f);
+        CardArrangement.SetZOrder(100, selectedCard.transform);
     }
 
     private void MouseSelectPlaceableRegion()

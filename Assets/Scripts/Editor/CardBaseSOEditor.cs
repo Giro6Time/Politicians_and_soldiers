@@ -13,15 +13,15 @@ using UnityEngine;
 using static DialogUnitSO;
 using static UnityEngine.GraphicsBuffer;
 
-// ×Ô¶¨Òå±à¼­Æ÷´°¿ÚµÄÀà
+// ï¿½Ô¶ï¿½ï¿½ï¿½à¼­ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½
 [CanEditMultipleObjects]
 [CustomEditor(typeof(CardBaseSO), true)]
 public class CardBaseSOEditor : Editor
 {
-    
 
 
-    #region »æÖÆEffectÁĞ±í
+
+    #region ï¿½ï¿½ï¿½ï¿½Effectï¿½Ğ±ï¿½
     private ReorderableList drawEffectList;
     private ReorderableList invokeEffectList;
     private ReorderableList battleStartEffectList;
@@ -69,72 +69,73 @@ public class CardBaseSOEditor : Editor
     {
 
     }
-    void DrawListElement(Rect rect, int index, bool isActive, bool isFocused,ref ReorderableList list)
+    void DrawListElement(Rect rect, int index, bool isActive, bool isFocused, ref ReorderableList list)
     {
-        SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
-        // »ñÈ¡element¶ÔÓ¦µÄ¶ÔÏóÊµÀı
-        object effectInstance = element.managedReferenceValue;
-
-        // »ñÈ¡effectInstanceµÄType
-        Type instanceType = effectInstance.GetType();
-
-        // ¼ì²é¸ÃTypeÊÇ·ñÊµÏÖÁËIResultReflectEffect½Ó¿Ú
-        if (instanceType.IsAssignableFrom(typeof(IResultReflectEffect)))
+        try
         {
-            list.elementHeight = EditorGUIUtility.singleLineHeight *5;
-            // »æÖÆÀàÃû±êÌâ
-            EditorGUI.LabelField(new Rect(rect.x, rect.y , rect.width, EditorGUIUtility.singleLineHeight), "IResultReflectEffect");
+            SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
+            // ï¿½ï¿½È¡elementï¿½ï¿½Ó¦ï¿½Ä¶ï¿½ï¿½ï¿½Êµï¿½ï¿½
+            object effectInstance = element.managedReferenceValue;
 
-            // »æÖÆposÊôĞÔ±êÌâ
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Position:");
+            // ï¿½ï¿½È¡effectInstanceï¿½ï¿½Type
+            Type instanceType = effectInstance.GetType();
 
-            // »æÖÆposÊôĞÔ
-            (effectInstance as IResultReflectEffect).pos = (CardPos)EditorGUI.EnumPopup(
-                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight*2, 100, EditorGUIUtility.singleLineHeight),
-                (effectInstance as IResultReflectEffect).pos
-            );
+            // ï¿½ï¿½ï¿½ï¿½Typeï¿½Ç·ï¿½Êµï¿½ï¿½ï¿½ï¿½IResultReflectEffectï¿½Ó¿ï¿½
+            if (instanceType.IsAssignableFrom(typeof(IResultReflectEffect)))
+            {
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IResultReflectEffect");
 
-            // »æÖÆvalueÊôĞÔ±êÌâ
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight*3, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
+                // ï¿½ï¿½ï¿½ï¿½posï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Position:");
 
-            // »æÖÆvalueÊôĞÔ
-            (effectInstance as IResultReflectEffect).value = EditorGUI.FloatField(
-                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
-                (effectInstance as IResultReflectEffect).value
-            );
-        }
+                // ï¿½ï¿½ï¿½ï¿½posï¿½ï¿½ï¿½ï¿½
+                (effectInstance as IResultReflectEffect).pos = (CardPos)EditorGUI.EnumPopup(
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as IResultReflectEffect).pos
+                );
 
-        //TODO:
-        else if (instanceType.IsAssignableFrom(typeof(IAddCardEffect)))
-        {
-            list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
-            //
-            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAddCardEffect");
-            //
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Num:");
-            //
-            (effectInstance as IAddCardEffect).num = EditorGUI.IntField(
-                
-                new Rect(rect.x,rect.y+EditorGUIUtility.singleLineHeight*2,100,EditorGUIUtility.singleLineHeight),
-                (effectInstance as IAddCardEffect).num
-            );
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Type:");
-            (effectInstance as IAddCardEffect).cardBaseType = (CardBaseType)EditorGUI.EnumPopup(
+                // ï¿½ï¿½ï¿½ï¿½valueï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
 
-                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
-                (effectInstance as IAddCardEffect).cardBaseType
-            );
-        }
+                // ï¿½ï¿½ï¿½ï¿½valueï¿½ï¿½ï¿½ï¿½
+                (effectInstance as IResultReflectEffect).value = EditorGUI.FloatField(
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as IResultReflectEffect).value
+                );
+            }
 
-        else if (instanceType.IsAssignableFrom(typeof(IAddDecision)))
-        {
-            list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
-            //
-            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAddDecision");
-            //
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Num:");
-            //
-            (effectInstance as IAddDecision).num = EditorGUI.IntField(
+            //TODO:
+            else if (instanceType.IsAssignableFrom(typeof(IAddCardEffect)))
+            {
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+                //
+                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAddCardEffect");
+                //
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Num:");
+                //
+                (effectInstance as IAddCardEffect).num = EditorGUI.IntField(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as IAddCardEffect).num
+                );
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Type:");
+                (effectInstance as IAddCardEffect).cardBaseType = (CardBaseType)EditorGUI.EnumPopup(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as IAddCardEffect).cardBaseType
+                );
+            }
+            else if (instanceType.IsAssignableFrom(typeof(IAddDecision)))
+            {
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+                //
+                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAddDecision");
+                //
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Num:");
+                //
+                (effectInstance as IAddDecision).num = EditorGUI.IntField(
 
                 new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
                 (effectInstance as IAddDecision).num
@@ -147,14 +148,14 @@ public class CardBaseSOEditor : Editor
             //
             EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IChangePossibility");
             //
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Possibility: 0-10ÓÉµÍµ½¸ß");
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Possibility: 0-10ï¿½ÉµÍµï¿½ï¿½ï¿½");
             //
             (effectInstance as IChangePossibility).possibility = EditorGUI.IntField(
 
                 new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
                 (effectInstance as IChangePossibility).possibility
             );
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Type(0-4: Â½º£¿Õ¾ü·¨)");
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Type(0-4: Â½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½)");
             (effectInstance as IChangePossibility).possibility = EditorGUI.IntField(
                 new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
                 (effectInstance as IChangePossibility).type
@@ -174,11 +175,37 @@ public class CardBaseSOEditor : Editor
                 new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
                 (effectInstance as IAttackInstantly).damage
             );
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "target(0ÎªÓÑ¾ü¡¢1ÎªµĞÈË)");
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "target(0Îªï¿½Ñ¾ï¿½ï¿½ï¿½1Îªï¿½ï¿½ï¿½ï¿½)");
             (effectInstance as IAttackInstantly).target = EditorGUI.IntField(
                 new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
                 (effectInstance as IAttackInstantly).target
             );
+        }
+
+            else if (instanceType.IsAssignableFrom(typeof(DelayDesisionValueEffect)))
+            {
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "DelayDesisionvalueEffect");
+
+                //delayTurn
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "DelayTurn:");
+                (effectInstance as DelayDesisionValueEffect).delayTurn = EditorGUI.IntField(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as DelayDesisionValueEffect).delayTurn
+                );
+                //Value
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
+                (effectInstance as DelayDesisionValueEffect).value = EditorGUI.IntField(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as DelayDesisionValueEffect).value
+                );
+            }
+        }
+        catch (Exception e)
+        {
+            list.ClearSelection();
         }
 
     }
@@ -199,19 +226,19 @@ public class CardBaseSOEditor : Editor
 
         drawEffectListProperty = serializedObject.FindProperty("drawEffect");
         drawEffectList = new ReorderableList(serializedObject, drawEffectListProperty, true, true, true, true);
-        drawEffectList.drawElementCallback = (rect, index, isActive, isFocused) =>DrawListElement(rect, index, isActive, isFocused,ref drawEffectList);
+        drawEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, ref drawEffectList);
         drawEffectList.drawHeaderCallback = DrawDrawEffectListHeader;
-        drawEffectList.onAddCallback = (recordableList) =>AddEffect(recordableList, "drawEffect");
+        drawEffectList.onAddCallback = (recordableList) => AddEffect(recordableList, "drawEffect");
 
         invokeEffectListProperty = serializedObject.FindProperty("invokeEffect");
         invokeEffectList = new ReorderableList(serializedObject, invokeEffectListProperty, true, true, true, true);
-        invokeEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused,ref invokeEffectList);
+        invokeEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, ref invokeEffectList);
         invokeEffectList.drawHeaderCallback = DrawInvokeEffectListHeader;
         invokeEffectList.onAddCallback = (recordableList) => AddEffect(recordableList, "invokeEffect");
 
         battleStartEffectListProperty = serializedObject.FindProperty("battleStartEffect");
         battleStartEffectList = new ReorderableList(serializedObject, battleStartEffectListProperty, true, true, true, true);
-        battleStartEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused,ref battleStartEffectList);
+        battleStartEffectList.drawElementCallback = (rect, index, isActive, isFocused) => DrawListElement(rect, index, isActive, isFocused, ref battleStartEffectList);
         battleStartEffectList.drawHeaderCallback = DrawBattleStartEffectListHeader;
         battleStartEffectList.onAddCallback = (recordableList) => AddEffect(recordableList, "battleStartEffect");
 
@@ -243,7 +270,7 @@ public class CardBaseSOEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        // »æÖÆÄ¬ÈÏµÄInspector½çÃæ
+        // ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½Inspectorï¿½ï¿½ï¿½ï¿½
 
         DrawDefaultInspector();
         serializedObject.Update();
@@ -258,29 +285,29 @@ public class CardBaseSOEditor : Editor
     }
 }
 
-// ×Ô¶¨Òå´°¿ÚÀà
+// ï¿½Ô¶ï¿½ï¿½å´°ï¿½ï¿½ï¿½ï¿½
 public class EffectConfigurationWindow : EditorWindow
 {
-    // ÓÃÓÚ´æ´¢ÓÃ»§Ñ¡ÔñµÄ×ÓÀàÀàĞÍ
+    // ï¿½ï¿½ï¿½Ú´æ´¢ï¿½Ã»ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private Type selectedEffectType;
 
-    // ÓÃÓÚ´æ´¢ÓÃ»§ÊäÈëµÄ²ÎÊı
+    // ï¿½ï¿½ï¿½Ú´æ´¢ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
     CardBaseSOEditor owner;
     string propertyName;
     private System.Collections.Generic.IEnumerable<Type> effectTypes;
 
     object[] args;
-    
+
     public void ShowWindow(CardBaseSOEditor owner, string propertyName)
     {
         this.owner = owner;
         this.propertyName = propertyName;
         GetWindow<EffectConfigurationWindow>("Effect Configuration");
-        // »ñÈ¡ËùÓĞÊµÏÖÁËIEffect½Ó¿ÚµÄ×ÓÀà
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½IEffectï¿½Ó¿Úµï¿½ï¿½ï¿½ï¿½ï¿½
         effectTypes = Assembly.GetAssembly(typeof(IEffect)).GetTypes()
             .Where(t => t.IsSubclassOf(typeof(IEffect)) && !t.Equals(typeof(IEffect)));
 
-        // ÉèÖÃÏÂÀ­²Ëµ¥µÄÑ¡Ïî
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
         selectedEffectType = effectTypes.FirstOrDefault();
     }
 
@@ -292,8 +319,8 @@ public class EffectConfigurationWindow : EditorWindow
 
     private void OnGUI()
     {
-        // »æÖÆÅäÖÃ×Ö¶Î
-        // ÏÂÀ­²Ëµ¥Ñ¡Ôñ×ÓÀàÀàĞÍ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         int result = EditorGUILayout.Popup(
                 "Effect Type",
                 System.Array.IndexOf(effectTypes.ToArray(), selectedEffectType),
@@ -303,48 +330,53 @@ public class EffectConfigurationWindow : EditorWindow
 
         selectedEffectType = effectTypes.ToArray()[result];
 
-        // ¸ù¾İÑ¡ÔñµÄ×ÓÀàÀàĞÍ»æÖÆ²»Í¬µÄ²ÎÊıÊäÈë½çÃæ
+        // ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Æ²ï¿½Í¬ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         switch (selectedEffectType.ToString())
         {
             case "IResultReflectEffect":
-                args = new object[3] {(CardPos.LandPutArea),1f,1f }; 
-                EditorGUILayout.LabelField("Ó°ÏìÎ»ÖÃ");
+                args = new object[3] { (CardPos.LandPutArea), 1f, 1f };
+                EditorGUILayout.LabelField("å½±å“ä½ç½®");
                 args[0] = EditorGUILayout.EnumPopup((CardPos)args[0]);
-                EditorGUILayout.LabelField("value(¼ÓËã)");
+                EditorGUILayout.LabelField("value(åŠ ç®—)");
                 args[1] = EditorGUILayout.FloatField((float)args[1]);
-                EditorGUILayout.LabelField("rate(³ËËã)");
+                EditorGUILayout.LabelField("rate(ä¹˜ç®—)");
                 args[2] = EditorGUILayout.FloatField((float)args[2]);
                 break;
-
-            // TODO: Ìí¼Ó¸ü¶àµÄcaseÀ´´¦ÀíÆäËû×ÓÀàÀàĞÍµÄ²ÎÊı
             case "IAddCardEffect":
-                args = new object[2] { 1 , CardBaseType.Army};
-                EditorGUILayout.LabelField("Ìí¼ÓÊıÁ¿");
+                args = new object[2] { 1, CardBaseType.Army };
+                EditorGUILayout.LabelField("æ·»åŠ æ•°é‡");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
-                EditorGUILayout.LabelField("ËùÌí¼Ó¿¨ÅÆÀàĞÍ");
+                EditorGUILayout.LabelField("æ‰€æ·»åŠ å¡ç‰Œç±»å‹");
                 args[1] = EditorGUILayout.EnumPopup((CardBaseType)args[1]);
                 break;
 
 
             case "IAddDecision":
                 args = new object[1] { 1 };
-                EditorGUILayout.LabelField("¾ö²ßµãÌí¼ÓÊıÁ¿");
+                EditorGUILayout.LabelField("å†³ç­–ç‚¹æ·»åŠ æ•°é‡");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
                 break;
 
             case "IChangePossibility":
                 args = new object[2] { 0, 5 };
-                EditorGUILayout.LabelField("ËùÑ¡¿¨ÅÆÀàĞÍ");
+                EditorGUILayout.LabelField("ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
-                EditorGUILayout.LabelField("³éÖĞ¸ÅÂÊ");
+                EditorGUILayout.LabelField("ï¿½ï¿½ï¿½Ğ¸ï¿½ï¿½ï¿½");
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
 
             case "IAttackInstantly":
                 args = new object[2] { 0,0 };
-                EditorGUILayout.LabelField("Ôì³ÉÉËº¦ÊıÖµ");
+                EditorGUILayout.LabelField("ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½Öµ");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
-                EditorGUILayout.LabelField("Ä¿±ê£¨0ÎªÓÑ¾ü£¬1ÎªµĞÈË£©");
+                EditorGUILayout.LabelField("Ä¿ï¿½ê£¨0Îªï¿½Ñ¾ï¿½ï¿½ï¿½1Îªï¿½ï¿½ï¿½Ë£ï¿½");
+                args[1] = EditorGUILayout.IntField((int)args[1]);
+                break;
+            case "DelayDesisionValueEffect":
+                args = new object[2] { 0, 1 };
+                EditorGUILayout.LabelField("å»¶è¿Ÿå›åˆæ•°");
+                args[0] = EditorGUILayout.IntField((int)args[0]);
+                EditorGUILayout.LabelField("å¢é•¿å†³ç­–ç‚¹");
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
 
@@ -352,19 +384,18 @@ public class EffectConfigurationWindow : EditorWindow
                 Debug.Log(selectedEffectType); break;
         }
 
-        // È·ÈÏ°´Å¥
+        // È·ï¿½Ï°ï¿½Å¥
         if (GUILayout.Button("Create"))
         {
-            // ´´½¨ĞÂµÄEffect¶ÔÏó
             CreateEffect();
 
-            
 
-            // ¹Ø±Õ´°¿Ú
+
+            // ï¿½Ø±Õ´ï¿½ï¿½ï¿½
             this.Close();
         }
     }
-    // ´´½¨Ğ§¹û¶ÔÏóµÄ·½·¨
+    // ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
     private void CreateEffect()
     {
         if (!string.IsNullOrEmpty(selectedEffectType.ToString()))
@@ -374,13 +405,12 @@ public class EffectConfigurationWindow : EditorWindow
             if (effectType != null)
             {
                 IEffect effectInstance = null;
-                // ¸ù¾İÀàĞÍ´´½¨ÊµÀı²¢ÉèÖÃ²ÎÊı
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½
                 switch (selectedEffectType.ToString())
                 {
                     case "IResultReflectEffect":
                         effectInstance = (IResultReflectEffect)Activator.CreateInstance(effectType, (CardPos)args[0], (float)args[1], (float)args[2]);
                         break;
-                    // TODO:Ìí¼Ó¸ü¶àµÄcaseÀ´´¦ÀíÆäËû×ÓÀàÀàĞÍµÄÊµÀı»¯
                     case "IAddCardEffect":
                         effectInstance = (IAddCardEffect)Activator.CreateInstance(effectType, (int)args[0], (CardBaseType)args[1]);
                         break;
@@ -393,9 +423,13 @@ public class EffectConfigurationWindow : EditorWindow
                     case "IAttackInstantly":
                         effectInstance = (IAttackInstantly)Activator.CreateInstance(effectType, (int)args[0], (int)args[1]);
                         break;
+
+                    case "DelayDesisionValueEffect":
+                        effectInstance = (DelayDesisionValueEffect)Activator.CreateInstance(effectType, args[0], args[1]);
+                        break;
                 }
 
-                // ½«ĞÂ´´½¨µÄĞ§¹û¶ÔÏóÌí¼Óµ½drawEffectÁĞ±íÖĞ
+                // ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½drawEffectï¿½Ğ±ï¿½ï¿½ï¿½
                 switch (propertyName)
                 {
                     case "drawEffect":
@@ -424,5 +458,5 @@ public class EffectConfigurationWindow : EditorWindow
                 }
             }
         }
-    } 
+    }
 }

@@ -1,11 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Net;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Purchasing;
 
 public class ArmyManager : MonoBehaviour
 {
@@ -235,6 +230,7 @@ public class ArmyManager : MonoBehaviour
         Debug.Log(at + "Fight");
         var army = armyOnLand;
         var enemyArmy = enemyArmyOnLand;
+        currArmyType = at;
         ToArmyType(at, ref army, ref enemyArmy);
         if (army.Count > 0 && enemyArmy.Count > 0)
         {
@@ -320,6 +316,7 @@ public class ArmyManager : MonoBehaviour
                 {
                     progressChangeValue = 0;
                 }
+                //currArmyType = ArmyType.Sky;
                 onBattleEnd?.Invoke();
             }
         }
