@@ -105,6 +105,9 @@ public class CardManager : MonoBehaviour {
             if (cardPlayingArea.getCurrentPosNum(area.pos) == cardPlayingArea.maxNum)
             {
                 card.cardCurrentArea.RearrangeCard();
+
+                
+
                 return;
             }
             Player.Instance.decisionValue -= card.cost;
@@ -276,7 +279,11 @@ public class CardManager : MonoBehaviour {
 
     public void AddCard(int num, Season season)
     {
-        //限定手牌数目
+        Debug.Log("Add card to hand");
+
+        //音效：发牌到手牌
+        SoundsMgr._Instance.PlaySoundEffect("发牌至手牌");
+        //Create Card object
         if(hand.Count > handMax)
         {
             return;

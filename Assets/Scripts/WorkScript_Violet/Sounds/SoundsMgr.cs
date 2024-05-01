@@ -56,26 +56,37 @@ public class SoundsMgr : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        //音效：点击鼠标触发的音效
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            PlaySoundEffect("soundEffect1");
+            PlaySoundEffect("点击");
         }
+
+        //
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             PlaySoundEffect("soundEffect2");
         }
+
+
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             PlaySoundEffect("soundEffect3");
         }
+
+
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             PlaySoundEffect("soundEffect4");
         }
+
+
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             PlaySoundEffect("soundEffect5");
         }
+
+
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             PlaySoundEffect("soundEffect6");
