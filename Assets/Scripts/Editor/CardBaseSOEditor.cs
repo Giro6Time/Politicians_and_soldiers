@@ -120,6 +120,20 @@ public class CardBaseSOEditor : Editor
             );
         }
 
+        else if(instanceType.IsAssignableFrom(typeof(IDesisionValueEffect)))
+        {
+            list.elementHeight = EditorGUIUtility.singleLineHeight * 3;
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IDesisionValueEffect");
+            
+            //Value
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
+            (effectInstance as IDesisionValueEffect).value= EditorGUI.IntField(
+
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IDesisionValueEffect).value
+            );
+        }
+
     }
 
     void AddEffect(ReorderableList reorderableList, String effectType)

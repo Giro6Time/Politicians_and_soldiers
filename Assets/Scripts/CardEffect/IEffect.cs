@@ -87,8 +87,13 @@ public class IAddCardEffect : IEffect
         if (!GameManager.Instance)
             return;
         //�߼�
+<<<<<<< Updated upstream
         CardManager.Instance.AddCard(num, DateManager.Instance.GetSeason());
 
+=======
+        CardManager.Instance.AddCard_Type(num, DateManager.Instance.GetSeason(), cardBaseType);
+        Debug.Log(cardBaseType);
+>>>>>>> Stashed changes
     }
 }
 
@@ -118,5 +123,21 @@ public class IDelayTriggerEffect : IEffect
     public virtual void DelayTrigger()
     {
         if(args == null) throw new Exception("错误的使用了延迟触发效果");
+    }
+}
+
+[Serializable]
+public class DelayDesisionValueEffect : IDelayTriggerEffect
+{
+    int value;
+    public DelayDesisionValueEffect(int value,int delayTurn = 1)
+    {
+        this.value = value;
+        this.delayTurn = delayTurn;
+    }
+    public override void DelayTrigger()
+    {
+        base.DelayTrigger();
+        Player.Instance.decisionValue += value;
     }
 }
