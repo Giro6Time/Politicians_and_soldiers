@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -30,6 +31,25 @@ public class CardArrangement : MonoBehaviour
     /*public float radius = 2f; // 卡牌偏移半径
     public float startAngle = 0f; // 起始角度
     public float endAngle = 180f; // 终止角度*/
+
+    //增加回调
+    public void RearrangeCard(Action onComplete)
+    {
+        switch (arrangementType)
+        {
+            case ArrangementType.Hand:
+                RearrangeCard_Hand();
+                break;
+            case ArrangementType.BattleField:
+                RearrangeCard_Battlefield();
+                break;
+            default:
+                Debug.LogError("arrangement not properlly set");
+                break;
+        }
+
+        onComplete?.Invoke();
+    }
 
     public void RearrangeCard()
     {
@@ -75,8 +95,7 @@ public class CardArrangement : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0,0,rotateZ);
 
             //使用协程平滑地将卡牌从初始位置转移至目标位置
-            StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation, i+30));
-            //StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
+            StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
         }
     }
     private void RearrangeCard_Battlefield()

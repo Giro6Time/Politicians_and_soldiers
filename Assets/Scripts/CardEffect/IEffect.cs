@@ -82,10 +82,12 @@ public class IDesisionValueEffect : IEffect
 public class IAddCardEffect : IEffect
 {
     public int num;
+    public CardBaseType cardBaseType;
 
-    public IAddCardEffect(int num)
+    public IAddCardEffect(int num, CardBaseType cardBaseType)
     {
         this.num = num;
+        this.cardBaseType = cardBaseType;
     }
 
     public override void Trigger(bool isPlayerTrigger, object[] args)
@@ -93,6 +95,8 @@ public class IAddCardEffect : IEffect
         base.Trigger(isPlayerTrigger,args);
         if (!GameManager.Instance)
             return;
+        //�߼�
+        CardManager.Instance.AddCard(num, DateManager.Instance.GetSeason(), cardBaseType);
     }
 }
 
@@ -119,7 +123,7 @@ public class IDelayTriggerEffect : IEffect
         this.isPlayerTrigger = isPlayerTrigger;
         this.args = args;
     }
-    public virtual void DelayTrigger()
+    public virtual void DelayTrigger() 
     {
         if(args == null) throw new Exception("错误的使用了延迟触发效果");
     }
@@ -140,3 +144,52 @@ public class DelayDesisionValueEffect : IDelayTriggerEffect
         Player.Instance.decisionValue += value;
     }
 }
+
+public class IAddDecision : IEffect
+{
+    public int num;
+
+    public IAddDecision(int num)
+    {
+        this.num = num;
+    }
+
+    public override void Trigger(bool isPlayerTrigger, object[] args)
+    {
+        base.Trigger(isPlayerTrigger, args);
+        if (!GameManager.Instance)
+            return;
+        //�߼�
+        if(Player.Instance.decisionValue + num > Player.Instance.decisionValueMax)
+        {
+            Player.Instance.decisionValue = Player.Instance.decisionValueMax;
+            return;
+        }
+        Player.Instance.decisionValue += num;
+
+    }
+}
+
+public class IChangePossibility : IEffect
+{
+    public ArmyType armyType;
+    /// <summary>
+    /// 从0到10，代表抽到相应卡片的概率越来越高
+    /// </summary>
+    public int possibility;
+
+    public IChangePossibility(ArmyType armyType, int possibility)
+    {
+        this.armyType = armyType;
+        this.possibility = possibility;
+    }
+    public override void Trigger(bool isPlayerTrigger, object[] args)
+    {
+        base.Trigger(isPlayerTrigger, args);
+        if (!GameManager.Instance)
+            return;
+        //�߼�
+
+    }
+}
+
