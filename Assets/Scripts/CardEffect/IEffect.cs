@@ -86,14 +86,8 @@ public class IAddCardEffect : IEffect
         base.Trigger(isPlayerTrigger,args);
         if (!GameManager.Instance)
             return;
-        //�߼�
-<<<<<<< Updated upstream
-        CardManager.Instance.AddCard(num, DateManager.Instance.GetSeason());
-
-=======
         CardManager.Instance.AddCard_Type(num, DateManager.Instance.GetSeason(), cardBaseType);
         Debug.Log(cardBaseType);
->>>>>>> Stashed changes
     }
 }
 

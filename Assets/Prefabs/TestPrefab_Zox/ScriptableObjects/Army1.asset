@@ -18,14 +18,8 @@ MonoBehaviour:
   cost: 0
   matchedSeason: 3
   matchedPos: 1
-<<<<<<< Updated upstream
   cardBaseType: 0
   cardLayourPrefab: {fileID: 1940235687683110017, guid: b497e31439ce07045873710809d55e6a, type: 3}
-=======
-  cardBaseType: 1
-  cardFrame: {fileID: 0}
-  inset: {fileID: 0}
->>>>>>> Stashed changes
   drawEffect:
   - rid: 5247665862689161229
   invokeEffect: []
