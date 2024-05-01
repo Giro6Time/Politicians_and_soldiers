@@ -66,6 +66,7 @@ public class CardManager : MonoBehaviour {
         }
     }
 
+    //在战斗结束后（有可能卡牌被销毁），刷新卡牌
     public void RefreshList()
     {
         enemyPlayingArea.Refresh();
@@ -395,6 +396,16 @@ public class CardManager : MonoBehaviour {
         cardAnchor_Sea_Enemy.RearrangeCard();
         cardAnchor_Sky_Enemy.RearrangeCard();
 
+    }
+
+    /// <summary>
+    /// 改变概率数组的值，index:0-4(陆、海、空、军、法), val:0-10
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="val"></param>
+    public void changePossib(int index, int val)
+    {
+        Possib[index] = val;
     }
 }
 

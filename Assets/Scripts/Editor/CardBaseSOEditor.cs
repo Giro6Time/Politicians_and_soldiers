@@ -141,6 +141,46 @@ public class CardBaseSOEditor : Editor
             );
         }
 
+        else if (instanceType.IsAssignableFrom(typeof(IChangePossibility)))
+        {
+            list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IChangePossibility");
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Possibility: 0-10由低到高");
+            //
+            (effectInstance as IChangePossibility).possibility = EditorGUI.IntField(
+
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IChangePossibility).possibility
+            );
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Type(0-4: 陆海空军法)");
+            (effectInstance as IChangePossibility).possibility = EditorGUI.IntField(
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IChangePossibility).type
+            );
+        }
+
+        else if (instanceType.IsAssignableFrom(typeof(IAttackInstantly)))
+        {
+            list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAttackInstantly");
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "damage:");
+            //
+            (effectInstance as IAttackInstantly).damage = EditorGUI.IntField(
+
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IAttackInstantly).damage
+            );
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "target(0为友军、1为敌人)");
+            (effectInstance as IAttackInstantly).target = EditorGUI.IntField(
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IAttackInstantly).target
+            );
+        }
+
     }
 
     void AddEffect(ReorderableList reorderableList, String effectType)
@@ -292,6 +332,22 @@ public class EffectConfigurationWindow : EditorWindow
                 args[0] = EditorGUILayout.IntField((int)args[0]);
                 break;
 
+            case "IChangePossibility":
+                args = new object[2] { 0, 5 };
+                EditorGUILayout.LabelField("所选卡牌类型");
+                args[0] = EditorGUILayout.IntField((int)args[0]);
+                EditorGUILayout.LabelField("抽中概率");
+                args[1] = EditorGUILayout.IntField((int)args[1]);
+                break;
+
+            case "IAttackInstantly":
+                args = new object[2] { 0,0 };
+                EditorGUILayout.LabelField("造成伤害数值");
+                args[0] = EditorGUILayout.IntField((int)args[0]);
+                EditorGUILayout.LabelField("目标（0为友军，1为敌人）");
+                args[1] = EditorGUILayout.IntField((int)args[1]);
+                break;
+
             default:
                 Debug.Log(selectedEffectType); break;
         }
@@ -330,6 +386,12 @@ public class EffectConfigurationWindow : EditorWindow
                         break;
                     case "IAddDecision":
                         effectInstance = (IAddDecision)Activator.CreateInstance(effectType, (int)args[0]);
+                        break;
+                    case "IChangePossibility":
+                        effectInstance = (IChangePossibility)Activator.CreateInstance(effectType, (int)args[0], (int)args[1]);
+                        break;
+                    case "IAttackInstantly":
+                        effectInstance = (IAttackInstantly)Activator.CreateInstance(effectType, (int)args[0], (int)args[1]);
                         break;
                 }
 

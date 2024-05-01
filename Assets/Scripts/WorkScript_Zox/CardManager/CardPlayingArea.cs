@@ -75,4 +75,54 @@ public class CardPlayingArea : MonoBehaviour
         if (pos == CardPos.SkyPutArea) { return sky.Count; }
         return -1;
     }
+
+    public void allCardsBeDamaged(CardPos pos , int damage)
+    {
+        bool needToBeRefresh = false;
+        switch (pos)
+        {
+            case CardPos.LandPutArea:
+                for(int i = 0; i < ground.Count; i++)
+                {
+                    ArmyCard card = ground[i] as ArmyCard;
+                    card.troopStrength -= damage;
+                    if (card.troopStrength <= 0)
+                    {
+                        ground[i] = null;
+                        needToBeRefresh = true;
+                    }
+                }
+                break;
+            case CardPos.SeaPutArea:
+                for (int i = 0; i < ground.Count; i++)
+                {
+                    ArmyCard card = ground[i] as ArmyCard;
+                    card.troopStrength -= damage;
+                    if (card.troopStrength <= 0)
+                    {
+                        ground[i] = null;
+                        needToBeRefresh = true;
+                    }
+                }
+                break;
+            case CardPos.SkyPutArea:
+                for (int i = 0; i < ground.Count; i++)
+                {
+                    ArmyCard card = ground[i] as ArmyCard;
+                    card.troopStrength -= damage;
+                    if (card.troopStrength <= 0)
+                    {
+                        ground[i] = null;
+                        needToBeRefresh = true;
+                    }
+                }
+                break;
+            case CardPos.SelectionArea:
+                break;
+        }
+        if (needToBeRefresh)
+        {
+            Refresh();
+        }
+    }
 }

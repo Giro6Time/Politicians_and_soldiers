@@ -14,6 +14,7 @@ public class IEffect
     
 }
 
+[Serializable]
 public static class IEffectExtension
 {
     public static void TriggerAllEffects(this List<IEffect> effects, bool isPlayerTrigger, object[] args)
@@ -62,6 +63,7 @@ public class IResultReflectEffect : IEffect
     }
 }
 
+[Serializable]
 public class IAddCardEffect : IEffect
 {
     public int num;
@@ -104,6 +106,7 @@ public class IDelayTriggerEffect : IEffect
     }
 }
 
+[Serializable]
 public class IAddDecision : IEffect
 {
     public int num;
@@ -129,17 +132,21 @@ public class IAddDecision : IEffect
     }
 }
 
+[Serializable]
 public class IChangePossibility : IEffect
 {
-    public ArmyType armyType;
+    /// <summary>
+    /// 0代表陆军、1代表海军、2代表空军、3代表军队、4代表法术
+    /// </summary>
+    public int type;
     /// <summary>
     /// 从0到10，代表抽到相应卡片的概率越来越高
     /// </summary>
     public int possibility;
 
-    public IChangePossibility(ArmyType armyType, int possibility)
+    public IChangePossibility(int type, int possibility)
     {
-        this.armyType = armyType;
+        this.type = type;
         this.possibility = possibility;
     }
     public override void Trigger(bool isPlayerTrigger, object[] args)
@@ -148,6 +155,46 @@ public class IChangePossibility : IEffect
         if (!GameManager.Instance)
             return;
         //�߼�
+        CardManager.Instance.changePossib(type, possibility);
+    }
+}
 
+[Serializable]
+public class IAttackInstantly : IEffect
+{
+    public int damage;
+    public int target;
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="damage">造成伤害的数值</param>
+    /// <param name="target">目标，0为自己，1为敌人</param>
+    public IAttackInstantly(int damage, int target)
+    {
+        this.damage = damage;
+        this.target = target;
+    }
+    public override void Trigger(bool isPlayerTrigger, object[] args)
+    {
+        base.Trigger(isPlayerTrigger, args);
+        if (!GameManager.Instance)
+            return;
+        //�߼�
+        CardArrangement area = PlayerControl.Instance.puttableArea;
+        if (area == null || area.pos == CardPos.SelectionArea)
+        {
+            //
+        }
+        else
+        {
+            if(target == 0)
+            {
+                CardManager.Instance.cardPlayingArea.allCardsBeDamaged(area.pos, damage);
+            }
+            else
+            {
+                CardManager.Instance.enemyPlayingArea.allCardsBeDamaged(area.pos, damage);
+            }
+        }
     }
 }
