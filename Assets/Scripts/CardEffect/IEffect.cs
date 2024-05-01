@@ -144,7 +144,7 @@ public class DelayDesisionValueEffect : IDelayTriggerEffect
         Player.Instance.decisionValue += value;
     }
 }
-
+[Serializable]
 public class IAddDecision : IEffect
 {
     public int num;
@@ -160,7 +160,7 @@ public class IAddDecision : IEffect
         if (!GameManager.Instance)
             return;
         //�߼�
-        if(Player.Instance.decisionValue + num > Player.Instance.decisionValueMax)
+        if (Player.Instance.decisionValue + num > Player.Instance.decisionValueMax)
         {
             Player.Instance.decisionValue = Player.Instance.decisionValueMax;
             return;
@@ -170,17 +170,22 @@ public class IAddDecision : IEffect
     }
 }
 
+
+[Serializable]
 public class IChangePossibility : IEffect
 {
-    public ArmyType armyType;
+    /// <summary>
+    /// 0代表陆军、1代表海军、2代表空军、3代表军队、4代表法术
+    /// </summary>
+    public int type;
     /// <summary>
     /// 从0到10，代表抽到相应卡片的概率越来越高
     /// </summary>
     public int possibility;
 
-    public IChangePossibility(ArmyType armyType, int possibility)
+    public IChangePossibility(int type, int possibility)
     {
-        this.armyType = armyType;
+        this.type = type;
         this.possibility = possibility;
     }
     public override void Trigger(bool isPlayerTrigger, object[] args)
@@ -189,7 +194,8 @@ public class IChangePossibility : IEffect
         if (!GameManager.Instance)
             return;
         //�߼�
-
+        CardManager.Instance.changePossib(type, possibility);
     }
 }
+
 
