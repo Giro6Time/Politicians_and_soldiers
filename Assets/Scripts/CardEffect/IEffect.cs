@@ -95,14 +95,33 @@ public class IDelayTriggerEffect : IEffect
     bool isPlayerTrigger = true;
     object[] args;
 
-    public IDelayTriggerEffect(int delayTurn = 1)
+    public override void Trigger(bool isPlayerTrigger, object[] args)
     {
-        this.delayTurn = delayTurn;
-    }
-    public override void Trigger(bool isPlayerTrigger, object[] args) {  
         base.Trigger(isPlayerTrigger, args);
         if (!GameManager.Instance) return;
+        GameManager.Instance.gameFlowController.log.AddDelayInvokedEffect(this, GameManager.Instance.dateMgr.GetMonth() + delayTurn);
+        this.isPlayerTrigger = isPlayerTrigger;
+        this.args = args;
+    }
+    public virtual void DelayTrigger()
+    {
+        if (args == null) throw new Exception("错误的使用了延迟触发效果");
+    }
+}
 
+[Serializable]
+public class DelayDesisionValueEffect : IDelayTriggerEffect
+{
+    public int value;
+    public DelayDesisionValueEffect(int value, int delayTurn = 1)
+    {
+        this.value = value;
+        this.delayTurn = delayTurn;
+    }
+    public override void DelayTrigger()
+    {
+        base.DelayTrigger();
+        Player.Instance.decisionValue += value;
     }
 }
 

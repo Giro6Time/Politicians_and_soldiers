@@ -182,6 +182,32 @@ public class CardBaseSOEditor : Editor
             );
         }
 
+            else if (instanceType.IsAssignableFrom(typeof(DelayDesisionValueEffect)))
+            {
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "DelayDesisionvalueEffect");
+
+                //delayTurn
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "DelayTurn:");
+                (effectInstance as DelayDesisionValueEffect).delayTurn = EditorGUI.IntField(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as DelayDesisionValueEffect).delayTurn
+                );
+                //Value
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
+                (effectInstance as DelayDesisionValueEffect).value = EditorGUI.IntField(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as DelayDesisionValueEffect).value
+                );
+            }
+        }
+        catch (Exception e)
+        {
+            list.ClearSelection();
+        }
+
     }
 
     void AddEffect(ReorderableList reorderableList, String effectType)
@@ -346,7 +372,13 @@ public class EffectConfigurationWindow : EditorWindow
                 EditorGUILayout.LabelField("Ŀ�꣨0Ϊ�Ѿ���1Ϊ���ˣ�");
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
-
+            case "DelayDesisionValueEffect":
+                args = new object[2] { 0, 1 };
+                EditorGUILayout.LabelField("延迟回合数");
+                args[0] = EditorGUILayout.IntField((int)args[0]);
+                EditorGUILayout.LabelField("增长决策点");
+                args[1] = EditorGUILayout.IntField((int)args[1]);
+                break;
             default:
                 Debug.Log(selectedEffectType); break;
         }
@@ -389,6 +421,10 @@ public class EffectConfigurationWindow : EditorWindow
                         break;
                     case "IAttackInstantly":
                         effectInstance = (IAttackInstantly)Activator.CreateInstance(effectType, (int)args[0], (int)args[1]);
+                        break;
+
+                    case "DelayDesisionValueEffect":
+                        effectInstance = (DelayDesisionValueEffect)Activator.CreateInstance(effectType, args[0], args[1]);
                         break;
                 }
 
