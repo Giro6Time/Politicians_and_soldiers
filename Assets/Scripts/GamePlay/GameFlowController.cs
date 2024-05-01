@@ -65,7 +65,14 @@ public class GameLog
     {
         public List<Behavior> behaviors = new();
         //被延迟到某个回合触发的效果
-        public List<IDelayTriggerEffect> delayTriggerEffects;
+        public List<IDelayTriggerEffect> delayTriggerEffects = new();
+        public void TriggerAll()
+        {
+            foreach(IDelayTriggerEffect effect in delayTriggerEffects)
+            {
+                effect.DelayTrigger();
+            }
+        }
     }
 
     public class Behavior
@@ -127,6 +134,11 @@ public class GameLog
         effect1.effect = effect;
         effect1.isPlayerBehavior= isPlayerBehavior;
         turnInfos[turnPtr].behaviors.Add(effect1);
+    }
+
+    public void AddDelayInvokedEffect(IDelayTriggerEffect effect, int month)
+    {
+        turnInfos[month].delayTriggerEffects.Add(effect);
     }
 
 }

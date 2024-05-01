@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//已弃用
 public class CardEffect : CardBase//, ISpecialAbility
 {
 
@@ -38,9 +40,15 @@ public class CardEffect : CardBase//, ISpecialAbility
     public void AddCard(int n)
     {
         CardManager.Instance.AddCard(n, DateManager.Instance.GetSeason());
-        
-        CardManager.Instance.cardsCenterPoint.RearrangeCard();
-        Destroy(this.gameObject);
+
+/*
+        transform.SetParent(null);
+
+        CardManager.Instance.cardsCenterPoint.RearrangeCard(() =>
+        {
+            // 执行完毕后执行销毁操作
+            Destroy(gameObject);
+        });*/
     }
     public void ChangePossibility()
     {
