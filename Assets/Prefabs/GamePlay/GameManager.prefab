@@ -893,9 +893,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6381311501341743574}
     m_Modifications:
+    - target: {fileID: 106311945092475299, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 106311945092475299, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 106311945092475299, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 145141721555288451, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: cardSOList.Array.size
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 480244830676651727, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 480244830676651727, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 480244830676651727, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 320
+      objectReference: {fileID: 0}
+    - target: {fileID: 480244830676651727, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 554664835406573018, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_IsActive
@@ -904,6 +932,42 @@ PrefabInstance:
     - target: {fileID: 2674567573335833308, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797213109111515164, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797213109111515164, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797213109111515164, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797213109111515164, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797213109111515164, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -320
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797213109111515164, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080985071945774408, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080985071945774408, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080985071945774408, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4067074731508651630, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline
@@ -1011,7 +1075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4067074733232235408, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4067074733512522295, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: incline

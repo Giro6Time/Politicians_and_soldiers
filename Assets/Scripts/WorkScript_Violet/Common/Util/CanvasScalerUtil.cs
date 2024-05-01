@@ -13,8 +13,8 @@ public class CanvasScalerUtil : MonoBehaviour
         Height,
     }
     public MainProperty mainProperty;
-    private float defaultScreenWidth=1280;
-    private float defaultScreenHeight=720;
+    private float defaultScreenWidth=1920;
+    private float defaultScreenHeight=1080;
     private float nextScaleFactor = 1f;
     private float judgeFactor = 0;
 
