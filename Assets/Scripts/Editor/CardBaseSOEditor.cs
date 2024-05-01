@@ -137,54 +137,49 @@ public class CardBaseSOEditor : Editor
                 //
                 (effectInstance as IAddDecision).num = EditorGUI.IntField(
 
-                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
-                    (effectInstance as IAddDecision).num
-                );
-            }
-
-            else if (instanceType.IsAssignableFrom(typeof(IChangePossibility)))
-            {
-                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
-                //
-                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IChangePossibility");
-                //
-                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Possibility: 0-10由低到高");
-                //
-                (effectInstance as IChangePossibility).possibility = EditorGUI.IntField(
-
-                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
-                    (effectInstance as IChangePossibility).possibility
-                );
-                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Type(0-4: 陆海空军法)");
-                (effectInstance as IChangePossibility).possibility = EditorGUI.IntField(
-                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
-                    (effectInstance as IChangePossibility).type
-                );
-            }
-            else if (instanceType.IsAssignableFrom(typeof(DelayDesisionValueEffect)))
-            {
-                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
-                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "DelayDesisionvalueEffect");
-
-                //delayTurn
-                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "DelayTurn:");
-                (effectInstance as DelayDesisionValueEffect).delayTurn = EditorGUI.IntField(
-
-                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
-                    (effectInstance as DelayDesisionValueEffect).delayTurn
-                );
-                //Value
-                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
-                (effectInstance as DelayDesisionValueEffect).value = EditorGUI.IntField(
-
-                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
-                    (effectInstance as DelayDesisionValueEffect).value
-                );
-            }
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IAddDecision).num
+            );
         }
-        catch (Exception e)
+
+        else if (instanceType.IsAssignableFrom(typeof(IChangePossibility)))
         {
-            list.ClearSelection();
+            list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IChangePossibility");
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Possibility: 0-10�ɵ͵���");
+            //
+            (effectInstance as IChangePossibility).possibility = EditorGUI.IntField(
+
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IChangePossibility).possibility
+            );
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Type(0-4: ½���վ���)");
+            (effectInstance as IChangePossibility).possibility = EditorGUI.IntField(
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IChangePossibility).type
+            );
+        }
+
+        else if (instanceType.IsAssignableFrom(typeof(IAttackInstantly)))
+        {
+            list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAttackInstantly");
+            //
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "damage:");
+            //
+            (effectInstance as IAttackInstantly).damage = EditorGUI.IntField(
+
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IAttackInstantly).damage
+            );
+            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "target(0Ϊ�Ѿ���1Ϊ����)");
+            (effectInstance as IAttackInstantly).target = EditorGUI.IntField(
+                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                (effectInstance as IAttackInstantly).target
+            );
         }
 
     }
@@ -335,20 +330,23 @@ public class EffectConfigurationWindow : EditorWindow
                 EditorGUILayout.LabelField("决策点添加数量");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
                 break;
+
             case "IChangePossibility":
                 args = new object[2] { 0, 5 };
-                EditorGUILayout.LabelField("所选卡牌类型");
+                EditorGUILayout.LabelField("��ѡ��������");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
-                EditorGUILayout.LabelField("抽中概率");
+                EditorGUILayout.LabelField("���и���");
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
-            case "DelayDesisionValueEffect":
-                args = new object[2] { 0, 1 };
-                EditorGUILayout.LabelField("�ӳٻغ���");
+
+            case "IAttackInstantly":
+                args = new object[2] { 0,0 };
+                EditorGUILayout.LabelField("����˺���ֵ");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
-                EditorGUILayout.LabelField("�������ߵ�");
+                EditorGUILayout.LabelField("Ŀ�꣨0Ϊ�Ѿ���1Ϊ���ˣ�");
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
+
             default:
                 Debug.Log(selectedEffectType); break;
         }
@@ -389,8 +387,8 @@ public class EffectConfigurationWindow : EditorWindow
                     case "IChangePossibility":
                         effectInstance = (IChangePossibility)Activator.CreateInstance(effectType, (int)args[0], (int)args[1]);
                         break;
-                    case "DelayDesisionValueEffect":
-                        effectInstance = (DelayDesisionValueEffect)Activator.CreateInstance(effectType, args[0], args[1]);
+                    case "IAttackInstantly":
+                        effectInstance = (IAttackInstantly)Activator.CreateInstance(effectType, (int)args[0], (int)args[1]);
                         break;
                 }
 

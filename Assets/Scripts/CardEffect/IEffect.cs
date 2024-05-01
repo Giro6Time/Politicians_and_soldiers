@@ -14,6 +14,7 @@ public class IEffect
     
 }
 
+[Serializable]
 public static class IEffectExtension
 {
     public static void TriggerAllEffects(this List<IEffect> effects, bool isPlayerTrigger, object[] args)
@@ -61,24 +62,6 @@ public class IResultReflectEffect : IEffect
 }
 
 [Serializable]
-public class IDesisionValueEffect : IEffect
-{
-    public int value;
-    public IDesisionValueEffect(int value)
-    {
-        this.value = value;
-    }
-
-
-    public override void Trigger(bool isPlayerTrigger, object[] args)
-    {
-        base.Trigger(isPlayerTrigger, args);
-        if(!GameManager.Instance) return;
-        Player.Instance.decisionValue += value;
-    }
-}
-
-[Serializable]
 public class IAddCardEffect : IEffect
 {
     public int num;
@@ -119,31 +102,10 @@ public class IDelayTriggerEffect : IEffect
     public override void Trigger(bool isPlayerTrigger, object[] args) {  
         base.Trigger(isPlayerTrigger, args);
         if (!GameManager.Instance) return;
-        GameManager.Instance.gameFlowController.log.AddDelayInvokedEffect(this, GameManager.Instance.dateMgr.GetMonth() + delayTurn);
-        this.isPlayerTrigger = isPlayerTrigger;
-        this.args = args;
-    }
-    public virtual void DelayTrigger() 
-    {
-        if(args == null) throw new Exception("错误的使用了延迟触发效果");
+
     }
 }
 
-[Serializable]
-public class DelayDesisionValueEffect : IDelayTriggerEffect
-{
-    public int value;
-    public DelayDesisionValueEffect(int value,int delayTurn = 1)
-    {
-        this.value = value;
-        this.delayTurn = delayTurn;
-    }
-    public override void DelayTrigger()
-    {
-        base.DelayTrigger();
-        Player.Instance.decisionValue += value;
-    }
-}
 [Serializable]
 public class IAddDecision : IEffect
 {
@@ -170,7 +132,6 @@ public class IAddDecision : IEffect
     }
 }
 
-
 [Serializable]
 public class IChangePossibility : IEffect
 {
@@ -195,6 +156,46 @@ public class IChangePossibility : IEffect
             return;
         //�߼�
         CardManager.Instance.changePossib(type, possibility);
+    }
+}
+
+[Serializable]
+public class IAttackInstantly : IEffect
+{
+    public int damage;
+    public int target;
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="damage">造成伤害的数值</param>
+    /// <param name="target">目标，0为自己，1为敌人</param>
+    public IAttackInstantly(int damage, int target)
+    {
+        this.damage = damage;
+        this.target = target;
+    }
+    public override void Trigger(bool isPlayerTrigger, object[] args)
+    {
+        base.Trigger(isPlayerTrigger, args);
+        if (!GameManager.Instance)
+            return;
+        //�߼�
+        CardArrangement area = PlayerControl.Instance.puttableArea;
+        if (area == null || area.pos == CardPos.SelectionArea)
+        {
+            //
+        }
+        else
+        {
+            if(target == 0)
+            {
+                CardManager.Instance.cardPlayingArea.allCardsBeDamaged(area.pos, damage);
+            }
+            else
+            {
+                CardManager.Instance.enemyPlayingArea.allCardsBeDamaged(area.pos, damage);
+            }
+        }
     }
 }
 
