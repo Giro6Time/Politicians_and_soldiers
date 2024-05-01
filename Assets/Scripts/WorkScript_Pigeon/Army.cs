@@ -30,7 +30,7 @@ public class Army : MonoBehaviour
                 if (whereIFrom.isEnemy)
                     GameManager.Instance.cardMgr.enemyPlayingArea.RemoveCard(whereIFrom);
                 else
-                    GameManager.Instance.cardMgr.cardPlayingArea.RemoveCard(whereIFrom);
+                    GameManager.Instance.cardMgr.playerPlayingArea.RemoveCard(whereIFrom);
                 Destroy(whereIFrom.gameObject);
                 ClearAllEvent();
                 onFightEnd += () => Destroy(gameObject);

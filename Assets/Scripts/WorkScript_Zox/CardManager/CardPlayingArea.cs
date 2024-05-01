@@ -5,7 +5,7 @@ using UnityEngine;
 public class CardPlayingArea : MonoBehaviour
 {
     public List<CardBase> sea = new List<CardBase>();
-    public List<CardBase> ground = new List<CardBase>();
+    public List<CardBase> land = new List<CardBase>();
     public List<CardBase> sky = new List<CardBase>();
 
     public void AddCard(CardBase card, CardPos pos)
@@ -13,7 +13,7 @@ public class CardPlayingArea : MonoBehaviour
         switch (pos)
         {
             case CardPos.LandPutArea:
-                ground.Add(card);
+                land.Add(card);
                 break;
             case CardPos.SeaPutArea:
                 sea.Add(card);
@@ -29,7 +29,7 @@ public class CardPlayingArea : MonoBehaviour
     {
         switch (card.GetCardPos()) {
             case CardPos.LandPutArea:
-                ground.Remove(card);
+                land.Remove(card);
                 break;
             case CardPos.SeaPutArea:
                 sea.Remove(card);
@@ -46,9 +46,9 @@ public class CardPlayingArea : MonoBehaviour
         {
             sea[i].gameObject.SetActive(true);
         }
-        for (int i = 0; i < ground.Count; i++)
+        for (int i = 0; i < land.Count; i++)
         {
-            ground[i].gameObject.SetActive(true);
+            land[i].gameObject.SetActive(true);
         }
         for (int i = 0; i < sky.Count; i++)
         {

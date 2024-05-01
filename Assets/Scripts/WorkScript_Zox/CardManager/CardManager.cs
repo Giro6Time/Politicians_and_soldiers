@@ -21,7 +21,7 @@ public class CardManager : MonoBehaviour {
     }
     public List<CardBase> hand;
     public CardPool cardPool;
-    public CardPlayingArea cardPlayingArea;
+    public CardPlayingArea playerPlayingArea;
     public CardPlayingArea enemyPlayingArea;
 
     public event EventHandler OnCardPut;
@@ -58,7 +58,7 @@ public class CardManager : MonoBehaviour {
     public void RefreshList()
     {
         enemyPlayingArea.Refresh();
-        cardPlayingArea.Refresh();
+        playerPlayingArea.Refresh();
     }
 
     public void MoveCard(CardBase card, CardArrangement area)
@@ -76,7 +76,7 @@ public class CardManager : MonoBehaviour {
         {
             if(card.GetCardPos() == CardPos.SelectionArea){hand.Add(card);}
 
-            cardPlayingArea.AddCard(card, area.pos);
+            playerPlayingArea.AddCard(card, area.pos);
             card.cardCurrentArea.RearrangeCard();
             return;
         }
@@ -92,7 +92,7 @@ public class CardManager : MonoBehaviour {
 
             //hand.Remove(card);
 
-            cardPlayingArea.AddCard(card, area.pos);
+            playerPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
             card.cardCurrentArea.RearrangeCard();
 
@@ -106,7 +106,7 @@ public class CardManager : MonoBehaviour {
             hand.Add(card);
 
             Player.Instance.decisionValue += card.cost;
-            cardPlayingArea.AddCard(card, area.pos);
+            playerPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
             card.cardCurrentArea.RearrangeCard();
 
@@ -131,7 +131,7 @@ public class CardManager : MonoBehaviour {
         }
         else
         {
-            cardPlayingArea.RemoveCard(card);
+            playerPlayingArea.RemoveCard(card);
         }
     }
 
