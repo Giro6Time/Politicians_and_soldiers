@@ -183,4 +183,18 @@ public class CardArrangement : MonoBehaviour
 
         a.localScale = b;
     }
+
+    public void Force_WipeDeadCard()
+    {
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            ArmyCard card = transform.GetChild(i).GetComponent<ArmyCard>();
+            if(card.troopStrength <= 0)
+            {
+                DestroyImmediate(card.gameObject);
+                i--;
+            }
+        }
+        RearrangeCard();
+    }
 }

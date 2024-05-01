@@ -96,11 +96,11 @@ public class CardPlayingArea : MonoBehaviour
             case CardPos.SeaPutArea:
                 for (int i = 0; i < ground.Count; i++)
                 {
-                    ArmyCard card = ground[i] as ArmyCard;
+                    ArmyCard card = sea[i] as ArmyCard;
                     card.troopStrength -= damage;
                     if (card.troopStrength <= 0)
                     {
-                        ground[i] = null;
+                        sea[i] = null;
                         needToBeRefresh = true;
                     }
                 }
@@ -108,11 +108,11 @@ public class CardPlayingArea : MonoBehaviour
             case CardPos.SkyPutArea:
                 for (int i = 0; i < ground.Count; i++)
                 {
-                    ArmyCard card = ground[i] as ArmyCard;
+                    ArmyCard card = sky[i] as ArmyCard;
                     card.troopStrength -= damage;
                     if (card.troopStrength <= 0)
                     {
-                        ground[i] = null;
+                        sky[i] = null;
                         needToBeRefresh = true;
                     }
                 }
