@@ -71,53 +71,95 @@ public class CardBaseSOEditor : Editor
     }
     void DrawListElement(Rect rect, int index, bool isActive, bool isFocused,ref ReorderableList list)
     {
-        SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
-        // 获取element对应的对象实例
-        object effectInstance = element.managedReferenceValue;
-
-        // 获取effectInstance的Type
-        Type instanceType = effectInstance.GetType();
-
-        // 检查该Type是否实现了IResultReflectEffect接口
-        if (instanceType.IsAssignableFrom(typeof(IResultReflectEffect)))
+        try
         {
-            list.elementHeight = EditorGUIUtility.singleLineHeight *5;
-            // 绘制类名标题
-            EditorGUI.LabelField(new Rect(rect.x, rect.y , rect.width, EditorGUIUtility.singleLineHeight), "IResultReflectEffect");
+            SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
+            // 获取element对应的对象实例
+            object effectInstance = element.managedReferenceValue;
 
-            // 绘制pos属性标题
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Position:");
+            // 获取effectInstance的Type
+            Type instanceType = effectInstance.GetType();
 
-            // 绘制pos属性
-            (effectInstance as IResultReflectEffect).pos = (CardPos)EditorGUI.EnumPopup(
-                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight*2, 100, EditorGUIUtility.singleLineHeight),
-                (effectInstance as IResultReflectEffect).pos
-            );
+            // 检查该Type是否实现了IResultReflectEffect接口
+            if (instanceType.IsAssignableFrom(typeof(IResultReflectEffect)))
+            {
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+                // 绘制类名标题
+                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IResultReflectEffect");
 
-            // 绘制value属性标题
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight*3, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
+                // 绘制pos属性标题
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Position:");
 
-            // 绘制value属性
-            (effectInstance as IResultReflectEffect).value = EditorGUI.FloatField(
-                new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
-                (effectInstance as IResultReflectEffect).value
-            );
+                // 绘制pos属性
+                (effectInstance as IResultReflectEffect).pos = (CardPos)EditorGUI.EnumPopup(
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as IResultReflectEffect).pos
+                );
+
+                // 绘制value属性标题
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
+
+                // 绘制value属性
+                (effectInstance as IResultReflectEffect).value = EditorGUI.FloatField(
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as IResultReflectEffect).value
+                );
+            }
+
+            //TODO:
+            else if (instanceType.IsAssignableFrom(typeof(IAddCardEffect)))
+            {
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+                //
+                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAddCardEffect");
+                //
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Num:");
+                //
+                (effectInstance as IAddCardEffect).num = EditorGUI.IntField(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as IAddCardEffect).num
+                );
+            }
+
+            else if (instanceType.IsAssignableFrom(typeof(IDesisionValueEffect)))
+            {
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 3;
+                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IDesisionValueEffect");
+
+                //Value
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
+                (effectInstance as IDesisionValueEffect).value = EditorGUI.IntField(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as IDesisionValueEffect).value
+                );
+            }
+
+            else if (instanceType.IsAssignableFrom(typeof(DelayDesisionValueEffect)))
+            {
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+                EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "DelayDesisionvalueEffect");
+
+                //delayTurn
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "DelayTurn:");
+                (effectInstance as DelayDesisionValueEffect).delayTurn = EditorGUI.IntField(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 2, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as DelayDesisionValueEffect).delayTurn
+                );
+                //Value
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 3, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
+                (effectInstance as DelayDesisionValueEffect).value = EditorGUI.IntField(
+
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as DelayDesisionValueEffect).value
+                );
+            }
         }
-
-        //TODO:
-        else if (instanceType.IsAssignableFrom(typeof(IAddCardEffect)))
+        catch (Exception e)
         {
-            list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
-            //
-            EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IAddCardEffect");
-            //
-            EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight, rect.width, EditorGUIUtility.singleLineHeight), "Num:");
-            //
-            (effectInstance as IAddCardEffect).num = EditorGUI.IntField(
-                
-                new Rect(rect.x,rect.y+EditorGUIUtility.singleLineHeight*2,100,EditorGUIUtility.singleLineHeight),
-                (effectInstance as IAddCardEffect).num
-            );
+            list.ClearSelection();
         }
 
     }
@@ -254,14 +296,24 @@ public class EffectConfigurationWindow : EditorWindow
                 EditorGUILayout.LabelField("rate(乘算)");
                 args[2] = EditorGUILayout.FloatField((float)args[2]);
                 break;
-
             // TODO: 添加更多的case来处理其他子类类型的参数
             case "IAddCardEffect":
                 args = new object[1] { 1 };
                 EditorGUILayout.LabelField("添加数量");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
                 break;
-
+            case "IDesisionValueEffect":
+                args = new object[1] { 1 };
+                EditorGUILayout.LabelField("增长决策点");
+                args[0] = EditorGUILayout.IntField((int)args[0]);
+                break;
+            case "DelayDesisionValueEffect":
+                args = new object[2] { 0 ,1 };
+                EditorGUILayout.LabelField("延迟回合数");
+                args[0] = EditorGUILayout.IntField((int)args[0]);
+                EditorGUILayout.LabelField("增长决策点");
+                args[1] = EditorGUILayout.IntField((int)args[1]);
+                break;
             default:
                 Debug.Log(selectedEffectType); break;
         }
@@ -297,6 +349,12 @@ public class EffectConfigurationWindow : EditorWindow
                     // TODO:添加更多的case来处理其他子类类型的实例化
                     case "IAddCardEffect":
                         effectInstance = (IAddCardEffect)Activator.CreateInstance(effectType, args[0]);
+                        break;
+                    case "IDesisionValueEffect":
+                        effectInstance = (IDesisionValueEffect)Activator.CreateInstance(effectType, args[0]);
+                        break;
+                    case "DelayDesisionValueEffect":
+                        effectInstance = (DelayDesisionValueEffect)Activator.CreateInstance(effectType, args[0], args[1]);
                         break;
                 }
 
