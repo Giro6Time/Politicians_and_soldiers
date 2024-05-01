@@ -2,7 +2,7 @@
 <Data>
   <Player>
     <decisionValue>1000000</decisionValue>
-    <sanity>3</sanity>
+    <sanity>0</sanity>
     <armament>0</armament>
     <fund>0</fund>
     <popularSupport>0</popularSupport>

@@ -141,6 +141,7 @@ public class SoundsMgr : MonoBehaviour
             audio.maxDistance = 200;
             soundEffectsPool.Add(audio);
             DontDestroyOnLoad(obj);
+            audioSource = audio;
         }
         //2.找到对应音效并播放
         foreach (AudioClip clip in soundEffectsList)

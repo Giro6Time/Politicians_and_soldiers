@@ -85,6 +85,11 @@ public class PlayerControl : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
+
+                    //音效：卡牌放置到正确的战场
+                    SoundsMgr._Instance.PlaySoundEffect("Sound_PlaceCard(right)");
+
+
                     GameManager.Instance.gameFlowController.log.AddInvokeLog(selectedCard, true);
                     selectedCard.invokeEffect.TriggerAllEffects(true, new object[] { selectedCard });
                     if (selectedCard is ArmyCard)
