@@ -925,6 +925,42 @@ PrefabInstance:
       propertyPath: incline
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4067074732315268605, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074732585131335, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardList_1.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074732585131335, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardList_2.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074732585131335, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardList_3.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074732585131335, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardList_4.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074732585131335, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardList_5.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074732585131335, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardList_6.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067074732585131335, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardList_1.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
+    - target: {fileID: 4067074732585131335, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
+      propertyPath: cardList_1.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: cc96defbb420a9d4faddd2d8259ccd00, type: 2}
     - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: cardSOList.Array.size
       value: 7
