@@ -50,6 +50,7 @@ public class MessageView : MonoBehaviour
         {
             _Instance = this;
         }
+        btn_Tip.gameObject.SetActive(false);
         messagePool = new List<Text>();
         messageQueue = new Queue<string>();
         currStartNums = 0;
