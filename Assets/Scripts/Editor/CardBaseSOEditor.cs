@@ -378,7 +378,8 @@ public class EffectConfigurationWindow : EditorWindow
                 args[0] = EditorGUILayout.IntField((int)args[0]);
                 EditorGUILayout.LabelField("增长决策点");
                 args[1] = EditorGUILayout.IntField((int)args[1]);
-                break;
+                break;
+
             default:
                 Debug.Log(selectedEffectType); break;
         }
