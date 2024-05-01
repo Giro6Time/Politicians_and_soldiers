@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Data>
   <Player>
-    <decisionValue>114514</decisionValue>
-    <sanity>222</sanity>
-    <armament>33</armament>
+    <decisionValue>1000000</decisionValue>
+    <sanity>3</sanity>
+    <armament>0</armament>
     <fund>0</fund>
     <popularSupport>0</popularSupport>
     <troopIncrease>0</troopIncrease>

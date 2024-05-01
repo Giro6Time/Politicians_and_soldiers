@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
         gameFlowController.onBattleStartClicked += BattleStart;
 
         dateMgr.OnMonthChanged += cardMgr.RefreshList;
+        dateMgr.OnMonthChanged += gameFlowController.log.turnInfos[dateMgr.GetMonth()].TriggerAll;
         dateMgr.OnMonthChanged += battleField.armyManager.Clear;
         dateMgr.OnMonthChanged += () => cardMgr.SpawnEnemyCard(dateMgr.GetMonth());
         dateMgr.OnMonthChanged += () =>

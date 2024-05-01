@@ -19,8 +19,8 @@ public class CardBaseSO : ScriptableObject
     public CardPos matchedPos;
     // public Enums.Weather matchedWeather;
     public CardBaseType cardBaseType;
-    public Sprite cardFrame;
-    public Sprite inset;
+    [Header("������ʽ��prefab")]
+    public GameObject cardLayourPrefab;
 
     [HideInInspector,SerializeReference] 
     public List<IEffect> drawEffect = new();

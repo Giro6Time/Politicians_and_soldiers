@@ -19,8 +19,8 @@ MonoBehaviour:
   matchedSeason: 0
   matchedPos: 2
   cardBaseType: 0
-  cardFrame: {fileID: 21300000, guid: aacce4a41adbf3448b58269055430c1c, type: 3}
-  inset: {fileID: 0}
+  cardFrame: {fileID: 21300000, guid: b8e7feecb21348641b825a06ed8adce4, type: 3}
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: b497e31439ce07045873710809d55e6a, type: 3}
   drawEffect:
   - rid: 4387049661206626305
   invokeEffect:
