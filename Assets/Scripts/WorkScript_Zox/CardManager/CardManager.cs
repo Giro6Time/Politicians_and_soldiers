@@ -282,7 +282,7 @@ public class CardManager : MonoBehaviour {
         Debug.Log("Add card to hand");
 
         //音效：发牌到手牌
-        SoundsMgr._Instance.PlaySoundEffect("发牌至手牌");
+        SoundsMgr._Instance.PlaySoundEffect("Sound_GetTheCards");
         //Create Card object
         if(hand.Count > handMax)
         {

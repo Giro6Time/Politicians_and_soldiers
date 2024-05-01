@@ -59,7 +59,7 @@ public class SoundsMgr : MonoBehaviour
         //音效：点击鼠标触发的音效
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            PlaySoundEffect("点击");
+            PlaySoundEffect("Sound_MouseClick");
         }
 
         //
