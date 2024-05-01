@@ -2189,7 +2189,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  incline: 10
+  incline: 0
   lerpSpeed: 5
   angleIncrement: 180
   radius: 1
@@ -2238,6 +2238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600dfa8ffe4355c43a1a606f9cff7ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxNum: 3
   sea: []
   ground: []
   sky: []
@@ -2393,7 +2394,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  incline: 30
+  incline: 0
   lerpSpeed: 5
   angleIncrement: 30
   radius: 2
@@ -2508,7 +2509,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  incline: 10
+  incline: 0
   lerpSpeed: 5
   angleIncrement: 180
   radius: 1
@@ -2562,7 +2563,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  incline: 30
+  incline: 0
   lerpSpeed: 5
   angleIncrement: 30
   radius: 2
@@ -2630,7 +2631,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  incline: 10
+  incline: 0
   lerpSpeed: 5
   angleIncrement: 180
   radius: 1
@@ -2689,6 +2690,7 @@ MonoBehaviour:
     m_Bits: 2048
   currentState: 0
   selectedCard: {fileID: 0}
+  puttableArea: {fileID: 0}
 --- !u!1 &4067074732585131336
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,29 +2736,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardList_1:
-  - {fileID: 11400000, guid: d6262ed333b86a04f92e035b23970b5d, type: 2}
-  - {fileID: 11400000, guid: 96de8fd8b4b46d74f86629d929f3a7f6, type: 2}
-  - {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
-  cardList_2:
-  - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
-  - {fileID: 11400000, guid: 96de8fd8b4b46d74f86629d929f3a7f6, type: 2}
-  - {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
-  cardList_3:
-  - {fileID: 11400000, guid: 96de8fd8b4b46d74f86629d929f3a7f6, type: 2}
-  cardList_4:
-  - {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
-  - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
-  - {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
-  - {fileID: 11400000, guid: d881735d9458cba4d8a33cb626f0e61e, type: 2}
-  cardList_5:
-  - {fileID: 11400000, guid: 96de8fd8b4b46d74f86629d929f3a7f6, type: 2}
-  - {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
-  - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
-  - {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
-  cardList_6:
-  - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
-  - {fileID: 11400000, guid: d6262ed333b86a04f92e035b23970b5d, type: 2}
-  - {fileID: 11400000, guid: d881735d9458cba4d8a33cb626f0e61e, type: 2}
+  - {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
+  - {fileID: 11400000, guid: cc96defbb420a9d4faddd2d8259ccd00, type: 2}
+  cardList_2: []
+  cardList_3: []
+  cardList_4: []
+  cardList_5: []
+  cardList_6: []
   cardList_7: []
   cardList_8: []
   cardList_9: []
@@ -2807,6 +2793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600dfa8ffe4355c43a1a606f9cff7ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxNum: 3
   sea: []
   ground: []
   sky: []
@@ -2886,13 +2873,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSOList:
-  - {fileID: 11400000, guid: c05123a5a92070048993983e461efc92, type: 2}
-  - {fileID: 11400000, guid: d6262ed333b86a04f92e035b23970b5d, type: 2}
-  - {fileID: 11400000, guid: 96de8fd8b4b46d74f86629d929f3a7f6, type: 2}
-  - {fileID: 11400000, guid: 24c04cb8a32e41c4bb5fb672ad3e831b, type: 2}
-  - {fileID: 11400000, guid: a8c7f2e8c0e1081409d1192e5ee19008, type: 2}
-  - {fileID: 11400000, guid: 4ce0b093be97c0e4bad1625343603c34, type: 2}
-  - {fileID: 11400000, guid: d881735d9458cba4d8a33cb626f0e61e, type: 2}
+  - {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
+  - {fileID: 11400000, guid: cc96defbb420a9d4faddd2d8259ccd00, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
 --- !u!1 &4067074733232235408
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,6 +2931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: []
+  handMax: 10
   cardPool: {fileID: 4067074733023895027}
   cardPlayingArea: {fileID: 4067074731591079400}
   enemyPlayingArea: {fileID: 4067074732696659222}
@@ -2961,7 +2946,6 @@ MonoBehaviour:
   enemyCardInitialPos: {fileID: 4067074733302231294}
   offsetX_BattleField: 1
   offsetX_SelectableArea: 1
-  handMax: 10
   enemy: {fileID: 4067074732585131335}
 --- !u!1 &4067074733302231295
 GameObject:
@@ -3043,7 +3027,7 @@ MonoBehaviour:
   offsetX: 0.5
   offsetZ: -0.1
   raiseHeight: 0
-  incline: 30
+  incline: 0
   lerpSpeed: 5
   angleIncrement: 30
   radius: 2
@@ -3072,7 +3056,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4137388476605016041}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -7, z: -0.1}
+  m_LocalPosition: {x: 0, y: -3.5, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3830,7 +3814,7 @@ GameObject:
   - component: {fileID: 2797213109111515164}
   - component: {fileID: 1446286151256969408}
   - component: {fileID: 3086082667248718363}
-  - component: {fileID: 4959873009163658333}
+  - component: {fileID: 6152232078618271650}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -3896,7 +3880,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4959873009163658333
+--- !u!114 &6152232078618271650
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4426,7 +4410,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &7547519084664598576
 MonoBehaviour:
@@ -4681,7 +4665,7 @@ GameObject:
   - component: {fileID: 480244830676651727}
   - component: {fileID: 4553043756227998104}
   - component: {fileID: 1142600960700315591}
-  - component: {fileID: 6898313751828500386}
+  - component: {fileID: 4910520740962444444}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -4747,7 +4731,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6898313751828500386
+--- !u!114 &4910520740962444444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

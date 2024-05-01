@@ -71,6 +71,7 @@ public class GameLog
             foreach(IDelayTriggerEffect effect in delayTriggerEffects)
             {
                 effect.DelayTrigger();
+                Debug.Log(effect);
             }
         }
     }
