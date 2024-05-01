@@ -19,11 +19,7 @@ MonoBehaviour:
   matchedSeason: 0
   matchedPos: 1
   cardBaseType: 0
-<<<<<<< HEAD
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: 776685a6ad3b2ad48840ee622c43b9c4, type: 3}
-=======
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 5cbc16e81555245408775c48958a0718, type: 3}
->>>>>>> 02cc9ff (20：31存档备份)
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []

@@ -64,6 +64,12 @@ public class IResultReflectEffect : IEffect
 public class IDesisionValueEffect : IEffect
 {
     public int value;
+    public IDesisionValueEffect(int value)
+    {
+        this.value = value;
+    }
+
+
     public override void Trigger(bool isPlayerTrigger, object[] args)
     {
         base.Trigger(isPlayerTrigger, args);
@@ -72,11 +78,12 @@ public class IDesisionValueEffect : IEffect
     }
 }
 
+[Serializable]
 public class IAddCardEffect : IEffect
 {
     public int num;
 
-    public IAddCardEffect(int num, CardEffect card)
+    public IAddCardEffect(int num)
     {
         this.num = num;
     }
@@ -86,8 +93,6 @@ public class IAddCardEffect : IEffect
         base.Trigger(isPlayerTrigger,args);
         if (!GameManager.Instance)
             return;
-        CardManager.Instance.AddCard_Type(num, DateManager.Instance.GetSeason(), cardBaseType);
-        Debug.Log(cardBaseType);
     }
 }
 
@@ -123,7 +128,7 @@ public class IDelayTriggerEffect : IEffect
 [Serializable]
 public class DelayDesisionValueEffect : IDelayTriggerEffect
 {
-    int value;
+    public int value;
     public DelayDesisionValueEffect(int value,int delayTurn = 1)
     {
         this.value = value;
