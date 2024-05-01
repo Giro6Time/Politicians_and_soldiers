@@ -83,9 +83,13 @@ public class CardManager : MonoBehaviour {
         //手上的牌放到了匹配的位置
         if(card.GetCardMatchedPos() == area.pos)
         {
-            if(Player.Instance.decisionValue - card.cost < 0)
+
+            if (Player.Instance.decisionValue - card.cost < 0)
             {
                 card.cardCurrentArea.RearrangeCard();
+
+                
+
                 return;
             }
             Player.Instance.decisionValue -= card.cost;
@@ -166,6 +170,9 @@ public class CardManager : MonoBehaviour {
     public void AddCard(int num, Season season)
     {
         Debug.Log("Add card to hand");
+
+        //音效：发牌到手牌
+        SoundsMgr._Instance.PlaySoundEffect("发牌至手牌");
         //Create Card object
         if(hand.Count > handMax)
         {
