@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7915356815454190325}
   m_Layer: 0
-  m_Name: Land_R_Archers
+  m_Name: Air_SSR_Cernunnos_Set
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,8 +59,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3652120907106072083}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1853, y: 0.1, z: 0.1}
-  m_LocalScale: {x: 0.207886, y: 0.207886, z: 0.207886}
+  m_LocalPosition: {x: -0.01, y: 1.15, z: 0.1}
+  m_LocalScale: {x: 0.45009002, y: 0.45009002, z: 0.45009002}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7915356815454190325}
@@ -107,12 +107,12 @@ SpriteRenderer:
   m_SortingLayerID: 170569585
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 4e4ab205103c67b4b8c57d16cd5b01bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e86961357b84624ba0b2f4d1dd8bf54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 15.475568, y: 32.54}
+  m_Size: {x: 13.201094, y: 25.220001}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -191,7 +191,7 @@ SpriteRenderer:
   m_SortingLayerID: 170569585
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 811673281bd361c4fb6886b899c804f4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 232c4c5d073ca0c4d97e9a716fb143ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -212,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5740351825567248197}
   - component: {fileID: 73950105005177182}
-  - component: {fileID: 5072693078811648534}
+  - component: {fileID: 437129523133158721}
   m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
@@ -287,7 +287,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!331 &5072693078811648534
+--- !u!331 &437129523133158721
 SpriteMask:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
