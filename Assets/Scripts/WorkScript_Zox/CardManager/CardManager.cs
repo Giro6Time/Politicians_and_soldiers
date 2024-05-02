@@ -416,6 +416,39 @@ public class CardManager : MonoBehaviour {
     {
         Possib[index] = val;
     }
+
+    public void force_Rearrange(CardPos cardPos, int target)
+    {
+        if(target == 0)
+        {
+            switch (cardPos)
+            {
+                case CardPos.LandPutArea:
+                    cardAnchor_Land_Player.Force_WipeDeadCard();
+                    break;
+                case CardPos.SeaPutArea:
+                    cardAnchor_Sea_Player.Force_WipeDeadCard();
+                    break;
+                case CardPos.SkyPutArea:
+                    cardAnchor_Sky_Player.Force_WipeDeadCard();
+                    break;
+            }
+        }else if(target == 1)
+        {
+            switch (cardPos)
+            {
+                case CardPos.LandPutArea:
+                    cardAnchor_Land_Enemy.Force_WipeDeadCard();
+                    break;
+                case CardPos.SeaPutArea:
+                    cardAnchor_Sea_Enemy.Force_WipeDeadCard();
+                    break;
+                case CardPos.SkyPutArea:
+                    cardAnchor_Sky_Enemy.Force_WipeDeadCard();
+                    break;
+            }
+        }
+    }
 }
 
 public static class CardFactory

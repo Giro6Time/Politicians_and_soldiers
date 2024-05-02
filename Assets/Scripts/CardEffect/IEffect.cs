@@ -200,6 +200,9 @@ public class IAttackInstantly : IEffect
             return;
         //�߼�
         CardArrangement area = PlayerControl.Instance.puttableArea;
+
+        Debug.Log(area);
+
         if (area == null || area.pos == CardPos.SelectionArea)
         {
             //
@@ -213,6 +216,7 @@ public class IAttackInstantly : IEffect
             else
             {
                 CardManager.Instance.enemyPlayingArea.allCardsBeDamaged(area.pos, damage);
+                CardManager.Instance.force_Rearrange(area.pos, target);
             }
         }
     }
