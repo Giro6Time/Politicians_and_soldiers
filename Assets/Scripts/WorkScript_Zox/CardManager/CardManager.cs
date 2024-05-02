@@ -476,7 +476,7 @@ public static class CardFactory
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;
                 var layoutGO = GameObject.Instantiate(cardSO.cardLayourPrefab);
-                //armyC.
+                armyC.armyLayoutPrefab = cardSO.armyLayoutPrefab;
                 layoutGO.transform.SetParent(instance.transform);
                 var renderers = layoutGO.GetComponentsInChildren<Renderer>();
                 foreach (Renderer renderer in renderers)

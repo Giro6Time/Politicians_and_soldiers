@@ -31,12 +31,12 @@ public static class ArmyFactory
             army.TroopStrength = c.troopStrength;
             army.transform.position = c.transform.position;
             //生成图片
-            //if(army.cardImage != null)
-            //{
-            //    spriteRenderer.sprite = c.cardFrame;
-            //}
+            if (c.armyLayoutPrefab != null)
+            {
+                army.cardImage = GameObject.Instantiate(c.armyLayoutPrefab);
+            }
             //敌人的army动画翻转
-            if(army.whereIFrom.isEnemy == true)
+            if (army.whereIFrom.isEnemy == true)
             {
                 Vector3 scale = army.transform.localScale;
                 scale.y = -1f;
