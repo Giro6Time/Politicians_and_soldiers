@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Land_R_Archers
   m_EditorClassIdentifier: 
-  cardName: "\u666E\u901A\u7684\u5F13\u624B"
+  cardName: "\u6797\u5730\u5F13\u624B"
   description: 
   troopStrength: 1
   cost: 1
@@ -23,10 +23,17 @@ MonoBehaviour:
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []
-  liveEffect: []
+  liveEffect:
+  - rid: 3626890889046523908
   deathEffect: []
   beforeAttackEffect: []
   afterAttactEffect: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3626890889046523908
+      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        pos: 3
+        value: 1
+        rate: 1

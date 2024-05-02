@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Land_SSR_TheLead
   m_EditorClassIdentifier: 
-  cardName: "\u9886\u5BFC\u8005"
+  cardName: "\u201C\u6211\u201D"
   description: 
   troopStrength: 2
   cost: 1
