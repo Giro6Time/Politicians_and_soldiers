@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CardPlayingArea : MonoBehaviour
 {
+
+    public int maxNum = 3;
+
     public List<CardBase> sea = new List<CardBase>();
     public List<CardBase> land = new List<CardBase>();
     public List<CardBase> sky = new List<CardBase>();
@@ -53,6 +56,64 @@ public class CardPlayingArea : MonoBehaviour
         for (int i = 0; i < sky.Count; i++)
         {
             sky[i].gameObject.SetActive(true);
+        }
+    }
+
+    public int getCurrentPosNum(CardPos pos)
+    {
+        if(pos == CardPos.LandPutArea) { return land.Count; }
+        if(pos == CardPos.SeaPutArea) { return sea.Count; }
+        if (pos == CardPos.SkyPutArea) { return sky.Count; }
+        return -1;
+    }
+
+    public void allCardsBeDamaged(CardPos pos , int damage)
+    {
+        bool needToBeRefresh = false;
+        switch (pos)
+        {
+            case CardPos.LandPutArea:
+                for(int i = 0; i < land.Count; i++)
+                {
+                    ArmyCard card = land[i] as ArmyCard;
+                    card.troopStrength -= damage;
+                    if (card.troopStrength <= 0)
+                    {
+                        land[i] = null;
+                        needToBeRefresh = true;
+                    }
+                }
+                break;
+            case CardPos.SeaPutArea:
+                for (int i = 0; i < land.Count; i++)
+                {
+                    ArmyCard card = land[i] as ArmyCard;
+                    card.troopStrength -= damage;
+                    if (card.troopStrength <= 0)
+                    {
+                        land[i] = null;
+                        needToBeRefresh = true;
+                    }
+                }
+                break;
+            case CardPos.SkyPutArea:
+                for (int i = 0; i < land.Count; i++)
+                {
+                    ArmyCard card = land[i] as ArmyCard;
+                    card.troopStrength -= damage;
+                    if (card.troopStrength <= 0)
+                    {
+                        land[i] = null;
+                        needToBeRefresh = true;
+                    }
+                }
+                break;
+            case CardPos.SelectionArea:
+                break;
+        }
+        if (needToBeRefresh)
+        {
+            Refresh();
         }
     }
 }

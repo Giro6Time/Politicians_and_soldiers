@@ -18,7 +18,7 @@ MonoBehaviour:
   cost: 1
   matchedSeason: 0
   matchedPos: 3
-  cardBaseType: 0
+  cardBaseType: 1
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 4f33e507f50b7be4a9b0dccd766c3bc8, type: 3}
   drawEffect: []
   invokeEffect: []

@@ -78,20 +78,21 @@ public class MeetEventGameCtrl : MonoBehaviour
     public MeetEventMgr eventMgr;
     #endregion
 
-    void Awake()
-    {
+   
 
+    private void Start()
+    {
         if (_Instance == null)
         {
             _Instance = this;
         }
         eventMgr = new MeetEventMgr();
-        meetEventCanvas.worldCamera = Camera.main;
-        tipCanvas.worldCamera = Camera.main;
+        meetEventCanvas.worldCamera = GameManager.Instance.UICamera;
+        tipCanvas.worldCamera = GameManager.Instance.UICamera;
         tipCanvas.planeDistance = 1;
         meetEventCanvas.gameObject.SetActive(false);
         //使用新线程进行排序以不影响主线程逻辑
-        Thread thread = new Thread(()=>
+        Thread thread = new Thread(() =>
         {
             eventList.Sort((x, y) =>
             {
@@ -132,6 +133,7 @@ public class MeetEventGameCtrl : MonoBehaviour
         });
         thread.Start();
     }
+
 
 
 
@@ -187,8 +189,12 @@ public class MeetEventGameCtrl : MonoBehaviour
         //进行初始化:激活UI，完成UI初始化之后再解冻
         meetEventCanvas.gameObject.SetActive(true);
         UIEventListener._Instance.PrizeWheelUIInit();
+
         //对于抽奖轮盘：需要初始化的是有什么奖品(要不要总是更新还需要考虑)
-        MeetEventGameCtrl._Instance.eventMgr.UpdatePrizePool();
+        if (UIEventListener._Instance.prizePool.Count != UIEventListener._Instance.prizeNums)
+        {
+            eventMgr.UpdatePrizePool();
+        }
         eventMgr.isFreeze = true;
         StartCoroutine(ChangeAlpha(meetEventCanvas.gameObject,0.8f,()
             =>
