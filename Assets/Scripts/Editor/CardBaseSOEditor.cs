@@ -83,7 +83,7 @@ public class CardBaseSOEditor : Editor
             // ����Type�Ƿ�ʵ����IResultReflectEffect�ӿ�
             if (instanceType.IsAssignableFrom(typeof(IResultReflectEffect)))
             {
-                list.elementHeight = EditorGUIUtility.singleLineHeight * 5;
+                list.elementHeight = EditorGUIUtility.singleLineHeight * 7;
                 // ������������
                 EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "IResultReflectEffect");
 
@@ -103,6 +103,14 @@ public class CardBaseSOEditor : Editor
                 (effectInstance as IResultReflectEffect).value = EditorGUI.FloatField(
                     new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 4, 100, EditorGUIUtility.singleLineHeight),
                     (effectInstance as IResultReflectEffect).value
+                );
+                // ����value���Ա���
+                EditorGUI.LabelField(new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 5, rect.width, EditorGUIUtility.singleLineHeight), "Value:");
+
+                // ����value����
+                (effectInstance as IResultReflectEffect).rate = EditorGUI.FloatField(
+                    new Rect(rect.x, rect.y + EditorGUIUtility.singleLineHeight * 6, 100, EditorGUIUtility.singleLineHeight),
+                    (effectInstance as IResultReflectEffect).rate
                 );
             }
 
@@ -309,6 +317,7 @@ public class EffectConfigurationWindow : EditorWindow
 
         // ���������˵���ѡ��
         selectedEffectType = effectTypes.FirstOrDefault();
+        args = null;
     }
 
     private string effectTypeName = "";
@@ -334,6 +343,7 @@ public class EffectConfigurationWindow : EditorWindow
         switch (selectedEffectType.ToString())
         {
             case "IResultReflectEffect":
+                if(args == null)
                 args = new object[3] { (CardPos.LandPutArea), 1f, 1f };
                 EditorGUILayout.LabelField("影响位置");
                 args[0] = EditorGUILayout.EnumPopup((CardPos)args[0]);
@@ -343,6 +353,7 @@ public class EffectConfigurationWindow : EditorWindow
                 args[2] = EditorGUILayout.FloatField((float)args[2]);
                 break;
             case "IAddCardEffect":
+                if(args == null)
                 args = new object[2] { 1, CardBaseType.Army };
                 EditorGUILayout.LabelField("添加数量");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
@@ -352,12 +363,14 @@ public class EffectConfigurationWindow : EditorWindow
 
 
             case "IAddDecision":
+                if(args == null)
                 args = new object[1] { 1 };
                 EditorGUILayout.LabelField("决策点添加数量");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
                 break;
 
             case "IChangePossibility":
+                if(args == null)
                 args = new object[2] { 0, 5 };
                 EditorGUILayout.LabelField("��ѡ��������");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
@@ -366,6 +379,7 @@ public class EffectConfigurationWindow : EditorWindow
                 break;
 
             case "IAttackInstantly":
+                if(args == null)
                 args = new object[2] { 0,0 };
                 EditorGUILayout.LabelField("����˺���ֵ");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
@@ -373,6 +387,7 @@ public class EffectConfigurationWindow : EditorWindow
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
             case "DelayDesisionValueEffect":
+                if(args == null)
                 args = new object[2] { 0, 1 };
                 EditorGUILayout.LabelField("延迟回合数");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
