@@ -107,7 +107,7 @@ public class CardManager : MonoBehaviour {
                 card.cardCurrentArea.RearrangeCard();
                 return;
             }
-            if (!cardPlayingArea.getCurrentPosLocked(area.pos))
+            if (cardPlayingArea.getCurrentPosLocked(area.pos))
             {
                 card.cardCurrentArea.RearrangeCard();
                 return;
