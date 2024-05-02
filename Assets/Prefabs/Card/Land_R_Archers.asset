@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Land_R_Archers
   m_EditorClassIdentifier: 
   cardName: "\u6797\u5730\u5F13\u624B"
-  description: 
+  description: "\u3010\u6253\u51FA\u65F6\u3011\\nasdadsad"
   troopStrength: 1
   cost: 1
   matchedSeason: 0
