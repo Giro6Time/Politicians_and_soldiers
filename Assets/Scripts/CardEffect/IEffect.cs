@@ -218,4 +218,12 @@ public class IAttackInstantly : IEffect
     }
 }
 
+[Serializable]
+public class IDelayLock : IDelayTriggerEffect
+{
+    public IDelayLock(int delayTurn)
+    {
+        this.delayTurn = delayTurn;
+    }
+}
 

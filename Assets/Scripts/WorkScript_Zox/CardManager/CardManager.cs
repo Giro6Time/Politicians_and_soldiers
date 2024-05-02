@@ -105,9 +105,11 @@ public class CardManager : MonoBehaviour {
             if (cardPlayingArea.getCurrentPosNum(area.pos) == cardPlayingArea.maxNum)
             {
                 card.cardCurrentArea.RearrangeCard();
-
-                
-
+                return;
+            }
+            if (!cardPlayingArea.getCurrentPosLocked(area.pos))
+            {
+                card.cardCurrentArea.RearrangeCard();
                 return;
             }
             Player.Instance.decisionValue -= card.cost;
