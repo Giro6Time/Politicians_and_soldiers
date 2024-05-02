@@ -491,6 +491,9 @@ public static class CardFactory
                 armyC.deathEffect = cardSO.deathEffect;
                 armyC.beforeAttackEffect = cardSO.beforeAttackEffect;
                 armyC.afterAttactEffect = cardSO.afterAttactEffect;
+
+                instance.transform.Find("Name").GetComponent<TextMesh>().text = cardSO.name;
+                instance.transform.Find("Description").GetComponent<TextMesh>().text = cardSO.description;
                 return instance;
             case CardBaseType.Effect:
                 var effectC = instance.AddComponent<CardEffect>();

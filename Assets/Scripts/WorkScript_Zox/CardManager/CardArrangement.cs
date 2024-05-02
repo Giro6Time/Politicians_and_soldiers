@@ -218,7 +218,7 @@ public class CardArrangement : MonoBehaviour
 
     public static void SetZOrder(int order, Transform transform)
     {
-        var srList = transform.GetComponentsInChildren<SpriteRenderer>();
+        var srList = transform.GetComponentsInChildren<Renderer>();
         foreach (var sr in srList)
         {
             sr.sortingOrder = order*4+3;
