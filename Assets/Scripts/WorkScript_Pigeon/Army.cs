@@ -9,7 +9,7 @@ public class Army : MonoBehaviour
     [SerializeField] float troopStrength;
 
     public ArmyCard whereIFrom;
-    public GameObject cardImage;
+    public GameObject animationObject;
 
     public List<IEffect> battleStartEffect = new();
     public List<IEffect> liveEffect = new();
@@ -73,7 +73,7 @@ public class Army : MonoBehaviour
 
     public void PlayFight()
     {
-        animator.SetBool("Fight", true) ;
+        animator.SetBool("Fight", true) ;   
     }
 
     public void OnDamaged()

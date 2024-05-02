@@ -33,7 +33,7 @@ public static class ArmyFactory
             //生成图片
             if (c.armyLayoutPrefab != null)
             {
-                army.cardImage = GameObject.Instantiate(c.armyLayoutPrefab);
+                GameObject.Instantiate(c.armyLayoutPrefab).transform.SetParent(army.animationObject.transform,false);
             }
             //敌人的army动画翻转
             if (army.whereIFrom.isEnemy == true)
