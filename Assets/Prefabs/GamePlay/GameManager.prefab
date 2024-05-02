@@ -7954,17 +7954,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
-      propertyPath: cardSOList.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: cardSOList.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 8380c3dcc5972d8469cff4e01b07e90d, type: 2}
-    - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
-      propertyPath: cardSOList.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
     - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: cardSOList.Array.data[2]
       value: 
