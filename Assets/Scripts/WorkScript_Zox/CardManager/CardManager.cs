@@ -492,7 +492,7 @@ public static class CardFactory
                 armyC.beforeAttackEffect = cardSO.beforeAttackEffect;
                 armyC.afterAttactEffect = cardSO.afterAttactEffect;
 
-                instance.transform.Find("Name").GetComponent<TextMesh>().text = cardSO.name;
+                instance.transform.Find("Name").GetComponent<TextMesh>().text = cardSO.cardName;
                 instance.transform.Find("Description").GetComponent<TextMesh>().text = cardSO.description;
                 return instance;
             case CardBaseType.Effect:
