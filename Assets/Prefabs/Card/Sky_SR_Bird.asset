@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sky_SR_Bird
   m_EditorClassIdentifier: 
   cardName: "\u4FE1\u4F7F"
-  description: "\u51B3\u7B56\u70B9\u6570\u91CF +1"
+  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u51B3\u7B56\u70B9\u6570\u91CF +1"
   troopStrength: 1
   cost: 0
   matchedSeason: 0
