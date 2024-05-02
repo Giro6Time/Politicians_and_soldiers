@@ -48,13 +48,13 @@ public class IResultReflectEffect : IEffect
             default:
                 throw new System.Exception("IResultReflectEffect: unknown effect type");
             case CardPos.LandPutArea:
-                GameManager.Instance.battleField.armyManager.landEffect1+=value;
+                GameManager.Instance.battleField.armyManager.playerLandEffect+=value;
                 break;
             case CardPos.SeaPutArea:
-                GameManager.Instance.battleField.armyManager.oceanEffect1 += value ;
+                GameManager.Instance.battleField.armyManager.playerSeaEffect += value ;
                 break;
             case CardPos.SkyPutArea:
-                GameManager.Instance.battleField.armyManager.skyEffect1+= value;
+                GameManager.Instance.battleField.armyManager.playerSkyEffect+= value;
                 break;
         }
 
@@ -200,6 +200,9 @@ public class IAttackInstantly : IEffect
             return;
         //�߼�
         CardArrangement area = PlayerControl.Instance.puttableArea;
+
+        Debug.Log(area);
+
         if (area == null || area.pos == CardPos.SelectionArea)
         {
             //
@@ -208,14 +211,23 @@ public class IAttackInstantly : IEffect
         {
             if(target == 0)
             {
-                CardManager.Instance.cardPlayingArea.allCardsBeDamaged(area.pos, damage);
+                CardManager.Instance.playerPlayingArea.allCardsBeDamaged(area.pos, damage);
             }
             else
             {
                 CardManager.Instance.enemyPlayingArea.allCardsBeDamaged(area.pos, damage);
+                CardManager.Instance.force_Rearrange(area.pos, target);
             }
         }
     }
 }
 
+[Serializable]
+public class IDelayLock : IDelayTriggerEffect
+{
+    public IDelayLock(int delayTurn)
+    {
+        this.delayTurn = delayTurn;
+    }
+}
 

@@ -2184,6 +2184,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anchors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   arrangementType: 1
   pos: 2
   offsetX: 0.5
@@ -2240,8 +2245,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxNum: 3
   sea: []
-  ground: []
+  land: []
   sky: []
+  seaLocked: 0
+  landLocked: 0
+  skyLocked: 0
 --- !u!1 &4067074731594991098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2322,6 +2330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anchors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   arrangementType: 0
   pos: 0
   offsetX: 1.2
@@ -2389,6 +2402,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anchors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   arrangementType: 1
   pos: 4
   offsetX: 0.5
@@ -2504,6 +2522,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anchors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   arrangementType: 1
   pos: 1
   offsetX: 0.5
@@ -2558,6 +2581,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anchors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   arrangementType: 1
   pos: 4
   offsetX: 0.5
@@ -2626,6 +2654,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anchors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   arrangementType: 1
   pos: 3
   offsetX: 0.5
@@ -2795,8 +2828,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxNum: 3
   sea: []
-  ground: []
+  land: []
   sky: []
+  seaLocked: 0
+  landLocked: 0
+  skyLocked: 0
 --- !u!1 &4067074732822168165
 GameObject:
   m_ObjectHideFlags: 0
@@ -2933,7 +2969,7 @@ MonoBehaviour:
   hand: []
   handMax: 10
   cardPool: {fileID: 4067074733023895027}
-  cardPlayingArea: {fileID: 4067074731591079400}
+  playerPlayingArea: {fileID: 4067074731591079400}
   enemyPlayingArea: {fileID: 4067074732696659222}
   cardsCenterPoint: {fileID: 4067074731599333285}
   cardAnchor_Sky_Player: {fileID: 4067074732315268602}
@@ -3022,6 +3058,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73084b0bfabf3824eb42c5b728d299ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anchors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   arrangementType: 1
   pos: 4
   offsetX: 0.5

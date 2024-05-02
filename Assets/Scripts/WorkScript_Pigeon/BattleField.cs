@@ -60,5 +60,11 @@ public class BattleField : MonoBehaviour
             onGameWin?.Invoke();
         else if (battleProgress.progressBar <= 0)
             onGameLose?.Invoke();
+
+        if(GameManager.Instance.dateMgr.GetMonth() == 12)
+        {
+            Debug.Log("You Win");
+            Debug.Log("Game Over");
+        }
     }   
 }
