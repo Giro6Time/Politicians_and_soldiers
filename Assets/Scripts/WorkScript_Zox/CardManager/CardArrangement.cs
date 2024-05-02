@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 
 public class CardArrangement : MonoBehaviour
 {
+    public Transform[] anchors = new Transform[4];
+
     public enum ArrangementType
     {
         Hand,
@@ -100,12 +102,15 @@ public class CardArrangement : MonoBehaviour
     }
     private void RearrangeCard_Battlefield()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        Debug.Log(transform.childCount);
+        for (int i = 4; i < transform.childCount; i++)
         {
+            Debug.Log(i);
             Transform cardTransform = transform.GetChild(i);
 
             //战场卡牌的目标位置
-            Vector3 targetPosition = new Vector3(offsetX * i, 0, offsetZ * i);
+            Debug.Log(anchors[i-4].localPosition);
+            Vector3 targetPosition = anchors[i-4].localPosition;
             /*SetZOrder(i,cardTransform);*/
 
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
@@ -225,5 +230,19 @@ public class CardArrangement : MonoBehaviour
                 sr.sortingOrder -= 3;
         }
         
+    }
+
+    public void Force_WipeDeadCard()
+    {
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            ArmyCard card = transform.GetChild(i).GetComponent<ArmyCard>();
+            if(card.troopStrength <= 0)
+            {
+                DestroyImmediate(card.gameObject);
+                i--;
+            }
+        }
+        RearrangeCard();
     }
 }
