@@ -10,6 +10,7 @@ public class CardPlayingArea : MonoBehaviour
 
     public List<CardBase> sea = new List<CardBase>();
     public List<CardBase> land = new List<CardBase>();
+    public List<CardBase> land = new List<CardBase>();
     public List<CardBase> sky = new List<CardBase>();
 
     public bool seaLocked = false;
@@ -21,6 +22,7 @@ public class CardPlayingArea : MonoBehaviour
         switch (pos)
         {
             case CardPos.LandPutArea:
+                land.Add(card);
                 land.Add(card);
                 break;
             case CardPos.SeaPutArea:
@@ -38,6 +40,7 @@ public class CardPlayingArea : MonoBehaviour
         switch (card.GetCardPos()) {
             case CardPos.LandPutArea:
                 land.Remove(card);
+                land.Remove(card);
                 break;
             case CardPos.SeaPutArea:
                 sea.Remove(card);
@@ -52,11 +55,9 @@ public class CardPlayingArea : MonoBehaviour
     {
         for (int i = 0; i < sea.Count; i++)
         {
-            if (sea[i] == null)
-                sea.RemoveAt(i--);
-            else
-                sea[i].gameObject.SetActive(true);
+            sea[i].gameObject.SetActive(true);
         }
+        for (int i = 0; i < land.Count; i++)
         for (int i = 0; i < land.Count; i++)
         {
             if (land[i] == null)
@@ -66,10 +67,7 @@ public class CardPlayingArea : MonoBehaviour
         }
         for (int i = 0; i < sky.Count; i++)
         {
-            if (sky[i] == null)
-                sky.RemoveAt(i--);
-            else
-                sky[i].gameObject.SetActive(true); 
+            sky[i].gameObject.SetActive(true);
         }
         seaLocked = false;
         landLocked = false;
@@ -78,6 +76,7 @@ public class CardPlayingArea : MonoBehaviour
 
     public int getCurrentPosNum(CardPos pos)
     {
+        if(pos == CardPos.LandPutArea) { return land.Count; }
         if(pos == CardPos.LandPutArea) { return land.Count; }
         if(pos == CardPos.SeaPutArea) { return sea.Count; }
         if (pos == CardPos.SkyPutArea) { return sky.Count; }
@@ -98,17 +97,21 @@ public class CardPlayingArea : MonoBehaviour
         {
             case CardPos.LandPutArea:
                 for(int i = 0; i < land.Count; i++)
+                for(int i = 0; i < land.Count; i++)
                 {
+                    ArmyCard card = land[i] as ArmyCard;
                     ArmyCard card = land[i] as ArmyCard;
                     card.troopStrength -= damage;
                     if (card.troopStrength <= 0)
                     {
+                        land[i] = null;
                         land[i] = null;
                         needToBeRefresh = true;
                     }
                 }
                 break;
             case CardPos.SeaPutArea:
+                for (int i = 0; i < land.Count; i++)
                 for (int i = 0; i < land.Count; i++)
                 {
                     ArmyCard card = sea[i] as ArmyCard;
@@ -121,6 +124,7 @@ public class CardPlayingArea : MonoBehaviour
                 }
                 break;
             case CardPos.SkyPutArea:
+                for (int i = 0; i < land.Count; i++)
                 for (int i = 0; i < land.Count; i++)
                 {
                     ArmyCard card = sky[i] as ArmyCard;

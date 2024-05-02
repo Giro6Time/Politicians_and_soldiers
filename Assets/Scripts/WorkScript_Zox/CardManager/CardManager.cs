@@ -31,7 +31,8 @@ public class CardManager : MonoBehaviour {
     private int[] Possib = { 5,5,5,5,5};
 
     //放置区（玩家、敌人；海陆空）
-    public CardPlayingArea cardPlayingArea;
+    public CardPlayingArea playerPlayingArea;
+
     public CardPlayingArea enemyPlayingArea;
 
     //abandoned(I guess)
@@ -70,7 +71,7 @@ public class CardManager : MonoBehaviour {
     public void RefreshList()
     {
         enemyPlayingArea.Refresh();
-        cardPlayingArea.Refresh();
+        playerPlayingArea.Refresh();
     }
 
     public void MoveCard(CardBase card, CardArrangement area)
@@ -88,7 +89,7 @@ public class CardManager : MonoBehaviour {
         {
             if(card.GetCardPos() == CardPos.SelectionArea){hand.Add(card);}
 
-            cardPlayingArea.AddCard(card, area.pos);
+            playerPlayingArea.AddCard(card, area.pos);
             card.cardCurrentArea.RearrangeCard();
             return;
         }
@@ -102,7 +103,7 @@ public class CardManager : MonoBehaviour {
                 return;
             }
             //超出容量
-            if (cardPlayingArea.getCurrentPosNum(area.pos) == cardPlayingArea.maxNum)
+            if (playerPlayingArea.getCurrentPosNum(area.pos) == playerPlayingArea.maxNum)
             {
                 card.cardCurrentArea.RearrangeCard();
                 return;
@@ -116,7 +117,7 @@ public class CardManager : MonoBehaviour {
 
             //hand.Remove(card);
 
-            cardPlayingArea.AddCard(card, area.pos);
+            playerPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
             card.cardCurrentArea.RearrangeCard();
 
@@ -130,7 +131,7 @@ public class CardManager : MonoBehaviour {
             hand.Add(card);
 
             Player.Instance.decisionValue += card.cost;
-            cardPlayingArea.AddCard(card, area.pos);
+            playerPlayingArea.AddCard(card, area.pos);
             card.transform.SetParent(area.transform, true);
             card.cardCurrentArea.RearrangeCard();
 
@@ -155,7 +156,7 @@ public class CardManager : MonoBehaviour {
         }
         else
         {
-            cardPlayingArea.RemoveCard(card);
+            playerPlayingArea.RemoveCard(card);
         }
     }
 
