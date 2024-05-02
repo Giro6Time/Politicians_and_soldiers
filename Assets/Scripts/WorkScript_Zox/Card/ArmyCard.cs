@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArmyCard : CardBase
 {
     public int troopStrength;
-    public Sprite cardFrame;
+    public GameObject armyLayout;
     public ArmyType type;
 
     public enum ArmyType

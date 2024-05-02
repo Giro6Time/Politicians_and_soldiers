@@ -185,7 +185,6 @@ public class CardManager : MonoBehaviour {
     public void UpdatePlayerHand(int month, Season season)
     {
         AddCard((month-1)/4 + 1, season);
-        
     }
 
     /// <summary>
@@ -308,22 +307,22 @@ public class CardManager : MonoBehaviour {
             {
                 case 0:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.LandPutArea).Count);
-                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.LandPutArea)[randomIndex];
+                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.LandPutArea)[1];
                     break;
                 case 1:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SeaPutArea).Count);
-                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SeaPutArea)[randomIndex];
+                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SeaPutArea)[1];
                     break;
                 case 2:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SkyPutArea).Count);
-                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SkyPutArea)[randomIndex];
+                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SkyPutArea)[1];
                     break;
                 case 3:
                     Debug.LogError("3在getNextCardType方法中是非法的返回值");
                     break;
                 case 4:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect).Count);
-                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect)[randomIndex];
+                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect)[0];
                     break;
                 default:
                     Debug.LogError("未正确获得CardBaseSO");
@@ -477,6 +476,7 @@ public static class CardFactory
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;
                 var layoutGO = GameObject.Instantiate(cardSO.cardLayourPrefab);
+                //armyC.
                 layoutGO.transform.SetParent(instance.transform);
                 var renderers = layoutGO.GetComponentsInChildren<Renderer>();
                 foreach (Renderer renderer in renderers)
