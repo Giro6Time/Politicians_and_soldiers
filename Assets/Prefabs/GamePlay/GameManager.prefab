@@ -7949,10 +7949,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.023812503
       objectReference: {fileID: 0}
-    - target: {fileID: 4067074732585131335, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
-      propertyPath: cardList_1.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4067074733023895027, guid: 15c7507fa3b8a8341b8ea70b79898e41, type: 3}
       propertyPath: cardSOList.Array.data[0]
       value: 
