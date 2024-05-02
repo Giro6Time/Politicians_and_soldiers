@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Sky_SR_Bird
   m_EditorClassIdentifier: 
   cardName: "\u4FE1\u4F7F"
-  description: "\u201C\u201D"
+  description: "\u51B3\u7B56\u70B9\u6570\u91CF +1"
   troopStrength: 1
-  cost: 1
+  cost: 0
   matchedSeason: 0
   matchedPos: 3
   cardBaseType: 0
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: d09d7ac90bb669841b6d49be3fe8c807, type: 3}
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 93ac1839073b1304693a57f2bf0e310f, type: 3}
   drawEffect: []
-  invokeEffect: []
+  invokeEffect:
+  - rid: 3626890889046523914
   battleStartEffect: []
   liveEffect: []
   deathEffect: []
@@ -29,4 +30,8 @@ MonoBehaviour:
   afterAttactEffect: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3626890889046523914
+      type: {class: IAddDecision, ns: , asm: Assembly-CSharp}
+      data:
+        num: 1

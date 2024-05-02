@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Land_SSR_ZD
   m_EditorClassIdentifier: 
-  cardName: "\u8D1E\u5FB7"
-  description: 
+  cardName: "\u6B89\u9053\u8005"
+  description: "\u3010\u727A\u7272\u65F6\u3011\u4E0B\u56DE\u5408\u51B3\u7B56\u70B9
+    +2 \u3001\u6211\u65B9\u6218\u7EBF\u63A8\u8FDB\u529B+1"
   troopStrength: 2
   cost: 1
   matchedSeason: 0
@@ -24,9 +25,22 @@ MonoBehaviour:
   invokeEffect: []
   battleStartEffect: []
   liveEffect: []
-  deathEffect: []
+  deathEffect:
+  - rid: 3626890889046523910
+  - rid: 3626890889046523912
   beforeAttackEffect: []
   afterAttactEffect: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3626890889046523910
+      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        pos: 1
+        value: 1
+        rate: 1
+    - rid: 3626890889046523912
+      type: {class: DelayDesisionValueEffect, ns: , asm: Assembly-CSharp}
+      data:
+        delayTurn: 1
+        value: 2

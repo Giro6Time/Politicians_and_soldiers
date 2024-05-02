@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Effect_SR_Crow
   m_EditorClassIdentifier: 
-  cardName: "\u9ED1\u9E26"
-  description: 
-  troopStrength: 1
+  cardName: "\u53EC\u5524\u672F\u9635"
+  description: "\u3010\u6253\u51FA\u65F6\u3011\u6DFB\u52A0\u4E00\u5F20\u519B\u961F\u724C\u81F3\u624B\u4E2D"
+  troopStrength: 0
   cost: 1
   matchedSeason: 0
   matchedPos: 3

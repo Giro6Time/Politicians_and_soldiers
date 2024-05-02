@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Sky_SSR_Cernunnos
   m_EditorClassIdentifier: 
   cardName: "\u6709\u89D2\u795E\u7957"
-  description: 
-  troopStrength: 2
-  cost: 1
+  description: "\u3010\u5F00\u6218\u65F6\u3011\u672C\u56DE\u5408\u6218\u7EBF\u4E0D\u52A8"
+  troopStrength: 3
+  cost: 4
   matchedSeason: 0
-  matchedPos: 1
+  matchedPos: 3
   cardBaseType: 0
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: 79f7d7df67001e447817847be2e579fc, type: 3}
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: a4521a74d14b30d4db2f03c3c7c7fe0f, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []
