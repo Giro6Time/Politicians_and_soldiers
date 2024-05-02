@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class CardBaseSO : ScriptableObject
 {
     public string cardName;
+    [Multiline]
     public string description;
     // public int level;
     public int troopStrength;
