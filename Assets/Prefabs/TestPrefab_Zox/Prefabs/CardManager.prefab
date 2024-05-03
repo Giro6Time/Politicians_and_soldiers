@@ -3577,12 +3577,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardList_1:
   - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 9114f4bb616d4ea4cb4493c4dea46cad, type: 2}
-  cardList_2: []
-  cardList_3: []
-  cardList_4: []
-  cardList_5: []
-  cardList_6: []
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_2:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_3:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_4:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_5:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_6:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
   cardList_7: []
   cardList_8: []
   cardList_9: []
@@ -3717,6 +3733,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardSOList:
   - {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
   - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
 --- !u!1 &4067074733232235408
 GameObject:
