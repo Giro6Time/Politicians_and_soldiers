@@ -21,6 +21,7 @@ MonoBehaviour:
   matchedPos: 1
   cardBaseType: 0
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 314a154b4e8129646bb6817b7c3ffaba, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 5063780e02b146046a71197815adeb3a, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []

@@ -422,14 +422,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_1.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_1.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
     - target: {fileID: 7213156998599051005, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_Camera
       value: 
