@@ -2970,8 +2970,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8009744, y: 3.5709922, z: 0.53119457}
-  m_Center: {x: -0.15303445, y: -1.7854961, z: 0.1047627}
+  m_Size: {x: 6.1323724, y: 3.148702, z: 0.53119457}
+  m_Center: {x: 0.59770274, y: -1.574351, z: 0.1047627}
 --- !u!114 &4067074731508651630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3312,8 +3312,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3.6360297, z: 0.6415847}
-  m_Center: {x: 0, y: -1.8180149, z: 0.11117362}
+  m_Size: {x: 6.026411, y: 3.072977, z: 0.6415847}
+  m_Center: {x: 0.011730194, y: -1.0203567, z: 0.11117363}
 --- !u!114 &4067074731911850604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3445,11 +3445,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4067074732315268606}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.898519, y: 3.369391, z: 0.46336466}
-  m_Center: {x: 0.34043384, y: -1.6846955, z: 0.023812503}
+  m_Size: {x: 5.995312, y: 3.0644035, z: 0.46336466}
+  m_Center: {x: -0.5276067, y: -1.5322018, z: 0.023812503}
 --- !u!114 &4067074732315268602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3577,12 +3577,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardList_1:
   - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 9114f4bb616d4ea4cb4493c4dea46cad, type: 2}
-  cardList_2: []
-  cardList_3: []
-  cardList_4: []
-  cardList_5: []
-  cardList_6: []
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_2:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_3:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_4:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_5:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  cardList_6:
+  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
   cardList_7: []
   cardList_8: []
   cardList_9: []
@@ -3717,6 +3733,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardSOList:
   - {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+  - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
   - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
 --- !u!1 &4067074733232235408
 GameObject:

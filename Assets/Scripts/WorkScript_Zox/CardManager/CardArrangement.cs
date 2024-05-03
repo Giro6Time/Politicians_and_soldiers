@@ -103,14 +103,14 @@ public class CardArrangement : MonoBehaviour
     private void RearrangeCard_Battlefield()
     {
         Debug.Log(transform.childCount);
-        for (int i = 4; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount - anchors.Length; i++)
         {
             Debug.Log(i);
-            Transform cardTransform = transform.GetChild(i);
+            Transform cardTransform = transform.GetChild(i+anchors.Length);
 
             //战场卡牌的目标位置
-            Debug.Log(anchors[i-4].localPosition);
-            Vector3 targetPosition = anchors[i-4].localPosition;
+            Debug.Log(anchors[i].localPosition);
+            Vector3 targetPosition = anchors[i].localPosition;
             /*SetZOrder(i,cardTransform);*/
 
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
