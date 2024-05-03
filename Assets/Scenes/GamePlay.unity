@@ -467,10 +467,50 @@ PrefabInstance:
       propertyPath: anchors.Array.data[3]
       value: 
       objectReference: {fileID: 394765785}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8380c3dcc5972d8469cff4e01b07e90d, type: 2}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: eee50aeb06ccd9147b4e8f7ba8582845, type: 2}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: b279abdae18eb324498732beafe644ef, type: 2}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: b14f2c7234491604c813ccb3e44185d5, type: 2}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4d3b14405a38ab143831ed69fbb4b3a2, type: 2}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: c2f8fef670f50de44ac65aaece32ed01, type: 2}
     - target: {fileID: 7213156998599051005, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 7376760520025487202, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8595355789854703604, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_Camera
       value: 
