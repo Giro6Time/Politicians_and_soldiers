@@ -23,8 +23,7 @@ MonoBehaviour:
   cardLayourPrefab: {fileID: 1940235687683110017, guid: b497e31439ce07045873710809d55e6a, type: 3}
   drawEffect:
   - rid: 4387049661206626305
-  invokeEffect:
-  - rid: 4387049727588040709
+  invokeEffect: []
   battleStartEffect: []
   liveEffect: []
   deathEffect: []
@@ -39,7 +38,3 @@ MonoBehaviour:
         pos: 1
         value: 1
         rate: 1
-    - rid: 4387049727588040709
-      type: {class: IAddCardEffect, ns: , asm: Assembly-CSharp}
-      data:
-        num: 1

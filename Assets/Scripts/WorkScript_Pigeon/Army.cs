@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Army : MonoBehaviour
@@ -8,7 +9,7 @@ public class Army : MonoBehaviour
     [SerializeField] float troopStrength;
 
     public ArmyCard whereIFrom;
-    public ArmyCard cardImage;
+    public GameObject animationObject;
 
     public List<IEffect> battleStartEffect = new();
     public List<IEffect> liveEffect = new();
@@ -26,9 +27,11 @@ public class Army : MonoBehaviour
             {
                 onDied?.Invoke();
                 died = true;
-                //��������
-                //Deathrattle();
-                transform.GetChild(0).gameObject.SetActive(false);
+                if (whereIFrom.isEnemy)
+                    GameManager.Instance.cardMgr.enemyPlayingArea.RemoveCard(whereIFrom);
+                else
+                    GameManager.Instance.cardMgr.playerPlayingArea.RemoveCard(whereIFrom);
+                Destroy(whereIFrom.gameObject);
                 ClearAllEvent();
                 onFightEnd += () => Destroy(gameObject);
             }
@@ -40,7 +43,6 @@ public class Army : MonoBehaviour
     public Action onFightEnd;
     public Action onDied;
     public Action onMoveEnd;
-    public Action canFightNext;
 
     public bool died = false;
     private Vector3 currPosition;
@@ -69,10 +71,9 @@ public class Army : MonoBehaviour
         this.duration = duration;
     }
 
-    public void PlayFight(bool left)
+    public void PlayFight()
     {
-        animator.SetBool("Left", left);
-        animator.SetBool("Fight", true);
+        animator.SetBool("Fight", true) ;   
     }
 
     public void OnDamaged()
@@ -82,10 +83,10 @@ public class Army : MonoBehaviour
 
     public void OnFightEnd()
     {
-        onFightEnd?.Invoke();
-        //Debug.Log(name + "FightEnd");
+        
         animator.SetBool("Fight", false);
         GameManager.Instance.battleField.armyManager.CanFightNext();
+        onFightEnd?.Invoke();
     }
 
     void Update()
@@ -103,8 +104,6 @@ public class Army : MonoBehaviour
                 Debug.Log("Here");
                 // �ƶ���ɺ�Ĳ���
                 isMoving = false;
-                //onMoveEnd?.Invoke();
-                GameManager.Instance.battleField.armyManager.Fight(GameManager.Instance.battleField.armyManager.currArmyType);
             }
         }
     }

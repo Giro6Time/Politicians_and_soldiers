@@ -100,13 +100,15 @@ public class GameManager : MonoBehaviour
     {
         gameFlowController.onBattleStartClicked += BattleStart;
 
-        dateMgr.OnMonthChanged += cardMgr.RefreshList;
-        dateMgr.OnMonthChanged += gameFlowController.log.turnInfos[dateMgr.GetMonth()].TriggerAll;
-        dateMgr.OnMonthChanged += battleField.armyManager.Clear;
-        dateMgr.OnMonthChanged += () => cardMgr.SpawnEnemyCard(dateMgr.GetMonth());
         dateMgr.OnMonthChanged += () =>
+        {
+            cardMgr.RefreshList();
+            gameFlowController.log.turnInfos[dateMgr.GetMonth()].TriggerAll();
+            battleField.armyManager.Clear();
+            cardMgr.SpawnEnemyCard(dateMgr.GetMonth());
             StartCoroutine(
                 DelayInvoke.DelayInvokeDo(() => cardMgr.UpdatePlayerHand(dateMgr.GetMonth(), dateMgr.GetSeason()), config.updateHandDelay));
+        };
 
         battleField.onGameWin += Win;
         battleField.onGameLose += Lose;
@@ -134,23 +136,23 @@ public class GameManager : MonoBehaviour
     public void PushCard2BattleField()
     {
 
-        foreach(var item in cardMgr.cardPlayingArea.ground)
+        foreach(var item in cardMgr.playerPlayingArea.land)
         {
             item.isUsed = true;
             item.gameObject.SetActive(false);
         }
-        foreach (var item in cardMgr.cardPlayingArea.sea)
+        foreach (var item in cardMgr.playerPlayingArea.sea)
         {
             item.isUsed = true;
             item.gameObject.SetActive(false);
         }
-        foreach (var item in cardMgr.cardPlayingArea.sky)
+        foreach (var item in cardMgr.playerPlayingArea.sky)
         {
             item.isUsed = true;
             item.gameObject.SetActive(false);
         }
 
-        foreach (var item in cardMgr.enemyPlayingArea.ground)
+        foreach (var item in cardMgr.enemyPlayingArea.land)
         {
             item.isUsed = true;
             item.gameObject.SetActive(false);
@@ -166,13 +168,13 @@ public class GameManager : MonoBehaviour
             item.gameObject.SetActive(false);
         }
 
-        battleField.armyManager.armyOnLand.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.cardPlayingArea.ground));
-        battleField.armyManager.armyOnSea.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.cardPlayingArea.sea));
-        battleField.armyManager.armyOnSky.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.cardPlayingArea.sky));
-        battleField.armyManager.enemyArmyOnLand.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.ground));
+        battleField.armyManager.playerArmyOnLand.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.playerPlayingArea.land));
+        battleField.armyManager.playerArmyOnSea.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.playerPlayingArea.sea));
+        battleField.armyManager.playerArmyOnSky.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.playerPlayingArea.sky));
+        battleField.armyManager.enemyArmyOnLand.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.land));
         battleField.armyManager.enemyArmyOnSea.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.sea));
         battleField.armyManager.enemyArmyOnSky.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.sky));
 
-        battleField.armyManager.InitArmy();
+        battleField.armyManager.ResetArmy();
     }
 }

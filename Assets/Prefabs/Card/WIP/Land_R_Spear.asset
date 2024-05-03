@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
+  m_Name: Land_R_Spear
+  m_EditorClassIdentifier: 
+  cardName: "\u666E\u901A\u7684\u67AA\u5175"
+  description: "\u8FDB\u653B"
+  troopStrength: 2
+  cost: 1
+  matchedSeason: 0
+  matchedPos: 1
+  cardBaseType: 0
+  cardLayourPrefab: {fileID: 0}
+  drawEffect:
+  - rid: 8240365256015872002
+  invokeEffect: []
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 8240365256015872002
+      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        pos: 1
+        value: 2
+        rate: 1

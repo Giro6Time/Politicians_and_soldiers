@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 public class CardBaseSO : ScriptableObject
 {
     public string cardName;
+    [Multiline]
     public string description;
     // public int level;
     public int troopStrength;
@@ -21,6 +23,7 @@ public class CardBaseSO : ScriptableObject
     public CardBaseType cardBaseType;
     [Header("������ʽ��prefab")]
     public GameObject cardLayourPrefab;
+    public GameObject armyLayoutPrefab;
 
     [HideInInspector,SerializeReference] 
     public List<IEffect> drawEffect = new();

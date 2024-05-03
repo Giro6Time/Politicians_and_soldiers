@@ -25,7 +25,7 @@ public class PlayerControl : MonoBehaviour
     public State currentState;
 
     public CardBase selectedCard;
-    private CardArrangement puttableArea;
+    public CardArrangement puttableArea;
 
 
     private Vector3 mouseAndCardCenterOffset;
@@ -85,6 +85,11 @@ public class PlayerControl : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
+
+                    //音效：卡牌放置到正确的战场
+                    SoundsMgr._Instance.PlaySoundEffect("Sound_PlaceCard(right)");
+
+
                     GameManager.Instance.gameFlowController.log.AddInvokeLog(selectedCard, true);
                     selectedCard.invokeEffect.TriggerAllEffects(true, new object[] { selectedCard });
                     if (selectedCard is ArmyCard)
@@ -102,9 +107,7 @@ public class PlayerControl : MonoBehaviour
                     }
                     else if (selectedCard is CardEffect)
                     {
-                        Debug.Log("启动");
-                        //(selectedCard as CardEffect).UseAbility();
-                        currentState = State.SelectingCard;
+                        StartCoroutine(DestroyCardEffect());
                     }
                 }
                 else if (Input.GetMouseButtonDown(1))
@@ -197,5 +200,15 @@ public class PlayerControl : MonoBehaviour
         {
             currentState = State.Null;
         }
+    }
+
+    private IEnumerator DestroyCardEffect()
+    {
+        //卡牌在删除之前的操作(可以加动画、特效等)
+        yield return null;
+
+        DestroyImmediate(selectedCard.gameObject);
+        CardManager.Instance.cardsCenterPoint.RearrangeCard();
+        currentState = State.SelectingCard;
     }
 }
