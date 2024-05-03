@@ -307,22 +307,22 @@ public class CardManager : MonoBehaviour {
             {
                 case 0:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.LandPutArea).Count);
-                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.LandPutArea)[1];
+                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.LandPutArea)[randomIndex];
                     break;
                 case 1:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SeaPutArea).Count);
-                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SeaPutArea)[1];
+                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SeaPutArea)[randomIndex];
                     break;
                 case 2:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SkyPutArea).Count);
-                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SkyPutArea)[1];
+                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SkyPutArea)[randomIndex];
                     break;
                 case 3:
                     Debug.LogError("3在getNextCardType方法中是非法的返回值");
                     break;
                 case 4:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect).Count);
-                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect)[0];
+                    cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect)[randomIndex];
                     break;
                 default:
                     Debug.LogError("未正确获得CardBaseSO");

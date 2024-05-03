@@ -15,6 +15,7 @@ public static class ArmyFactory
             return new();
         }
         List<Army> armyList = new();
+        int cardIndex = 1;
         foreach (CardBase card in cards)
         {
             ArmyCard c = card as ArmyCard;
@@ -39,10 +40,21 @@ public static class ArmyFactory
             if (army.whereIFrom.isEnemy == true)
             {
                 Vector3 scale = army.transform.localScale;
-                scale.y = -1f;
+                scale.y = -0.3f;
                 army.transform.localScale = scale;
-                spriteRenderer.flipY = true;
+                army.animationObject.transform.GetChild(0).localScale = (10 / 3) * scale;
             }
+
+            //防止图片乱穿
+            army.animationObject.transform.GetChild(0).Find("Cardframe").GetComponent<SpriteRenderer>().sortingLayerName = "Army";
+            army.animationObject.transform.GetChild(0).Find("Cardframe").GetComponent<SpriteRenderer>().sortingOrder = 3 * cardIndex;
+            army.animationObject.transform.GetChild(0).Find("Picture").GetComponent<SpriteRenderer>().sortingLayerName = "Army";
+            army.animationObject.transform.GetChild(0).Find("Picture").GetComponent<SpriteRenderer>().sortingOrder = 3 * cardIndex - 1;
+            army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteRenderer>().sortingLayerName = "Army";
+            army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteRenderer>().sortingOrder = 3 * cardIndex - 2;
+            army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteMask>().isCustomRangeActive = true;
+            army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteMask>().frontSortingLayerID = SortingLayer.NameToID("Army");
+            army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteMask>().frontSortingOrder = 3 * cardIndex;
 
             army.battleStartEffect = c.battleStartEffect;
             army.liveEffect = c.liveEffect;
@@ -51,6 +63,8 @@ public static class ArmyFactory
             army.afterAttactEffect = c.afterAttactEffect;
 
             armyList.Add(army);
+
+            cardIndex++;
         }
         return armyList;
     }
