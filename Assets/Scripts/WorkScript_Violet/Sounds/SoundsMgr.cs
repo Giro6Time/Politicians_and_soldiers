@@ -98,7 +98,7 @@ public class SoundsMgr : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             Debug.Log("背景音乐");
-            PlayBackgroundMusic("BG");
+            PlayBackgroundMusic("BGM_Battle_One");
             MeetEventGameCtrl._Instance.Init();
         }
         if (Input.GetKeyDown(KeyCode.L))
