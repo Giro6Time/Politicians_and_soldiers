@@ -17,7 +17,7 @@ MonoBehaviour:
   troopStrength: 1
   cost: 0
   matchedSeason: 0
-  matchedPos: 1
+  matchedPos: 2
   cardBaseType: 0
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 1564ba41fc9bb91439cf4624dceec735, type: 3}
   armyLayoutPrefab: {fileID: 1940235687683110017, guid: e52c2a40bb744e34a941642b1bc4f481, type: 3}
