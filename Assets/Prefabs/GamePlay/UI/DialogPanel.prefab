@@ -526,6 +526,7 @@ GameObject:
   - component: {fileID: 4526537208021768609}
   - component: {fileID: 4526537208021768622}
   - component: {fileID: 4526537208021768623}
+  - component: {fileID: 846039862203313998}
   m_Layer: 5
   m_Name: DialogPanel
   m_TagString: Untagged
@@ -649,6 +650,27 @@ MonoBehaviour:
   - {fileID: 4526537209391474846}
   - {fileID: 4526537207963471129}
   panelRect: {fileID: 4526537208021768620}
+--- !u!223 &846039862203313998
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4526537208021768621}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: -1280182877
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &4526537208667402429
 GameObject:
   m_ObjectHideFlags: 0

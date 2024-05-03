@@ -2993,7 +2993,8 @@ GameObject:
   - component: {fileID: 6381311501678950331}
   - component: {fileID: 6381311501678950330}
   - component: {fileID: 6381311501678950329}
-  m_Layer: 0
+  - component: {fileID: 221877061956685695}
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3035,7 +3036,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 4229315286346847717}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3086,6 +3087,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &221877061956685695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6381311501678950335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c950d3cce32df4b4cb97532fae6633b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainProperty: 0
 --- !u!1 &6381311502038262314
 GameObject:
   m_ObjectHideFlags: 0
@@ -3098,7 +3112,7 @@ GameObject:
   - component: {fileID: 6381311502038262309}
   - component: {fileID: 6381311502038262308}
   - component: {fileID: 6381311502038262310}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MiniGamePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3188,7 +3202,7 @@ GameObject:
   - component: {fileID: 6381311502422411040}
   - component: {fileID: 6381311502422411042}
   - component: {fileID: 6381311502422411041}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3265,7 +3279,7 @@ GameObject:
   - component: {fileID: 6381311502510261391}
   - component: {fileID: 6381311502510261385}
   - component: {fileID: 6381311502510261384}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7503,6 +7517,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 6381311501678950328}
     m_Modifications:
     - target: {fileID: 1222126551916250471, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222126551916250471, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -7521,6 +7539,10 @@ PrefabInstance:
     - target: {fileID: 3023225141721206984, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 464.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 6325271557404961068, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7180430528880602232, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
       propertyPath: m_Pivot.x
@@ -7609,6 +7631,10 @@ PrefabInstance:
     - target: {fileID: 7180430528880602233, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
       propertyPath: m_Name
       value: BattleEndPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180430528880602233, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7180430528880602233, guid: 5861ab707cb0c0f44a6648bd50e75a19, type: 3}
       propertyPath: m_IsActive
@@ -8151,6 +8177,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6381311502422411040}
     m_Modifications:
+    - target: {fileID: 6159822064834098, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099498514971718256, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234336392805990980, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5038221412161429778, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258147624962253273, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334183630078722946, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8481544208679785512, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8238,6 +8288,10 @@ PrefabInstance:
     - target: {fileID: 8782873246409157303, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
       propertyPath: m_Name
       value: ButtonUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782873246409157303, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14450f89d4f12a649bbce1932795fcb6, type: 3}
