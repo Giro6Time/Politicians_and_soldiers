@@ -10,30 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
-  m_Name: Land_R_Archers
+  m_Name: Enemy_1_Sea
   m_EditorClassIdentifier: 
-  cardName: "\u6797\u5730\u5F13\u624B"
-  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u4E0D\u77E5\u9053"
+  cardName: "\u53EC\u5524\u672F\u9635"
+  description: "\u3010\u654C\u65B9\u3011\n"
   troopStrength: 1
-  cost: 1
+  cost: 0
   matchedSeason: 0
-  matchedPos: 3
+  matchedPos: 1
   cardBaseType: 0
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: 5cbc16e81555245408775c48958a0718, type: 3}
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 1564ba41fc9bb91439cf4624dceec735, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: e52c2a40bb744e34a941642b1bc4f481, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []
-  liveEffect:
-  - rid: 3626890889046523908
+  liveEffect: []
   deathEffect: []
   beforeAttackEffect: []
   afterAttactEffect: []
   references:
     version: 2
-    RefIds:
-    - rid: 3626890889046523908
-      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
-      data:
-        pos: 3
-        value: 1
-        rate: 1
+    RefIds: []

@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
-  m_Name: Effect_SR_Crow
+  m_Name: Sky_SSR_Cernunnos
   m_EditorClassIdentifier: 
-  cardName: "\u53EC\u5524\u672F\u9635"
-  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u4E0D\u77E5\u9053"
-  troopStrength: 0
-  cost: 1
+  cardName: "\u6709\u89D2\u795E\u7957"
+  description: "\u3010\u5F00\u6218\u65F6\u3011\n\u672C\u56DE\u5408\u6218\u7EBF\u4E0D\u52A8"
+  troopStrength: 3
+  cost: 4
   matchedSeason: 0
   matchedPos: 3
-  cardBaseType: 1
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: 4f33e507f50b7be4a9b0dccd766c3bc8, type: 3}
+  cardBaseType: 0
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: a4521a74d14b30d4db2f03c3c7c7fe0f, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 8c5a01e32056a6b42b2410059ba27f7f, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []
