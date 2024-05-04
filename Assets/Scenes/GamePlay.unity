@@ -370,17 +370,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -195
       objectReference: {fileID: 0}
-    - target: {fileID: 3537384645179908132, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: eventList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3537384645179908135, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3988722153181972638, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4549002097973307208, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_AnchorMax.y
@@ -558,6 +554,30 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 7376760520025487200, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].time
+      value: 0.40854663
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376760520025487200, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].value
+      value: 0.54031247
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376760520025487200, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].inSlope
+      value: 1.6401061
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376760520025487200, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].inWeight
+      value: 0.11628975
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376760520025487200, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].outSlope
+      value: 1.6401061
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376760520025487202, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7679740793429551864, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
