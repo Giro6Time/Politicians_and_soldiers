@@ -8,6 +8,9 @@ using UnityEngine.UI;
 [CreateAssetMenu()]
 public class CardBaseSO : ScriptableObject
 {
+
+    [HideInInspector] public bool isUsed;
+
     public string cardName;
     [Multiline]
     public string description;
@@ -17,7 +20,7 @@ public class CardBaseSO : ScriptableObject
     // public float progressInfluence;
     // public Enums.CardType card_Type;
     // public Enums.CardAttackType card_AttackType;
-    public Season matchedSeason;
+    public Season[] matchedSeason;
     public CardPos matchedPos;
     // public Enums.Weather matchedWeather;
     public CardBaseType cardBaseType;

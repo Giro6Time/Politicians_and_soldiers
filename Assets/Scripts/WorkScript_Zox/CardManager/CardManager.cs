@@ -303,18 +303,46 @@ public class CardManager : MonoBehaviour {
             //根据getNextCardType返回的值（代表下一个抽中的卡的类型）从对应卡池抽取卡牌
             int type_index = getNextCardType(season);
             int randomIndex;
+
+            int quitCount_max = 4;
+            int quitCount = 0;
+
             switch (type_index)
             {
                 case 0:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.LandPutArea).Count);
+
+                    if(cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.LandPutArea).Count == 0){
+                        if(quitCount < quitCount_max){
+                            quitCount++;
+                            goto case 1;
+                        }
+                    }
+
                     cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.LandPutArea)[randomIndex];
                     break;
                 case 1:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SeaPutArea).Count);
+
+                    if(cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SeaPutArea).Count == 0){
+                        if(quitCount < quitCount_max){
+                            quitCount++;
+                            goto case 2;
+                        }
+                    }
+
                     cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SeaPutArea)[randomIndex];
                     break;
                 case 2:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SkyPutArea).Count);
+
+                    if(cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SkyPutArea).Count == 0){
+                        if(quitCount < quitCount_max){
+                            quitCount++;
+                            goto case 4;
+                        }
+                    }
+
                     cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Army, CardPos.SkyPutArea)[randomIndex];
                     break;
                 case 3:
@@ -322,6 +350,13 @@ public class CardManager : MonoBehaviour {
                     break;
                 case 4:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect).Count);
+
+                    if(cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect).Count == 0){
+                        if(quitCount < quitCount_max){
+                            quitCount++;
+                            goto case 0;
+                        }
+                    }
 
                     Debug.Log(randomIndex);
                     Debug.Log(cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect).Count);
