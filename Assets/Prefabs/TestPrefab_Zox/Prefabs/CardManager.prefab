@@ -3578,7 +3578,11 @@ MonoBehaviour:
   cardList_1:
   - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
   - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+<<<<<<< Updated upstream
   - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+=======
+  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+>>>>>>> Stashed changes
   cardList_2:
   - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
   - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
