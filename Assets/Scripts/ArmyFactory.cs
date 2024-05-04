@@ -31,6 +31,7 @@ public static class ArmyFactory
             army.whereIFrom = c;
             army.TroopStrength = c.troopStrength;
             army.transform.position = c.transform.position;
+            army.animationObject.transform.localScale *= 1.8f;
             //生成图片
             if (c.armyLayoutPrefab != null)
             {
