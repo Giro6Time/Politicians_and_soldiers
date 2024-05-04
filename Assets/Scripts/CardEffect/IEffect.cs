@@ -229,5 +229,10 @@ public class IDelayLock : IDelayTriggerEffect
     {
         this.delayTurn = delayTurn;
     }
+    public override void DelayTrigger()
+    {
+        base.DelayTrigger();
+        if(!GameManager.Instance) return;
+    }
 }
 
