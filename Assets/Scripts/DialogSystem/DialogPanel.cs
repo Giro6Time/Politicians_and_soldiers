@@ -40,7 +40,11 @@ public class DialogPanel : MonoBehaviour
 
 	public void Open()
 	{
-		startTime = Time.time;
+        if (opening)
+        {
+			return;
+        }
+        startTime = Time.time;
 		opening = true;
 		gameObject.SetActive(true);
 	}
@@ -100,6 +104,7 @@ public class DialogPanel : MonoBehaviour
 
 	public void Close()
 	{
+		if(closing) return;
 		startTime = Time.time;
 		closing = true;
 	}

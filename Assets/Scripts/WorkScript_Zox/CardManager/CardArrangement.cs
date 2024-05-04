@@ -91,7 +91,7 @@ public class CardArrangement : MonoBehaviour
             // 设置卡牌的目标位置
             Vector3 targetPosition = new Vector3(x, y, offsetZ * i);
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
-            //SetZOrder(i + 30, cardTransform);
+            SetZOrder(i + 30, cardTransform);
 
             // 设置卡牌的旋转角度
             Quaternion targetRotation = Quaternion.Euler(0,0,rotateZ);

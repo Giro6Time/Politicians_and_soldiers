@@ -207,6 +207,7 @@ public class PlayerControl : MonoBehaviour
         //卡牌在删除之前的操作(可以加动画、特效等)
         yield return null;
 
+        Debug.Log("destroy");
         DestroyImmediate(selectedCard.gameObject);
         CardManager.Instance.cardsCenterPoint.RearrangeCard();
         currentState = State.SelectingCard;
