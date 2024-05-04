@@ -25,5 +25,5 @@ MonoBehaviour:
     m_effects:
     - m_type: 1
       m_value: -1
-  m_SR1: {fileID: 21300000, guid: 8108b797b282c6c4183f3d11a89cca22, type: 3}
-  m_SR2: {fileID: 21300000, guid: 158c9b2a93b9d394584fdd552629e793, type: 3}
+  m_SR1: {fileID: 21300000, guid: 7ba707a254724124ea2db42d87aefff0, type: 3}
+  m_SR2: {fileID: 21300000, guid: fd48b8f963b069e49b1530558d4ffcb2, type: 3}
