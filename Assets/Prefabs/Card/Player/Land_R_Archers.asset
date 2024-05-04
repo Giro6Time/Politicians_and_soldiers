@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Land_R_Archers
   m_EditorClassIdentifier: 
+  isUsed: 0
   cardName: "\u6797\u5730\u5F13\u624B"
   description: "\u3010\u6253\u51FA\u65F6\u3011\n\u4E0D\u77E5\u9053"
   troopStrength: 1
   cost: 1
-  matchedSeason: 0
+  matchedSeason: 00000000010000000200000003000000
   matchedPos: 3
   cardBaseType: 0
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 5cbc16e81555245408775c48958a0718, type: 3}

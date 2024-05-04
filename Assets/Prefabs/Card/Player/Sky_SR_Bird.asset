@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Sky_SR_Bird
   m_EditorClassIdentifier: 
+  isUsed: 0
   cardName: "\u4FE1\u4F7F"
   description: "\u3010\u6253\u51FA\u65F6\u3011\n\u51B3\u7B56\u70B9\u6570\u91CF +1"
   troopStrength: 1
   cost: 0
-  matchedSeason: 0
+  matchedSeason: 00000000010000000200000003000000
   matchedPos: 3
   cardBaseType: 0
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 93ac1839073b1304693a57f2bf0e310f, type: 3}

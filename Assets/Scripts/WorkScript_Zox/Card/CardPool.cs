@@ -8,7 +8,7 @@ using UnityEngine;
 public class CardPool : MonoBehaviour
 {
     //设计者添加卡牌
-    [SerializeField] private List<CardBaseSO> cardSOList;
+    public List<CardBaseSO> cardSOList;
 
     private List<CardBaseSO> springCardSOList = new List<CardBaseSO>();
     private List<CardBaseSO> summerCardSOList = new List<CardBaseSO>();
@@ -188,111 +188,140 @@ public class CardPool : MonoBehaviour
         return cardSOList_count;
     }
 
-    private void InitializeCardList()
+    public void InitializeCardList()
     {
+        #region 置空
+        springCardSOList.Clear();
+        springCardSOList_Army.Clear();
+        springCardSOList_Army_Land.Clear();
+        springCardSOList_Army_Sea.Clear();
+        springCardSOList_Army_Sky.Clear();
+        springCardSOList_Effect.Clear();
+        summerCardSOList.Clear();
+        summerCardSOList_Army.Clear();
+        summerCardSOList_Army_Land.Clear();
+        summerCardSOList_Army_Sea.Clear();
+        summerCardSOList_Army_Sky.Clear();
+        summerCardSOList_Effect.Clear();
+        autumnCardSOList.Clear();
+        autumnCardSOList_Army.Clear();
+        autumnCardSOList_Army_Land.Clear();
+        autumnCardSOList_Army_Sea.Clear();
+        autumnCardSOList_Army_Sky.Clear();
+        autumnCardSOList_Effect.Clear();
+        winterCardSOList.Clear();
+        winterCardSOList_Army.Clear();
+        winterCardSOList_Army_Land.Clear();
+        winterCardSOList_Army_Sea.Clear();
+        winterCardSOList_Army_Sky.Clear();
+        winterCardSOList_Effect.Clear();
+        #endregion
         //将卡放入对应卡池
         foreach(var item in cardSOList)
         {
-            switch (item.matchedSeason)
-            {
-                case Season.Spring:
-                    springCardSOList.Add(item);
-                    switch (item.cardBaseType)
-                    {
-                        case CardBaseType.Army:
-                            springCardSOList_Army.Add(item);
-                            switch (item.matchedPos)
-                            {
-                                case CardPos.LandPutArea:
-                                    springCardSOList_Army_Land.Add(item);
-                                    break;
-                                case CardPos.SeaPutArea:
-                                    springCardSOList_Army_Sea.Add(item);
-                                    break;
-                                case CardPos.SkyPutArea:
-                                    springCardSOList_Army_Sky.Add(item);
-                                    break;
-                            }
-                            break;
-                        case CardBaseType.Effect:
-                            springCardSOList_Effect.Add(item);
-                            break;
-                    }
-                    break;
-                case Season.Summer:
-                    summerCardSOList.Add(item);
-                    switch (item.cardBaseType)
-                    {
-                        case CardBaseType.Army:
-                            summerCardSOList_Army.Add(item);
-                            switch (item.matchedPos)
-                            {
-                                case CardPos.LandPutArea:
-                                    summerCardSOList_Army_Land.Add(item);
-                                    break;
-                                case CardPos.SeaPutArea:
-                                    summerCardSOList_Army_Sea.Add(item);
-                                    break;
-                                case CardPos.SkyPutArea:
-                                    summerCardSOList_Army_Sky.Add(item);
-                                    break;
-                            }
-                            break;
-                        case CardBaseType.Effect:
-                            summerCardSOList_Effect.Add(item);
-                            break;
-                    }
-                    break;
-                case Season.Autumn:
-                    autumnCardSOList.Add(item);
-                    switch (item.cardBaseType)
-                    {
-                        case CardBaseType.Army:
-                            autumnCardSOList_Army.Add(item);
-                            switch (item.matchedPos)
-                            {
-                                case CardPos.LandPutArea:
-                                    autumnCardSOList_Army_Land.Add(item);
-                                    break;
-                                case CardPos.SeaPutArea:
-                                    autumnCardSOList_Army_Sea.Add(item);
-                                    break;
-                                case CardPos.SkyPutArea:
-                                    autumnCardSOList_Army_Sky.Add(item);
-                                    break;
-                            }
-                            break;
-                        case CardBaseType.Effect:
-                            autumnCardSOList_Effect.Add(item);
-                            break;
-                    }
-                    break;
-                case Season.Winter:
-                    winterCardSOList.Add(item);
-                    switch (item.cardBaseType)
-                    {
-                        case CardBaseType.Army:
-                            winterCardSOList_Army.Add(item);
-                            switch (item.matchedPos)
-                            {
-                                case CardPos.LandPutArea:
-                                    winterCardSOList_Army_Land.Add(item);
-                                    break;
-                                case CardPos.SeaPutArea:
-                                    winterCardSOList_Army_Sea.Add(item);
-                                    break;
-                                case CardPos.SkyPutArea:
-                                    winterCardSOList_Army_Sky.Add(item);
-                                    break;
-                            }
-                            break;
-                        case CardBaseType.Effect:
-                            winterCardSOList_Effect.Add(item);
-                            break;
-                    }
-                    break;
-                default:
-                    break;
+            for(int i=0;i<item.matchedSeason.Length;i++){
+                Season matchedSeason_single = item.matchedSeason[i];
+                switch (matchedSeason_single)
+                {
+                    case Season.Spring:
+                        springCardSOList.Add(item);
+                        switch (item.cardBaseType)
+                        {
+                            case CardBaseType.Army:
+                                springCardSOList_Army.Add(item);
+                                switch (item.matchedPos)
+                                {
+                                    case CardPos.LandPutArea:
+                                        springCardSOList_Army_Land.Add(item);
+                                        break;
+                                    case CardPos.SeaPutArea:
+                                        springCardSOList_Army_Sea.Add(item);
+                                        break;
+                                    case CardPos.SkyPutArea:
+                                        springCardSOList_Army_Sky.Add(item);
+                                        break;
+                                }
+                                break;
+                            case CardBaseType.Effect:
+                                springCardSOList_Effect.Add(item);
+                                break;
+                        }
+                        break;
+                    case Season.Summer:
+                        summerCardSOList.Add(item);
+                        switch (item.cardBaseType)
+                        {
+                            case CardBaseType.Army:
+                                summerCardSOList_Army.Add(item);
+                                switch (item.matchedPos)
+                                {
+                                    case CardPos.LandPutArea:
+                                        summerCardSOList_Army_Land.Add(item);
+                                        break;
+                                    case CardPos.SeaPutArea:
+                                        summerCardSOList_Army_Sea.Add(item);
+                                        break;
+                                    case CardPos.SkyPutArea:
+                                        summerCardSOList_Army_Sky.Add(item);
+                                        break;
+                                }
+                                break;
+                            case CardBaseType.Effect:
+                                summerCardSOList_Effect.Add(item);
+                                break;
+                        }
+                        break;
+                    case Season.Autumn:
+                        autumnCardSOList.Add(item);
+                        switch (item.cardBaseType)
+                        {
+                            case CardBaseType.Army:
+                                autumnCardSOList_Army.Add(item);
+                                switch (item.matchedPos)
+                                {
+                                    case CardPos.LandPutArea:
+                                        autumnCardSOList_Army_Land.Add(item);
+                                        break;
+                                    case CardPos.SeaPutArea:
+                                        autumnCardSOList_Army_Sea.Add(item);
+                                        break;
+                                    case CardPos.SkyPutArea:
+                                        autumnCardSOList_Army_Sky.Add(item);
+                                        break;
+                                }
+                                break;
+                            case CardBaseType.Effect:
+                                autumnCardSOList_Effect.Add(item);
+                                break;
+                        }
+                        break;
+                    case Season.Winter:
+                        winterCardSOList.Add(item);
+                        switch (item.cardBaseType)
+                        {
+                            case CardBaseType.Army:
+                                winterCardSOList_Army.Add(item);
+                                switch (item.matchedPos)
+                                {
+                                    case CardPos.LandPutArea:
+                                        winterCardSOList_Army_Land.Add(item);
+                                        break;
+                                    case CardPos.SeaPutArea:
+                                        winterCardSOList_Army_Sea.Add(item);
+                                        break;
+                                    case CardPos.SkyPutArea:
+                                        winterCardSOList_Army_Sky.Add(item);
+                                        break;
+                                }
+                                break;
+                            case CardBaseType.Effect:
+                                winterCardSOList_Effect.Add(item);
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         //更改数组CardSOList_num的值
@@ -319,5 +348,9 @@ public class CardPool : MonoBehaviour
         cardSOList_count[3][2] = winterCardSOList_Army_Sky.Count;
         cardSOList_count[3][3] = winterCardSOList_Army.Count;
         cardSOList_count[3][4] = winterCardSOList_Effect.Count;
+    }
+
+    public void DestroyCardBaseSO(){
+
     }
 }
