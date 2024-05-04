@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking.Types;
+//using UnityEngine.Networking.Types;
 
 public class ArmyManager : MonoBehaviour
 {

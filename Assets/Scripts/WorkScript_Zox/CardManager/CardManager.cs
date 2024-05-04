@@ -322,6 +322,10 @@ public class CardManager : MonoBehaviour {
                     break;
                 case 4:
                     randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect).Count);
+
+                    Debug.Log(randomIndex);
+                    Debug.Log(cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect).Count);
+
                     cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect)[randomIndex];
                     break;
                 default:
