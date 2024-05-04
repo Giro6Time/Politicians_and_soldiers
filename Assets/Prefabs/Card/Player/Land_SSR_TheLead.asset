@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Land_SSR_TheLead
   m_EditorClassIdentifier: 
+  isUsed: 0
   cardName: "\u201C\u6211\u201D"
   description: "\u3010\u6253\u51FA\u65F6\u3011\n\u4E0D\u77E5\u9053"
   troopStrength: 2
   cost: 1
-  matchedSeason: 0
+  matchedSeason: 00000000010000000200000003000000
   matchedPos: 1
   cardBaseType: 0
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 314a154b4e8129646bb6817b7c3ffaba, type: 3}

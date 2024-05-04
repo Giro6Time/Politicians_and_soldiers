@@ -8,7 +8,7 @@ using UnityEngine;
 public class CardPool : MonoBehaviour
 {
     //设计者添加卡牌
-    [SerializeField] private List<CardBaseSO> cardSOList;
+    public List<CardBaseSO> cardSOList;
 
     private List<CardBaseSO> springCardSOList = new List<CardBaseSO>();
     private List<CardBaseSO> summerCardSOList = new List<CardBaseSO>();
@@ -188,8 +188,34 @@ public class CardPool : MonoBehaviour
         return cardSOList_count;
     }
 
-    private void InitializeCardList()
+    public void InitializeCardList()
     {
+        #region 置空
+        springCardSOList.Clear();
+        springCardSOList_Army.Clear();
+        springCardSOList_Army_Land.Clear();
+        springCardSOList_Army_Sea.Clear();
+        springCardSOList_Army_Sky.Clear();
+        springCardSOList_Effect.Clear();
+        summerCardSOList.Clear();
+        summerCardSOList_Army.Clear();
+        summerCardSOList_Army_Land.Clear();
+        summerCardSOList_Army_Sea.Clear();
+        summerCardSOList_Army_Sky.Clear();
+        summerCardSOList_Effect.Clear();
+        autumnCardSOList.Clear();
+        autumnCardSOList_Army.Clear();
+        autumnCardSOList_Army_Land.Clear();
+        autumnCardSOList_Army_Sea.Clear();
+        autumnCardSOList_Army_Sky.Clear();
+        autumnCardSOList_Effect.Clear();
+        winterCardSOList.Clear();
+        winterCardSOList_Army.Clear();
+        winterCardSOList_Army_Land.Clear();
+        winterCardSOList_Army_Sea.Clear();
+        winterCardSOList_Army_Sky.Clear();
+        winterCardSOList_Effect.Clear();
+        #endregion
         //将卡放入对应卡池
         foreach(var item in cardSOList)
         {
@@ -322,5 +348,9 @@ public class CardPool : MonoBehaviour
         cardSOList_count[3][2] = winterCardSOList_Army_Sky.Count;
         cardSOList_count[3][3] = winterCardSOList_Army.Count;
         cardSOList_count[3][4] = winterCardSOList_Effect.Count;
+    }
+
+    public void DestroyCardBaseSO(){
+
     }
 }

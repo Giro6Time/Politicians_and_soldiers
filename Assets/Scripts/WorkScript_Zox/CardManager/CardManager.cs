@@ -219,7 +219,6 @@ public class CardManager : MonoBehaviour {
         //(牌数量 * 概率值); index: 0代表陆军、1代表海军、2代表空军、3代表军队、4代表法术、5代表全部
         int[] E_Card = { 0, 0, 0, 0, 0, 0};
 
-        Debug.Log(cardPool.GetCardBaseSOList_num()[season_index][4]);
         for (int i = 0; i < 5; i++)
         {
             E_Card[i] += cardPool.GetCardBaseSOList_num()[season_index][i] * Possib[i];
@@ -228,15 +227,12 @@ public class CardManager : MonoBehaviour {
         E_Card[5] = E_Card[3] + E_Card[4];
 
         string arrayAsString = string.Join(", ", E_Card);
-        Debug.Log(arrayAsString);
 
         //计算区间, 0代表军队牌的区间、1代表法术牌的区间、2代表区间最大值
         int[] R_CardBaseType = { E_Card[3], E_Card[3] + E_Card[4] , E_Card[5] };
         int random = UnityEngine.Random.Range(0, R_CardBaseType[2]);
 
         arrayAsString = string.Join(",", R_CardBaseType);
-        Debug.Log(arrayAsString);
-        Debug.Log(random);
 
         if(0 <= random && random < R_CardBaseType[0])
         {
@@ -267,22 +263,8 @@ public class CardManager : MonoBehaviour {
         return -1;
     }
 
-    /// <summary>
-    /// 添加确定属性的卡牌
-    /// </summary>
-    /// <param name="num">添加卡牌数量</param>
-    /// <param name="season">所添加卡牌的季节</param>
-    /// <param name="cardBaseType">所添加卡牌的类型</param>
-    /// <param name="cardPos">所添加卡牌的对应位置</param>
-    public void AddCard(int num, Season season, CardBaseType cardBaseType, CardPos cardPos)
-    {
-
-    }
-
     public void AddCard(int num, Season season)
     {
-        Debug.Log("Add card to hand");
-
         //音效：发牌到手牌
         SoundsMgr._Instance.PlaySoundEffect("Sound_GetTheCards");
         //Create Card object
@@ -316,6 +298,9 @@ public class CardManager : MonoBehaviour {
                         if(quitCount < quitCount_max){
                             quitCount++;
                             goto case 1;
+                        }else{
+                            Debug.LogError("没牌了！");
+                            break;
                         }
                     }
 
@@ -328,6 +313,9 @@ public class CardManager : MonoBehaviour {
                         if(quitCount < quitCount_max){
                             quitCount++;
                             goto case 2;
+                        }else{
+                            Debug.LogError("没牌了！");
+                            break;
                         }
                     }
 
@@ -340,6 +328,9 @@ public class CardManager : MonoBehaviour {
                         if(quitCount < quitCount_max){
                             quitCount++;
                             goto case 4;
+                        }else{
+                            Debug.LogError("没牌了！");
+                            break;
                         }
                     }
 
@@ -355,11 +346,11 @@ public class CardManager : MonoBehaviour {
                         if(quitCount < quitCount_max){
                             quitCount++;
                             goto case 0;
+                        }else{
+                            Debug.LogError("没牌了！");
+                            break;
                         }
                     }
-
-                    Debug.Log(randomIndex);
-                    Debug.Log(cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect).Count);
 
                     cardBaseSO = cardPool.GetCurrentCardBaseSOList(season, CardBaseType.Effect)[randomIndex];
                     break;
@@ -368,9 +359,11 @@ public class CardManager : MonoBehaviour {
                     break;
             }
             
-
-            //Debug.Log(randomIndex);
             GameObject card = CardFactory.CreateCardInstance(cardBaseSO);
+
+            cardPool.cardSOList.Remove(cardBaseSO);
+            cardPool.InitializeCardList();
+
             hand.Add(card.GetComponent<CardBase>());
 
             card.transform.SetParent(cardsCenterPoint.transform, false);
@@ -397,6 +390,10 @@ public class CardManager : MonoBehaviour {
             int randomIndex = UnityEngine.Random.Range(0, cardPool.GetCurrentCardBaseSOList(season, cardBaseType).Count);
 
             GameObject card = CardFactory.CreateCardInstance(cardPool.GetCurrentCardBaseSOList(season, cardBaseType)[randomIndex]);
+
+            CardBaseSO cardBaseSO_destroy = cardPool.GetCurrentCardBaseSOList(season, cardBaseType)[randomIndex];
+            cardPool.cardSOList.Remove(cardBaseSO_destroy);
+
             hand.Add(card.GetComponent<CardBase>());
 
             card.transform.SetParent(cardsCenterPoint.transform, false);
