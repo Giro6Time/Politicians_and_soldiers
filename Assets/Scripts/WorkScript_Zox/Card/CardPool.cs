@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class CardPool : MonoBehaviour
 {
+    public static CardPool instance;
+
     //设计者添加卡牌
     public List<CardBaseSO> cardSOList;
 
@@ -49,6 +51,12 @@ public class CardPool : MonoBehaviour
 
     private void Awake()
     {
+        //单例
+        if(instance == null)
+        {
+            instance = this;
+        }
+
         //初始化cardSOList_count
         for(int i = 0; i < 4; i++)
         {

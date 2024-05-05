@@ -36,6 +36,7 @@ public class PlayerControl : MonoBehaviour
     private float moveDuration = 0.5f;
     private float moveTimeCounter = 0f;
 
+    private bool cardShowing;
 
     private void Awake()
     {
@@ -117,14 +118,21 @@ public class PlayerControl : MonoBehaviour
                 }
                 break;
             case State.InfoCard:
+
+                ShowCard();
+                cardShowing = true;
+
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //turn page of the card
+                    //Detailed
 
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
                     //stop info
+                    cardShowing = false;
+                    HideCard();
+
                     currentState = State.SelectingCard;
                 }
                 break;
@@ -211,5 +219,19 @@ public class PlayerControl : MonoBehaviour
         DestroyImmediate(selectedCard.gameObject);
         CardManager.Instance.cardsCenterPoint.RearrangeCard();
         currentState = State.SelectingCard;
+    }
+
+    public void ShowCard()
+    {
+        if (!cardShowing)
+        {
+            CardDetails.instance.Show(selectedCard.gameObject);
+            cardShowing = true;
+        }
+    }
+
+    public void HideCard()
+    {
+        CardDetails.instance.Hide();
     }
 }
