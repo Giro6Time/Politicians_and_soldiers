@@ -226,7 +226,7 @@ MonoBehaviour:
   enemySeaEffect: 10
   playerSkyEffect: 10
   enemySkyEffect: 10
-  ElseEffect: 0
+  ElseEffect: 1
   Fix: 0
   curve:
     serializedVersion: 2

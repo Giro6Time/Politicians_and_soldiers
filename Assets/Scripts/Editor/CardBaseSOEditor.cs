@@ -324,7 +324,7 @@ public class EffectConfigurationWindow : EditorWindow
     private int intValue = 0;
     private GameObject prefabValue = null;
 
-
+    private int lastResult = -1;
 
     private void OnGUI()
     {
@@ -343,7 +343,7 @@ public class EffectConfigurationWindow : EditorWindow
         switch (selectedEffectType.ToString())
         {
             case "IResultReflectEffect":
-                if(args == null)
+                if(lastResult != result)
                 args = new object[3] { (CardPos.LandPutArea), 1f, 1f };
                 EditorGUILayout.LabelField("影响位置");
                 args[0] = EditorGUILayout.EnumPopup((CardPos)args[0]);
@@ -353,7 +353,7 @@ public class EffectConfigurationWindow : EditorWindow
                 args[2] = EditorGUILayout.FloatField((float)args[2]);
                 break;
             case "IAddCardEffect":
-                if(args == null)
+                if(lastResult != result)
                 args = new object[2] { 1, CardBaseType.Army };
                 EditorGUILayout.LabelField("添加数量");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
@@ -370,7 +370,7 @@ public class EffectConfigurationWindow : EditorWindow
                 break;
 
             case "IChangePossibility":
-                if(args == null)
+                if(lastResult != result)
                 args = new object[2] { 0, 5 };
                 EditorGUILayout.LabelField("��ѡ��������");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
@@ -379,7 +379,7 @@ public class EffectConfigurationWindow : EditorWindow
                 break;
 
             case "IAttackInstantly":
-                if(args == null)
+                if(lastResult != result)
                 args = new object[2] { 0,0 };
                 EditorGUILayout.LabelField("����˺���ֵ");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
@@ -387,7 +387,7 @@ public class EffectConfigurationWindow : EditorWindow
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
             case "DelayDesisionValueEffect":
-                if(args == null)
+                if(lastResult != result)
                 args = new object[2] { 0, 1 };
                 EditorGUILayout.LabelField("延迟回合数");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
@@ -395,7 +395,7 @@ public class EffectConfigurationWindow : EditorWindow
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
             case "IDelayLock":
-                if(args == null)
+                if(lastResult != result)
                 args = new object[3] {0,false,CardPos.LandPutArea };
                 EditorGUILayout.LabelField("延迟回合数");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
@@ -407,6 +407,7 @@ public class EffectConfigurationWindow : EditorWindow
             default:
                 Debug.Log(selectedEffectType); break;
         }
+        lastResult = result;
 
         // ȷ�ϰ�ť
         if (GUILayout.Button("Create"))

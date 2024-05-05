@@ -485,6 +485,16 @@ public class CardManager : MonoBehaviour {
             }
         }
     }
+    
+    public void RearrangeAll()
+    {
+        cardAnchor_Land_Enemy.RearrangeCard();
+        cardAnchor_Land_Player.RearrangeCard();
+        cardAnchor_Sea_Enemy.RearrangeCard();
+        cardAnchor_Sea_Player.RearrangeCard();
+        cardAnchor_Sky_Enemy.RearrangeCard();
+        cardAnchor_Sky_Player.RearrangeCard();
+    }
 }
 
 public static class CardFactory
@@ -511,6 +521,7 @@ public static class CardFactory
                 armyC.troopStrength = cardSO.troopStrength;
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;
+                armyC.cost = cardSO.cost;
                 var layoutGO = GameObject.Instantiate(cardSO.cardLayourPrefab);
                 armyC.armyLayoutPrefab = cardSO.armyLayoutPrefab;
                 layoutGO.transform.SetParent(instance.transform);
@@ -539,6 +550,11 @@ public static class CardFactory
                 effectC.SetCardPos(CardPos.SelectionArea);
                 effectC.isEnemy = false;
                 effectC.matchedPos = cardSO.matchedPos;
+                effectC.cost = cardSO.cost;
+
+                effectC.name = cardSO.name;
+                effectC.discription = cardSO.description;
+
                 GameObject.Instantiate(cardSO.cardLayourPrefab).transform.SetParent(instance.transform);
 
                 effectC.drawEffect = cardSO.drawEffect;
@@ -548,6 +564,12 @@ public static class CardFactory
                 effectC.deathEffect = cardSO.deathEffect;
                 effectC.beforeAttackEffect = cardSO.beforeAttackEffect;
                 effectC.afterAttactEffect = cardSO.afterAttactEffect;
+
+                instance.transform.Find("Name").GetComponent<TextMesh>().text = cardSO.cardName;
+                instance.transform.Find("Description").GetComponent<TextMesh>().text = cardSO.description;
+                instance.transform.Find("TroopStrength").GetComponent<TextMesh>().text = "";
+                instance.transform.Find("DecisionPoint").GetComponent<TextMesh>().text = cardSO.cost.ToString();
+
                 return instance;
         }
     }

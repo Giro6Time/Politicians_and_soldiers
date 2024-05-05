@@ -19,7 +19,7 @@ public class BattleProgress : MonoBehaviour
     {
         ProgressAni();
         progressBar += value;
-        //Debug.Log(value);
+        Debug.Log(progressBar);
     }
 
     public void ProgressAni()
