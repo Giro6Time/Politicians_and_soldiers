@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Land_SSR_ZD
   m_EditorClassIdentifier: 
   isUsed: 0
-  cardName: "\u6B89\u9053\u8005"
-  description: "\u3010\u727A\u7272\u65F6\u3011\n\u4E0B\u56DE\u5408\u51B3\u7B56\u70B9
+  cardName: "\u8D1E\u5FB7"
+  description: "\u3010\u8FDB\u653B/\u727A\u7272\u65F6\u3011\n\u4E0B\u56DE\u5408\u51B3\u7B56\u70B9
     +2 \u3001\u6211\u65B9\u6218\u7EBF\u63A8\u8FDB\u529B+1"
   troopStrength: 2
   cost: 1
