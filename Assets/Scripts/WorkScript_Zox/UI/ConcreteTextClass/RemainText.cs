@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class RemainText : TextUI
 {
-    [SerializeField] CardPool cardPool;
-    private void Awake() {
-        cardPool = GetComponent<CardPool>();
-    }
     public override void ChangeText()
     {
-        if(value != cardPool.cardSOList.Count)
+        if(value != CardPool.instance.cardSOList.Count)
         {
-            value = cardPool.cardSOList.Count;
+            value = CardPool.instance.cardSOList.Count;
             m_text.text = value.ToString();
         }
     }
