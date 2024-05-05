@@ -125,10 +125,6 @@ public class DialogPanel : MonoBehaviour
 
 	#region
 
-	private void Awake()
-	{
-	}
-
 	private void Start()
 	{
 		panelRect.anchoredPosition = new Vector2(Screen.width, panelRect.anchoredPosition.y);
