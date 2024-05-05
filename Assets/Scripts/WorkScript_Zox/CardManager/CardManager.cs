@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 public class CardManager : MonoBehaviour {
 
+    public int[] card_add = new int[12];
+
     //单例
     public static CardManager Instance;
 
@@ -184,7 +186,7 @@ public class CardManager : MonoBehaviour {
     
     public void UpdatePlayerHand(int month, Season season)
     {
-        AddCard((month-1)/4 + 1, season);
+        AddCard(card_add[month-1], season);
     }
 
     /// <summary>
