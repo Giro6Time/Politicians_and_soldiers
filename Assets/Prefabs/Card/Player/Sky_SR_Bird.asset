@@ -14,17 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUsed: 0
   cardName: "\u4FE1\u4F7F"
-  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u51B3\u7B56\u70B9\u6570\u91CF +1"
+  description: "\u3010\u7279\u6B8A/\u6253\u51FA\u65F6\u3011\n\u4E0B\u56DE\u5408\u51B3\u7B56\u70B9\u6570\u91CF
+    +2"
   troopStrength: 1
-  cost: 0
+  cost: 1
   matchedSeason: 00000000010000000200000003000000
   matchedPos: 3
-  cardBaseType: 1
+  cardBaseType: 0
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 93ac1839073b1304693a57f2bf0e310f, type: 3}
-  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 89309be822b7a6a4db2ca218c6d7fbbf, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 0279b991b7da11744a45661190756154, type: 3}
   drawEffect: []
   invokeEffect:
-  - rid: 3626890889046523914
+  - rid: 3626890959641640960
   battleStartEffect: []
   liveEffect: []
   deathEffect: []
@@ -33,7 +34,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3626890889046523914
-      type: {class: IAddDecision, ns: , asm: Assembly-CSharp}
+    - rid: 3626890959641640960
+      type: {class: DelayDesisionValueEffect, ns: , asm: Assembly-CSharp}
       data:
-        num: 100
+        delayTurn: 1
+        value: 2
