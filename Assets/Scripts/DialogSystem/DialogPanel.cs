@@ -37,6 +37,14 @@ public class DialogPanel : MonoBehaviour
 	private bool closing = false;
 	private float startTime;
 
+	private Vector3 talker1Anchor;
+	private Vector3 talker2Anchor;
+
+	void Awake()
+	{
+		talker1Anchor = m_talker1.transform.position;
+		talker2Anchor = m_talker2.transform.position;
+	}
 
 	public void Open()
 	{
@@ -62,14 +70,16 @@ public class DialogPanel : MonoBehaviour
 		{
 			m_talker1.color = new Color(1, 1, 1, 1);
 			m_talker1.sprite = dialogUnit.m_SR1;
+			m_talker1.transform.position = talker1Anchor + dialogUnit.m_SR1_Offset;
 			m_talker1.SetNativeSize();
 		}
 		if (dialogUnit.m_SR2)
 		{
 			m_talker2.color = new Color(1, 1, 1, 1);
 			m_talker2.sprite = dialogUnit.m_SR2;
+			m_talker2.transform.position = talker2Anchor + dialogUnit.m_SR2_Offset;
 			m_talker2.SetNativeSize();
-		}
+        }
 		for (int i = 0; i < dialogUnit.m_options.Count; i++)
 		{
 			int optionIndex = i;

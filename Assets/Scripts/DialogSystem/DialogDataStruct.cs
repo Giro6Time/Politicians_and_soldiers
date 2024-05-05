@@ -8,7 +8,9 @@ public class DialogUnit
 	public string m_content;
 	public List<DialogOption> m_options = new();
 	public Sprite m_SR1;
+	public Vector3 m_SR1_Offset;
 	public Sprite m_SR2;
+    public Vector3 m_SR2_Offset;
 
 
 }
