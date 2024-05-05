@@ -30,9 +30,9 @@ public class Player
     {
         get { return DecisionValue; }
         set {
-            if(DecisionValue + value > decisionValueMax)
+            if(value > decisionValueMax)
             {
-                decisionValue = decisionValueMax;
+                DecisionValue = decisionValueMax;
                 return;
             }
             DecisionValue = value; 
