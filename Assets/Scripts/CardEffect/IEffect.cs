@@ -49,12 +49,36 @@ public class IResultReflectEffect : IEffect
                 throw new System.Exception("IResultReflectEffect: unknown effect type");
             case CardPos.LandPutArea:
                 GameManager.Instance.battleField.armyManager.playerLandEffect+=value;
+                if(isPlayerTrigger)
+                {
+                    MessageView._Instance.ShowMessage("陆军战线推进值增加了" + value + "点");
+                }
+                else
+                {
+                    MessageView._Instance.ShowMessage("敌方的陆军战线推进值增加了" + value + "点");
+                }
                 break;
             case CardPos.SeaPutArea:
                 GameManager.Instance.battleField.armyManager.playerSeaEffect += value ;
+                if (isPlayerTrigger)
+                {
+                    MessageView._Instance.ShowMessage("海军战线投射值增加了" + value + "点");
+                }
+                else
+                {
+                    MessageView._Instance.ShowMessage("敌方的海军战线投射值增加了" + value + "点");
+                }
                 break;
             case CardPos.SkyPutArea:
                 GameManager.Instance.battleField.armyManager.playerSkyEffect+= value;
+                if (isPlayerTrigger)
+                {
+                    MessageView._Instance.ShowMessage("空军战线投射值增加了" + value + "点");
+                }
+                else
+                {
+                    MessageView._Instance.ShowMessage("敌方的空军战线推进值增加了" + value + "点");
+                }
                 break;
         }
 
@@ -92,8 +116,8 @@ public class IDelayTriggerEffect : IEffect
     /// �ӳٵĻغ�����Ĭ��Ϊ1
     /// </summary>
     public int delayTurn;
-    bool isPlayerTrigger = true;
-    object[] args;
+    protected bool isPlayerTrigger = true;
+    protected object[] args;
 
     public override void Trigger(bool isPlayerTrigger, object[] args)
     {
@@ -147,6 +171,7 @@ public class IAddDecision : IEffect
             return;
         }
         Player.Instance.decisionValue += num;
+        MessageView._Instance.ShowMessage("决策点增加了" + num + "点");
 
     }
 }
@@ -225,14 +250,48 @@ public class IAttackInstantly : IEffect
 [Serializable]
 public class IDelayLock : IDelayTriggerEffect
 {
-    public IDelayLock(int delayTurn)
+    public CardPos pos;
+    public bool lockPlayersArea;
+    public IDelayLock(int delayTurn,bool lockPlayersArea, CardPos pos)
     {
         this.delayTurn = delayTurn;
+        this.lockPlayersArea = lockPlayersArea;
+        this.pos = pos;
     }
     public override void DelayTrigger()
     {
         base.DelayTrigger();
         if(!GameManager.Instance) return;
+
+        if (lockPlayersArea)
+        {
+            if (CardPos.SeaPutArea == pos)
+            {
+                GameManager.Instance.cardMgr.playerPlayingArea.seaLocked = true;
+                if (args[0] as Army)
+                {
+                    var army = (args[0] as Army);
+                    MessageView._Instance.ShowMessage("受" + army.m_name + "影响，本回合陆地区域无法部署军队");
+                }
+            }
+            else if (CardPos.LandPutArea == pos)
+            {
+                GameManager.Instance.cardMgr.playerPlayingArea.landLocked = true;
+                if (args[0] as Army)
+                {
+                    var army = (args[0] as Army);
+                    MessageView._Instance.ShowMessage("受" + army.m_name + "影响，本回合天空区域无法部署军队");
+                }
+            }
+            else if (CardPos.SkyPutArea == pos)
+            {
+                GameManager.Instance.cardMgr.playerPlayingArea.skyLocked = true;
+                if (args[0] as Army)
+                {
+                    var army = (args[0] as Army);
+                    MessageView._Instance.ShowMessage("受" + army.m_name + "影响，本回合海洋区域无法部署军队");
+                }
+            }
+        }
     }
 }
-

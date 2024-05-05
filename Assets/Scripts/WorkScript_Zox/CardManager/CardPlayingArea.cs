@@ -95,6 +95,7 @@ public class CardPlayingArea : MonoBehaviour
                 {
                     ArmyCard card = land[i] as ArmyCard;
                     card.troopStrength -= damage;
+                    MessageView._Instance.ShowHurt(damage.ToString(), card.gameObject.transform.position);
                     if (card.troopStrength <= 0)
                     {
                         land[i] = null;
@@ -104,10 +105,11 @@ public class CardPlayingArea : MonoBehaviour
                 }
                 break;
             case CardPos.SeaPutArea:
-                for (int i = 0; i < land.Count; i++)
+                for (int i = 0; i < sea.Count; i++)
                 {
                     ArmyCard card = sea[i] as ArmyCard;
                     card.troopStrength -= damage;
+                    MessageView._Instance.ShowHurt(damage.ToString(), card.gameObject.transform.position);
                     if (card.troopStrength <= 0)
                     {
                         sea[i] = null;
@@ -116,10 +118,11 @@ public class CardPlayingArea : MonoBehaviour
                 }
                 break;
             case CardPos.SkyPutArea:
-                for (int i = 0; i < land.Count; i++)
+                for (int i = 0; i < sky.Count; i++)
                 {
                     ArmyCard card = sky[i] as ArmyCard;
                     card.troopStrength -= damage;
+                    MessageView._Instance.ShowHurt(damage.ToString(), card.gameObject.transform.position);
                     if (card.troopStrength <= 0)
                     {
                         sky[i] = null;

@@ -4014,12 +4014,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSOList:
-  - {fileID: 11400000, guid: 8380c3dcc5972d8469cff4e01b07e90d, type: 2}
   - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
   - {fileID: 11400000, guid: eee50aeb06ccd9147b4e8f7ba8582845, type: 2}
   - {fileID: 11400000, guid: b279abdae18eb324498732beafe644ef, type: 2}
   - {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
-  - {fileID: 11400000, guid: b14f2c7234491604c813ccb3e44185d5, type: 2}
   - {fileID: 11400000, guid: 4d3b14405a38ab143831ed69fbb4b3a2, type: 2}
   - {fileID: 11400000, guid: c2f8fef670f50de44ac65aaece32ed01, type: 2}
 --- !u!1 &5639615206474506671

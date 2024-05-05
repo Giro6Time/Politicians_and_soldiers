@@ -394,7 +394,16 @@ public class EffectConfigurationWindow : EditorWindow
                 EditorGUILayout.LabelField("增长决策点");
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
-
+            case "IDelayLock":
+                if(args == null)
+                args = new object[3] {0,false,CardPos.LandPutArea };
+                EditorGUILayout.LabelField("延迟回合数");
+                args[0] = EditorGUILayout.IntField((int)args[0]);
+                EditorGUILayout.LabelField("锁的是玩家的战区？");
+                args[1] = EditorGUILayout.Toggle((bool)args[1]);
+                EditorGUILayout.LabelField("海陆空");
+                args[1] = EditorGUILayout.EnumPopup((CardPos)args[2]);
+                break;
             default:
                 Debug.Log(selectedEffectType); break;
         }

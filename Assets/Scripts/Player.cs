@@ -24,7 +24,20 @@ public class Player
     /// <summary>
     /// 决策点
     /// </summary>
-    public int decisionValue;
+    int DecisionValue;
+
+    public int decisionValue
+    {
+        get { return DecisionValue; }
+        set {
+            if(DecisionValue + value > decisionValueMax)
+            {
+                decisionValue = decisionValueMax;
+                return;
+            }
+            DecisionValue = value; 
+        }
+    }
     /// <summary>
     /// sanֵ
     /// </summary>

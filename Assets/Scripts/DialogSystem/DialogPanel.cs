@@ -74,7 +74,11 @@ public class DialogPanel : MonoBehaviour
 		{
 			int optionIndex = i;
 			m_buttons[i].gameObject.SetActive(true);
-			m_buttons[i].onClick.AddListener(() => OnOptionSelected(m_dialogUnit.m_options[optionIndex].m_effect[0]));
+			m_buttons[i].onClick.RemoveAllListeners();
+			foreach(DialogEffect dialogEffect in dialogUnit.m_options[optionIndex].m_effect)
+			{
+				m_buttons[i].onClick.AddListener(() => OnOptionSelected(dialogEffect));
+			}
 			m_buttons[i].transform.Find("Content").GetComponent<TMP_Text>().text = m_dialogUnit.m_options[optionIndex].m_description;
 		}
 	}
