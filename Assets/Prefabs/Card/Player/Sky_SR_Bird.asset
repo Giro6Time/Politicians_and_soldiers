@@ -19,7 +19,7 @@ MonoBehaviour:
   cost: 0
   matchedSeason: 00000000010000000200000003000000
   matchedPos: 3
-  cardBaseType: 0
+  cardBaseType: 1
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 93ac1839073b1304693a57f2bf0e310f, type: 3}
   armyLayoutPrefab: {fileID: 1940235687683110017, guid: 89309be822b7a6a4db2ca218c6d7fbbf, type: 3}
   drawEffect: []
@@ -36,4 +36,4 @@ MonoBehaviour:
     - rid: 3626890889046523914
       type: {class: IAddDecision, ns: , asm: Assembly-CSharp}
       data:
-        num: 1
+        num: 100

@@ -23,7 +23,8 @@ MonoBehaviour:
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 4f33e507f50b7be4a9b0dccd766c3bc8, type: 3}
   armyLayoutPrefab: {fileID: 1940235687683110017, guid: 929ae049f75af954bbb24ff0db781eb2, type: 3}
   drawEffect: []
-  invokeEffect: []
+  invokeEffect:
+  - rid: 8045850180494295040
   battleStartEffect: []
   liveEffect: []
   deathEffect: []
@@ -31,4 +32,9 @@ MonoBehaviour:
   afterAttactEffect: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 8045850180494295040
+      type: {class: IAddCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        num: 2
+        cardBaseType: 0
