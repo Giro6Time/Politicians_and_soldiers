@@ -239,12 +239,22 @@ public class ArmyManager : MonoBehaviour
             var ea = enemyArmy[0];
             float damage = Mathf.Min(a.TroopStrength, ea.TroopStrength);
 
-            a.onDamaged += () => a.TroopStrength = a.TroopStrength - damage;
-            a.onDamaged += () => a.afterAttactEffect.TriggerAllEffects(true, new object[] { a, ea });
+            a.onDamaged += () =>
+            {
+                a.TroopStrength = (int)(a.TroopStrength - damage);
+                a.whereIFrom.transform.Find("TroopStrength").GetComponent<TextMesh>().text = ((int)(a.whereIFrom.troopStrength - damage)).ToString();
+                a.whereIFrom.troopStrength = a.whereIFrom.troopStrength - damage;
+                a.afterAttactEffect.TriggerAllEffects(true, new object[] { a, ea });
+            };
             a.beforeAttackEffect.TriggerAllEffects(true, new object[] { a, ea });//触发战斗前效果
 
-            ea.onDamaged += () => ea.TroopStrength = ea.TroopStrength - damage;
-            ea.onDamaged += () => ea.afterAttactEffect.TriggerAllEffects(false, new object[] { ea, a }); 
+            ea.onDamaged += () =>
+            {
+                ea.TroopStrength = (int)(ea.TroopStrength - damage);
+                ea.onDamaged += () => ea.whereIFrom.transform.Find("TroopStrength").GetComponent<TextMesh>().text = ((int)(a.whereIFrom.troopStrength - damage)).ToString();
+                ea.onDamaged += () => ea.whereIFrom.troopStrength = ea.whereIFrom.troopStrength - damage;
+                ea.onDamaged += () => ea.afterAttactEffect.TriggerAllEffects(false, new object[] { ea, a });
+            };
             ea.beforeAttackEffect.TriggerAllEffects(false, new object[] { ea, a });//触发战斗前效果
             a.PlayFight();
             ea.PlayFight();

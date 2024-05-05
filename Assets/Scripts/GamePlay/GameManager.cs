@@ -167,13 +167,13 @@ public class GameManager : MonoBehaviour
             item.isUsed = true;
             item.gameObject.SetActive(false);
         }
-
-        battleField.armyManager.playerArmyOnLand.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.playerPlayingArea.land));
-        battleField.armyManager.playerArmyOnSea.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.playerPlayingArea.sea));
-        battleField.armyManager.playerArmyOnSky.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.playerPlayingArea.sky));
-        battleField.armyManager.enemyArmyOnLand.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.land));
-        battleField.armyManager.enemyArmyOnSea.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.sea));
-        battleField.armyManager.enemyArmyOnSky.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.sky));
+        int cardLayer = 0;
+        battleField.armyManager.playerArmyOnLand.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.playerPlayingArea.land, ref cardLayer));
+        battleField.armyManager.playerArmyOnSea.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.playerPlayingArea.sea, ref cardLayer));
+        battleField.armyManager.playerArmyOnSky.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.playerPlayingArea.sky, ref cardLayer));
+        battleField.armyManager.enemyArmyOnLand.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.land, ref cardLayer));
+        battleField.armyManager.enemyArmyOnSea.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.sea, ref cardLayer));
+        battleField.armyManager.enemyArmyOnSky.AddRange(ArmyFactory.CreateArmyListByCardList(cardMgr.enemyPlayingArea.sky, ref cardLayer));
 
         battleField.armyManager.ResetArmy();
     }
