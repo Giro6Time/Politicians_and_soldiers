@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
-  m_Name: Sky_SSR_Cernunnos 1
+  m_Name: Effect_Crow
   m_EditorClassIdentifier: 
   isUsed: 0
-  cardName: "\u6709\u89D2\u795E\u7957"
-  description: "\u3010\u7279\u6B8A/\u5F00\u6218\u65F6\u3011\n\u672C\u56DE\u5408\u6218\u7EBF\u4E0D\u52A8"
-  troopStrength: 3
-  cost: 4
+  cardName: "\u53EC\u5524\u672F\u9635"
+  description: "\u3010\u6CD5\u672F/\u6253\u51FA\u65F6\u3011\n\u5411\u624B\u724C\u6DFB\u52A0\u4E00\u5F20\u653B\u51FB/\u9632\u5FA1\u7C7B\u5361\u724C"
+  troopStrength: 0
+  cost: 1
   matchedSeason: 00000000010000000200000003000000
-  matchedPos: 3
-  cardBaseType: 0
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: a4521a74d14b30d4db2f03c3c7c7fe0f, type: 3}
-  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 8c5a01e32056a6b42b2410059ba27f7f, type: 3}
+  matchedPos: 0
+  cardBaseType: 1
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 4f33e507f50b7be4a9b0dccd766c3bc8, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 4f33e507f50b7be4a9b0dccd766c3bc8, type: 3}
   drawEffect: []
   invokeEffect:
-  - rid: 3626890959641640962
+  - rid: 8045850180494295040
   battleStartEffect: []
   liveEffect: []
   deathEffect: []
@@ -33,9 +33,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3626890959641640962
-      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
+    - rid: 8045850180494295040
+      type: {class: IAddCardEffect, ns: , asm: Assembly-CSharp}
       data:
-        pos: 1
-        value: 0
-        rate: 0
+        num: 1
+        cardBaseType: 0

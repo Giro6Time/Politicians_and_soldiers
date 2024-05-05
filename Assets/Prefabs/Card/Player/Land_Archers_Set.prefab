@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7915356815454190325}
   m_Layer: 0
-  m_Name: Land_R_Guard_Set
+  m_Name: Land_Archers_Set
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,8 +59,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3652120907106072083}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 0.61, z: 0}
-  m_LocalScale: {x: 0.14, y: 0.14, z: 0.14}
+  m_LocalPosition: {x: 0.1853, y: 0.1, z: 0}
+  m_LocalScale: {x: 0.207886, y: 0.207886, z: 0.207886}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7915356815454190325}
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 170569585
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: d93079bb8afe3b447aedd8743999e6a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4e4ab205103c67b4b8c57d16cd5b01bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,8 +144,8 @@ Transform:
   m_GameObject: {fileID: 7337137473304971439}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.05, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7915356815454190325}
   m_RootOrder: 0
@@ -191,12 +191,12 @@ SpriteRenderer:
   m_SortingLayerID: 170569585
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 811673281bd361c4fb6886b899c804f4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db253409a48372a4c88bdc5ef192fde2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.46, y: 8}
+  m_Size: {x: 25.2, y: 30.00558}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -212,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5740351825567248197}
   - component: {fileID: 73950105005177182}
-  - component: {fileID: 3661646942828366303}
+  - component: {fileID: 5072693078811648534}
   m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
@@ -287,7 +287,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!331 &3661646942828366303
+--- !u!331 &5072693078811648534
 SpriteMask:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

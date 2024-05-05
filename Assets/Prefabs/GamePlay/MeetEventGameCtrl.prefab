@@ -3914,7 +3914,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7609299513642212305
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4545,7 +4545,7 @@ MonoBehaviour:
   prizeWheelPanel: {fileID: 7609299513734084674}
   prizeWheelRotateTime: 0.4
   prizeWheelRotateTurns: 2
-  prizeNums: 6
+  prizeNums: 3
   prizeParent: {fileID: 1532786291831206357}
   rotateParent: {fileID: 7742914671388403474}
   btn_ChooseYes: {fileID: 7609299513786803237}
