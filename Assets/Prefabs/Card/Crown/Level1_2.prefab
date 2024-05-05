@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e612fda3129f08a46b432909d7fcf181, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0942b5565b195c744a410967fc613699, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -91,18 +91,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventName: "\u4E00\u67C4\u5B9D\u5251"
   eventInfoActive:
-    decisionValue: 0
     sanity: 0
-    armament: -10
-    fund: 15
+    armament: 0
+    fund: -20
     popularSupport: 0
     troopIncrease: 0
     decisionValueMax: 0
   eventInfoInactive:
-    decisionValue: 0
     sanity: 0
-    armament: 10
-    fund: -15
+    armament: 0
+    fund: 20
     popularSupport: 0
     troopIncrease: 0
     decisionValueMax: 0
