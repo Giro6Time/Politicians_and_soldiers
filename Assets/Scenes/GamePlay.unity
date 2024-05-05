@@ -314,6 +314,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3988722153181972637, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: DUGroup.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3988722153181972637, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: DUGroup.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4afcadc983e3ce94f84bcfbf67c68ff7, type: 2}
     - target: {fileID: 4189399353609773981, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_Camera
       value: 

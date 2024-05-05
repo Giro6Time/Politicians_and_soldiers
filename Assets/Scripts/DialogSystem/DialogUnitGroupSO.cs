@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-[CreateAssetMenu(fileName = "DialogUnit", menuName = "DialogData/UnitGroup")]
+[CreateAssetMenu(fileName = "DialogUnitGroup", menuName = "DialogData/UnitGroup")]
 public class DialogUnitGroupSO : ScriptableObject
 {
     public DialogUnitSO[] dialogUnitSOs = new DialogUnitSO[0];
