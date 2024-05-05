@@ -19,7 +19,8 @@ MonoBehaviour:
   matchedSeason: 0
   matchedPos: 1
   cardBaseType: 0
-  cardLayourPrefab: {fileID: 0}
+  cardLayourPrefab: {fileID: 3511590526491327928, guid: 52f4bbfd7f69cf647987cf84d82192cd, type: 3}
+  armyLayoutPrefab: {fileID: 3511590526491327928, guid: e5e9f35bdd1ca1641a913f6dff899dfc, type: 3}
   drawEffect:
   - rid: 8240365256015872002
   invokeEffect: []

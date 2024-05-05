@@ -530,6 +530,8 @@ public static class CardFactory
 
                 instance.transform.Find("Name").GetComponent<TextMesh>().text = cardSO.cardName;
                 instance.transform.Find("Description").GetComponent<TextMesh>().text = cardSO.description;
+                instance.transform.Find("TroopStrength").GetComponent<TextMesh>().text = cardSO.troopStrength.ToString();
+                instance.transform.Find("DecisionPoint").GetComponent<TextMesh>().text = cardSO.cost.ToString();
                 return instance;
             case CardBaseType.Effect:
                 var effectC = instance.AddComponent<CardEffect>();
