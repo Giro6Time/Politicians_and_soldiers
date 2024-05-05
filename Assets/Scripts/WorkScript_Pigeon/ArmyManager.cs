@@ -43,7 +43,7 @@ public class ArmyManager : MonoBehaviour
     public float enemySeaEffect = 10f;
     public float playerSkyEffect = 10f;
     public float enemySkyEffect = 10f;
-    public float ElseEffect = 0;
+    public float ElseEffect = 1;
     public int Fix = 0; //修补值：作用？
 
     [Header("动画相关")]
@@ -394,7 +394,7 @@ public class ArmyManager : MonoBehaviour
 
         float calc = 0;
         //统计陆军
-        if (playerArmyOnLand != null && enemyArmyOnLand == null)
+        if (playerArmyOnLand.Count > 0 && enemyArmyOnLand.Count == 0)
         {
             foreach (Army army in playerArmyOnLand)
             {
@@ -402,7 +402,7 @@ public class ArmyManager : MonoBehaviour
             }
             BattleEndTroopRemain[0] = calc;
         }
-        else if (playerArmyOnLand == null && enemyArmyOnLand != null)
+        else if (playerArmyOnLand.Count == 0 && enemyArmyOnLand.Count > 0)
         {
             foreach (Army army in enemyArmyOnLand)
             {
@@ -416,7 +416,7 @@ public class ArmyManager : MonoBehaviour
         }
         calc = 0;
         //统计海军
-        if (playerArmyOnSea != null && enemyArmyOnSea == null)
+        if (playerArmyOnSea.Count > 0 && enemyArmyOnSea.Count == 0)
         {
             foreach (Army army in playerArmyOnSea)
             {
@@ -424,7 +424,7 @@ public class ArmyManager : MonoBehaviour
             }
             BattleEndTroopRemain[1] = calc;
         }
-        else if (playerArmyOnSea == null && enemyArmyOnSea != null)
+        else if (playerArmyOnSea.Count == 0 && enemyArmyOnSea.Count > 0)
         {
             foreach (Army army in enemyArmyOnSea)
             {
@@ -438,7 +438,7 @@ public class ArmyManager : MonoBehaviour
         }
         calc = 0;
         //统计空军
-        if (playerArmyOnSky != null && enemyArmyOnSky == null)
+        if (playerArmyOnSky.Count > 0 && enemyArmyOnSky.Count == 0)
         {
             foreach (Army army in playerArmyOnSky)
             {
@@ -446,7 +446,7 @@ public class ArmyManager : MonoBehaviour
             }
             BattleEndTroopRemain[2] = calc;
         }
-        else if (playerArmyOnSky == null && enemyArmyOnSky != null)
+        else if (playerArmyOnSky.Count == 0 && enemyArmyOnSky.Count > 0)
         {
             foreach (Army army in enemyArmyOnSky)
             {
