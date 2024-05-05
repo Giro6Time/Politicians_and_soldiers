@@ -984,10 +984,6 @@ PrefabInstance:
       value: 0.14083616
       objectReference: {fileID: 0}
     - target: {fileID: 5639615206382428108, guid: b7f83a071644c4f39b73e45327bdda5f, type: 3}
-      propertyPath: cardSOList.Array.size
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 5639615206382428108, guid: b7f83a071644c4f39b73e45327bdda5f, type: 3}
       propertyPath: cardSOList.Array.data[22]
       value: 
       objectReference: {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}

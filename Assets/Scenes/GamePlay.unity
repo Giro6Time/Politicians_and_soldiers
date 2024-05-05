@@ -446,6 +446,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardSOList.Array.data[35]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7213156998599051005, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_Camera
       value: 
