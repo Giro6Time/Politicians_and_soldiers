@@ -13,18 +13,22 @@ public class DialogUnitSO : ScriptableObject
 	[SerializeField]
 	public Option[] m_options;
 	public Sprite m_SR1;
+	public Vector3 m_SR1_Offset;
 	public Sprite m_SR2;
+    public Vector3 m_SR2_Offset;
 
 
-	public DialogUnit GenerateDialogUnit()
+    public DialogUnit GenerateDialogUnit()
 	{
 		DialogUnit dialogUnit = new DialogUnit();
 		dialogUnit.m_name = m_name;
 		dialogUnit.m_content = m_content;
 		dialogUnit.m_SR1 = m_SR1;
+		dialogUnit.m_SR1_Offset = m_SR1_Offset;
 		dialogUnit.m_SR2 = m_SR2;
+		dialogUnit.m_SR2_Offset = m_SR2_Offset;
 		foreach (var option in m_options)
-		{
+        {
 			//创建DialogOption对象，并添加到DialogOptionList中
 			DialogOption dialogOption = new DialogOption();
 			dialogOption.m_description = option.m_description;
