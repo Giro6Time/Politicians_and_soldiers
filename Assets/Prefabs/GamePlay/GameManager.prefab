@@ -1482,10 +1482,6 @@ PrefabInstance:
       propertyPath: panel
       value: 
       objectReference: {fileID: 7376760520025487200}
-    - target: {fileID: 8058119141231339388, guid: 8f82108a7b702e84eabf50977d3ce963, type: 3}
-      propertyPath: DUGroup.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4afcadc983e3ce94f84bcfbf67c68ff7, type: 2}
     - target: {fileID: 8058119141231339389, guid: 8f82108a7b702e84eabf50977d3ce963, type: 3}
       propertyPath: m_RootOrder
       value: 3

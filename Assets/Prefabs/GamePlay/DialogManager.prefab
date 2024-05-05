@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 0}
-  dialogUnitResourcePath: DialogSO
+  dialogUnitResourcePath: DialogUnits_ByGiro
   DUGroup:
   - {fileID: 11400000, guid: 4afcadc983e3ce94f84bcfbf67c68ff7, type: 2}

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8745674243752254480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -300,7 +300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4526537207963471110
 RectTransform:
   m_ObjectHideFlags: 0
@@ -501,8 +501,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   moveDuration: 1
-  m_name: {fileID: 0}
-  m_content: {fileID: 0}
+  m_name: {fileID: 20889045886003728}
+  m_content: {fileID: 3642151901574275500}
   m_buttons:
   - {fileID: 5941731002072742975}
   - {fileID: 8516666345664854501}
@@ -609,7 +609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1604045267192852888
 RectTransform:
   m_ObjectHideFlags: 0
@@ -806,7 +806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4531059910982020011
 RectTransform:
   m_ObjectHideFlags: 0
