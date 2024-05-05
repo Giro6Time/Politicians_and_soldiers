@@ -15,8 +15,8 @@ public class DialogPanel : MonoBehaviour
 	public float moveDuration = 5f;
 
 	[Header("关联组件")]
-	public TMP_Text m_name;
-	public TMP_Text m_content;
+	public Text m_name;
+	public Text m_content;
 	public Button[] m_buttons;
 	public Image m_textField;
 	public Image m_talker1;
@@ -89,7 +89,7 @@ public class DialogPanel : MonoBehaviour
 			{
 				m_buttons[i].onClick.AddListener(() => OnOptionSelected(dialogEffect));
 			}
-			m_buttons[i].transform.Find("Content").GetComponent<TMP_Text>().text = m_dialogUnit.m_options[optionIndex].m_description;
+			m_buttons[i].transform.Find("Content").GetComponent<Text>().text = m_dialogUnit.m_options[optionIndex].m_description;
 		}
 	}
 

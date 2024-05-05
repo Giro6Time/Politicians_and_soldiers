@@ -146,7 +146,7 @@ public class MeetEventGameCtrl : MonoBehaviour
             RectTransform rectTrans = eventMgr.currEventInfoList[0].obj.GetComponent<RectTransform>();
             //2.判定鼠标位置
             //从图像右边界开始
-            float targetX = -((eventMgr.currEventInfoList.Count / 2) * cardDistance - rectTrans.rect.width / 2) * meetEventCanvas.scaleFactor;
+            float targetX = -((eventMgr.currEventInfoList.Count / 2) * cardDistance - rectTrans.rect.width * rectTrans.localScale.x / 2) * meetEventCanvas.scaleFactor;
             int index = 0;
             //判定鼠标所在位置区间(curr,next)
             while (mousePos.x > targetX)

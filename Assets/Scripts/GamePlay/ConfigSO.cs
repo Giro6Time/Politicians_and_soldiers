@@ -8,6 +8,7 @@ public class ConfigSO : ScriptableObject
 {
     public float updateHandDelay = 4f;
     public float updateEnemyDelay = 3f;
+    public float battleEndDelay = 2f;
     
     public GameObject armyCardPrefab;
     public GameObject armyPrefab;
