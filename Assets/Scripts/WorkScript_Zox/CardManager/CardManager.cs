@@ -551,6 +551,10 @@ public static class CardFactory
                 effectC.isEnemy = false;
                 effectC.matchedPos = cardSO.matchedPos;
                 effectC.cost = cardSO.cost;
+
+                effectC.name = cardSO.name;
+                effectC.discription = cardSO.description;
+
                 GameObject.Instantiate(cardSO.cardLayourPrefab).transform.SetParent(instance.transform);
 
                 effectC.drawEffect = cardSO.drawEffect;
@@ -560,6 +564,12 @@ public static class CardFactory
                 effectC.deathEffect = cardSO.deathEffect;
                 effectC.beforeAttackEffect = cardSO.beforeAttackEffect;
                 effectC.afterAttactEffect = cardSO.afterAttactEffect;
+
+                instance.transform.Find("Name").GetComponent<TextMesh>().text = cardSO.cardName;
+                instance.transform.Find("Description").GetComponent<TextMesh>().text = cardSO.description;
+                instance.transform.Find("TroopStrength").GetComponent<TextMesh>().text = "";
+                instance.transform.Find("DecisionPoint").GetComponent<TextMesh>().text = cardSO.cost.ToString();
+
                 return instance;
         }
     }
