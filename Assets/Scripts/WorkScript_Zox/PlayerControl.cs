@@ -225,6 +225,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (!cardShowing)
         {
+            Debug.Log(CardDetails.instance);
             CardDetails.instance.Show(selectedCard.gameObject);
             cardShowing = true;
         }
