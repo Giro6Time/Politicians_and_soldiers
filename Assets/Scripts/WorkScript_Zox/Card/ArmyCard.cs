@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArmyCard : CardBase
 {
-    public int troopStrength;
+    public float troopStrength;
     public GameObject armyLayoutPrefab;
     public ArmyType type;
 

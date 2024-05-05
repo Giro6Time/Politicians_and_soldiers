@@ -7,7 +7,7 @@ public static class ArmyFactory
 {
     public static GameObject prefab;
 
-    public static List<Army> CreateArmyListByCardList(List<CardBase> cards)
+    public static List<Army> CreateArmyListByCardList(List<CardBase> cards, ref int cardLayer)
     {
         if (!prefab)
         {
@@ -15,7 +15,6 @@ public static class ArmyFactory
             return new();
         }
         List<Army> armyList = new();
-        int cardIndex = 1;
         foreach (CardBase card in cards)
         {
             ArmyCard c = card as ArmyCard;
@@ -45,17 +44,22 @@ public static class ArmyFactory
                 army.transform.localScale = scale;
                 army.animationObject.transform.GetChild(0).localScale = (10 / 3) * scale;
             }
-
             //防止图片乱穿
             army.animationObject.transform.GetChild(0).Find("Cardframe").GetComponent<SpriteRenderer>().sortingLayerName = "Army";
-            army.animationObject.transform.GetChild(0).Find("Cardframe").GetComponent<SpriteRenderer>().sortingOrder = 3 * cardIndex;
+            army.animationObject.transform.GetChild(0).Find("Cardframe").GetComponent<SpriteRenderer>().sortingOrder = 3 * cardLayer;
             army.animationObject.transform.GetChild(0).Find("Picture").GetComponent<SpriteRenderer>().sortingLayerName = "Army";
-            army.animationObject.transform.GetChild(0).Find("Picture").GetComponent<SpriteRenderer>().sortingOrder = 3 * cardIndex - 1;
+            army.animationObject.transform.GetChild(0).Find("Picture").GetComponent<SpriteRenderer>().sortingOrder = 3 * cardLayer - 1;
             army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteRenderer>().sortingLayerName = "Army";
-            army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteRenderer>().sortingOrder = 3 * cardIndex - 2;
+            army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteRenderer>().sortingOrder = 3 * cardLayer - 2;
             army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteMask>().isCustomRangeActive = true;
             army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteMask>().frontSortingLayerID = SortingLayer.NameToID("Army");
-            army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteMask>().frontSortingOrder = 3 * cardIndex;
+            army.animationObject.transform.GetChild(0).Find("Background").GetComponent<SpriteMask>().frontSortingOrder = 3 * cardLayer;
+            Vector3 p1 = army.animationObject.transform.GetChild(0).Find("Picture").position;
+            p1.z = 0;
+            army.animationObject.transform.GetChild(0).Find("Picture").position = p1;
+            Vector3 p2 = army.animationObject.transform.GetChild(0).Find("Background").position;
+            p2.z = 0;
+            army.animationObject.transform.GetChild(0).Find("Background").position = p2;
 
             army.battleStartEffect = c.battleStartEffect;
             army.liveEffect = c.liveEffect;
@@ -65,7 +69,7 @@ public static class ArmyFactory
 
             armyList.Add(army);
 
-            cardIndex++;
+            cardLayer++;
         }
         return armyList;
     }
