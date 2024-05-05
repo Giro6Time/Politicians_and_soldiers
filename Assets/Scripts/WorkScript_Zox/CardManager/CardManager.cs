@@ -485,6 +485,16 @@ public class CardManager : MonoBehaviour {
             }
         }
     }
+    
+    public void RearrangeAll()
+    {
+        cardAnchor_Land_Enemy.RearrangeCard();
+        cardAnchor_Land_Player.RearrangeCard();
+        cardAnchor_Sea_Enemy.RearrangeCard();
+        cardAnchor_Sea_Player.RearrangeCard();
+        cardAnchor_Sky_Enemy.RearrangeCard();
+        cardAnchor_Sky_Player.RearrangeCard();
+    }
 }
 
 public static class CardFactory
@@ -511,6 +521,7 @@ public static class CardFactory
                 armyC.troopStrength = cardSO.troopStrength;
                 armyC.isEnemy = false;
                 armyC.matchedPos = cardSO.matchedPos;
+                armyC.cost = cardSO.cost;
                 var layoutGO = GameObject.Instantiate(cardSO.cardLayourPrefab);
                 armyC.armyLayoutPrefab = cardSO.armyLayoutPrefab;
                 layoutGO.transform.SetParent(instance.transform);
@@ -539,6 +550,7 @@ public static class CardFactory
                 effectC.SetCardPos(CardPos.SelectionArea);
                 effectC.isEnemy = false;
                 effectC.matchedPos = cardSO.matchedPos;
+                effectC.cost = cardSO.cost;
                 GameObject.Instantiate(cardSO.cardLayourPrefab).transform.SetParent(instance.transform);
 
                 effectC.drawEffect = cardSO.drawEffect;
