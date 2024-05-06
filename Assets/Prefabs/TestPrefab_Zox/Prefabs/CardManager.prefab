@@ -3446,52 +3446,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardList_1:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
+  - {fileID: 11400000, guid: 4dc46f4d1b508b549a567673deb0533a, type: 2}
   cardList_2:
   - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
   cardList_3:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
   - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
   cardList_4:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
-  cardList_5:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
-  cardList_6:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
-  cardList_7:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
-  cardList_8:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
-  cardList_9:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
-  cardList_10:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
-  cardList_11:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
-  cardList_12:
-  - {fileID: 11400000, guid: d1c1e777bd68eb640bb4e4694dede460, type: 2}
-  - {fileID: 11400000, guid: 6dbc5ae39e71a3e4c8483de0c415cd0a, type: 2}
-  - {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
+  - {fileID: 11400000, guid: baca9a445b3f7a640bfee8315ab006c3, type: 2}
+  - {fileID: 11400000, guid: 856fbb66bd0a63c43b5db28ed1757ef5, type: 2}
+  cardList_5: []
+  cardList_6: []
+  cardList_7: []
+  cardList_8: []
+  cardList_9: []
+  cardList_10: []
+  cardList_11: []
+  cardList_12: []
 --- !u!1 &5639615205866685996
 GameObject:
   m_ObjectHideFlags: 0
@@ -3738,7 +3708,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3824c02a4de569f439072a9b2a2196cc, type: 2}
   - {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
   - {fileID: 11400000, guid: eee50aeb06ccd9147b4e8f7ba8582845, type: 2}
-  - {fileID: 11400000, guid: b279abdae18eb324498732beafe644ef, type: 2}
   - {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
   - {fileID: 11400000, guid: 734632af0e72bf64f8e28d5bb9b91cd7, type: 2}
   - {fileID: 11400000, guid: 4d3b14405a38ab143831ed69fbb4b3a2, type: 2}

@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Enemy_1_Land
   m_EditorClassIdentifier: 
-  cardName: "\u6797\u5730\u5F13\u624B"
-  description: "\u3010\u654C\u65B9\u3011\n"
+  isUsed: 0
+  cardName: "\u300C\u63A8\u8FDB\u533A\u300D\u957F\u67AA\u624B"
+  description: "\u5728\u6211\u65B9\u300C\u63A8\u8FDB\u533A\u300D\n\u653E\u7F6E\u4E00\u5F20\u5361\u724C\u6765\u5BF9\u6297"
   troopStrength: 2
-  cost: 0
-  matchedSeason: 0
+  cost: 1
+  matchedSeason: 
   matchedPos: 1
   cardBaseType: 0
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: 69791c0a1be17dd44a3a98c6575b5c9f, type: 3}
-  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 3633fc4281642d444be399e684bb986e, type: 3}
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: a217db1c18c43194b966c5cc2547ac8f, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 787fcdab611a5ab4388a92b11660ce3d, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []
