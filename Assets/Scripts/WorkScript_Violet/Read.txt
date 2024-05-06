@@ -1,3 +1,18 @@
+关于最终版本说明：
+1.UIScale能别改就别改，想改规格请改Width和Height（否则会直接影响到碰撞检测）
+UI的大小由Scale和Width,Height共同决定：公式是：
+end=P(W,H)*Scale，因此等比例缩放就能解决问题，其他问题90%出自因为图片剪切不过关（含之前说的过分检测问题，图片占据图集大小的60%不到，剩下是空的，但是图片检测是实的，也会检测到图片）
+2.使用说明：
+①两个脚本方面：可修改的部分都在空格前了，每个可修改变量基本都给出说明了，理解上就是个人表述造成的困难了
+②所有事件都可自由拆卸，不懂负责什么功能请打开脚本看注释，所有事件都在UIEventListener中
+③Panel_PrizeWheelPanel新增模块介绍：
+（1）Panel_PrizeWheelPanel-》Map-》ClickRange：点击范围：即这个上下功能的点击范围
+④脚本新增模块：
+MeetEventGameCtrl-》UIEventListener-》PrizeWheelTemplate新增可以添加多个，也就是奖品模型不限制为1，是哪个取决于奖品的价值
+MeetEventGameCtrl-》UIEventListener-》新增PrizeWheelRelaxTime，可以调节每次转盘抽到奖品后休息的时间
+
+
+
 <<<<<<< HEAD
 ﻿关于代码参考：
 所有的代码逻辑只会在三个地方，通过这三个地方可以导向整个模块的任意地点

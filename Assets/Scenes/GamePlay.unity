@@ -314,6 +314,38 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3537384645047406587, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537384645179908133, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: prizeWheelRadius
+      value: 365
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537384645179908133, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: prizeWheelRelaxTime
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537384645179908133, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: prizeWheelTemplate.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537384645179908133, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: prizeWheelTemplate.Array.data[0]
+      value: 
+      objectReference: {fileID: 3996843540400835226, guid: c8eb28b10da38c942bd8784331d31c69, type: 3}
+    - target: {fileID: 3537384645179908133, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: prizeWheelTemplate.Array.data[1]
+      value: 
+      objectReference: {fileID: 3996843540400835226, guid: 5d3053a560288b34696487444f8e9f83, type: 3}
+    - target: {fileID: 3537384645179908133, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: prizeWheelTemplate.Array.data[2]
+      value: 
+      objectReference: {fileID: 3996843540400835226, guid: e29e074396d26364db90700a43b59276, type: 3}
+    - target: {fileID: 3537384645731043968, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3988722153181972637, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: DUGroup.Array.size
       value: 0
@@ -454,6 +486,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 7376760520082039344, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -669.00006
+      objectReference: {fileID: 0}
     - target: {fileID: 7679740793429551864, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

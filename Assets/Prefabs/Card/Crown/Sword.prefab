@@ -104,5 +104,5 @@ MonoBehaviour:
     popularSupport: 0
     troopIncrease: 0
     decisionValueMax: 0
-  _eventValue: 1
+  _eventValue: 3
   nextValueBeginIndex: 3

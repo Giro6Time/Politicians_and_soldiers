@@ -16,28 +16,31 @@ public class UIEventListener : MonoBehaviour
     public static UIEventListener _Instance;
 
     [Header("抽奖转盘相关属性设置")]
-    [Header("指针，转盘放置物模板，转盘半径")]
+    [Header("指针，转盘放置物模板，奖品半径")]
     public Transform prizeWheelPointer;
-    public GameObject prizeWheelTemplate;
-    [Header("可修改")]
+    [Header("可修改(到空格前)")]
+    public List<Image> prizeWheelTemplate;
     public float prizeWheelRadius;
-    /// <summary>
-    /// 奖品池
-    /// </summary>
-    [HideInInspector]
-    public List<GameObject> prizePool;
-    [SerializeField, Space(20)]
-
     /// <summary>
     /// 抽奖转盘容器
     /// </summary>
     public Transform prizeWheelPanel;
-
-    [Header("可修改：转盘旋转的时间，旋转的圈数，奖品数")]
+    /// <summary>
+    /// 奖品池
+    /// </summary>
+    [HideInInspector]
+    public List<Image> prizePool;
+    [Header("下列属性分别是：")]
+    [Header("(转盘每次转的时间，休息时间，圈数，奖品数量)")]
     /// <summary>
     /// 抽奖转盘旋转时间
     /// </summary>
     public float prizeWheelRotateTime;
+
+    /// <summary>
+    /// 抽奖转盘休息时间
+    /// </summary>
+    public float prizeWheelRelaxTime;
 
     /// <summary>
     /// 抽奖转盘旋转圈数
@@ -179,9 +182,8 @@ public class UIEventListener : MonoBehaviour
     }
     private void Start()
     {
-        prizePool = new List<GameObject>();
+        prizePool = new List<Image>();
         settingPanel.SetActive(false);
-        textPanel.SetActive(false);
         MusicSettingToggle.onValueChanged.AddListener(OnToggleClick_MusicSetting);
         MusicSettingSlider.onValueChanged.AddListener(OnSliderValueChanged_MusicSetting);
         SoundEffectSetttingToggle.onValueChanged.AddListener(OnToggleClick_SoundEffectSetting);
@@ -291,13 +293,19 @@ public class UIEventListener : MonoBehaviour
     /// 普通逻辑：创建物体
     /// 池逻辑：改变模板位置
     /// </summary>
-    public void DrawPrizeWheel()
+    /// <param name="valueIndexList">价值下标链表(即价值-1)</param>
+    public void DrawPrizeWheel(List<int> valueIndexList)
     {
         if (prizePool.Count == prizeNums)
         {
+            for (int i = 0; i < prizeNums; i++)
+            {
+                //绘制模板
+                prizePool[i].sprite=prizeWheelTemplate[valueIndexList[i]%prizeWheelTemplate.Count].sprite;
+            }
             MessageView._Instance.ShowTip("奖池刷新已完成，请验收");
             return; 
-        }
+        }   
         //根据需求：绘制不需要考虑其他问题，只是将模板放置到设定好的位置
         float gapAngle = (2 * Mathf.PI) / prizeNums;
         GameObject obj = null;
@@ -305,9 +313,9 @@ public class UIEventListener : MonoBehaviour
         for (int i = 0; i < prizeNums; i++)
         {
             //绘制模板
-            obj = GameObject.Instantiate<GameObject>(prizeWheelTemplate, prizeParent);
+            obj = GameObject.Instantiate<GameObject>(prizeWheelTemplate[valueIndexList[i] % prizeWheelTemplate.Count].gameObject, prizeParent);
             obj.transform.localPosition = new Vector3(Mathf.Sin(gapAngle * i) * prizeWheelRadius, Mathf.Cos(gapAngle * i) * prizeWheelRadius, 0);
-            prizePool.Add(obj);
+            prizePool.Add(obj.GetComponent<Image>());
         }
 
     }
