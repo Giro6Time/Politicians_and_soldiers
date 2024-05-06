@@ -149,6 +149,7 @@ public class CardManager : MonoBehaviour {
 
     public void SpawnEnemyCard(int month)
     {
+        //Debug.Log("Spawn Enemy");
         //Enemy put card
         foreach (CardBaseSO enemyCardSO in enemy.GetCardBaseSOList(month))
         {
