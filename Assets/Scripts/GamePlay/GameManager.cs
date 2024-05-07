@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -141,11 +142,13 @@ public class GameManager : MonoBehaviour
     public static void Win()
     {
         Debug.Log("you win");
+        GAMEEND.instance.Show(true);
     }
 
     public static void Lose()
     {
         Debug.Log("you lose");
+        GAMEEND.instance.Show(false);
     }
 
     public void PushCard2BattleField()
