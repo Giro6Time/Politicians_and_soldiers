@@ -56,6 +56,7 @@ public class SoundsMgr : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR
         //音效：点击鼠标触发的音效
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -105,6 +106,7 @@ public class SoundsMgr : MonoBehaviour
         {
             PlayBackgroundMusic("Win");
         }
+#endif
     }
 
     /// <summary>

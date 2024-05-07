@@ -37,6 +37,14 @@ public class ArmyManager : MonoBehaviour
     [SerializeField] GameObject enemySkyArmyParent;
 
     public float progressChangeValue = 0;
+    public float playerLandEffectC = 0.02f;
+    public float enemyLandEffectC = 0.05f;
+    public float playerSeaEffectC = 10f;
+    public float enemySeaEffectC = 10f;
+    public float playerSkyEffectC = 10f;
+    public float enemySkyEffectC = 10f;
+    public float ElseEffectC = 1;
+
     public float playerLandEffect = 0.02f;
     public float enemyLandEffect = 0.05f;
     public float playerSeaEffect = 10f;
@@ -474,10 +482,13 @@ public class ArmyManager : MonoBehaviour
 
     public void ResetEffect()
     {
-        playerSkyEffect = 10f;
-        playerSeaEffect = 10f;
-        enemySkyEffect = 10f;
-        enemySeaEffect = 10f;
+        playerLandEffect = playerLandEffectC;
+        enemyLandEffect = enemyLandEffectC;
+        playerSeaEffect = playerSeaEffectC;
+        enemySeaEffect = enemySeaEffectC;
+        playerSkyEffect = playerSkyEffectC;
+        enemySkyEffect = enemySkyEffectC;
+        ElseEffect = ElseEffectC;
     }
 
     internal void Clear()

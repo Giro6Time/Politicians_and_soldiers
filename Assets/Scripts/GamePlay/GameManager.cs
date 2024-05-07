@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         InitGame();
+        SoundsMgr._Instance.PlayBackgroundMusic("BGM_Battle_One");
         TurnStart();
     }
 

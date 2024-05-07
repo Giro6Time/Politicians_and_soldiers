@@ -517,6 +517,15 @@ public class UIEventListener : MonoBehaviour
         {
             Time.timeScale = lastTimeScale;
         }
+        OnBtnClick_ShowSettingMenu();
+    }
+
+    /// <summary>
+    /// 游戏退出    
+    /// </summary>
+    public void OnBtnClick_Exit()
+    {
+        Application.Quit();
     }
 
     /// <summary>
@@ -563,6 +572,7 @@ public class UIEventListener : MonoBehaviour
     {
         SoundsMgr._Instance.soundEffectVolume = volume;
     }
+
     #endregion
 
 }
