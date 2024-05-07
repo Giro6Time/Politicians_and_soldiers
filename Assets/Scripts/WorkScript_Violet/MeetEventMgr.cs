@@ -239,6 +239,7 @@ public class MeetEventMgr
         isFreeze = false;
         isDisposeMeetEvent = false;
         MeetEventGameCtrl._Instance.meetEventCanvas.gameObject.SetActive(false);
+        UIEventListener._Instance.HideImageStateChange();
         onExit?.Invoke();
     }
 

@@ -41,23 +41,70 @@ public class Player
     /// <summary>
     /// sanֵ
     /// </summary>
-    public float sanity;
+    float Sanity;
+    public float sanity
+    {
+        get { return Sanity; }
+        set
+        {
+            Sanity = value;
+            UIEventListener._Instance.UIMeetingEventUpdate();
+        }
+    }
     /// <summary>
     /// 军队值
     /// </summary>
-    public float armament;
+    float Armament;
+    public float armament
+    {
+        get { return Armament; }
+        set
+        {
+            Armament = value;
+            UIEventListener._Instance.UIMeetingEventUpdate();
+        }
+    }
+
     /// <summary>
     /// 资金
     /// </summary>
-    public float fund;
+    float Fund;
+    public float fund
+    {
+        get { return Fund; }
+        set
+        {
+            Fund = value;
+            UIEventListener._Instance.UIMeetingEventUpdate();
+        }
+    }
+
     /// <summary>
     /// 民众
     /// </summary>
-    public float popularSupport;
+    float PopulatSupport;
+    public float popularSupport
+    {
+        get { return PopulatSupport; }
+        set
+        {
+            PopulatSupport = value;
+            UIEventListener._Instance.UIMeetingEventUpdate();
+        }
+    }
     /// <summary>
     /// 军队补充值
     /// </summary>
-    public float troopIncrease;
+    float TroopIncrease;
+    public float troopIncrease
+    {
+        get { return TroopIncrease; }
+        set
+        {
+            TroopIncrease = value;
+            UIEventListener._Instance.UIMeetingEventUpdate();
+        }
+    }
 
     public int decisionValueMax;
 
