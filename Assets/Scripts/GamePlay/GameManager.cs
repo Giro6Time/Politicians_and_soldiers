@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -42,9 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-#if UNITY_EDITOR
         GameStart();
-#endif
     }
     public void GameStart()
     {
@@ -60,6 +59,7 @@ public class GameManager : MonoBehaviour
 
         //发牌中
         currentState = 0;
+        Player.Instance.decisionValue = config.decisionValue[dateMgr.GetMonth()];
 
         cardMgr.gameObject.SetActive(true);
         dateMgr.moveNextMonth();
