@@ -9,7 +9,7 @@ public class Army : MonoBehaviour
     [SerializeField] float troopStrength;
 
     public ArmyCard whereIFrom;
-    public ArmyCard cardImage;
+    public GameObject animationObject;
 
     public List<IEffect> battleStartEffect = new();
     public List<IEffect> liveEffect = new();
@@ -30,7 +30,7 @@ public class Army : MonoBehaviour
                 if (whereIFrom.isEnemy)
                     GameManager.Instance.cardMgr.enemyPlayingArea.RemoveCard(whereIFrom);
                 else
-                    GameManager.Instance.cardMgr.cardPlayingArea.RemoveCard(whereIFrom);
+                    GameManager.Instance.cardMgr.playerPlayingArea.RemoveCard(whereIFrom);
                 Destroy(whereIFrom.gameObject);
                 ClearAllEvent();
                 onFightEnd += () => Destroy(gameObject);
@@ -73,7 +73,7 @@ public class Army : MonoBehaviour
 
     public void PlayFight()
     {
-        animator.SetBool("Fight", true) ;
+        animator.SetBool("Fight", true) ;   
     }
 
     public void OnDamaged()

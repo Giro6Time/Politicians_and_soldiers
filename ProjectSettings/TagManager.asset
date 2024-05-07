@@ -47,3 +47,6 @@ TagManager:
   - name: Mask
     uniqueID: 3014784419
     locked: 0
+  - name: Army
+    uniqueID: 1581339529
+    locked: 0

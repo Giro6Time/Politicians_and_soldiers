@@ -143,18 +143,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currAudio: {fileID: 0}
   backgroundAudioList:
-  - {fileID: 8300000, guid: 6a515a9c0f8c2b945ba1fad59cd2c8d9, type: 3}
-  - {fileID: 8300000, guid: baad5da56157c55498263309333ed1f9, type: 3}
+  - {fileID: 8300000, guid: 87944f293aba6244da4332794a222f03, type: 3}
   soundEffectsList:
-  - {fileID: 8300000, guid: 32b5cb2ec3029484eb0a71e43bd697e0, type: 3}
-  - {fileID: 8300000, guid: 3641c9435ad52ea429348437c2742cdb, type: 3}
-  - {fileID: 8300000, guid: 65774e057815a5e4fa70215e9acad616, type: 3}
-  - {fileID: 8300000, guid: c1a5f2757fb06fd45812883f28dbf66b, type: 3}
-  - {fileID: 8300000, guid: 10ea50ad52f85f04d99128c58ee3b632, type: 3}
-  - {fileID: 8300000, guid: 53dea70923c95cb45864ff65eeb38785, type: 3}
-  - {fileID: 8300000, guid: f7872a240c3a867458646a6a01dde6a2, type: 3}
+  - {fileID: 8300000, guid: 95983355c4ead6643a6c7919eba276b9, type: 3}
+  - {fileID: 8300000, guid: a57b992d1d793a646b5884833f9f5ca0, type: 3}
+  - {fileID: 8300000, guid: 20eaaffc74cfe2946914715de159ab7d, type: 3}
+  - {fileID: 8300000, guid: 5c9ab14b2954130438463397c9ef2e48, type: 3}
+  - {fileID: 8300000, guid: 7dc38de59dc7e994c945f940e554664d, type: 3}
   soundEffectsPool: []
   isOpenBackgroundMusic: 1
+  lastBackgroundRate: 0
   backgroundVolume: 0.5
   soundEffectVolume: 0.5
   isOpenSoundEffects: 1

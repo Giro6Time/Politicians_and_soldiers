@@ -78,20 +78,21 @@ public class MeetEventGameCtrl : MonoBehaviour
     public MeetEventMgr eventMgr;
     #endregion
 
-    void Awake()
-    {
+   
 
+    private void Start()
+    {
         if (_Instance == null)
         {
             _Instance = this;
         }
         eventMgr = new MeetEventMgr();
-        meetEventCanvas.worldCamera = Camera.main;
-        tipCanvas.worldCamera = Camera.main;
+        meetEventCanvas.worldCamera = GameManager.Instance.UICamera;
+        tipCanvas.worldCamera = GameManager.Instance.UICamera;
         tipCanvas.planeDistance = 1;
         meetEventCanvas.gameObject.SetActive(false);
         //使用新线程进行排序以不影响主线程逻辑
-        Thread thread = new Thread(()=>
+        Thread thread = new Thread(() =>
         {
             eventList.Sort((x, y) =>
             {
@@ -135,6 +136,7 @@ public class MeetEventGameCtrl : MonoBehaviour
 
 
 
+
     private void Update()
     {
         if(!eventMgr.isFreeze&&Input.GetMouseButtonUp(0)&& UIEventListener._Instance.prizeWheelPanel.localPosition.y > 10 && eventMgr.currEventInfoList.Count > 0)
@@ -144,7 +146,7 @@ public class MeetEventGameCtrl : MonoBehaviour
             RectTransform rectTrans = eventMgr.currEventInfoList[0].obj.GetComponent<RectTransform>();
             //2.判定鼠标位置
             //从图像右边界开始
-            float targetX = -((eventMgr.currEventInfoList.Count / 2) * cardDistance - rectTrans.rect.width / 2) * meetEventCanvas.scaleFactor;
+            float targetX = -((eventMgr.currEventInfoList.Count / 2) * cardDistance - rectTrans.rect.width * rectTrans.localScale.x / 2) * meetEventCanvas.scaleFactor;
             int index = 0;
             //判定鼠标所在位置区间(curr,next)
             while (mousePos.x > targetX)
@@ -187,8 +189,12 @@ public class MeetEventGameCtrl : MonoBehaviour
         //进行初始化:激活UI，完成UI初始化之后再解冻
         meetEventCanvas.gameObject.SetActive(true);
         UIEventListener._Instance.PrizeWheelUIInit();
+
         //对于抽奖轮盘：需要初始化的是有什么奖品(要不要总是更新还需要考虑)
-        MeetEventGameCtrl._Instance.eventMgr.UpdatePrizePool();
+        if (UIEventListener._Instance.prizePool.Count != UIEventListener._Instance.prizeNums)
+        {
+            eventMgr.UpdatePrizePool();
+        }
         eventMgr.isFreeze = true;
         StartCoroutine(ChangeAlpha(meetEventCanvas.gameObject,0.8f,()
             =>
@@ -277,7 +283,7 @@ public class MeetEventGameCtrl : MonoBehaviour
             {
                 if (rand < pair.CumProbability)
                 {
-                    rotateRealTime = UIEventListener._Instance.prizeWheelRotateTurns * (1 + UnityEngine.Random.Range(0, UIEventListener._Instance.prizeWheelRotateTurns/2)) * 360 + index*360/UIEventListener._Instance.prizeNums;
+                    rotateRealTime = UIEventListener._Instance.prizeWheelRotateTurns * (1 + UnityEngine.Random.Range(0, UIEventListener._Instance.prizeWheelRotateTurns/2)) * 360 + index*360/UIEventListener._Instance.prizeNums+180;
                     break;
                 }
                 index++;

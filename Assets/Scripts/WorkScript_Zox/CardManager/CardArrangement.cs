@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,8 @@ using UnityEngine.UIElements;
 
 public class CardArrangement : MonoBehaviour
 {
+    public Transform[] anchors = new Transform[4];
+
     public enum ArrangementType
     {
         Hand,
@@ -30,6 +33,25 @@ public class CardArrangement : MonoBehaviour
     /*public float radius = 2f; // 卡牌偏移半径
     public float startAngle = 0f; // 起始角度
     public float endAngle = 180f; // 终止角度*/
+
+    //增加回调
+    public void RearrangeCard(Action onComplete)
+    {
+        switch (arrangementType)
+        {
+            case ArrangementType.Hand:
+                RearrangeCard_Hand();
+                break;
+            case ArrangementType.BattleField:
+                RearrangeCard_Battlefield();
+                break;
+            default:
+                Debug.LogError("arrangement not properlly set");
+                break;
+        }
+
+        onComplete?.Invoke();
+    }
 
     public void RearrangeCard()
     {
@@ -69,24 +91,23 @@ public class CardArrangement : MonoBehaviour
             // 设置卡牌的目标位置
             Vector3 targetPosition = new Vector3(x, y, offsetZ * i);
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
-            //SetZOrder(i + 30, cardTransform);
+            SetZOrder(i + 30, cardTransform);
 
             // 设置卡牌的旋转角度
             Quaternion targetRotation = Quaternion.Euler(0,0,rotateZ);
 
             //使用协程平滑地将卡牌从初始位置转移至目标位置
-            StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation, i+30));
-            //StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
+            StartCoroutine(MoveSmoothly(cardTransform, targetPosition, targetRotation));
         }
     }
     private void RearrangeCard_Battlefield()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount - anchors.Length; i++)
         {
-            Transform cardTransform = transform.GetChild(i);
+            Transform cardTransform = transform.GetChild(i+anchors.Length);
 
             //战场卡牌的目标位置
-            Vector3 targetPosition = new Vector3(offsetX * i, 0, offsetZ * i);
+            Vector3 targetPosition = anchors[i].localPosition;
             /*SetZOrder(i,cardTransform);*/
 
             cardTransform.GetComponent<CardSelectedVisual>().cardDefaultPos = targetPosition;
@@ -194,7 +215,7 @@ public class CardArrangement : MonoBehaviour
 
     public static void SetZOrder(int order, Transform transform)
     {
-        var srList = transform.GetComponentsInChildren<SpriteRenderer>();
+        var srList = transform.GetComponentsInChildren<Renderer>();
         foreach (var sr in srList)
         {
             sr.sortingOrder = order*4+3;
@@ -206,5 +227,19 @@ public class CardArrangement : MonoBehaviour
                 sr.sortingOrder -= 3;
         }
         
+    }
+
+    public void Force_WipeDeadCard()
+    {
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            ArmyCard card = transform.GetChild(i).GetComponent<ArmyCard>();
+            if(card.troopStrength <= 0)
+            {
+                DestroyImmediate(card.gameObject);
+                i--;
+            }
+        }
+        RearrangeCard();
     }
 }

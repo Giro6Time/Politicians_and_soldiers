@@ -66,5 +66,7 @@ public class BattleField : MonoBehaviour
             Debug.Log("You Win");
             Debug.Log("Game Over");
         }
+
+        CardManager.Instance.RearrangeAll();
     }   
 }

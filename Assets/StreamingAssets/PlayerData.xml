@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Data>
   <Player>
-    <decisionValue>1000000</decisionValue>
-    <sanity>3</sanity>
+    <decisionValue>999999</decisionValue>
+    <sanity>0</sanity>
     <armament>0</armament>
     <fund>0</fund>
     <popularSupport>0</popularSupport>

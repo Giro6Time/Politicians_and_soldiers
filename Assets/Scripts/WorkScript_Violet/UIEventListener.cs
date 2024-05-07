@@ -24,7 +24,8 @@ public class UIEventListener : MonoBehaviour
     /// <summary>
     /// 奖品池
     /// </summary>
-    private List<GameObject> prizePool;
+    [HideInInspector]
+    public List<GameObject> prizePool;
     [SerializeField, Space(20)]
 
     /// <summary>
@@ -79,6 +80,8 @@ public class UIEventListener : MonoBehaviour
     [SerializeField]
     private GameObject settingPanel;
 
+
+    [Header("游戏基础文本信息")]
     /// <summary>
     /// 人物信息容器
     /// </summary>
@@ -86,10 +89,16 @@ public class UIEventListener : MonoBehaviour
     private GameObject textPanel;
 
     /// <summary>
-    /// san值文本
+    /// 季节文本
     /// </summary>
     [SerializeField]
-    private Text sanityText;
+    private Text seasonText;
+
+    /// <summary>
+    /// 回合文本
+    /// </summary>
+    [SerializeField]
+    private Text roundText;
 
     /// <summary>
     /// 武备文本
@@ -98,7 +107,7 @@ public class UIEventListener : MonoBehaviour
     private Text armamentText;
 
     /// <summary>
-    /// 资金文本
+    /// 钱财文本
     /// </summary>
     [SerializeField]
     private Text fundText;
@@ -110,10 +119,26 @@ public class UIEventListener : MonoBehaviour
     private Text popularSupportText;
 
     /// <summary>
-    /// 兵力增幅文本
+    /// san值文本
+    /// </summary>
+    [SerializeField]
+    private Text sanityText;
+
+    /// <summary>
+    /// 跨战区支援值文本
+    /// </summary>
+    [SerializeField]
+    private Text supportText;
+
+    /// <summary>
+    /// 补给值文本
     /// </summary>
     [SerializeField]
     private Text troopIncreaseText;
+
+    /// <summary>
+    /// 决策点
+    /// </summary>
     [SerializeField]
     private Text decisionValueText;
 
@@ -147,10 +172,13 @@ public class UIEventListener : MonoBehaviour
     private float lastTimeScale;
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         if (_Instance == null)
         { _Instance = this; }
+    }
+    private void Start()
+    {
         prizePool = new List<GameObject>();
         settingPanel.SetActive(false);
         textPanel.SetActive(false);
@@ -202,12 +230,15 @@ public class UIEventListener : MonoBehaviour
     public void UIMeetingEventUpdate()
     {
         //更新其余几个UI
-        decisionValueText.text = string.Format("决策点：{0}", Player.Instance.decisionValue);
-        sanityText.text = string.Format("san值：{0}", Player.Instance.sanity);
-        armamentText.text = string.Format("武备：{0}", Player.Instance.armament);
-        fundText.text = string.Format("资金：{0}", Player.Instance.fund);
-        popularSupportText.text = string.Format("民众：{0}", Player.Instance.popularSupport);
-        troopIncreaseText.text = string.Format("兵力增幅：{0}", Player.Instance.troopIncrease);
+        seasonText.text = string.Format("季节\n{0}",DateManager.Instance.GetSeason());
+        roundText.text = string.Format("月份\n{0}/12",DateManager.Instance.GetMonth());
+        armamentText.text = string.Format("武备\n{0}", Player.Instance.armament);
+        fundText.text = string.Format("钱财\n{0}", Player.Instance.fund);
+        popularSupportText.text = string.Format("民众\n{0}", Player.Instance.popularSupport);
+        sanityText.text = string.Format("san值\n{0}", Player.Instance.sanity);
+        //supportText.text = string.Format("跨战区支援值\n{0}",ArmyManager);
+        troopIncreaseText.text = string.Format("补给值\n{0}", Player.Instance.troopIncrease);
+        decisionValueText.text = string.Format("决策点\n{0}", Player.Instance.decisionValue);
     }
 
     /// <summary>
@@ -334,9 +365,12 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     public void OnBtnClick_MeetingEventChoose()
     {
-        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze&&MeetEventGameCtrl._Instance.eventMgr.isDisposeMeetEvent)
+        if (MeetEventGameCtrl._Instance.eventMgr.isFreeze || !MeetEventGameCtrl._Instance.eventMgr.isDisposeMeetEvent)
+        {
+            MessageView._Instance.ShowTip("目前无法进行事件决断");
             return;
-            //修改事件并判定是否结束
+        }
+        //修改事件并判定是否结束
         MeetEventGameCtrl._Instance.eventMgr.EventChange();
     }
 

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
+  m_Name: Sky_Bird
+  m_EditorClassIdentifier: 
+  isUsed: 0
+  cardName: "\u4FE1\u4F7F"
+  description: "\u3010\u7279\u6B8A/\u5F00\u6218\u65F6\u3011\n\u4E0B\u56DE\u5408\u51B3\u7B56\u70B9\u6570\u91CF
+    +2"
+  troopStrength: 1
+  cost: 1
+  matchedSeason: 00000000010000000200000003000000
+  matchedPos: 3
+  cardBaseType: 0
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 93ac1839073b1304693a57f2bf0e310f, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 0279b991b7da11744a45661190756154, type: 3}
+  drawEffect: []
+  invokeEffect:
+  - rid: 3626890959641640960
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3626890959641640960
+      type: {class: DelayDesisionValueEffect, ns: , asm: Assembly-CSharp}
+      data:
+        delayTurn: 1
+        value: 2

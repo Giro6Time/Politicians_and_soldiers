@@ -1,12 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Net;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Networking.Types;
-using UnityEngine.Purchasing;
+//using UnityEngine.Networking.Types;
 
 public class ArmyManager : MonoBehaviour
 {
@@ -48,8 +43,8 @@ public class ArmyManager : MonoBehaviour
     public float enemySeaEffect = 10f;
     public float playerSkyEffect = 10f;
     public float enemySkyEffect = 10f;
-    public float ElseEffect = 0;
-    public float Fix = 0; //修补值：作用？
+    public float ElseEffect = 1;
+    public int Fix = 0; //修补值：作用？
 
     [Header("动画相关")]
     private float startTime;
@@ -244,12 +239,22 @@ public class ArmyManager : MonoBehaviour
             var ea = enemyArmy[0];
             float damage = Mathf.Min(a.TroopStrength, ea.TroopStrength);
 
-            a.onDamaged += () => a.TroopStrength = a.TroopStrength - damage;
-            a.onDamaged += () => a.afterAttactEffect.TriggerAllEffects(true, new object[] { a, ea });
+            a.onDamaged += () =>
+            {
+                a.TroopStrength = (int)(a.TroopStrength - damage);
+                a.whereIFrom.transform.Find("TroopStrength").GetComponent<TextMesh>().text = ((int)(a.whereIFrom.troopStrength - damage)).ToString();
+                a.whereIFrom.troopStrength = a.whereIFrom.troopStrength - damage;
+                a.afterAttactEffect.TriggerAllEffects(true, new object[] { a, ea });
+            };
             a.beforeAttackEffect.TriggerAllEffects(true, new object[] { a, ea });//触发战斗前效果
 
-            ea.onDamaged += () => ea.TroopStrength = ea.TroopStrength - damage;
-            ea.onDamaged += () => ea.afterAttactEffect.TriggerAllEffects(false, new object[] { ea, a }); 
+            ea.onDamaged += () =>
+            {
+                ea.TroopStrength = (int)(ea.TroopStrength - damage);
+                ea.onDamaged += () => ea.whereIFrom.transform.Find("TroopStrength").GetComponent<TextMesh>().text = ((int)(a.whereIFrom.troopStrength - damage)).ToString();
+                ea.onDamaged += () => ea.whereIFrom.troopStrength = ea.whereIFrom.troopStrength - damage;
+                ea.onDamaged += () => ea.afterAttactEffect.TriggerAllEffects(false, new object[] { ea, a });
+            };
             ea.beforeAttackEffect.TriggerAllEffects(false, new object[] { ea, a });//触发战斗前效果
             a.PlayFight();
             ea.PlayFight();
@@ -324,15 +329,11 @@ public class ArmyManager : MonoBehaviour
                 {
                     progressChangeValue = 0;
                 }
-                GameManager.Instance.cardMgr.RefreshList();
+                //currArmyType = ArmyType.Sky;
+                //GameManager.Instance.cardMgr.RefreshList();
                 onBattleEnd?.Invoke();
             }
         }
-    }
-
-    public void DestoryCard()
-    {
-
     }
 
     #region 根据种类赋值 函数
@@ -356,7 +357,7 @@ public class ArmyManager : MonoBehaviour
     }
 
     public void ToArmyType(ArmyType at, ref List<Army> currArmy, ref float[] currObj, bool b)
-    {
+    { 
         if (b == true)
         {
             if (at == ArmyType.Land)
@@ -403,7 +404,7 @@ public class ArmyManager : MonoBehaviour
 
         float calc = 0;
         //统计陆军
-        if (playerArmyOnLand != null && enemyArmyOnLand == null)
+        if (playerArmyOnLand.Count > 0 && enemyArmyOnLand.Count == 0)
         {
             foreach (Army army in playerArmyOnLand)
             {
@@ -411,7 +412,7 @@ public class ArmyManager : MonoBehaviour
             }
             BattleEndTroopRemain[0] = calc;
         }
-        else if (playerArmyOnLand == null && enemyArmyOnLand != null)
+        else if (playerArmyOnLand.Count == 0 && enemyArmyOnLand.Count > 0)
         {
             foreach (Army army in enemyArmyOnLand)
             {
@@ -425,7 +426,7 @@ public class ArmyManager : MonoBehaviour
         }
         calc = 0;
         //统计海军
-        if (playerArmyOnSea != null && enemyArmyOnSea == null)
+        if (playerArmyOnSea.Count > 0 && enemyArmyOnSea.Count == 0)
         {
             foreach (Army army in playerArmyOnSea)
             {
@@ -433,7 +434,7 @@ public class ArmyManager : MonoBehaviour
             }
             BattleEndTroopRemain[1] = calc;
         }
-        else if (playerArmyOnSea == null && enemyArmyOnSea != null)
+        else if (playerArmyOnSea.Count == 0 && enemyArmyOnSea.Count > 0)
         {
             foreach (Army army in enemyArmyOnSea)
             {
@@ -447,7 +448,7 @@ public class ArmyManager : MonoBehaviour
         }
         calc = 0;
         //统计空军
-        if (playerArmyOnSky != null && enemyArmyOnSky == null)
+        if (playerArmyOnSky.Count > 0 && enemyArmyOnSky.Count == 0)
         {
             foreach (Army army in playerArmyOnSky)
             {
@@ -455,7 +456,7 @@ public class ArmyManager : MonoBehaviour
             }
             BattleEndTroopRemain[2] = calc;
         }
-        else if (playerArmyOnSky == null && enemyArmyOnSky != null)
+        else if (playerArmyOnSky.Count == 0 && enemyArmyOnSky.Count > 0)
         {
             foreach (Army army in enemyArmyOnSky)
             {

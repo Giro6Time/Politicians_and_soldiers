@@ -11,13 +11,26 @@ public class DialogManager : MonoBehaviour
     public DialogUnit[] currDialogUnits = null;
     int currUnitInd = 0;
     public string dialogUnitResourcePath;
+    public DialogUnitGroupSO[] DUGroup = new DialogUnitGroupSO[0];
 
     private void Start()
     {
         Instance = this;
-       
- 
+    }
 
+    public DialogUnit[] LoadDialogByDUGroup()
+    {
+        if (DUGroup.Length > 0)
+        {
+            int ind = Random.Range(0, DUGroup.Length);
+            List<DialogUnit> ret = new List<DialogUnit>();
+            foreach(var element in DUGroup[ind].dialogUnitSOs)
+            {
+                ret.Add(element.GenerateDialogUnit());
+            }
+            return ret.ToArray();
+        }
+        return null;
     }
     public DialogUnit[] LoadDialog()
     {
@@ -28,7 +41,8 @@ public class DialogManager : MonoBehaviour
     public void OpenDialog()
     {
         panel.Open();
-        currDialogUnits = LoadDialog();
+        Player.Instance.decisionValue--;
+        currDialogUnits = LoadDialogByDUGroup();
 
         //打开后立刻播放第一个对话单元
         currUnitInd = 0;

@@ -24,7 +24,20 @@ public class Player
     /// <summary>
     /// 决策点
     /// </summary>
-    public int decisionValue;
+    int DecisionValue;
+
+    public int decisionValue
+    {
+        get { return DecisionValue; }
+        set {
+            if(value > decisionValueMax)
+            {
+                DecisionValue = decisionValueMax;
+                return;
+            }
+            DecisionValue = value; 
+        }
+    }
     /// <summary>
     /// sanֵ
     /// </summary>
@@ -52,6 +65,8 @@ public class Player
     internal void Init()
     {
         //TODO: ��ʼ��ֵΪ��ֵ�����߶�ȡPlayerSO��ʼ��ֵ  这个看起来像临时设置的，也没找到原字段
+        //设个最大值
+        decisionValueMax = 1000000;
         decisionValue = 1000000;
     }
     

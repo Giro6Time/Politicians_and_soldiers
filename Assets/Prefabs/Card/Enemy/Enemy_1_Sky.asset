@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
+  m_Name: Enemy_1_Sky
+  m_EditorClassIdentifier: 
+  cardName: "\u53EC\u5524\u672F\u9635"
+  description: "\u3010\u654C\u65B9\u3011\n"
+  troopStrength: 1
+  cost: 0
+  matchedSeason: 0
+  matchedPos: 3
+  cardBaseType: 0
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 83056228fa20e8c40a88839fd7a6d90e, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 25bbe587130e7064282e8dc5a562ca03, type: 3}
+  drawEffect: []
+  invokeEffect: []
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds: []

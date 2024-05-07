@@ -50,6 +50,7 @@ public class MessageView : MonoBehaviour
         {
             _Instance = this;
         }
+        btn_Tip.gameObject.SetActive(false);
         messagePool = new List<Text>();
         messageQueue = new Queue<string>();
         currStartNums = 0;
@@ -105,7 +106,7 @@ public class MessageView : MonoBehaviour
     public void ShowTip(string tipContext)
     {
         btn_Tip.gameObject.SetActive(true);
-        text_Tip.text = string.Format("{0}点击文本框可关闭",tipContext);
+        text_Tip.text = string.Format("{0}\n点击文本框可关闭",tipContext);
     }
 
     public void ShowHurt(string hurtValue, Vector3 targetPosition)

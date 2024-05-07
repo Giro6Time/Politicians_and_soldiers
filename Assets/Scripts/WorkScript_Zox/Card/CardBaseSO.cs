@@ -1,13 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu()]
 public class CardBaseSO : ScriptableObject
 {
+
+    [HideInInspector] public bool isUsed;
+
     public string cardName;
+    [Multiline]
     public string description;
     // public int level;
     public int troopStrength;
@@ -15,12 +20,13 @@ public class CardBaseSO : ScriptableObject
     // public float progressInfluence;
     // public Enums.CardType card_Type;
     // public Enums.CardAttackType card_AttackType;
-    public Season matchedSeason;
+    public Season[] matchedSeason;
     public CardPos matchedPos;
     // public Enums.Weather matchedWeather;
     public CardBaseType cardBaseType;
     [Header("������ʽ��prefab")]
     public GameObject cardLayourPrefab;
+    public GameObject armyLayoutPrefab;
 
     [HideInInspector,SerializeReference] 
     public List<IEffect> drawEffect = new();

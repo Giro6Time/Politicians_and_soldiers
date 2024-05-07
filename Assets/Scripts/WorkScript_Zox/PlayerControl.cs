@@ -25,7 +25,7 @@ public class PlayerControl : MonoBehaviour
     public State currentState;
 
     public CardBase selectedCard;
-    private CardArrangement puttableArea;
+    public CardArrangement puttableArea;
 
 
     private Vector3 mouseAndCardCenterOffset;
@@ -36,6 +36,7 @@ public class PlayerControl : MonoBehaviour
     private float moveDuration = 0.5f;
     private float moveTimeCounter = 0f;
 
+    private bool cardShowing;
 
     private void Awake()
     {
@@ -85,6 +86,11 @@ public class PlayerControl : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
+
+                    //音效：卡牌放置到正确的战场
+                    SoundsMgr._Instance.PlaySoundEffect("Sound_PlaceCard(right)");
+
+
                     GameManager.Instance.gameFlowController.log.AddInvokeLog(selectedCard, true);
                     selectedCard.invokeEffect.TriggerAllEffects(true, new object[] { selectedCard });
                     if (selectedCard is ArmyCard)
@@ -102,9 +108,7 @@ public class PlayerControl : MonoBehaviour
                     }
                     else if (selectedCard is CardEffect)
                     {
-                        Debug.Log("启动");
-                        //(selectedCard as CardEffect).UseAbility();
-                        currentState = State.SelectingCard;
+                        StartCoroutine(DestroyCardEffect());
                     }
                 }
                 else if (Input.GetMouseButtonDown(1))
@@ -114,14 +118,21 @@ public class PlayerControl : MonoBehaviour
                 }
                 break;
             case State.InfoCard:
+
+                ShowCard();
+                cardShowing = true;
+
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //turn page of the card
+                    //Detailed
 
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
                     //stop info
+                    cardShowing = false;
+                    HideCard();
+
                     currentState = State.SelectingCard;
                 }
                 break;
@@ -197,5 +208,31 @@ public class PlayerControl : MonoBehaviour
         {
             currentState = State.Null;
         }
+    }
+
+    private IEnumerator DestroyCardEffect()
+    {
+        //卡牌在删除之前的操作(可以加动画、特效等)
+        yield return null;
+
+        Debug.Log("destroy");
+        DestroyImmediate(selectedCard.gameObject);
+        CardManager.Instance.cardsCenterPoint.RearrangeCard();
+        currentState = State.SelectingCard;
+    }
+
+    public void ShowCard()
+    {
+        if (!cardShowing)
+        {
+            Debug.Log(CardDetails.instance);
+            CardDetails.instance.Show(selectedCard.gameObject);
+            cardShowing = true;
+        }
+    }
+
+    public void HideCard()
+    {
+        CardDetails.instance.Hide();
     }
 }

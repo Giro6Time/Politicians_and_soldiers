@@ -207,26 +207,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleEndPanel: {fileID: 0}
-  armyOnLand: []
-  armyOnSea: []
-  armyOnSky: []
+  playerArmyOnLand: []
+  playerArmyOnSea: []
+  playerArmyOnSky: []
   enemyArmyOnLand: []
   enemyArmyOnSea: []
   enemyArmyOnSky: []
-  landArmyParent: {fileID: 1026543165547767167}
-  seaArmyParent: {fileID: 2823326039550933857}
-  skyArmyParent: {fileID: 8167590224736055664}
+  playerLandArmyParent: {fileID: 1026543165547767167}
+  playerSeaArmyParent: {fileID: 2823326039550933857}
+  playerSkyArmyParent: {fileID: 8167590224736055664}
   enemyLandArmyParent: {fileID: 3936238845623207569}
   enemySeaArmyParent: {fileID: 6490011620346618227}
   enemySkyArmyParent: {fileID: 1210614694970682805}
   progressChangeValue: 0
-  landEffect1: 0.02
-  landEffect2: 0.05
-  oceanEffect1: 10
-  oceanEffect2: 10
-  skyEffect1: 10
-  skyEffect2: 10
-  ElseEffect: 0
+  playerLandEffect: 0.02
+  enemyLandEffect: 0.05
+  playerSeaEffect: 10
+  enemySeaEffect: 10
+  playerSkyEffect: 10
+  enemySkyEffect: 10
+  ElseEffect: 1
   Fix: 0
   curve:
     serializedVersion: 2
@@ -242,7 +242,7 @@ MonoBehaviour:
   startFight: 0
   currArmyCount: 0
   isFightNextOn: 0
-  landArmyPosition:
+  playerLandArmyPosition:
   - 0
   - 0
   - 0
@@ -250,7 +250,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  seaArmyPosition:
+  playerSeaArmyPosition:
   - 0
   - 0
   - 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  skyArmyPosition:
+  playerSkyArmyPosition:
   - 0
   - 0
   - 0
