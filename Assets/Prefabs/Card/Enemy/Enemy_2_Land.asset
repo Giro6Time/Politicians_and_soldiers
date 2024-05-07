@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUsed: 0
   cardName: "\u51B2\u950B\u957F\u67AA\u624B"
-  description: "\u300C\u63A8\u8FDB\u533A\u300D\n\u6218\u7EBF\u63A8\u8FDB+25%"
+  description: "\u300C\u654C\u65B9\u63A8\u8FDB\u533A\u300D\n\u6218\u7EBF\u63A8\u8FDB+25%"
   troopStrength: 2
   cost: 1
   matchedSeason: 
