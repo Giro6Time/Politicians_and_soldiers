@@ -168,7 +168,9 @@ public class UIEventListener : MonoBehaviour
     /// </summary>
     [SerializeField]
     public Slider SoundEffectSettingSlider;
-    
+
+    public GameObject hideImage;
+
     /// <summary>
     /// 最后的时间缩放值(用于游戏暂停与恢复)
     /// </summary>
@@ -188,6 +190,7 @@ public class UIEventListener : MonoBehaviour
         MusicSettingSlider.onValueChanged.AddListener(OnSliderValueChanged_MusicSetting);
         SoundEffectSetttingToggle.onValueChanged.AddListener(OnToggleClick_SoundEffectSetting);
         SoundEffectSettingSlider.onValueChanged.AddListener(OnSliderValueChanged_SoundEffectSetting);
+        UIMeetingEventUpdate();
     }
     private void OnDestroy()
     {
@@ -200,6 +203,11 @@ public class UIEventListener : MonoBehaviour
         fundText = null;
         popularSupportText = null;
         troopIncreaseText = null;
+    }
+
+    public void HideImageStateChange()
+    {
+        hideImage.SetActive(!hideImage.activeSelf);
     }
 
     /// <summary>
@@ -238,9 +246,9 @@ public class UIEventListener : MonoBehaviour
         fundText.text = string.Format("钱财\n{0}", Player.Instance.fund);
         popularSupportText.text = string.Format("民众\n{0}", Player.Instance.popularSupport);
         sanityText.text = string.Format("san值\n{0}", Player.Instance.sanity);
-        //supportText.text = string.Format("跨战区支援值\n{0}",ArmyManager);
+        supportText.text = string.Format("支援值\n{0}", GameManager.Instance.battleField.armyManager.playerSkyEffect);
         troopIncreaseText.text = string.Format("补给值\n{0}", Player.Instance.troopIncrease);
-        decisionValueText.text = string.Format("决策点\n{0}", Player.Instance.decisionValue);
+        decisionValueText.text = string.Format("{0}", Player.Instance.decisionValue);
     }
 
     /// <summary>
