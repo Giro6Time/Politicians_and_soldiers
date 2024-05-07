@@ -26,4 +26,6 @@ MonoBehaviour:
     - m_type: 2
       m_value: -1
   m_SR1: {fileID: 21300000, guid: fd48b8f963b069e49b1530558d4ffcb2, type: 3}
+  m_SR1_Offset: {x: 0, y: 0, z: 0}
   m_SR2: {fileID: 21300000, guid: 7ba707a254724124ea2db42d87aefff0, type: 3}
+  m_SR2_Offset: {x: 0, y: 0, z: 0}
