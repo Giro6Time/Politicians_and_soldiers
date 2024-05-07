@@ -513,6 +513,7 @@ public static class CardFactory
         if (!initialized)
             throw new Exception("CardFactory 尚未初始化，卡片预设未加载");
         GameObject instance = GameObject.Instantiate(armyCardPrefab);
+        Debug.Log(cardSO);
         switch (cardSO.cardBaseType)
         {
             default: throw new ArgumentNullException("卡牌未设置类型");
