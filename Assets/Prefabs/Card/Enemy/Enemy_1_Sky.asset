@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_1_Sky
   m_EditorClassIdentifier: 
   isUsed: 0
-  cardName: "\u300C\u652F\u63F4\u533A | \u6D41\u8F6C\u300D\u53EC\u5524\u672F\u9635"
+  cardName: "\u300C\u652F\u63F4\u533A\u300D\u53EC\u5524\u672F\u9635"
   description: "\u654C\u65B9\u62BD\u4E00\u5F20\u724C"
   troopStrength: 1
   cost: 1

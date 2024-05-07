@@ -3776,6 +3776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c590ed8aaabde6459b0e32d71dff978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  card_add: 010000000200000002000000030000000300000003000000030000000400000004000000040000000400000004000000
   hand: []
   handMax: 10
   cardPool: {fileID: 5639615206382428108}
