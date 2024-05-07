@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUsed: 0
   cardName: "\u4FE1\u4F7F"
-  description: "\u3010\u7279\u6B8A/\u5F00\u6218\u65F6\u3011\n\u4E0B\u56DE\u5408\u51B3\u7B56\u70B9\u6570\u91CF
+  description: "\u3010\u5F00\u6218\u65F6\u3011\n\u4E0B\u56DE\u5408\u51B3\u7B56\u70B9\u6570\u91CF
     +2"
   troopStrength: 1
   cost: 1
