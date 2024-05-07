@@ -43,9 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-#if UNITY_EDITOR
         GameStart();
-#endif
     }
     public void GameStart()
     {

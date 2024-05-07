@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.Assertions.Must;
-using System.Net.Sockets;
-using static UnityEditor.PlayerSettings;
-using System.Threading.Tasks;
 
 public class CardManager : MonoBehaviour {
     public int[] card_add = new int[12];
