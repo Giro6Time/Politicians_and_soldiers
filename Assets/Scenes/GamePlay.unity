@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 6418085}
   - component: {fileID: 6418087}
   - component: {fileID: 6418086}
+  - component: {fileID: 6418088}
   m_Layer: 0
   m_Name: BOText
   m_TagString: Untagged
@@ -257,6 +258,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6418084}
   m_CullTransparentMesh: 1
+--- !u!114 &6418088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced0995c094f549d2aa20229411baf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &288219729 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8866762905328269581, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
@@ -585,6 +598,10 @@ PrefabInstance:
     - target: {fileID: 6682699212435734169, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989551349575952667, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: handMax
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6989551349575952667, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: card_add.Array.data[0]
