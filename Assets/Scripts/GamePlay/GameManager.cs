@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
 
         //发牌中
         currentState = 0;
+        if (dateMgr.GetMonth() < 12) 
         Player.Instance.decisionValue = config.decisionValue[dateMgr.GetMonth()];
 
         cardMgr.gameObject.SetActive(true);

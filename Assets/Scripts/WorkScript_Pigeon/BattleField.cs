@@ -63,8 +63,7 @@ public class BattleField : MonoBehaviour
 
         if(GameManager.Instance.dateMgr.GetMonth() == 12)
         {
-            Debug.Log("You Win");
-            Debug.Log("Game Over");
+            GameManager.Lose();
         }
 
         CardManager.Instance.RearrangeAll();
