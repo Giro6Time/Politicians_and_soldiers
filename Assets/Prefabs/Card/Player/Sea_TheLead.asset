@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
+  m_Name: Sea_TheLead
+  m_EditorClassIdentifier: 
+  isUsed: 0
+  cardName: "\u201C\u6211\u201D"
+  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u4E0D\u77E5\u9053"
+  troopStrength: 2
+  cost: 1
+  matchedSeason: 00000000010000000200000003000000
+  matchedPos: 2
+  cardBaseType: 0
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 314a154b4e8129646bb6817b7c3ffaba, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: a24487cbbf85e0541bb097ca0f92631f, type: 3}
+  drawEffect: []
+  invokeEffect: []
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds: []

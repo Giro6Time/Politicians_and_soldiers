@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
   m_Name: Enemy_1_Sky
   m_EditorClassIdentifier: 
-  cardName: "\u53EC\u5524\u672F\u9635"
-  description: "\u3010\u654C\u65B9\u3011\n"
+  isUsed: 0
+  cardName: "\u300C\u652F\u63F4\u533A\u300D\u53EC\u5524\u672F\u9635"
+  description: "\u654C\u65B9\u62BD\u4E00\u5F20\u724C"
   troopStrength: 1
-  cost: 0
-  matchedSeason: 0
+  cost: 1
+  matchedSeason: 
   matchedPos: 3
   cardBaseType: 0
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 83056228fa20e8c40a88839fd7a6d90e, type: 3}

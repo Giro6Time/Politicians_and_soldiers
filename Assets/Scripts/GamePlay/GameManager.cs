@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         battleField.onGameWin += Win;
         battleField.onGameLose += Lose;
         //battleField.armyManager.onBattleEnd += battleField.OnBattleEnd;
-        battleField.armyManager.onBattleEnd += IntermissionStart;
+        battleField.armyManager.onBattleEnd += () => StartCoroutine(DelayInvoke.DelayInvokeDo(IntermissionStart, config.battleEndDelay));
         gameFlowController.onReignsStartClicked +=()=>gameFlowController.CloseMiniGamePanel();
         gameFlowController.onReignsStartClicked += () => meetEventGameCtrl.Init();
         gameFlowController.onDialogStartClicked += () => gameFlowController.CloseMiniGamePanel();

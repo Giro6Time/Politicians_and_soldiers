@@ -16,16 +16,13 @@ public class DialogManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
-       
- 
-
     }
 
     public DialogUnit[] LoadDialogByDUGroup()
     {
         if (DUGroup.Length > 0)
         {
-            int ind = Random.Range(0, currDialogUnits.Length);
+            int ind = Random.Range(0, DUGroup.Length);
             List<DialogUnit> ret = new List<DialogUnit>();
             foreach(var element in DUGroup[ind].dialogUnitSOs)
             {
@@ -44,6 +41,7 @@ public class DialogManager : MonoBehaviour
     public void OpenDialog()
     {
         panel.Open();
+        Player.Instance.decisionValue--;
         currDialogUnits = LoadDialogByDUGroup();
 
         //打开后立刻播放第一个对话单元

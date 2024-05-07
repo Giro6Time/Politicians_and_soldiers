@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
+  m_Name: Land_Guard
+  m_EditorClassIdentifier: 
+  isUsed: 0
+  cardName: "\u666E\u901A\u7684\u76FE\u536B"
+  description: 
+  troopStrength: 3
+  cost: 1
+  matchedSeason: 00000000010000000200000003000000
+  matchedPos: 1
+  cardBaseType: 0
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 00e98af1ef9929741b29e4281191ce79, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 679adc840fab1a24bb1c2d4a392f6a68, type: 3}
+  drawEffect: []
+  invokeEffect: []
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds: []

@@ -197,6 +197,7 @@ public class MeetEventMgr
     public void UpdatePrizePool()
     {
         int prizeValue = 0, currProbability = 0;
+        List<int> valueIndexList = new List<int>(UIEventListener._Instance.prizeNums);
         float sum = 0;
         //num+1：该物体的稀有度  i：该物体的概率
         float[] eventRarityArray = new float[UIEventListener._Instance.prizeNums * 2];
@@ -212,6 +213,7 @@ public class MeetEventMgr
             eventRarityArray[i] = Mathf.Sqrt(1.0f / prizeValue);
             eventRarityArray[i + UIEventListener._Instance.prizeNums] = prizeValue;
             sum += eventRarityArray[i];
+            valueIndexList.Add(prizeValue-1);
         }
         //计算累计概率
         for (int i = 0; i < UIEventListener._Instance.prizeNums - 1; i++)
@@ -222,13 +224,8 @@ public class MeetEventMgr
         }
         prizePoolList.Add(new Prize((int)eventRarityArray[UIEventListener._Instance.prizeNums * 2 - 1], 10000));
 
-        //foreach (Prize prize in prizePoolList)
-        //{
-        //    Debug.Log("价值：" + prize.PrizeValue + "累计概率：" + prize.CumProbability);
-        //}
-
         //进行UI绘制
-        UIEventListener._Instance.DrawPrizeWheel();
+        UIEventListener._Instance.DrawPrizeWheel(valueIndexList);
     }
 
     /// <summary>

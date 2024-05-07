@@ -146,7 +146,7 @@ public class MeetEventGameCtrl : MonoBehaviour
             RectTransform rectTrans = eventMgr.currEventInfoList[0].obj.GetComponent<RectTransform>();
             //2.判定鼠标位置
             //从图像右边界开始
-            float targetX = -((eventMgr.currEventInfoList.Count / 2) * cardDistance - rectTrans.rect.width / 2) * meetEventCanvas.scaleFactor;
+            float targetX = -((eventMgr.currEventInfoList.Count / 2) * cardDistance - rectTrans.rect.width * rectTrans.localScale.x / 2) * meetEventCanvas.scaleFactor;
             int index = 0;
             //判定鼠标所在位置区间(curr,next)
             while (mousePos.x > targetX)
@@ -156,7 +156,7 @@ public class MeetEventGameCtrl : MonoBehaviour
             }
             //判定鼠标与区间距离
             //如果鼠标与目标区间的X距离小于width，这说明在目标区间
-            if ((targetX - mousePos.x) < rectTrans.rect.width)
+            if ((targetX - mousePos.x) < rectTrans.rect.width&&index>=0&&index<=eventMgr.currEventInfoList.Count)
             {
                 //3.进行Y轴订正
                 if (Mathf.Abs(mousePos.y - eventMgr.currEventInfoList[index].obj.transform.localPosition.y*meetEventCanvas.scaleFactor) < rectTrans.rect.height * 0.8f)
@@ -269,6 +269,7 @@ public class MeetEventGameCtrl : MonoBehaviour
     public IEnumerator PrizeWheel()
     {
         Quaternion begQua = UIEventListener._Instance.rotateParent.rotation;
+        float judgeAngle = 180;
         //鉴于需要抽取三次，所以应该进行3次循环
         for (int i = 0; i < 3; i++)
         {
@@ -283,7 +284,7 @@ public class MeetEventGameCtrl : MonoBehaviour
             {
                 if (rand < pair.CumProbability)
                 {
-                    rotateRealTime = UIEventListener._Instance.prizeWheelRotateTurns * (1 + UnityEngine.Random.Range(0, UIEventListener._Instance.prizeWheelRotateTurns/2)) * 360 + index*360/UIEventListener._Instance.prizeNums+180;
+                    rotateRealTime = UIEventListener._Instance.prizeWheelRotateTurns * (1 + UnityEngine.Random.Range(0, UIEventListener._Instance.prizeWheelRotateTurns/2)) * 360 + index*360/UIEventListener._Instance.prizeNums+judgeAngle;
                     break;
                 }
                 index++;
@@ -301,7 +302,7 @@ public class MeetEventGameCtrl : MonoBehaviour
                 yield return new WaitForSeconds(0.04f);
             }
             //强制校正
-            UIEventListener._Instance.rotateParent.rotation = Quaternion.Euler(new Vector3(begQua.eulerAngles.x,begQua.eulerAngles.y,index * 360 / UIEventListener._Instance.prizeNums));
+            UIEventListener._Instance.rotateParent.rotation = Quaternion.Euler(new Vector3(begQua.eulerAngles.x,begQua.eulerAngles.y,index * 360 / UIEventListener._Instance.prizeNums+judgeAngle));
             //抽完以后，进入奖池获取随机事件加入当前池列表
             eventMgr.currentEventList.Add(new EventInfoCollector(eventMgr.GetRandomValueEventIndex(eventMgr.prizePoolList[index].PrizeValue)));
             //旋转完成以后应该显示玩家抽到了什么
@@ -309,12 +310,12 @@ public class MeetEventGameCtrl : MonoBehaviour
                 eventList[eventMgr.currentEventList[eventMgr.currentEventList.Count - 1].EventIndex].EventValue));
 
             //每次抽奖完后休息0.4s
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(UIEventListener._Instance.prizeWheelRelaxTime);
         }
         //复位指针
         UIEventListener._Instance.rotateParent.rotation = begQua;
         //解除冻结
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(UIEventListener._Instance.prizeWheelRelaxTime);
         eventMgr.isFreeze = false;
 
         yield return null;
