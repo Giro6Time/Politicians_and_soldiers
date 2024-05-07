@@ -1,10 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// 0代表发牌中、1代表选牌中、2代表战斗中
+    /// </summary>
+    [HideInInspector]public int currentState;
+
     public GameFlowController gameFlowController;
     [Header("战前")]
     public CardManager cardMgr;
@@ -37,9 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-#if UNITY_EDITOR
         GameStart();
-#endif
     }
     public void GameStart()
     {
@@ -52,6 +56,11 @@ public class GameManager : MonoBehaviour
     {
         //回合开始时
         //回合计数器+1 -> 显示敌方场面 -> 读取玩家属性计算决策点 -> 发牌 -> enable input等待玩家交互
+
+        //发牌中
+        currentState = 0;
+        Player.Instance.decisionValue = config.decisionValue[dateMgr.GetMonth()];
+
         cardMgr.gameObject.SetActive(true);
         dateMgr.moveNextMonth();
         gameFlowController.battleStartButton.gameObject.SetActive(true);
@@ -63,6 +72,10 @@ public class GameManager : MonoBehaviour
     {
         //战斗开始时
         //卡片生成军队 -> 进入战斗
+
+        //战斗中
+        currentState = 2;
+
         gameFlowController.battleStartButton.gameObject.SetActive(false);
         Debug.Log("BattleStart");
         PushCard2BattleField();
@@ -107,7 +120,9 @@ public class GameManager : MonoBehaviour
             battleField.armyManager.Clear();
             cardMgr.SpawnEnemyCard(dateMgr.GetMonth());
             StartCoroutine(
-                DelayInvoke.DelayInvokeDo(() => cardMgr.UpdatePlayerHand(dateMgr.GetMonth(), dateMgr.GetSeason()), config.updateHandDelay));
+                DelayInvoke.DelayInvokeDo(() => 
+                cardMgr.UpdatePlayerHand(dateMgr.GetMonth(), dateMgr.GetSeason()), config.updateHandDelay)
+                );
         };
 
         battleField.onGameWin += Win;
