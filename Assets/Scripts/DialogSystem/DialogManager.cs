@@ -40,6 +40,10 @@ public class DialogManager : MonoBehaviour
 
     public void OpenDialog()
     {
+        if (Player.Instance.decisionValue <= 0) {
+            MessageView._Instance.ShowMessage("决策点不足！无法进入对话");
+            return;
+        }
         panel.Open();
         Player.Instance.decisionValue--;
         currDialogUnits = LoadDialogByDUGroup();

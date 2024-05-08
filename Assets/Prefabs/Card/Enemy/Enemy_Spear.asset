@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
+  m_Name: Enemy_Spear
+  m_EditorClassIdentifier: 
+  isUsed: 0
+  cardName: "\u51B2\u950B\u957F\u67AA\u624B"
+  description: "\u300C\u654C\u65B9\u63A8\u8FDB\u533A\u300D\n\u6218\u7EBF\u63A8\u8FDB+25%"
+  troopStrength: 2
+  cost: 1
+  matchedSeason: 
+  matchedPos: 1
+  cardBaseType: 0
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: a9c244d5211f18641ba30e4496dd81ea, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: d7ecddc9c5fe1e14396e6656a803deae, type: 3}
+  drawEffect: []
+  invokeEffect: []
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds: []

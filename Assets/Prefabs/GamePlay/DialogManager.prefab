@@ -48,3 +48,6 @@ MonoBehaviour:
   dialogUnitResourcePath: DialogUnits_ByGiro
   DUGroup:
   - {fileID: 11400000, guid: 6224184d23464794aa71425d34ef3690, type: 2}
+  - {fileID: 11400000, guid: e4a34eed8395d7448a6c0ce0ad553b1a, type: 2}
+  - {fileID: 11400000, guid: 28cd59471001bda49818d6260b4f0ecd, type: 2}
+  - {fileID: 11400000, guid: 4094d0b79b0ba274db8481493e0285d6, type: 2}

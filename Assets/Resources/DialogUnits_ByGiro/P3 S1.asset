@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a740c09731469bd49bcf4c5ca0cb2afd, type: 3}
+  m_Name: P3 S1
+  m_EditorClassIdentifier: 
+  m_name: "\u54F2\u9E26\u6F2B\u8C08"
+  m_content: "\u597D\u4F19\u4F34\u4E4C\u9E26\u98DE\u5230\u4F60\u7684\u8EAB\u8FB9\uFF0C\u7528\u722A\u5B50\u6276\u4E86\u6276\u773C\u955C\uFF0C\u60F3\u540C\u4F60\u4EA4\u8C08"
+  m_options:
+  - m_description: "\u8C08\u8BBA\u6218\u51B5\uFF08\u5175\u529B\u8865\u7ED9+1\u3001San-10\uFF09"
+    m_result: 
+    m_effects:
+    - m_type: 6
+      m_value: 1
+    - m_type: 2
+      m_value: -10
+  - m_description: "\u8C08\u8BBA\u7406\u60F3\uFF08San+20\uFF09"
+    m_result: 
+    m_effects:
+    - m_type: 2
+      m_value: 20
+  - m_description: "\u62D4\u4E0B\u5B83\u7684\u4E00\u6839\u7FBD\u6BDB\uFF08\u94B1\u8D22+10\uFF09"
+    m_result: 
+    m_effects:
+    - m_type: 4
+      m_value: 10
+  m_SR1: {fileID: 21300000, guid: fd48b8f963b069e49b1530558d4ffcb2, type: 3}
+  m_SR1_Offset: {x: 0, y: 0, z: 0}
+  m_SR2: {fileID: 21300000, guid: 72c70ff93996eee408da4669d02db26d, type: 3}
+  m_SR2_Offset: {x: 0, y: 0, z: 0}

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
+  m_Name: Effect_Sword
+  m_EditorClassIdentifier: 
+  isUsed: 0
+  cardName: "\u6325\u5251"
+  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u5BF9\u654C\u65B9\u9646\u533A\u5168\u4F53\u5361\u724C\u9020\u62101\u70B9\u4F24\u5BB3"
+  troopStrength: 0
+  cost: 1
+  matchedSeason: 00000000010000000200000003000000
+  matchedPos: 0
+  cardBaseType: 1
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 4f33e507f50b7be4a9b0dccd766c3bc8, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 4f33e507f50b7be4a9b0dccd766c3bc8, type: 3}
+  drawEffect: []
+  invokeEffect:
+  - rid: 3626891022083555329
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3626891022083555329
+      type: {class: IAttackInstantly, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 1
+        target: 0

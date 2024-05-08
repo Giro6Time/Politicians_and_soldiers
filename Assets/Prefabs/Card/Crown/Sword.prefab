@@ -91,20 +91,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventName: "\u4E00\u67C4\u5B9D\u5251"
   eventInfoActive:
-    DecisionValue: 3
-    Sanity: 0
-    Armament: 0
-    Fund: 0
-    PopulatSupport: 0
-    TroopIncrease: 0
-    decisionValueMax: 0
+    decisionValue: 0
+    armament: 0
+    popularSupport: 0
+    fund: -20
+    sanity: 0
+    troopIncrease: 0
   eventInfoInactive:
-    DecisionValue: 0
-    Sanity: 0
-    Armament: 0
-    Fund: 0
-    PopulatSupport: 0
-    TroopIncrease: 0
-    decisionValueMax: 0
-  _eventValue: 3
+    decisionValue: 0
+    armament: 0
+    popularSupport: 0
+    fund: 20
+    sanity: 0
+    troopIncrease: 0
+  _eventValue: 1
   nextValueBeginIndex: 3

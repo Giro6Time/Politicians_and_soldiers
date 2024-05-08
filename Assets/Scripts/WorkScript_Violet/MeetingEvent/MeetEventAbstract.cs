@@ -20,8 +20,8 @@ public abstract class MeetEventAbstract : MonoBehaviour
     /// <summary>
     /// 事件信息
     /// </summary>
-    public Player eventInfoActive;
-    public Player eventInfoInactive;
+    public PlayerInfo eventInfoActive;
+    public PlayerInfo eventInfoInactive;
 
     /// <summary>
     /// 事件价值
@@ -92,6 +92,17 @@ public abstract class MeetEventAbstract : MonoBehaviour
         this.eventInfoActive = other.eventInfoActive;
         this.eventInfoInactive = other.eventInfoInactive;
         this._eventValue = other.EventValue;
+    }
+
+    [Serializable]
+    public class PlayerInfo
+    {
+        public int decisionValue;
+        public float armament;
+        public float popularSupport;
+        public float fund;
+        public float sanity;
+        public float troopIncrease;
     }
 }
 

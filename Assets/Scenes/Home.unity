@@ -214,14 +214,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5289544480292206952, guid: aecc2c6faa62e434eb73b0ff2ff3cc93, type: 3}
-      propertyPath: backgroundAudioList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5289544480292206952, guid: aecc2c6faa62e434eb73b0ff2ff3cc93, type: 3}
-      propertyPath: backgroundAudioList.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 7958f1133bcb2ef4b8fe3eebb76b7d69, type: 3}
     - target: {fileID: 5289544480292206953, guid: aecc2c6faa62e434eb73b0ff2ff3cc93, type: 3}
       propertyPath: m_Name
       value: AudioCtrl
