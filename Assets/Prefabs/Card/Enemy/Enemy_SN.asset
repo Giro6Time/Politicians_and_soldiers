@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
+  m_Name: Enemy_SN
+  m_EditorClassIdentifier: 
+  isUsed: 0
+  cardName: "\u8D5B\u8BFA"
+  description: "\u672C\u56DE\u5408\u53CC\u65B9\u6218\u7EBF\u4E0D\u52A8"
+  troopStrength: 3
+  cost: 3
+  matchedSeason: 00000000010000000200000003000000
+  matchedPos: 3
+  cardBaseType: 0
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 0e19be1b3b353e34bbd505e36c1b21b5, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 65c31f461008d3a46960df4a74b4565e, type: 3}
+  drawEffect: []
+  invokeEffect:
+  - rid: 3626891022083555335
+  battleStartEffect: []
+  liveEffect: []
+  deathEffect: []
+  beforeAttackEffect: []
+  afterAttactEffect: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3626891022083555335
+      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        pos: 1
+        value: 0
+        rate: 0

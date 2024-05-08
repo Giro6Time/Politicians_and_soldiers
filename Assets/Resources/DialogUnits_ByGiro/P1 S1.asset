@@ -15,13 +15,13 @@ MonoBehaviour:
   m_name: "\u8033\u65C1\u4F4E\u8BED"
   m_content: "\u4F60\u7684\u8033\u8FB9\u4F20\u6765\u4F4E\u8BED\u3002\u4F4E\u8BED\u81EA\u79F0\u300C\u79D1\u5C14\u52AA\u8BFA\u65AF\u300D\uFF0C\u638C\u7BA1\u7740\u72E9\u730E\u3001\u8352\u539F\u3002\u4ED6\u8981\u6C42\u4F60\u5411\u4ED6\u732E\u4E0A\u4EE3\u8868\u5FE0\u8BDA\u7684\u56DE\u5E94\u3002"
   m_options:
-  - m_description: "\u51FA\u58F0\u56DE\u5E94\uFF08\u51B3\u7B56\u70B9+3\u3001San-15\uFF09"
+  - m_description: "\u51FA\u58F0\u56DE\u5E94\uFF08\u51B3\u7B56\u70B9+2\u3001San-15\uFF09"
     m_result: 
     m_effects:
     - m_type: 2
       m_value: -15
     - m_type: 1
-      m_value: 3
+      m_value: 2
   - m_description: "\u62A5\u4EE5\u6C89\u9ED8\uFF08San+20\uFF09"
     m_result: San+20
     m_effects:

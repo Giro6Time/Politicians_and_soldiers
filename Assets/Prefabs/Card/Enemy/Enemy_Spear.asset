@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
-  m_Name: Enemy_2_Sea
+  m_Name: Enemy_Spear
   m_EditorClassIdentifier: 
   isUsed: 0
-  cardName: "\u6797\u5730\u5F13\u624B"
-  description: "\u300C\u654C\u65B9\u652F\u63F4\u533A\u300D\n\u652F\u63F4\u6295\u5C04\u529B+1"
-  troopStrength: 1
+  cardName: "\u51B2\u950B\u957F\u67AA\u624B"
+  description: "\u300C\u654C\u65B9\u63A8\u8FDB\u533A\u300D\n\u6218\u7EBF\u63A8\u8FDB+25%"
+  troopStrength: 2
   cost: 1
   matchedSeason: 
-  matchedPos: 2
+  matchedPos: 1
   cardBaseType: 0
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: 69791c0a1be17dd44a3a98c6575b5c9f, type: 3}
-  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 3633fc4281642d444be399e684bb986e, type: 3}
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: a9c244d5211f18641ba30e4496dd81ea, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: d7ecddc9c5fe1e14396e6656a803deae, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []

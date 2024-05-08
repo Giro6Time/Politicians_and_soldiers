@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
-  m_Name: Enemy_2_Land
+  m_Name: Enemy_Guard
   m_EditorClassIdentifier: 
   isUsed: 0
-  cardName: "\u51B2\u950B\u957F\u67AA\u624B"
-  description: "\u300C\u654C\u65B9\u63A8\u8FDB\u533A\u300D\n\u6218\u7EBF\u63A8\u8FDB+25%"
+  cardName: "\u76FE\u536B"
+  description: 
   troopStrength: 2
   cost: 1
-  matchedSeason: 
+  matchedSeason: 00000000010000000200000003000000
   matchedPos: 1
   cardBaseType: 0
-  cardLayourPrefab: {fileID: 1940235687683110017, guid: a217db1c18c43194b966c5cc2547ac8f, type: 3}
-  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 787fcdab611a5ab4388a92b11660ce3d, type: 3}
+  cardLayourPrefab: {fileID: 1940235687683110017, guid: 42a1f2979fb764e46a5fdc3af4b76c06, type: 3}
+  armyLayoutPrefab: {fileID: 1940235687683110017, guid: 42369adcaa9f52646acfee8e716c9a4c, type: 3}
   drawEffect: []
   invokeEffect: []
   battleStartEffect: []

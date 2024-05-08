@@ -1140,14 +1140,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_1.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_2.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: baca9a445b3f7a640bfee8315ab006c3, type: 2}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: cardList_2.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
@@ -1160,15 +1152,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_5.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: cardList_5.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardList_6.Array.data[0]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}

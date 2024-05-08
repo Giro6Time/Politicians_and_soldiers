@@ -15,11 +15,11 @@ MonoBehaviour:
   m_name: "\u51B3\u7B56\u65F6\u523B"
   m_content: "\u6218\u524D\u91CD\u8981\u7684\u51B3\u7B56\u2014\u2014\u8D1E\u5FB7\u5C06\u4E09\u4E2A\u4E92\u65A5\u7684\u65B9\u6848\u4E0E\u7ED3\u679C\u5411\u4F60\u6258\u51FA\u3002"
   m_options:
-  - m_description: "\u6F5C\u5165\u654C\u8425\u7A83\u53D6\u60C5\u62A5\uFF08\u51B3\u7B56\u70B9+2\uFF0CSan-10\uFF09"
+  - m_description: "\u6F5C\u5165\u654C\u8425\u7A83\u53D6\u60C5\u62A5\uFF08\u51B3\u7B56\u70B9+1\uFF0CSan-10\uFF09"
     m_result: 
     m_effects:
     - m_type: 1
-      m_value: 2
+      m_value: 1
     - m_type: 2
       m_value: -10
   - m_description: "\u5728\u9644\u8FD1\u5E9F\u5F03\u8425\u5730\u4E2D\u4FEE\u517B\uFF08San+30\uFF09"
