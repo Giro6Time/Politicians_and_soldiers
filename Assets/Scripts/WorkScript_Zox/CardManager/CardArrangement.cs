@@ -231,7 +231,7 @@ public class CardArrangement : MonoBehaviour
 
     public void Force_WipeDeadCard()
     {
-        for(int i = 0; i < transform.childCount; i++)
+        for(int i = 3; i < transform.childCount; i++)
         {
             ArmyCard card = transform.GetChild(i).GetComponent<ArmyCard>();
             if(card.troopStrength <= 0)

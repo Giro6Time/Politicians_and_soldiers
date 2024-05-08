@@ -230,7 +230,7 @@ public class IAttackInstantly : IEffect
 
         if (area == null || area.pos == CardPos.SelectionArea)
         {
-            //
+            Debug.Log("Not happen");
         }
         else
         {
@@ -241,6 +241,10 @@ public class IAttackInstantly : IEffect
             else
             {
                 CardManager.Instance.enemyPlayingArea.allCardsBeDamaged(area.pos, damage);
+
+                Debug.Log(area);
+
+                CardManager.Instance.UpdateAllCardsImage();
                 CardManager.Instance.force_Rearrange(area.pos, target);
             }
         }

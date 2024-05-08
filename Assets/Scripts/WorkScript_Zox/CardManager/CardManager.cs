@@ -497,6 +497,28 @@ public class CardManager : MonoBehaviour {
 
     public void UpdateCurrentState(){
     }
+
+    public void UpdateAllCardsImage()
+    {
+        UpdateCardsImage(cardAnchor_Land_Enemy);
+        UpdateCardsImage(cardAnchor_Land_Player);
+        UpdateCardsImage(cardAnchor_Sea_Enemy);
+        UpdateCardsImage(cardAnchor_Sea_Player);
+        UpdateCardsImage(cardAnchor_Sky_Enemy);
+        UpdateCardsImage(cardAnchor_Sky_Player);
+    }
+
+    private void UpdateCardsImage(CardArrangement cardArrangement)
+    {
+        for(int i = 3; i < cardArrangement.transform.childCount; i++)
+        {
+            ArmyCard armyCard = cardArrangement.transform.GetChild(i).GetComponent<ArmyCard>();
+
+            //cardArrangement.transform.GetChild(i).Find("Name").GetComponent<TextMesh>().text = cardBase.cardName;
+            //cardArrangement.transform.GetChild(i).Find("Description").GetComponent<TextMesh>().text = cardBase.description;
+            cardArrangement.transform.GetChild(i).Find("TroopStrength").GetComponent<TextMesh>().text = armyCard.troopStrength.ToString();
+        }
+    }
 }
 
 public static class CardFactory
