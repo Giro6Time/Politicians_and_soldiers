@@ -1798,14 +1798,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.14083616
       objectReference: {fileID: 0}
-    - target: {fileID: 5639615206382428108, guid: b7f83a071644c4f39b73e45327bdda5f, type: 3}
-      propertyPath: cardSOList.Array.data[34]
-      value: 
-      objectReference: {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
-    - target: {fileID: 5639615206382428108, guid: b7f83a071644c4f39b73e45327bdda5f, type: 3}
-      propertyPath: cardSOList.Array.data[35]
-      value: 
-      objectReference: {fileID: 11400000, guid: be5a8943add1947419385bc9ca17e42d, type: 2}
     - target: {fileID: 5639615206474506671, guid: b7f83a071644c4f39b73e45327bdda5f, type: 3}
       propertyPath: m_Name
       value: CardManager

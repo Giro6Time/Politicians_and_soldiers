@@ -1117,7 +1117,7 @@ PrefabInstance:
       objectReference: {fileID: 963194227}
     - target: {fileID: 6381311501678950335, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6381311502304088698, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: enemySeaEffectC
@@ -1156,6 +1156,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardList_6.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardList_8.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardList_10.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: cardList_2.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 2d258ddf79484e745b32d602664dd257, type: 2}
@@ -1179,18 +1191,14 @@ PrefabInstance:
       propertyPath: cardList_6.Array.data[2]
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardSOList.Array.data[29]
+    - target: {fileID: 6989551350617772454, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
+      propertyPath: cardList_8.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
+      objectReference: {fileID: 11400000, guid: 856fbb66bd0a63c43b5db28ed1757ef5, type: 2}
     - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardSOList.Array.data[30]
+      propertyPath: cardSOList.Array.data[40]
       value: 
-      objectReference: {fileID: 11400000, guid: b19f5f6dae097084f9c524616bae3ede, type: 2}
-    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardSOList.Array.data[35]
-      value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 4d3b14405a38ab143831ed69fbb4b3a2, type: 2}
     - target: {fileID: 6989551351325699953, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_IsActive
       value: 1
