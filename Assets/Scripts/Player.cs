@@ -48,6 +48,8 @@ public class Player
         set
         {
             Sanity = value;
+            if (value < 0)
+                GameManager.Lose();
             UIEventListener._Instance.UIMeetingEventUpdate();
         }
     }
