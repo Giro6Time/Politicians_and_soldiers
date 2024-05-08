@@ -115,6 +115,11 @@ public class Player
         //设个最大值
         decisionValueMax = 1000000;
         decisionValue = 1000000;
+        armament = 50;
+        fund = 50;
+        PopulatSupport = 50;
+        sanity = 100;
+        
     }
     
 }

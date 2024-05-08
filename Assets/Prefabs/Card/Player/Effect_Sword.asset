@@ -10,23 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b506791d6b62c01438bbde55d060498d, type: 3}
-  m_Name: Effect_Crow
+  m_Name: Effect_Sword
   m_EditorClassIdentifier: 
   isUsed: 0
-  cardName: "\u53EC\u5524\u672F\u9635"
-  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u672C\u56DE\u5408\u652F\u63F4\u6295\u5C04\u529B+10%\n\u5E76\u5411\u624B\u724C\u6DFB\u52A01\u5F20\u519B\u961F\u5361\u724C"
+  cardName: "\u6325\u5251"
+  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u5BF9\u654C\u65B9\u9646\u533A\u5168\u4F53\u5361\u724C\u9020\u62101\u70B9\u4F24\u5BB3"
   troopStrength: 0
   cost: 1
   matchedSeason: 00000000010000000200000003000000
-  matchedPos: 1
+  matchedPos: 0
   cardBaseType: 1
   cardLayourPrefab: {fileID: 1940235687683110017, guid: 4f33e507f50b7be4a9b0dccd766c3bc8, type: 3}
   armyLayoutPrefab: {fileID: 1940235687683110017, guid: 4f33e507f50b7be4a9b0dccd766c3bc8, type: 3}
   drawEffect: []
   invokeEffect:
-  - rid: 8045850180494295040
-  - rid: 3626891022083555332
-  - rid: 3626891022083555333
+  - rid: 3626891022083555329
   battleStartEffect: []
   liveEffect: []
   deathEffect: []
@@ -35,20 +33,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3626891022083555332
-      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
+    - rid: 3626891022083555329
+      type: {class: IAttackInstantly, ns: , asm: Assembly-CSharp}
       data:
-        pos: 2
-        value: 1
-        rate: 1.1
-    - rid: 3626891022083555333
-      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
-      data:
-        pos: 3
-        value: 1
-        rate: 1.1
-    - rid: 8045850180494295040
-      type: {class: IAddCardEffect, ns: , asm: Assembly-CSharp}
-      data:
-        num: 1
-        cardBaseType: 0
+        damage: 1
+        target: 0

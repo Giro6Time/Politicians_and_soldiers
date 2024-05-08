@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Land_Spear
   m_EditorClassIdentifier: 
   isUsed: 0
-  cardName: "\u666E\u901A\u7684\u67AA\u5175"
-  description: "\u3010\u5F00\u6218\u65F6\u3011\n\u6218\u7EBF\u63A8\u8FDB\u529B+1"
-  troopStrength: 2
+  cardName: "\u67AA\u5175"
+  description: "\u3010\u5F00\u6218\u65F6\u3011\n\u672C\u56DE\u5408\u6218\u7EBF\u63A8\u8FDB\u529B+20%"
+  troopStrength: 1
   cost: 1
   matchedSeason: 
   matchedPos: 1
@@ -38,4 +38,4 @@ MonoBehaviour:
       data:
         pos: 1
         value: 1
-        rate: 1
+        rate: 1.2

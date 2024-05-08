@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUsed: 0
   cardName: "\u4ED9\u4E18\u7CBE\u7075"
-  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u652F\u63F4\u6295\u5C04\u529B+20%"
+  description: "\u3010\u6253\u51FA\u65F6\u3011\n\u51B3\u7B56\u70B9\u6570\u91CF+1"
   troopStrength: 0
-  cost: 1
+  cost: 0
   matchedSeason: 00000000010000000200000003000000
   matchedPos: 0
   cardBaseType: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
   armyLayoutPrefab: {fileID: 1940235687683110017, guid: 68c5a6b472b54cb409ba4d0c5549803f, type: 3}
   drawEffect: []
   invokeEffect:
-  - rid: 3626890959641640964
+  - rid: 3626891022083555334
   battleStartEffect: []
   liveEffect: []
   deathEffect: []
@@ -33,9 +33,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3626890959641640964
-      type: {class: IResultReflectEffect, ns: , asm: Assembly-CSharp}
+    - rid: 3626891022083555334
+      type: {class: IAddDecision, ns: , asm: Assembly-CSharp}
       data:
-        pos: 1
-        value: 0
-        rate: 1.2
+        num: 1

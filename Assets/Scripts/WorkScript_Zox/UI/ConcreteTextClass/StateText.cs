@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class StateText : TextUI
 {
-    private string[] States = {"AddCard","ChooseCard","Battle"};
+    private string[] States = { "「发牌阶段」", "「出牌阶段」", "「开战」" };
     public override void ChangeText()
     {
         if(value != GameManager.Instance.currentState)
