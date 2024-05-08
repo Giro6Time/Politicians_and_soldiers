@@ -3718,14 +3718,9 @@ MonoBehaviour:
   cardSOList:
   - {fileID: 11400000, guid: e7ecde85aef7044489d071fcccadc7e7, type: 2}
   - {fileID: 11400000, guid: e7ecde85aef7044489d071fcccadc7e7, type: 2}
-  - {fileID: 11400000, guid: e7ecde85aef7044489d071fcccadc7e7, type: 2}
-  - {fileID: 11400000, guid: 3824c02a4de569f439072a9b2a2196cc, type: 2}
   - {fileID: 11400000, guid: 3824c02a4de569f439072a9b2a2196cc, type: 2}
   - {fileID: 11400000, guid: 3824c02a4de569f439072a9b2a2196cc, type: 2}
   - {fileID: 11400000, guid: f620dde7e6a81cf4ca81c0401f14fc07, type: 2}
-  - {fileID: 11400000, guid: f620dde7e6a81cf4ca81c0401f14fc07, type: 2}
-  - {fileID: 11400000, guid: f620dde7e6a81cf4ca81c0401f14fc07, type: 2}
-  - {fileID: 11400000, guid: c2f8fef670f50de44ac65aaece32ed01, type: 2}
   - {fileID: 11400000, guid: c2f8fef670f50de44ac65aaece32ed01, type: 2}
   - {fileID: 11400000, guid: c2f8fef670f50de44ac65aaece32ed01, type: 2}
   - {fileID: 11400000, guid: eee50aeb06ccd9147b4e8f7ba8582845, type: 2}
