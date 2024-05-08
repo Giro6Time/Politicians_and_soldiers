@@ -24,6 +24,7 @@ public class Player
     /// <summary>
     /// 决策点
     /// </summary>
+    [SerializeField]
     int DecisionValue;
 
     public int decisionValue
@@ -41,6 +42,7 @@ public class Player
     /// <summary>
     /// sanֵ
     /// </summary>
+    [SerializeField]
     float Sanity;
     public float sanity
     {
@@ -54,6 +56,7 @@ public class Player
     /// <summary>
     /// 军队值
     /// </summary>
+    [SerializeField]
     float Armament;
     public float armament
     {
@@ -68,6 +71,7 @@ public class Player
     /// <summary>
     /// 资金
     /// </summary>
+    [SerializeField]
     float Fund;
     public float fund
     {
@@ -82,6 +86,7 @@ public class Player
     /// <summary>
     /// 民众
     /// </summary>
+    [SerializeField]
     float PopulatSupport;
     public float popularSupport
     {
@@ -95,6 +100,7 @@ public class Player
     /// <summary>
     /// 军队补充值
     /// </summary>
+    [SerializeField]
     float TroopIncrease;
     public float troopIncrease
     {
