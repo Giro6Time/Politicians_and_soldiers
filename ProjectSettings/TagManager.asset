@@ -41,12 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Army
+    uniqueID: 1581339529
+    locked: 0
   - name: Card
     uniqueID: 170569585
     locked: 0
   - name: Mask
     uniqueID: 3014784419
-    locked: 0
-  - name: Army
-    uniqueID: 1581339529
     locked: 0
