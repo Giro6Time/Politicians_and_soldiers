@@ -487,6 +487,7 @@ public class ArmyManager : MonoBehaviour
         playerSeaEffect = playerSeaEffectC;
         enemySeaEffect = enemySeaEffectC;
         playerSkyEffect = playerSkyEffectC;
+        UIEventListener._Instance.UIMeetingEventUpdate();
         enemySkyEffect = enemySkyEffectC;
         ElseEffect = ElseEffectC;
     }

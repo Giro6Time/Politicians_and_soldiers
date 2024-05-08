@@ -71,6 +71,7 @@ public class IResultReflectEffect : IEffect
                 break;
             case CardPos.SkyPutArea:
                 GameManager.Instance.battleField.armyManager.playerSkyEffect+= value;
+                UIEventListener._Instance.UIMeetingEventUpdate();
                 if (isPlayerTrigger)
                 {
                     MessageView._Instance.ShowMessage("空军战线投射值增加了" + value + "点");

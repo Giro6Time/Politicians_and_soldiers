@@ -32,6 +32,7 @@ public class DateManager : MonoBehaviour
     public void Init()
     {
         month = 0;
+        UIEventListener._Instance.UIMeetingEventUpdate();
     }
 
     public void moveNextMonth()
@@ -45,6 +46,7 @@ public class DateManager : MonoBehaviour
 
             OnMonthChanged?.Invoke();
         }
+        UIEventListener._Instance.UIMeetingEventUpdate();
     }
 
     private void UpdateSeason()
@@ -62,6 +64,7 @@ public class DateManager : MonoBehaviour
         {
             season = Season.Winter;
         }
+        UIEventListener._Instance.UIMeetingEventUpdate();
     }
 
     public int GetMonth()
