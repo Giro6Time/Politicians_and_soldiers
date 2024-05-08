@@ -47,4 +47,4 @@ MonoBehaviour:
   panel: {fileID: 0}
   dialogUnitResourcePath: DialogUnits_ByGiro
   DUGroup:
-  - {fileID: 11400000, guid: 4afcadc983e3ce94f84bcfbf67c68ff7, type: 2}
+  - {fileID: 11400000, guid: 6224184d23464794aa71425d34ef3690, type: 2}

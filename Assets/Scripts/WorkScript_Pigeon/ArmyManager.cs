@@ -37,6 +37,14 @@ public class ArmyManager : MonoBehaviour
     [SerializeField] GameObject enemySkyArmyParent;
 
     public float progressChangeValue = 0;
+    public float playerLandEffectC = 0.02f;
+    public float enemyLandEffectC = 0.05f;
+    public float playerSeaEffectC = 10f;
+    public float enemySeaEffectC = 10f;
+    public float playerSkyEffectC = 10f;
+    public float enemySkyEffectC = 10f;
+    public float ElseEffectC = 1;
+
     public float playerLandEffect = 0.02f;
     public float enemyLandEffect = 0.05f;
     public float playerSeaEffect = 10f;
@@ -309,28 +317,28 @@ public class ArmyManager : MonoBehaviour
             else if (at == ArmyType.Land)
             {
                 currArmyType = ArmyType.Sky;
-                List<float> result = CalculateTroopstrenth();
+                List<float> battleResult = CalculateTroopstrenth();
                 //战胜
-                if (result[0] > 0)
+                if (battleResult[0] > 0)
                 {
-                    progressChangeValue = (result[0] * playerLandEffect +
-                                            Mathf.Max(result[1], 0) * playerSeaEffect +
-                                            Mathf.Max(result[2], 0) * playerSkyEffect) * ElseEffect + Fix;
+                    progressChangeValue = (battleResult[0] * playerLandEffect +
+                                            Mathf.Max(battleResult[1], 0) * playerSeaEffect +
+                                            Mathf.Max(battleResult[2], 0) * playerSkyEffect) * ElseEffect + Fix;
                 }
                 //战败
-                else if (result[0] < 0)
+                else if (battleResult[0] < 0)
                 {
-                    progressChangeValue = (result[0] * playerLandEffect +
-                                            Mathf.Min(result[1], 0) * playerSeaEffect +
-                                            Mathf.Min(result[2], 0) * playerSkyEffect) * ElseEffect - Fix;
+                    progressChangeValue = (battleResult[0] * playerLandEffect +
+                                            Mathf.Min(battleResult[1], 0) * playerSeaEffect +
+                                            Mathf.Min(battleResult[2], 0) * playerSkyEffect) * ElseEffect - Fix;
                 }
                 //平
-                else if (result[0] == 0)
+                else if (battleResult[0] == 0)
                 {
                     progressChangeValue = 0;
                 }
                 //currArmyType = ArmyType.Sky;
-                GameManager.Instance.cardMgr.RefreshList();
+                //GameManager.Instance.cardMgr.RefreshList();
                 onBattleEnd?.Invoke();
             }
         }
@@ -474,10 +482,13 @@ public class ArmyManager : MonoBehaviour
 
     public void ResetEffect()
     {
-        playerSkyEffect = 10f;
-        playerSeaEffect = 10f;
-        enemySkyEffect = 10f;
-        enemySeaEffect = 10f;
+        playerLandEffect = playerLandEffectC;
+        enemyLandEffect = enemyLandEffectC;
+        playerSeaEffect = playerSeaEffectC;
+        enemySeaEffect = enemySeaEffectC;
+        playerSkyEffect = playerSkyEffectC;
+        enemySkyEffect = enemySkyEffectC;
+        ElseEffect = ElseEffectC;
     }
 
     internal void Clear()

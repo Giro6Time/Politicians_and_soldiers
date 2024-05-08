@@ -86,8 +86,14 @@ public class MessageView : MonoBehaviour
                         currStartNums--;
                         obj = null;
                     }));
+
             }
         }
+    }
+
+    private void DisActiveTip()
+    {
+        btn_Tip.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -107,6 +113,7 @@ public class MessageView : MonoBehaviour
     {
         btn_Tip.gameObject.SetActive(true);
         text_Tip.text = string.Format("{0}\n点击文本框可关闭",tipContext);
+        Invoke("DisActiveTip",1.5f);
     }
 
     public void ShowHurt(string hurtValue, Vector3 targetPosition)

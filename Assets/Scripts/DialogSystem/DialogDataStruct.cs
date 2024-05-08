@@ -39,8 +39,8 @@ public class SanityEffect : DialogEffect
 	public override void Trigger(Player p)
 	{
 		p.sanity += value;
-		MessageView._Instance.ShowMessage("玩家的San值增加了" + value.ToString() + "点！");
-		Debug.Log("玩家的San值增加了" + value.ToString() + "点！");
+		MessageView._Instance.ShowMessage("San值" + value.ToString() + "点");
+		Debug.Log("San值" + value.ToString() + "点");
 	}
 }
 
@@ -54,8 +54,8 @@ public class DecisionValueEffect : DialogEffect
 	public override void Trigger(Player p)
 	{
 		p.decisionValue += (int)value;
-		MessageView._Instance.ShowMessage("玩家的决策点增加了" + value.ToString() + "点！");
-        Debug.Log("玩家的决策点增加了" + value.ToString() + "点！");
+		MessageView._Instance.ShowMessage("决策点" + value.ToString() + "点");
+        Debug.Log("决策点" + value.ToString() + "点");
 	}
 }
 
