@@ -23,6 +23,7 @@ public class Army : MonoBehaviour
         set
         {
             troopStrength = value;
+            whereIFrom.troopStrength = value;
             if (troopStrength <= 0)
             {
                 onDied?.Invoke();
