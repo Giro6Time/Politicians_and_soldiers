@@ -372,18 +372,18 @@ public class EffectConfigurationWindow : EditorWindow
             case "IChangePossibility":
                 if(lastResult != result)
                 args = new object[2] { 0, 5 };
-                EditorGUILayout.LabelField("��ѡ��������");
+                EditorGUILayout.LabelField("种类(0-5, 陆、海、空、军队、法术)");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
-                EditorGUILayout.LabelField("���и���");
+                EditorGUILayout.LabelField("概率大小(0-10)");
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
 
             case "IAttackInstantly":
                 if(lastResult != result)
                 args = new object[2] { 0,0 };
-                EditorGUILayout.LabelField("����˺���ֵ");
+                EditorGUILayout.LabelField("造成伤害数值");
                 args[0] = EditorGUILayout.IntField((int)args[0]);
-                EditorGUILayout.LabelField("Ŀ�꣨0Ϊ�Ѿ���1Ϊ���ˣ�");
+                EditorGUILayout.LabelField("目标（0代表自己、1代表敌人）");
                 args[1] = EditorGUILayout.IntField((int)args[1]);
                 break;
             case "DelayDesisionValueEffect":
