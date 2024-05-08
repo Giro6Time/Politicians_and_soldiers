@@ -1179,10 +1179,6 @@ PrefabInstance:
       propertyPath: cardList_6.Array.data[2]
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6989551351248425234, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
-      propertyPath: cardSOList.Array.data[40]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4d3b14405a38ab143831ed69fbb4b3a2, type: 2}
     - target: {fileID: 6989551351325699953, guid: 60ee06186c82235409ba619b11fd3993, type: 3}
       propertyPath: m_IsActive
       value: 1

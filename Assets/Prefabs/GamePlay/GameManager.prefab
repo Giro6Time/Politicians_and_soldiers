@@ -1798,10 +1798,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.14083616
       objectReference: {fileID: 0}
-    - target: {fileID: 5639615205743779704, guid: b7f83a071644c4f39b73e45327bdda5f, type: 3}
-      propertyPath: cardList_2.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5639615206474506671, guid: b7f83a071644c4f39b73e45327bdda5f, type: 3}
       propertyPath: m_Name
       value: CardManager
