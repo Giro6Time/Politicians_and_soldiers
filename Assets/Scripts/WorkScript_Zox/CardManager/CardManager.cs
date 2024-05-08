@@ -173,6 +173,10 @@ public class CardManager : MonoBehaviour {
     {
         //Debug.Log("Spawn Enemy");
         //Enemy put card
+        if(enemy.GetCardBaseSOList(month).Count == 0)
+        {
+            return;
+        }
         foreach (CardBaseSO enemyCardSO in enemy.GetCardBaseSOList(month))
         {
             InstantiateEnemy(enemyCardSO);
