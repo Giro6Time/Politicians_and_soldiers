@@ -48,6 +48,8 @@ public class Player
         set
         {
             Sanity = value;
+            if (value < 0)
+                GameManager.Lose();
             UIEventListener._Instance.UIMeetingEventUpdate();
         }
     }
@@ -60,6 +62,8 @@ public class Player
         get { return Armament; }
         set
         {
+            if(value < 0 || value>=100)
+                GameManager.Lose();
             Armament = value;
             UIEventListener._Instance.UIMeetingEventUpdate();
         }
@@ -74,6 +78,8 @@ public class Player
         get { return Fund; }
         set
         {
+            if (value < 0 || value >= 100)
+                GameManager.Lose();
             Fund = value;
             UIEventListener._Instance.UIMeetingEventUpdate();
         }
@@ -88,6 +94,8 @@ public class Player
         get { return PopulatSupport; }
         set
         {
+            if (value < 0 || value >= 100)
+                GameManager.Lose();
             PopulatSupport = value;
             UIEventListener._Instance.UIMeetingEventUpdate();
         }

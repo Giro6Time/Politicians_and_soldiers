@@ -143,8 +143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currAudio: {fileID: 0}
   backgroundAudioList:
-  - {fileID: 8300000, guid: 87944f293aba6244da4332794a222f03, type: 3}
-  - {fileID: 8300000, guid: 7958f1133bcb2ef4b8fe3eebb76b7d69, type: 3}
+  - {fileID: 8300000, guid: 993564b15c371094999536cfcf5ee124, type: 3}
+  - {fileID: 8300000, guid: 36b1eff957526354ab9eb618ed9ab5fd, type: 3}
   soundEffectsList:
   - {fileID: 8300000, guid: 95983355c4ead6643a6c7919eba276b9, type: 3}
   - {fileID: 8300000, guid: a57b992d1d793a646b5884833f9f5ca0, type: 3}
