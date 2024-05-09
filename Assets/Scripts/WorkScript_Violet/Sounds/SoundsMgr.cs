@@ -39,7 +39,10 @@ public class SoundsMgr : MonoBehaviour
 
     private void Awake()
     {
-        _Instance = this;
+        if (_Instance == null)
+        {
+            _Instance = this;
+        }
         currAudio = GetComponent<AudioSource>();
         DontDestroyOnLoad(this);
 

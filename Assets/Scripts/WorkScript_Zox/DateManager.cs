@@ -18,7 +18,7 @@ public class DateManager : MonoBehaviour
     private int weatherTypeCount = 3;
 
     [SerializeField] private Season season;
-    
+
     private bool canMoveNextMonth {
         get { return 0 <= month && month < 12; }
     }
@@ -32,6 +32,7 @@ public class DateManager : MonoBehaviour
     public void Init()
     {
         month = 0;
+        UIEventListener._Instance.UIMeetingEventUpdate();
     }
 
     public void moveNextMonth()
@@ -44,6 +45,8 @@ public class DateManager : MonoBehaviour
             weather = (Weather)(int)UnityEngine.Random.Range(0, weatherTypeCount);
 
             OnMonthChanged?.Invoke();
+            UIEventListener._Instance.UIMeetingEventUpdate();
+            MessageView._Instance.ShowMessage(String.Format("一个月过去了，现在是：{0}月",month));
         }
     }
 
@@ -62,6 +65,7 @@ public class DateManager : MonoBehaviour
         {
             season = Season.Winter;
         }
+        UIEventListener._Instance.UIMeetingEventUpdate();
     }
 
     public int GetMonth()

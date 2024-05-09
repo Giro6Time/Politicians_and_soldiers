@@ -191,6 +191,7 @@ public class UIEventListener : MonoBehaviour
         SoundEffectSetttingToggle.onValueChanged.AddListener(OnToggleClick_SoundEffectSetting);
         SoundEffectSettingSlider.onValueChanged.AddListener(OnSliderValueChanged_SoundEffectSetting);
         UIMeetingEventUpdate();
+        lastTimeScale = Time.timeScale;
     }
     private void OnDestroy()
     {
