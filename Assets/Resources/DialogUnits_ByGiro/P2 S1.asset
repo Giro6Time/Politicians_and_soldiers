@@ -23,7 +23,7 @@ MonoBehaviour:
     - m_type: 2
       m_value: -15
   - m_description: "\u5728\u9644\u8FD1\u5E9F\u5F03\u8425\u5730\u4E2D\u4FEE\u517B\uFF08San+20\u3001\u5175\u529B\u8865\u7ED9+1\uFF09"
-    m_result: San+30
+    m_result: 
     m_effects:
     - m_type: 2
       m_value: 20

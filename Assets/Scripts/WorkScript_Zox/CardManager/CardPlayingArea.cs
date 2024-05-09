@@ -85,20 +85,22 @@ public class CardPlayingArea : MonoBehaviour
     }
     public void allCardsBeDamaged(CardPos pos , int damage)
     {
-        bool needToBeRefresh = false;
         switch (pos)
         {
             case CardPos.LandPutArea:
                 for(int i = 0; i < land.Count; i++)
                 {
                     ArmyCard card = land[i] as ArmyCard;
+
+                    Debug.Log(card.troopStrength);
                     card.troopStrength -= damage;
+                    Debug.Log(card.troopStrength);
+
                     MessageView._Instance.ShowHurt(damage.ToString(), card.gameObject.transform.position);
                     if (card.troopStrength <= 0)
                     {
                         land[i] = null;
                         land[i] = null;
-                        needToBeRefresh = true;
                     }
                 }
                 break;
@@ -111,7 +113,6 @@ public class CardPlayingArea : MonoBehaviour
                     if (card.troopStrength <= 0)
                     {
                         sea[i] = null;
-                        needToBeRefresh = true;
                     }
                 }
                 break;
@@ -124,16 +125,12 @@ public class CardPlayingArea : MonoBehaviour
                     if (card.troopStrength <= 0)
                     {
                         sky[i] = null;
-                        needToBeRefresh = true;
                     }
                 }
                 break;
             case CardPos.SelectionArea:
                 break;
         }
-        if (needToBeRefresh)
-        {
-            Refresh();
-        }
+        Refresh();
     }
 }

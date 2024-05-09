@@ -245,7 +245,7 @@ public class UIEventListener : MonoBehaviour
         roundText.text = string.Format("月份\n{0}/12",DateManager.Instance.GetMonth());
         armamentText.text = string.Format("武备\n{0}", Player.Instance.armament);
         fundText.text = string.Format("钱财\n{0}", Player.Instance.fund);
-        popularSupportText.text = string.Format("民众\n{0}", Player.Instance.popularSupport);
+        popularSupportText.text = string.Format("人心bu\n{0}", Player.Instance.popularSupport);
         sanityText.text = string.Format("san值\n{0}", Player.Instance.sanity);
         supportText.text = string.Format("支援值\n{0}", GameManager.Instance.battleField.armyManager.playerSkyEffect);
         troopIncreaseText.text = string.Format("补给值\n{0}", Player.Instance.troopIncrease);

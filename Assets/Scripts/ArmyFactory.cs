@@ -20,6 +20,7 @@ public static class ArmyFactory
             ArmyCard c = card as ArmyCard;
             if (!c)
                 continue;
+            if (c.troopStrength <= 0) continue;
             var armyInstance = GameObject.Instantiate(prefab);
             var army = armyInstance.GetComponent<Army>();
             SpriteRenderer spriteRenderer = prefab.GetComponent<SpriteRenderer>();

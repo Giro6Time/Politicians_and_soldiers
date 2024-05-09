@@ -178,7 +178,7 @@ public class MeetEventMgr
     public bool IsDead()
     {
         bool isDead = false;
-        if (   Player.Instance.sanity <0 
+        if (   Player.Instance.sanity < 0
             || Player.Instance.armament <0 || Player.Instance.armament >= 100 
             || Player.Instance.fund <0    || Player.Instance.fund >= 100 
             || Player.Instance.popularSupport <0 || Player.Instance.popularSupport >=100)

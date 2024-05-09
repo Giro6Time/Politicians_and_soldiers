@@ -48,6 +48,8 @@ public class DateManager : MonoBehaviour
             UIEventListener._Instance.UIMeetingEventUpdate();
             MessageView._Instance.ShowMessage(String.Format("一个月过去了，现在是：{0}月",month));
         }
+        UIEventListener._Instance.UIMeetingEventUpdate();
+        MessageView._Instance.ShowMessage(String.Format("一个月过去了，现在是：{0}月", month));
     }
 
     private void UpdateSeason()
